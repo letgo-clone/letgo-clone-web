@@ -29,7 +29,7 @@ function Navbar() {
     return (
         <AppBar position="static" sx={{ bgcolor: 'hsla(0,0%,100%,.87)', boxShadow: 1 }}>
             <Container
-                maxWidth='xl'
+                maxWidth='lg'
                 sx={{
                     marginTop: '5px',
                     marginBottom: '5px',
@@ -179,9 +179,9 @@ function Navbar() {
                         </Grid>
                         <Grid xs={6} >
                             <Box>
-                                <ListItem sx={{}}>
-                                    <ListItemText primary="İstanbul, Türkiye" sx={{ color: '#2c2c2c', fontWeight: '600' }} />
-                                    <ListItemIcon sx={{ minWidth: { xs: '20%' } }}>
+                                <ListItem sx={{ paddingRight:0 }}>
+                                    <ListItemText primary="İstanbul, Türkiye" sx={{ color: '#2c2c2c', fontWeight: '600', textAlign:'end' }} />
+                                    <ListItemIcon sx={{ minWidth: { xs: '0' } }}>
                                         <LocationOnIcon />
                                     </ListItemIcon>
                                 </ListItem>
