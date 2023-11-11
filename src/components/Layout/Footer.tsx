@@ -1,10 +1,14 @@
 import React from 'react'
-import { Grid, Container, Typography, Divider } from "@mui/material"
+import { Grid, Container, Typography } from "@mui/material"
 import { Facebook, Instagram, Twitter, YouTube } from '@mui/icons-material';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Divider from '@mui/material/Divider';
+
+import GooglePlay from '../../assets/img/playstore.webp'
+import AppStore from '../../assets/img/appstore.webp'
 
 function Footer() {
     return (
@@ -49,21 +53,36 @@ function Footer() {
                         </ol>
                     </Grid>
                     <Grid md={2}>
-                        <p id={'footer-head'}>Bizi Takip Et</p>
                         <Grid container>
-                            <Grid md={3}>
-                                <Facebook />
+                            <Grid md={12}>
+                                <p id={'footer-head'}>Bizi Takip Et</p>
+                                <Grid container>
+                                    <Grid md={3}>
+                                        <Facebook />
+                                    </Grid>
+                                    <Grid md={3}>
+                                        <Instagram />
+                                    </Grid>
+                                    <Grid md={3}>
+                                        <Twitter />
+                                    </Grid>
+                                    <Grid md={3}>
+                                        <YouTube />
+                                    </Grid>
+                                </Grid>
                             </Grid>
-                            <Grid md={3}>
-                                <Instagram />
-                            </Grid>
-                            <Grid md={3}>
-                                <Twitter />
-                            </Grid>
-                            <Grid md={3}>
-                                <YouTube />
+                            <Grid md={12} sx={{ marginTop:'30%' }}>
+                                <Grid container>
+                                    <Grid md={6}>
+                                        <img src={GooglePlay} width={86} height={25} />
+                                    </Grid>
+                                    <Grid md={6}>
+                                        <img src={AppStore} width={86} height={25} />
+                                    </Grid>
+                                </Grid>
                             </Grid>
                         </Grid>
+
                     </Grid>
                 </Grid>
                 <Grid container sx={{ display: { md: 'none', xs: 'flex' } }}>
@@ -162,9 +181,9 @@ function Footer() {
                             </AccordionDetails>
                         </Accordion>
                     </Grid>
-                    <Divider />
-                    <Grid xs={12} sx={{ marginTop:'10px' }}>
-                        <Grid container sx={{ padding:'15px 0px 10px 20px' }}>
+                    
+                    <Grid xs={12} sx={{ marginTop: '10px' }}>
+                        <Grid container sx={{ padding: '10px 0px 10px 20px' }}>
                             <Grid xs={6}>
                                 BİZİ TAKİP ET
                             </Grid>
@@ -183,6 +202,17 @@ function Footer() {
                                         <YouTube />
                                     </Grid>
                                 </Grid>
+                            </Grid>
+                        </Grid>
+                    <Divider />
+                    </Grid>
+                    <Grid xs={12} sx={{ marginTop: '20px', marginBottom:'10px' }}>
+                        <Grid container>
+                            <Grid xs={6} sx={{ paddingRight:'5px' }}>
+                                    <img src={GooglePlay} width={86} height={25} style={{ float:'right' }} />
+                                </Grid>
+                            <Grid xs={6} sx={{ paddingLeft:'5px' }}>
+                                <img src={AppStore} width={86} height={25} />
                             </Grid>
                         </Grid>
                     </Grid>
