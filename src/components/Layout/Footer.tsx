@@ -87,6 +87,7 @@ function Footer() {
                 </Grid>
                 <Grid container sx={{ display: { md: 'none', xs: 'flex' } }}>
                     <Grid xs={12}>
+                        <Divider />
                         <Accordion>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
@@ -106,6 +107,7 @@ function Footer() {
                         </Accordion>
                     </Grid>
                     <Grid xs={12}>
+                        <Divider />
                         <Accordion>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
@@ -125,6 +127,7 @@ function Footer() {
                         </Accordion>
                     </Grid>
                     <Grid xs={12}>
+                        <Divider />
                         <Accordion>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
@@ -143,6 +146,7 @@ function Footer() {
                         </Accordion>
                     </Grid>
                     <Grid xs={12}>
+                        <Divider />
                         <Accordion>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
@@ -163,6 +167,7 @@ function Footer() {
                         </Accordion>
                     </Grid>
                     <Grid xs={12}>
+                        <Divider />
                         <Accordion>
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon />}
