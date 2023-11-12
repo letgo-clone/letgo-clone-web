@@ -2,6 +2,7 @@ import React from 'react'
 
 
 import { AdCard } from '../components/AdCard';
+import { Typography } from '@mui/material';
 
 function index() {
   let dataAd: (object)[];
@@ -36,6 +37,14 @@ function index() {
   
   return (
       <>
+        <Typography 
+            sx={{ 
+              marginTop:'25px', 
+              marginBottom:'15px', 
+              fontSize: '24px',
+              fontWeight: 200 
+          }}
+          >Güncel İlanlar</Typography>
         <AdCard data={dataAd} />
       </>
   )
