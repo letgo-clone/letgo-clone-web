@@ -27,9 +27,9 @@
 }
 
 .actionFeatured {
-    height: 18px;
+    height: 18px !important;
     background-color: #ffd200 !important;
-    font-size: 10px;
+    font-size: 10px !important;
 }
 
 .cardPrice {
