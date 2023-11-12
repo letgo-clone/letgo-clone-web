@@ -6,9 +6,8 @@ import Footer from './Footer'
 const Layout = (props) => {
   return (
     <React.Fragment>
-
       <Navbar />
-      <Container>
+      <Container sx={{ marginTop:'10px' }}>
         <div> {props.children} </div>
       </Container>
       <Footer />
