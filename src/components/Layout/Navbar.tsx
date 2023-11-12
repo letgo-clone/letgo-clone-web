@@ -65,7 +65,7 @@ function Navbar() {
                         <img src={Logo} width={'120'} height={'48'} />
                     </IconButton>
                     <Grid container>
-                        <Grid xl={4} md={4} xs={4}>
+                        <Grid item xl={4} md={4} xs={4}>
                             <FormControl size="small" fullWidth>
                                 <Select
                                     id="location"
@@ -100,7 +100,7 @@ function Navbar() {
                                 </Select>
                             </FormControl>
                         </Grid>
-                        <Grid xl={8} md={8} xs={12} sx={{ paddingLeft: '1%' }}>
+                        <Grid item xl={8} md={8} xs={12} sx={{ paddingLeft: '1%' }}>
                             <Paper
                                 component="form"
                                 sx={{ display: 'flex', alignItems: 'center', border: '1px solid #c4baba', boxShadow: '0', p: '0px', width: '100%' }}
@@ -143,9 +143,9 @@ function Navbar() {
                         display: { md: 'none' }
                     }}>
                     <Grid container>
-                        <Grid xs={6} >
+                        <Grid item xs={6}>
                             <Grid container>
-                                <Grid xs={2}>
+                                <Grid item xs={2}>
                                     <IconButton size='small' edge='start' onClick={openMenu}>
                                         <MenuIcon sx={{ fontSize:'2.0rem' }} />
                                     </IconButton>
@@ -162,12 +162,12 @@ function Navbar() {
                                     >
                                         <Container>
                                             <Grid container >
-                                                <Grid xs={1} sx={{ marginTop: '1px' }}>
+                                                <Grid item xs={1} sx={{ marginTop: '1px' }}>
                                                     <IconButton size='medium' edge='start' onClick={closeMenu}>
                                                         <CloseIcon sx={{ fontSize:'2.5rem' }} />
                                                     </IconButton>
                                                 </Grid>
-                                                <Grid xs={5}>
+                                                <Grid item xs={5}>
                                                     <IconButton
                                                         edge='start'
                                                         color="inherit"
@@ -261,7 +261,7 @@ function Navbar() {
                                         </Container>
                                     </Drawer>
                                 </Grid>
-                                <Grid xs={6}>
+                                <Grid item xs={6}>
                                     <IconButton
                                         edge='start'
                                         color="inherit"
@@ -275,7 +275,7 @@ function Navbar() {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid xs={6} >
+                        <Grid item xs={6}>
                             <Box>
                                 <ListItem sx={{ paddingRight: 0 }}>
                                     <ListItemText primary="İstanbul, Türkiye" sx={{ color: '#2c2c2c', fontWeight: '600', textAlign: 'end' }} />
@@ -285,7 +285,7 @@ function Navbar() {
                                 </ListItem>
                             </Box>
                         </Grid>
-                        <Grid xs={12}>
+                        <Grid item xs={12}>
                             <Paper
                                 component="form"
                                 sx={{ display: 'flex', alignItems: 'center', border: '1px solid #c4baba', boxShadow: '0', p: '0px' }}
