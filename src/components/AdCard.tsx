@@ -15,7 +15,7 @@ type AdvertProps = {
 export const AdCard = ({ data } : AdvertProps) => {
 
   return (
-    <Grid container xs={12} spacing={2}>
+    <Grid container spacing={2}>
         {data.map((item, index) => (
             <Grid item={true}  lg={3} md={3} sm={4} xs={6} key={index}>
                 <Card className={styles.card}>
@@ -49,7 +49,7 @@ export const AdCard = ({ data } : AdvertProps) => {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Grid container xs={12} className={styles.cardFooter}>
+                    <Grid container className={styles.cardFooter}>
                     <Grid item={true} md={6} sm={6} xs={6}>
                         <Typography variant="body2" color="text.secondary" sx={{ fontSize: '10px' }}>
                         {item.location}
