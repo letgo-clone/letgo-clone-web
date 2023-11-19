@@ -1,0 +1,32 @@
+.bottomButton {
+    position: absolute !important;
+    text-transform: none !important;
+}
+
+.bannerMobile {
+    display: none;
+}
+
+.bannerDesktop {
+    width: 100%;
+    height: auto;
+}
+.bottonDiv {
+    display: grid !important;
+}
+
+.styles.bottonContainer {
+    margin-left:10%;
+    margin-top: 70%;
+}
+
+@media only screen and (max-width:900px) { 
+    .bannerDesktop {
+        display: none;
+    }
+    .bannerMobile {
+        display: inline-block;
+        width: 100%;
+        height: auto;
+    }
+}
