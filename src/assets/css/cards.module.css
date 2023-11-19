@@ -4,12 +4,12 @@
 
 .cardMediaDiv {
     position: relative;
+    padding: 7px 7px 7px 7px;
 }
 
 .cardMedia {
     display: flex;
     height: 140px;
-    margin-top: 7px;
 }
 
 .cardActionLeft {
@@ -30,6 +30,12 @@
     height: 18px !important;
     background-color: #ffd200 !important;
     font-size: 10px !important;
+}
+
+.actionOtoplusFeatured {
+    height: 18px !important;
+    font-size: 10px !important;
+    border:0 !important
 }
 
 .cardPrice {
