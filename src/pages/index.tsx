@@ -1,39 +1,25 @@
-import React from 'react'
-
+import { useEffect, useState } from 'react';
 
 import { AdCard } from '../components/AdCard';
 import { Typography } from '@mui/material';
 
-function index() {
-  let dataAd: (object)[];
+import { Request } from '../helpers/Request';
 
-  dataAd = [
-    {
-      id: 23,
-      price: 600,
-      photo: 'https://apollo-ireland.akamaized.net/v1/files/ynm4j6jj89vc2-OLXAUTOTR/image;s=780x0;q=60',
-      explain: 'Raf Kitaplık',
-      location: 'Sarıyer, İstanbul',
-      date: 'Bugün',
-    },
-    {
-      id: 24,
-      price: 600,
-      photo: 'https://apollo-ireland.akamaized.net/v1/files/j07mbdudw9ay-OLXAUTOTR/image;s=780x0;q=60',
-      explain: 'Raf Kitaplık',
-      location: 'Bağcılar, İstanbul',
-      date: 'Bugün',
-    },
-    {
-      id: 24,
-      price: 600,
-      photo: 'https://apollo-ireland.akamaized.net/v1/files/j07mbdudw9ay-OLXAUTOTR/image;s=780x0;q=60',
-      explain: 'Raf Kitaplık',
-      location: 'Bağcılar, İstanbul',
-      date: 'Bugün',
-    },
-    
-  ]
+
+function Index() {
+  const [advertData, setAdvertData] = useState('');
+
+  useEffect(() => {
+
+     const getData = async() => {
+        const url = "/advert/actual"
+        const data = await Request('GET', url);
+        setAdvertData(data);
+    }
+
+    getData(); 
+
+  },[])
   
   return (
       <>
@@ -45,9 +31,9 @@ function index() {
               fontWeight: 200 
           }}
           >Güncel İlanlar</Typography>
-        <AdCard data={dataAd} />
+        { advertData && <AdCard data={advertData} />}
       </>
   )
 }
 
-export default index
+export default Index
