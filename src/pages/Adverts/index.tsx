@@ -35,34 +35,36 @@ const AdvertDetail = () => {
                 <Container>
                     <Grid container>
                         <Grid xl={8} lg={8} md={12} sm={12} xs={12}>
-                            <Grid container sx={{ 
-                                    width: { xl: '96%', lg: '96%', md: '100%', sm: '100%', xs:'100%' }, 
-                                    backgroundColor: '#FFFFFF',
-                                    marginBottom: { md:'10px', sm: '20px', xs: '20px' }
-                                }}>
+                            <Grid container sx={{
+                                width: { xl: '96%', lg: '96%', md: '100%', sm: '100%', xs: '100%' },
+                                backgroundColor: '#FFFFFF',
+                                marginBottom: { md: '10px', sm: '20px', xs: '20px' }
+                            }}>
                                 <Grid item lg={12} md={12} sm={12} xs={12}>
                                     <Typography>Slider Alanı</Typography>
                                 </Grid>
                                 <Grid item lg={12} md={12} sm={12} xs={12} sx={{ padding: '20px' }}>
-                                    <Typography sx={{ fontSize: '20px', lineHeight: '20px', fontWeight: 700, color: '#2c2c2c', marginTop: '10px', marginBottom:'10px' }}>
+                                    <Typography sx={{ fontSize: '20px', lineHeight: '20px', fontWeight: 700, color: '#2c2c2c', marginTop: '10px', marginBottom: '10px' }}>
                                         Detaylar
                                     </Typography>
                                     <Grid container>
-                                        <Grid lg={3} md={3} sm={3} xs={3}>Tip</Grid>
-                                        <Grid lg={3} md={3} sm={3} xs={3}>Geç Odası</Grid>
-                                        <Grid lg={3} md={3} sm={3} xs={3}>Durum</Grid>
-                                        <Grid lg={3} md={3} sm={3} xs={3}>Makul</Grid>
+                                        {advertDetail.parameters.map((item) => (
+                                            <>
+                                                <Grid lg={3} md={3} sm={3} xs={3}>{item.key_name}</Grid>
+                                                <Grid lg={3} md={3} sm={3} xs={3}>{item.value_name}</Grid>
+                                            </>
+                                        ))}
                                     </Grid>
                                 </Grid>
                                 <Grid item lg={12} md={12} sm={12} xs={12} sx={{ padding: '20px' }}>
-                                <Divider />
-                                    <Typography sx={{ fontSize: '20px', lineHeight: '20px', fontWeight: 700, color: '#2c2c2c', marginTop: '10px', marginBottom:'10px' }}>
+                                    <Divider />
+                                    <Typography sx={{ fontSize: '20px', lineHeight: '20px', fontWeight: 700, color: '#2c2c2c', marginTop: '10px', marginBottom: '10px' }}>
                                         Açıklama
                                     </Typography>
-                                    <Typography sx={{ fontSize: '14px', lineHeight: '20px', fontWeight: 400, color: '#2c2c2c', marginTop: '10px', marginBottom:'10px' }}>
+                                    <Typography sx={{ fontSize: '14px', lineHeight: '20px', fontWeight: 400, color: '#2c2c2c', marginTop: '10px', marginBottom: '10px' }}>
                                         {advertDetail.description}
                                     </Typography>
-                                    
+
                                 </Grid>
                             </Grid>
                         </Grid>
