@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 
-import { AdCard } from '../components/AdCard';
-import { Typography, Button, Grid } from '@mui/material';
+import { AdCard } from '../../components/AdCard';
+import { Typography, Button, Grid, Container } from '@mui/material';
 
-import { Request } from '../helpers/Request';
+import { Request } from '../../helpers/Request';
 
-import otoplusBanner from '../assets/img/banner-otoplus.png'
-import otoplusBannerMobile from '../assets/img/banner-otoplus-mobile.png'
+import otoplusBanner from '../../assets/img/banner-otoplus.png'
+import otoplusBannerMobile from '../../assets/img/banner-otoplus-mobile.png'
 
-import styles from "../assets/css/banner.module.css";
+import styles from "../../assets/css/banner.module.css";
 
 function Index() {
   const [advertData, setAdvertData] = useState('');
@@ -23,7 +23,7 @@ function Index() {
   }, [])
 
   return (
-    <>
+    <Container>
       <Grid container className={styles.bannerDiv}>
         <img src={otoplusBanner} className={styles.bannerDesktop} />
         <img src={otoplusBannerMobile} className={styles.bannerMobile} />
@@ -74,7 +74,7 @@ function Index() {
         }}
       >Güncel İlanlar</Typography>
       {advertData && <AdCard data={advertData} />}
-    </>
+    </Container>
   )
 }
 
