@@ -6,6 +6,27 @@ const ClientSecret = import.meta.env.VITE_CLIENT_SECRET;
 const ClientId = import.meta.env.VITE_CLIENT_ID;
 const GrantType = import.meta.env.VITE_GRANT_TYPE;
 
+import { jwtDecode } from "jwt-decode";
+
+function verifyJWT(get_token: string){
+    const now = Math.floor(Date.now() / 1000);
+
+    try{
+        const decode = jwtDecode<JwtPayload>(get_token);
+
+        if((now < decode.exp) || !(decode.username)){
+           return true
+        }
+        else{
+            return false
+        }
+    }
+    catch(err){
+        return err
+    }
+   
+} 
+
 export async function GetClientAccessToken(){
    
     loadingAccessToken = true;
@@ -54,13 +75,13 @@ export async function GetClientAccessToken(){
     return data;
 }
 
-
 export async function ReloadAccessToken() {
     if (loadingAccessToken == true) {
         return false;
     }
 
     const refresh_token: string = localStorage.getItem("refresh_token") || '';
+    const refreshVerify = verifyJWT(refresh_token)
 
     loadingAccessToken = true;
 
@@ -77,7 +98,7 @@ export async function ReloadAccessToken() {
         body: formdata
     };
 
-    const response =await fetch(appEndpoint, options)
+    const response = refreshVerify == true ? await fetch(appEndpoint, options) : false;
 
     if (response.status != 200) {
         localStorage.removeItem('access_token');
@@ -108,6 +129,7 @@ function sleep(ms: number) {
 export async function Request(method: string, url: string, parameters = ''): Promise <object | boolean> {
 
     const access_token = localStorage.getItem('access_token');
+    const accessVerify = verifyJWT(access_token);
     
     if (loadingAccessToken == true) {
         await sleep(200);
@@ -128,9 +150,9 @@ export async function Request(method: string, url: string, parameters = ''): Pro
         options["body"] = parameters ? parameters : null;
     }
    
-    const response = await fetch(appEndpoint, options)
+    const response = accessVerify == true ?  await fetch(appEndpoint, options) : false
 
-    if ((response.status == 401 || response.status == 403)) {
+    if ((response.status == 401 || response.status == 403 || response == false)) {
         if (localStorage.getItem("refresh_token")) {
             await ReloadAccessToken();
         } else {
