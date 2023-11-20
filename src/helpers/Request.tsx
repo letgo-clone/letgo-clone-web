@@ -122,6 +122,47 @@ export async function ReloadAccessToken() {
     return data;
 } 
 
+export async function handleLoginToken(username: string, password: string) {
+    loadingAccessToken = true;
+    
+    const appEndpoint = EndPoint + '/oauth/token';
+
+    const formdata: FormData = new FormData();
+    formdata.append("client_id", ClientId);
+    formdata.append("client_secret", ClientSecret);
+    formdata.append("grant_type", "password");
+    formdata.append("username", username);
+    formdata.append("password", password);
+
+    let options: any = {
+        method: 'POST',
+        body: formdata
+    };
+
+    const response = await fetch(appEndpoint, options);
+
+    if (response.status != 200) {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        localStorage.removeItem('authUser');
+
+        location.href = "/";
+        return false;
+    }
+
+    const data = await response.json();
+
+    if (!data) {
+        return false;
+    }
+
+    localStorage.setItem("access_token", data.access_token);
+    localStorage.setItem("refresh_token", data.refresh_token);
+    loadingAccessToken = false;
+
+    return data;
+} 
+
 function sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
