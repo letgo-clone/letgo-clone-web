@@ -1,5 +1,5 @@
 import React, { useState, MouseEvent } from 'react';
-import { Grid, Box, Typography, Button, AppBar, Toolbar, IconButton, Menu, MenuList, MenuItem, FormControl, Container, Paper, Select, Drawer } from "@mui/material"
+import { Grid, Box, Button, AppBar, Toolbar, IconButton, MenuItem, FormControl, Container, Paper, Select, Drawer } from "@mui/material"
 import InputBase from '@mui/material/InputBase';
 
 import MenuIcon from '@mui/icons-material/Menu';
@@ -23,6 +23,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+
+import { Link } from 'react-router-dom';
 
 
 function Navbar() {
@@ -53,17 +55,19 @@ function Navbar() {
                         paddingLeft: { sm: '0px', xs: '0' },
                         display: { md: 'flex', xs: 'none' }
                     }}>
-                    <IconButton
-                        size='small'
-                        edge='start'
-                        color="inherit"
-                        aria-label="logo"
-                        sx={{
-                            display: { md: 'flex', xs: 'none' }
-                        }}
-                    >
-                        <img src={Logo} width={'120'} height={'48'} />
-                    </IconButton>
+                    <Link to="/">
+                        <IconButton
+                            size='small'
+                            edge='start'
+                            color="inherit"
+                            aria-label="logo"
+                            sx={{
+                                display: { md: 'flex', xs: 'none' }
+                            }}
+                        >
+                            <img src={Logo} width={'120'} height={'48'} />
+                        </IconButton>
+                    </Link>
                     <Grid container>
                         <Grid item xl={4} md={4} xs={4}>
                             <FormControl size="small" fullWidth>
@@ -147,7 +151,7 @@ function Navbar() {
                             <Grid container>
                                 <Grid item xs={2}>
                                     <IconButton size='small' edge='start' onClick={openMenu}>
-                                        <MenuIcon sx={{ fontSize:'2.0rem' }} />
+                                        <MenuIcon sx={{ fontSize: '2.0rem' }} />
                                     </IconButton>
                                     <Drawer
                                         anchor={'top'}
@@ -155,16 +159,16 @@ function Navbar() {
                                         onClose={closeMenu}
                                         PaperProps={{
                                             sx: {
-                                              height: '100%',
-                                              maxHeight: 'none',
+                                                height: '100%',
+                                                maxHeight: 'none',
                                             },
-                                          }}
+                                        }}
                                     >
                                         <Container>
                                             <Grid container >
                                                 <Grid item xs={1} sx={{ marginTop: '1px' }}>
                                                     <IconButton size='medium' edge='start' onClick={closeMenu}>
-                                                        <CloseIcon sx={{ fontSize:'2.5rem' }} />
+                                                        <CloseIcon sx={{ fontSize: '2.5rem' }} />
                                                     </IconButton>
                                                 </Grid>
                                                 <Grid item xs={5}>
@@ -172,9 +176,9 @@ function Navbar() {
                                                         edge='start'
                                                         color="inherit"
                                                         aria-label="logo"
-                                                        sx={{ 
+                                                        sx={{
                                                             marginTop: '10px',
-                                                            marginLeft:'1px'
+                                                            marginLeft: '1px'
                                                         }}
                                                     >
                                                         <img src={MobileLogo} width={'60'} height={'28'} />
@@ -185,51 +189,51 @@ function Navbar() {
                                                 sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
                                                 aria-label="contacts"
                                             >
-                                                <ListItem 
+                                                <ListItem
                                                     sx={{
-                                                        marginTop:'20px',
-                                                        marginBottom:'20px',
-                                                        paddingLeft:0
+                                                        marginTop: '20px',
+                                                        marginBottom: '20px',
+                                                        paddingLeft: 0
                                                     }}
                                                 >
                                                     <ListItemAvatar>
                                                         <Avatar
                                                             sx={{
-                                                               width: 50,
-                                                               height: 50
+                                                                width: 50,
+                                                                height: 50
                                                             }}
                                                         >
                                                             <Face2Icon />
                                                         </Avatar>
                                                     </ListItemAvatar>
-                                                    <ListItemText 
-                                                        primary="Hesabına Gir" 
-                                                        secondary="Hesabına giriş yap" 
+                                                    <ListItemText
+                                                        primary="Hesabına Gir"
+                                                        secondary="Hesabına giriş yap"
                                                         sx={{
-                                                            marginLeft:'10px'
+                                                            marginLeft: '10px'
                                                         }}
                                                     />
                                                 </ListItem>
                                                 <Divider />
                                                 <ListItem disablePadding>
-                                                    <ListItemButton sx={{ paddingLeft:0 }}>
-                                                        <ListItemIcon sx={{ minWidth:'45px' }}>
+                                                    <ListItemButton sx={{ paddingLeft: 0 }}>
+                                                        <ListItemIcon sx={{ minWidth: '45px' }}>
                                                             <CameraAltIcon />
                                                         </ListItemIcon>
                                                         <ListItemText primary="Satmaya Başla" />
                                                     </ListItemButton>
                                                 </ListItem>
                                                 <ListItem disablePadding>
-                                                    <ListItemButton sx={{ paddingLeft:0 }}>
-                                                        <ListItemIcon  sx={{ minWidth:'45px' }}>
+                                                    <ListItemButton sx={{ paddingLeft: 0 }}>
+                                                        <ListItemIcon sx={{ minWidth: '45px' }}>
                                                             <FavoriteIcon />
                                                         </ListItemIcon>
                                                         <ListItemText primary="İlanlarım" />
                                                     </ListItemButton>
                                                 </ListItem>
                                                 <ListItem disablePadding>
-                                                    <ListItemButton sx={{ paddingLeft:0 }}>
-                                                        <ListItemIcon  sx={{ minWidth:'45px' }}>
+                                                    <ListItemButton sx={{ paddingLeft: 0 }}>
+                                                        <ListItemIcon sx={{ minWidth: '45px' }}>
                                                             <MessageIcon />
                                                         </ListItemIcon>
                                                         <ListItemText primary="Sohbet" />
@@ -237,25 +241,25 @@ function Navbar() {
                                                 </ListItem>
                                                 <Divider />
                                                 <ListItem disablePadding>
-                                                    <ListItemButton sx={{ paddingLeft:0 }}>
-                                                        <ListItemIcon  sx={{ minWidth:'45px' }}>
+                                                    <ListItemButton sx={{ paddingLeft: 0 }}>
+                                                        <ListItemIcon sx={{ minWidth: '45px' }}>
                                                             <HelpIcon />
                                                         </ListItemIcon>
                                                         <ListItemText primary="Yardım" />
                                                     </ListItemButton>
                                                 </ListItem>
                                             </List>
-                                            <Container sx={{ display:'inline-grid',paddingLeft:0, paddingRight:0 }}>
-                                                <Button 
-                                                    variant="contained" 
-                                                    color="error" size='large' 
-                                                    sx={{ 
-                                                        borderRadius:5,
-                                                        backgroundColor:'#ff3f55',
-                                                        textTransform:'none',
-                                                        marginTop:'20px',
-                                                        padding:'10px'
-                                                    }} 
+                                            <Container sx={{ display: 'inline-grid', paddingLeft: 0, paddingRight: 0 }}>
+                                                <Button
+                                                    variant="contained"
+                                                    color="error" size='large'
+                                                    sx={{
+                                                        borderRadius: 5,
+                                                        backgroundColor: '#ff3f55',
+                                                        textTransform: 'none',
+                                                        marginTop: '20px',
+                                                        padding: '10px'
+                                                    }}
                                                 >Giriş</Button>
                                             </Container>
                                         </Container>
@@ -267,7 +271,7 @@ function Navbar() {
                                         color="inherit"
                                         aria-label="logo"
                                         sx={{
-                                            marginLeft:'3px'
+                                            marginLeft: '3px'
                                         }}
                                     >
                                         <img src={MobileLogo} width={'60'} height={'28'} />
