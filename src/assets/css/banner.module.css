@@ -1,3 +1,7 @@
+.bannerDiv {
+    margin-top: 10px;
+}
+
 .bottomButton {
     position: absolute !important;
     text-transform: none !important;
