@@ -7,9 +7,13 @@ import IconButton from '@mui/material/IconButton';
 import BoltIcon from '@mui/icons-material/Bolt';
 import CallIcon from '@mui/icons-material/Call';
 
+import Link from '@mui/material/Link';
+
 import styles from "../assets/css/cards.module.css";
 
 import otoplusBadge from '../assets/img/otoplus-badge.png'
+
+import slugify from 'react-slugify';
 
 type AdvertProps = {
     data: string[];
@@ -22,6 +26,7 @@ export const AdCard = ({ data }: AdvertProps) => {
             {data.map((item, index) => (
                 <Grid item={true} lg={3} md={3} sm={4} xs={6} key={index}>
                     <Card className={styles.card}>
+                    <Link href={`/item/${slugify(item.title)}?id=${item.ad_id}`} sx={{ textDecoration: 'none' }}>
                         <div className={styles.cardMediaDiv}>
                             <CardMedia
                                 component="img"
@@ -60,7 +65,7 @@ export const AdCard = ({ data }: AdvertProps) => {
                         {item.partner_id != 'transaction' ? (
                             item.status.display == 'hot' ? (
                                 <div style={{ borderLeft: '5px solid #ffd200' }}>
-                                    <CardContent>
+                                    <CardContent sx={{ color: '#2c2c2c' }}>
                                         <Typography gutterBottom component="div" sx={{ fontSize: '20px', fontWeight: '700' }}>
                                             {item.price.value.raw} TL
                                         </Typography>
@@ -85,7 +90,7 @@ export const AdCard = ({ data }: AdvertProps) => {
                                 </div>
                             ) : item.status.display == 'new' ? (
                                 <div style={{ borderLeft: '5px solid #004bbe' }}>
-                                    <CardContent>
+                                    <CardContent sx={{ color: '#2c2c2c' }}>
                                         <Typography gutterBottom component="div" sx={{ fontSize: '12px', fontWeight: '400', color: '#004bbe' }}>
                                             Yeni
                                         </Typography>
@@ -113,7 +118,7 @@ export const AdCard = ({ data }: AdvertProps) => {
                                 </div>
                             ) : (
                                 <div>
-                                    <CardContent>
+                                    <CardContent sx={{ color: '#2c2c2c' }}>
                                         <Typography gutterBottom component="div" sx={{ fontSize: '20px', fontWeight: '700' }}>
                                             {item.price.value.raw} TL
                                         </Typography>
@@ -139,7 +144,7 @@ export const AdCard = ({ data }: AdvertProps) => {
                             )
                         ) : (
                             <div style={{ borderLeft: '5px solid #ffd200' }}>
-                                <CardContent>
+                                <CardContent sx={{ color: '#2c2c2c' }}>
                                     <Typography gutterBottom component="div" sx={{ fontSize: '20px', fontWeight: '700' }}>
                                         {item.price.value.raw} TL
                                     </Typography>
@@ -164,6 +169,7 @@ export const AdCard = ({ data }: AdvertProps) => {
                                 </CardActions>
                             </div>
                         )}
+                        </Link>
                     </Card>
                 </Grid>
             ))}
