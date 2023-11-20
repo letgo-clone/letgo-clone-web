@@ -55,36 +55,36 @@ export async function GetClientAccessToken(){
 }
 
 
-/* export async function ReloadAccessToken() {
+export async function ReloadAccessToken() {
     if (loadingAccessToken == true) {
         return false;
     }
 
-    const refresh_token = localStorage.getItem("refresh_token");
+    const refresh_token: string = localStorage.getItem("refresh_token") || '';
 
     loadingAccessToken = true;
 
     const appEndpoint = EndPoint + '/oauth/token';
 
-    var formdata = new FormData();
+    const formdata: FormData = new FormData();
     formdata.append("client_id", ClientId);
     formdata.append("client_secret", ClientSecret);
     formdata.append("grant_type", "refresh_token");
     formdata.append("refresh_token", refresh_token);
 
-    var options = {
+    let options: any = {
         method: 'POST',
         body: formdata
     };
 
     const response =await fetch(appEndpoint, options)
 
-    if (response.status != 200 || response == false) {
+    if (response.status != 200) {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
         localStorage.removeItem('authUser');
 
-        location.href = "/login";
+        location.href = "/";
         return false;
     }
 
@@ -99,7 +99,7 @@ export async function GetClientAccessToken(){
     loadingAccessToken = false;
 
     return data;
-} */
+} 
 
 function sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -131,7 +131,12 @@ export async function Request(method: string, url: string, parameters = ''): Pro
     const response = await fetch(appEndpoint, options)
 
     if ((response.status == 401 || response.status == 403)) {
-        await GetClientAccessToken();
+        if (localStorage.getItem("refresh_token")) {
+            await ReloadAccessToken();
+        } else {
+            await GetClientAccessToken();
+        }
+       
         return await Request(method, url, parameters);
     }
 
