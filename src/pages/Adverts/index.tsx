@@ -10,6 +10,9 @@ import { Request } from '../../helpers/Request';
 import sampleLocation from '../../assets/img/sample-location.png'
 import { getItem } from 'localforage';
 
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
+
 function useQuery() {
     return new URLSearchParams(useLocation().search)
 }
@@ -41,7 +44,13 @@ const AdvertDetail = () => {
                                 marginBottom: { md: '10px', sm: '20px', xs: '20px' }
                             }}>
                                 <Grid item lg={12} md={12} sm={12} xs={12}>
-                                    <Typography>Slider Alanı</Typography>
+                                    <Carousel showArrows={true} autoPlay={true} verticalSwipe={'natural'} dynamicHeight={true}>
+                                        {advertDetail.images.map((item, key) => (
+                                            <div style={{ backgroundColor: 'red' }}>
+                                                <img src={item.big.url} width={item.big.width} />
+                                            </div>
+                                        ))}
+                                    </Carousel>
                                 </Grid>
                                 <Grid item lg={12} md={12} sm={12} xs={12} sx={{ padding: '20px' }}>
                                     <Typography sx={{ fontSize: '20px', lineHeight: '20px', fontWeight: 700, color: '#2c2c2c', marginTop: '10px', marginBottom: '10px' }}>
@@ -123,9 +132,10 @@ const AdvertDetail = () => {
                                                     backgroundColor: '#FFFFFF',
                                                     color: '#ff3f55',
                                                     borderRadius: '50px',
-                                                    border: '3px solid #ff3f55',
+                                                    border: '3px solid transparent',
+                                                    outline: '#ff3f55 solid 3px',
                                                     textTransform: 'none',
-                                                    '&:hover': { backgroundColor: '#FFFFFF', border: '5px solid #ff3f55', color: '#ff3f55' },
+                                                    '&:hover': { backgroundColor: '#FFFFFF', border: '3px solid #ff3f55', color: '#ff3f55' },
                                                 }}
                                             >
                                                 Satıcıyla sohbet et
@@ -133,7 +143,7 @@ const AdvertDetail = () => {
                                         </CardActions>
                                     </Card>
                                 </Grid>
-                                <Grid item lg={12} md={12} sm={12} xs={12} sx={{ marginTop: '20px' }}>
+                                <Grid item lg={12} md={12} sm={12} xs={12} sx={{ marginTop: '20px' }} >
                                     <Card sx={{ minWidth: 275 }}>
                                         <CardContent>
                                             <Grid container>
