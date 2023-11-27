@@ -1,5 +1,5 @@
 import React, { useState, MouseEvent } from 'react';
-import { Grid, Box, Button, AppBar, Toolbar, IconButton, MenuItem, FormControl, Container, Paper, Select, Drawer } from "@mui/material"
+import { Grid, Box, Button, AppBar, Toolbar, IconButton, MenuItem, FormControl, Container, Paper, Select, Drawer, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, useMediaQuery, Typography } from "@mui/material"
 import InputBase from '@mui/material/InputBase';
 
 import MenuIcon from '@mui/icons-material/Menu';
@@ -26,6 +26,10 @@ import ListItemText from '@mui/material/ListItemText';
 
 import { Link } from 'react-router-dom';
 
+import { useTheme } from '@mui/material/styles';
+
+
+import LoginModal from '../LoginModal';
 
 function Navbar() {
     const [anchorNav, setAnchorNav] = useState<null | HTMLElement>(null);
@@ -36,6 +40,18 @@ function Navbar() {
     const closeMenu = () => {
         setAnchorNav(null)
     }
+
+    const [open, setOpen] = React.useState(false);
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('xs'));
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     return (
         <AppBar position="static" sx={{ bgcolor: 'hsla(0,0%,100%,.87)', boxShadow: 1 }}>
@@ -114,30 +130,32 @@ function Navbar() {
                                     placeholder="Araba, telefon, bisiklet ve daha fazlası"
                                     inputProps={{ 'aria-label': 'search google maps' }}
                                 />
-                                <IconButton color="primary" sx={{ p: '12px', color: '#FFFFFF', backgroundColor: '#2c2c2c', borderRadius: '0px 2px 2px 0px' }} aria-label="directions">
+                                <IconButton href='/item/search' color="primary" sx={{ p: '12px', color: '#FFFFFF', backgroundColor: '#2c2c2c', borderRadius: '0px 2px 2px 0px', '&hover': { backgroundColor: '#2c2c2c' } }} aria-label="directions">
                                     <SearchOutlinedIcon />
                                 </IconButton>
                             </Paper>
                         </Grid>
                     </Grid>
                     <Box sx={{ display: { md: 'flex', sm: 'flex', xs: 'none' }, marginLeft: '20px' }}>
-                        <Button sx={{ color: '#ff3f55' }}><p style={{ fontWeight: '600', borderBottom: '2px solid #ff3f55', textTransform: 'none' }}>Giriş</p></Button>
-                        <Button
-                            sx={
-                                {
-                                    color: '#FFFFFF',
-                                    backgroundColor: '#ff3f55',
-                                    borderRadius: 5,
-                                    border: '4px solid white',
-                                    '&:hover': { backgroundColor: '#FFFFFF', color: '#ff3f55' },
-                                    padding: '6px 15px 6px 15px'
+                        <Button onClick={handleOpen} sx={{ color: '#ff3f55' }}><p style={{ fontWeight: '600', borderBottom: '2px solid #ff3f55', textTransform: 'none' }}>Giriş</p></Button>
+                        <Link to="/post">
+                            <Button
+                                sx={
+                                    {
+                                        color: '#FFFFFF',
+                                        backgroundColor: '#ff3f55',
+                                        borderRadius: 5,
+                                        border: '4px solid white',
+                                        '&:hover': { backgroundColor: '#FFFFFF', color: '#ff3f55' },
+                                        padding: '6px 15px 6px 15px'
+                                    }
                                 }
-                            }
-                            variant='contained'
-                            color='error'
-                            startIcon={<CameraAltIcon />} >
-                            <p style={{ fontWeight: '600', textTransform: 'none' }}>Sat</p>
-                        </Button>
+                                variant='contained'
+                                color='error'
+                                startIcon={<CameraAltIcon />} >
+                                <p style={{ fontWeight: '600', textTransform: 'none' }}>Sat</p>
+                            </Button>
+                        </Link>
                     </Box>
                 </Toolbar>
                 <Toolbar
@@ -307,8 +325,20 @@ function Navbar() {
                     </Grid>
                 </Toolbar>
             </Container>
-        </AppBar>
-
+            <Dialog
+                fullScreen={fullScreen}
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="responsive-dialog-title"
+            >
+                <DialogTitle id="responsive-dialog-title" sx={{ p:0 }}>
+                    <IconButton onClick={handleClose} sx={{ float: 'right' }}>
+                        <CloseIcon sx={{ fontSize: '2.5rem' }} />
+                    </IconButton>
+                </DialogTitle>
+                <LoginModal />
+            </Dialog>
+        </AppBar >
     )
 }
 
