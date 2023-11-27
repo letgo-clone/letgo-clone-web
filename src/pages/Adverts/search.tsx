@@ -13,26 +13,6 @@ const Search = () => {
 
     useEffect(() => {
         const getData = async () => {
-            /*           let myHeaders: Headers = new Headers();
-                      myHeaders.append("Cookie", "_abck=A7612682F5225D9B716F452C612B454F~-1~YAAQLN46Fxq1rt2LAQAA1I3+9Qpey3sNTwN3h3xzapsDOuDsfVY170L03ZjxK80E9p9OWru/ndNGeG2aWh5kLPlyw2/JjdJ7OX74h7Up/AbqvOFDzuHcGreEIc6Up0g+wgtk5QiU2W+erI+UuZo/r9NRqmVuFJ5CTK4F4zLkAyBWvJeP7NQelZmfAb0YV1R2mJ0tvX/p6KpPh39SjzGWwtRcPL+2RG6h2Yz5vKn2PuoI1geWzIcSn4A1QZzroExypTkBtm9B4ftky7XjJ3d1Lfab2u0XzZ9/C3uoa0JuUZt0HeBxpzNFeQskpMQkHPiiGW8FF86OHb+LbFX97NOoF1He2TJc7GEo09tSeIGLIbyBcZFgpqO/2Q==~-1~-1~-1; bm_sz=D9D509F2676AF2EAE9E0D68853B37E64~YAAQLN46Fxu1rt2LAQAA1I3+9RUrTBzgSMGMHNljDjRxLYiLAr2USUPmouQ4NKH+V8/qxf0LgsbJwIubSrQkZTQvz9dIPxJPbdhPM8tiVwMgrzbcIDtLlStU9CK4+2GYYpapPPJLKgILheVOXcWozyLqfsiclmgwF53ZoEtnWseKBTkqJhnr/gqIzkgD4y+c0IF9WEFDtdnuqvkrH+JZb+yVXKBoK8qDDfoC4ZKF4u++xidXcLiy6Ac2VBiktWtIzGb7wChSuOojNVrUNM/NBdZ90RnFXj+4ou8iERkSl2P3qQ==~4277816~3487554");
-                      myHeaders.append('Accept', 'application/json');
-                      myHeaders.append('Access-Control-Allow-Origin', 'http://localhost:5173');
-                      myHeaders.append('Access-Control-Allow-Credentials', 'true');
-          
-          
-                      let requestOptions: any = {
-                          credentials: 'include',
-                          method: 'GET',
-                          headers: myHeaders,
-                          redirect: 'follow',
-                      };
-          
-                      fetch("https://www.letgo.com/api/relevance/v4/search?category=601&facet_limit=100&location=4000040&location_facet_limit=20&platform=web-desktop&query=iphone&relaxedFilters=true&spellcheck=true&user=18bf5b3d443x46b5dbc7", requestOptions)
-                          .then(response => response.json())
-                          .then(result => console.log(result))
-                          .catch(error => console.log('error', error)); */
-
-
             const url = "/advert/actual"
             const data = await Request('GET', url);
             setAdvertData(data);
@@ -168,7 +148,7 @@ const Search = () => {
                         </Grid>
                     </Grid>
 
-                    {advertData && <AdCard data={advertData} />}
+                    {advertData && <AdCard data={advertData} grid={[4,4,4,6]} />}
                 </Grid>
             </Grid>
         </Container>

@@ -17,14 +17,15 @@ import slugify from 'react-slugify';
 
 type AdvertProps = {
     data: string[];
+    grid: number[];
 }
 
-export const AdCard = ({ data }: AdvertProps) => {
-    console.log(data)
+export const AdCard = ({ data, grid }: AdvertProps) => {
+
     return (
         <Grid container spacing={2}>
             {data.map((item, index) => (
-                <Grid item={true} lg={3} md={3} sm={4} xs={6} key={index}>
+                <Grid item={true} lg={grid[0]} md={grid[1]} sm={grid[2]} xs={grid[3]} key={index}>
                     <Card className={styles.card}>
                     <Link href={`/item/${slugify(item.title)}?id=${item.ad_id}`} sx={{ textDecoration: 'none' }}>
                         <div className={styles.cardMediaDiv}>

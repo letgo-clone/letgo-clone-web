@@ -73,7 +73,7 @@ function Index() {
           fontWeight: 200
         }}
       >Güncel İlanlar</Typography>
-      {advertData && <AdCard data={advertData} />}
+      {advertData && <AdCard data={advertData} grid={[3,3,4,6]} />}
     </Container>
   )
 }
