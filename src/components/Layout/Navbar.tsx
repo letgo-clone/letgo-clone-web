@@ -130,8 +130,18 @@ function Navbar() {
                                     placeholder="Araba, telefon, bisiklet ve daha fazlası"
                                     inputProps={{ 'aria-label': 'search google maps' }}
                                 />
-                                <IconButton href='/item/search' color="primary" sx={{ p: '12px', color: '#FFFFFF', backgroundColor: '#2c2c2c', borderRadius: '0px 2px 2px 0px', '&hover': { backgroundColor: '#2c2c2c' } }} aria-label="directions">
-                                    <SearchOutlinedIcon />
+                                <IconButton 
+                                    href='/item/search' 
+                                    color="primary" 
+                                    sx={{ 
+                                            p: '12px', 
+                                            color: '#FFFFFF', 
+                                            backgroundColor: '#2c2c2c', 
+                                            borderRadius: '0px 2px 2px 0px', 
+                                            '&:hover' : {color:'FFFFFF',backgroundColor: '#2c2c2c' } 
+                                    }} 
+                                    aria-label="directions">
+                                    <SearchOutlinedIcon/>
                                 </IconButton>
                             </Paper>
                         </Grid>
