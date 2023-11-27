@@ -13,11 +13,11 @@ import { BrowserRouter } from "react-router-dom";
 import theme from './theme.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+  <React.Fragment>
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </ThemeProvider>
-  </React.StrictMode>,
+  </React.Fragment>,
 )
