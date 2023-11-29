@@ -196,60 +196,56 @@ function Index() {
                     </Grid>
                     <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                         <TabPanel value={value} index={0}>
-                            <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                                <List sx={{ padding: 0 }}>
-                                    <ListItem sx={{ padding: 0 }}>
-                                        <Link to="/post/attributes" style={{ display: 'contents',color: '#2c2c2c' }}>
-                                            <ListItemButton sx={{ padding: '10px 10px 12px 20px', borderBottom: '1px solid #e0e0e0' }}>
-                                                <ListItemText primary="Araba" />
-                                            </ListItemButton>
-                                        </Link>
-                                    </ListItem>
-                                    <ListItem disablePadding>
-                                    <Link to="/post/attributes" style={{ display: 'contents',color: '#2c2c2c' }}>
+                            <List sx={{ padding: 0 }}>
+                                <ListItem sx={{ p: 0 }}>
+                                    <Link to="/post/attributes" style={{ display: 'contents', color: '#2c2c2c', padding:0 }}>
+                                        <ListItemButton sx={{ padding: '10px 10px 12px 20px', borderBottom: '1px solid #e0e0e0' }}>
+                                            <ListItemText primary="Araba" />
+                                        </ListItemButton>
+                                    </Link>
+                                </ListItem>
+                                <ListItem disablePadding>
+                                    <Link to="/post/attributes" style={{ display: 'contents', color: '#2c2c2c' }}>
                                         <ListItemButton sx={{ padding: '10px 10px 12px 20px', borderBottom: '1px solid #e0e0e0' }}>
                                             <ListItemText primary="Araba Yedek Parça ve Aksesuar" />
                                         </ListItemButton>
                                     </Link>
-                                    </ListItem>
-                                    <ListItem disablePadding>
-                                        <ListItemButton sx={{ padding: '10px 10px 12px 20px', borderBottom: '1px solid #e0e0e0' }}>
-                                            <ListItemText primary="Araba Ses ve Görüntü Sistemleri" />
-                                        </ListItemButton>
-                                    </ListItem>
-                                    <ListItem disablePadding>
-                                        <ListItemButton sx={{ padding: '10px 10px 12px 20px', borderBottom: '1px solid #e0e0e0' }}>
-                                            <ListItemText primary="Jant ve Lastik" />
-                                        </ListItemButton>
-                                    </ListItem>
-                                    <ListItem disablePadding>
-                                        <ListItemButton sx={{ padding: '10px 10px 12px 20px', borderBottom: '1px solid #e0e0e0' }}>
-                                            <ListItemText primary="Kiralık Araçlar" />
-                                        </ListItemButton>
-                                    </ListItem>
-                                </List>
-                            </Box>
+                                </ListItem>
+                                <ListItem disablePadding>
+                                    <ListItemButton sx={{ padding: '10px 10px 12px 20px', borderBottom: '1px solid #e0e0e0' }}>
+                                        <ListItemText primary="Araba Ses ve Görüntü Sistemleri" />
+                                    </ListItemButton>
+                                </ListItem>
+                                <ListItem disablePadding>
+                                    <ListItemButton sx={{ padding: '10px 10px 12px 20px', borderBottom: '1px solid #e0e0e0' }}>
+                                        <ListItemText primary="Jant ve Lastik" />
+                                    </ListItemButton>
+                                </ListItem>
+                                <ListItem disablePadding>
+                                    <ListItemButton sx={{ padding: '10px 10px 12px 20px', borderBottom: '1px solid #e0e0e0' }}>
+                                        <ListItemText primary="Kiralık Araçlar" />
+                                    </ListItemButton>
+                                </ListItem>
+                            </List>
                         </TabPanel>
                         <TabPanel value={value} index={1}>
-                            <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                                <List sx={{ padding: 0 }}>
-                                    <ListItem disablePadding sx={{ padding: 0 }}>
-                                        <ListItemButton sx={{ padding: '10px 10px 12px 20px', borderBottom: '1px solid #e0e0e0' }}>
-                                            <ListItemText primary="Akıllı Telefon" />
-                                        </ListItemButton>
-                                    </ListItem>
-                                    <ListItem disablePadding sx={{ padding: 0 }}>
-                                        <ListItemButton sx={{ padding: '10px 10px 12px 20px', borderBottom: '1px solid #e0e0e0' }}>
-                                            <ListItemText primary="Telefon Aksesuarları ve Parçaları" />
-                                        </ListItemButton>
-                                    </ListItem>
-                                    <ListItem disablePadding sx={{ padding: 0 }}>
-                                        <ListItemButton sx={{ padding: '10px 10px 12px 20px', borderBottom: '1px solid #e0e0e0' }}>
-                                            <ListItemText primary="Sabit ve Telsiz Telefon" />
-                                        </ListItemButton>
-                                    </ListItem>
-                                </List>
-                            </Box>
+                            <List sx={{ padding: 0 }}>
+                                <ListItem disablePadding sx={{ padding: 0 }}>
+                                    <ListItemButton sx={{ padding: '10px 10px 12px 20px', borderBottom: '1px solid #e0e0e0' }}>
+                                        <ListItemText primary="Akıllı Telefon" />
+                                    </ListItemButton>
+                                </ListItem>
+                                <ListItem disablePadding sx={{ padding: 0 }}>
+                                    <ListItemButton sx={{ padding: '10px 10px 12px 20px', borderBottom: '1px solid #e0e0e0' }}>
+                                        <ListItemText primary="Telefon Aksesuarları ve Parçaları" />
+                                    </ListItemButton>
+                                </ListItem>
+                                <ListItem disablePadding sx={{ padding: 0 }}>
+                                    <ListItemButton sx={{ padding: '10px 10px 12px 20px', borderBottom: '1px solid #e0e0e0' }}>
+                                        <ListItemText primary="Sabit ve Telsiz Telefon" />
+                                    </ListItemButton>
+                                </ListItem>
+                            </List>
                         </TabPanel>
                         <TabPanel value={value} index={2}>
                             Item Three333
