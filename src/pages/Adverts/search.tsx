@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Grid, Container, Typography, Accordion, AccordionSummary, AccordionDetails, Divider, TextField, Button, Select, MenuItem, Chip, FormControl } from '@mui/material'
 
-import { Request } from '../../helpers/Request';
+import { RequestPublic } from '../../helpers/Request';
 
 import { AdCard } from '../../components/AdCard';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -14,7 +14,7 @@ const Search = () => {
     useEffect(() => {
         const getData = async () => {
             const url = "/advert/actual"
-            const data = await Request('GET', url);
+            const data = await RequestPublic('GET', url);
             setAdvertData(data);
         }
         getData();

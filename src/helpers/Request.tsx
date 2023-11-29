@@ -207,3 +207,26 @@ export async function Request(method: string, url: string, parameters = ''): Pro
 
     return data;
 }
+
+export async function RequestPublic(method: string, url: string, parameters = ''): Promise <object | boolean> {
+
+    const appEndpoint = EndPoint + url;
+    
+    let options: any = {
+        method: method
+    }
+
+    if (method == 'POST' || method == 'PUT' || method == "PATCH") {
+        options["body"] = parameters ? parameters : null;
+    }
+   
+    const response = await fetch(appEndpoint, options)
+
+    if ((response.status == 401 || response.status == 403)) {
+        return await Request(method, url, parameters);
+    }
+
+    const data = await response.json();
+
+    return data;
+}

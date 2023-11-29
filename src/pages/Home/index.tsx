@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { AdCard } from '../../components/AdCard';
 import { Typography, Button, Grid, Container } from '@mui/material';
 
-import { Request } from '../../helpers/Request';
+import { RequestPublic } from '../../helpers/Request';
 
 import otoplusBanner from '../../assets/img/banner-otoplus.png'
 import otoplusBannerMobile from '../../assets/img/banner-otoplus-mobile.png'
@@ -16,7 +16,7 @@ function Index() {
   useEffect(() => {
     const getData = async () => {
       const url = "/advert/actual"
-      const data = await Request('GET', url);
+      const data = await RequestPublic('GET', url);
       setAdvertData(data);
     }
     getData();

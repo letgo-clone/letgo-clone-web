@@ -5,7 +5,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useLocation } from "react-router-dom";
 
-import { Request } from '../../helpers/Request';
+import { RequestPublic } from '../../helpers/Request';
 
 import sampleLocation from '../../assets/img/sample-location.png'
 import { getItem } from 'localforage';
@@ -26,7 +26,7 @@ const AdvertDetail = () => {
     useEffect(() => {
         const getData = async () => {
             const url = "/advert/actual/" + id
-            const data = await Request('GET', url);
+            const data = await RequestPublic('GET', url);
             setAdvertDetail(data);
         }
         getData();
@@ -45,11 +45,11 @@ const AdvertDetail = () => {
                             }}>
                                 <Grid item lg={12} md={12} sm={12} xs={12}>
                                     <Carousel showArrows={true} autoPlay={true} verticalSwipe={'natural'} dynamicHeight={true}>
-                                        {advertDetail.images.map((item, key) => (
+                                         {advertDetail && advertDetail.images.map((item, key) => (
                                             <div style={{ backgroundColor: 'red' }}>
                                                 <img src={item.big.url} width={item.big.width} />
                                             </div>
-                                        ))}
+                                        ))} 
                                     </Carousel>
                                 </Grid>
                                 <Grid item lg={12} md={12} sm={12} xs={12} sx={{ padding: '20px' }}>
@@ -57,12 +57,12 @@ const AdvertDetail = () => {
                                         Detaylar
                                     </Typography>
                                     <Grid container>
-                                        {advertDetail.parameters.map((item) => (
+                                         {advertDetail && advertDetail.parameters.map((item) => (
                                             <>
                                                 <Grid lg={3} md={3} sm={3} xs={3}>{item.key_name}</Grid>
                                                 <Grid lg={3} md={3} sm={3} xs={3}>{item.value_name}</Grid>
                                             </>
-                                        ))}
+                                        ))} 
                                     </Grid>
                                 </Grid>
                                 <Grid item lg={12} md={12} sm={12} xs={12} sx={{ padding: '20px' }}>
@@ -85,7 +85,7 @@ const AdvertDetail = () => {
                                             <Grid container>
                                                 <Grid item lg={6} md={6}>
                                                     <Typography sx={{ fontSize: '32px', lineHeight: '32px', fontWeight: 700, color: '#2c2c2c' }}>
-                                                        {advertDetail.price.value.display}
+                                                        {advertDetail.price}
                                                     </Typography>
                                                     <Typography sx={{ fontSize: 14, marginTop: '10px' }} color="text.secondary" gutterBottom>
                                                         {advertDetail.title}
@@ -103,7 +103,7 @@ const AdvertDetail = () => {
                                         </CardContent>
                                         <CardActions sx={{ marginLeft: '8px' }}>
                                             <Typography sx={{ fontSize: '12px', lineHeight: '20px', fontWeight: 400, color: '#424242' }}>
-                                                {advertDetail.locations_resolved.SUBLOCALITY_LEVEL_1_name}, {advertDetail.locations_resolved.ADMIN_LEVEL_3_name}, {advertDetail.locations_resolved.COUNTRY_name}
+                                                {advertDetail.county}, {advertDetail.city}
                                             </Typography>
                                         </CardActions>
                                     </Card>
@@ -114,7 +114,7 @@ const AdvertDetail = () => {
                                             <Grid container>
                                                 <Grid item lg={6} md={6}>
                                                     <Typography sx={{ fontSize: '20px', lineHeight: '20px', fontWeight: 700, color: '#2c2c2c', marginTop: '10px' }}>
-                                                        Deneme Kişisi
+                                                        {advertDetail.name} {advertDetail.surname}
                                                     </Typography>
 
                                                 </Grid>
@@ -154,7 +154,7 @@ const AdvertDetail = () => {
                                                 </Grid>
                                                 <Grid item lg={12} md={12} sx={{ marginTop: '10px' }}>
                                                     <Typography sx={{ fontSize: '12px', lineHeight: '20px', fontWeight: 400, color: '#424242' }}>
-                                                        {advertDetail.locations_resolved.SUBLOCALITY_LEVEL_1_name}, {advertDetail.locations_resolved.ADMIN_LEVEL_3_name}, {advertDetail.locations_resolved.COUNTRY_name}
+                                                        {advertDetail.county}, {advertDetail.city}
                                                     </Typography>
                                                 </Grid>
                                             </Grid>
