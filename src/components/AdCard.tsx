@@ -27,7 +27,7 @@ export const AdCard = ({ data, grid }: AdvertProps) => {
             {data.map((item, index) => (
                 <Grid item={true} lg={grid[0]} md={grid[1]} sm={grid[2]} xs={grid[3]} key={index}>
                     <Card className={styles.card}>
-                    <Link href={`/item/${slugify(item.title)}?id=${item.ad_id}`} sx={{ textDecoration: 'none' }}>
+                    <Link href={`/item/${slugify(item.title)}?id=${item.id}`} sx={{ textDecoration: 'none' }}>
                         <div className={styles.cardMediaDiv}>
                             <CardMedia
                                 component="img"
@@ -36,7 +36,7 @@ export const AdCard = ({ data, grid }: AdvertProps) => {
                                     image.url
                                 ))}
                             />
-                            {(item.status.flags.hot && item.partner_id !== 'transaction') && (
+                            {(item.display_type == 'hot' && item.user_type !== 'OTOPLUS') && (
                                 <div className={styles.cardActionLeft} >
                                     <Chip
                                         avatar={<BoltIcon />}
@@ -47,7 +47,7 @@ export const AdCard = ({ data, grid }: AdvertProps) => {
                                     />
                                 </div>
                             )}
-                            {(item.partner_id == 'transaction') && (
+                            {(item.user_type == 'OTOPLUS') && (
                                 <div className={styles.cardActionLeft} >
                                     <Chip
                                         label={<img src={otoplusBadge} />}
@@ -63,12 +63,12 @@ export const AdCard = ({ data, grid }: AdvertProps) => {
                                 </IconButton>
                             </div>
                         </div>
-                        {item.partner_id != 'transaction' ? (
-                            item.status.display == 'hot' ? (
+                        {item.user_type != 'OTOPLUS' ? (
+                            item.display_type == 'hot' ? (
                                 <div style={{ borderLeft: '5px solid #ffd200' }}>
                                     <CardContent sx={{ color: '#2c2c2c' }}>
                                         <Typography gutterBottom component="div" sx={{ fontSize: '20px', fontWeight: '700' }}>
-                                            {item.price.value.raw} TL
+                                            {item.price} TL
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
                                             {item.title}
@@ -77,26 +77,26 @@ export const AdCard = ({ data, grid }: AdvertProps) => {
                                     <CardActions>
                                         <Grid container className={styles.cardFooter}>
                                             <Grid item={true} md={6} sm={6} xs={6}>
-                                                <Typography variant="body2" color="text.secondary" sx={{ fontSize: '10px' }}>
-                                                    {item.locations_resolved.SUBLOCALITY_LEVEL_1_name},{item.locations_resolved.ADMIN_LEVEL_3_name}
-                                                </Typography>
+                                                 <Typography variant="body2" color="text.secondary" sx={{ fontSize: '10px' }}>
+                                                    {item.county},{item.city}
+                                                </Typography> 
                                             </Grid>
                                             <Grid item={true} md={6} sm={6} xs={6} sx={{ float: 'right' }}>
-                                                <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'right', fontSize: '10px' }}>
+                                                 <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'right', fontSize: '10px' }}>
                                                     {item.date}
-                                                </Typography>
+                                                </Typography> 
                                             </Grid>
                                         </Grid>
                                     </CardActions>
                                 </div>
-                            ) : item.status.display == 'new' ? (
+                            ) : item.display_type == 'new' ? (
                                 <div style={{ borderLeft: '5px solid #004bbe' }}>
                                     <CardContent sx={{ color: '#2c2c2c' }}>
                                         <Typography gutterBottom component="div" sx={{ fontSize: '12px', fontWeight: '400', color: '#004bbe' }}>
                                             Yeni
                                         </Typography>
                                         <Typography gutterBottom component="div" sx={{ fontSize: '20px', fontWeight: '700' }}>
-                                            {item.price.value.raw} TL
+                                            {item.price} TL
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
                                             {item.title}
@@ -105,14 +105,14 @@ export const AdCard = ({ data, grid }: AdvertProps) => {
                                     <CardActions>
                                         <Grid container className={styles.cardFooter}>
                                             <Grid item={true} md={6} sm={6} xs={6}>
-                                                <Typography variant="body2" color="text.secondary" sx={{ fontSize: '10px' }}>
-                                                    {item.locations_resolved.SUBLOCALITY_LEVEL_1_name},{item.locations_resolved.ADMIN_LEVEL_3_name}
+                                                 <Typography variant="body2" color="text.secondary" sx={{ fontSize: '10px' }}>
+                                                    {item.county},{item.city}
                                                 </Typography>
                                             </Grid>
                                             <Grid item={true} md={6} sm={6} xs={6} sx={{ float: 'right' }}>
                                                 <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'right', fontSize: '10px' }}>
                                                     {item.date}
-                                                </Typography>
+                                                </Typography> 
                                             </Grid>
                                         </Grid>
                                     </CardActions>
@@ -121,7 +121,7 @@ export const AdCard = ({ data, grid }: AdvertProps) => {
                                 <div>
                                     <CardContent sx={{ color: '#2c2c2c' }}>
                                         <Typography gutterBottom component="div" sx={{ fontSize: '20px', fontWeight: '700' }}>
-                                            {item.price.value.raw} TL
+                                            {item.price} TL
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
                                             {item.title}
@@ -130,14 +130,14 @@ export const AdCard = ({ data, grid }: AdvertProps) => {
                                     <CardActions>
                                         <Grid container className={styles.cardFooter}>
                                             <Grid item={true} md={6} sm={6} xs={6}>
-                                                <Typography variant="body2" color="text.secondary" sx={{ fontSize: '10px' }}>
-                                                    {item.locations_resolved.SUBLOCALITY_LEVEL_1_name},{item.locations_resolved.ADMIN_LEVEL_3_name}
+                                                 <Typography variant="body2" color="text.secondary" sx={{ fontSize: '10px' }}>
+                                                    {item.county},{item.city}
                                                 </Typography>
                                             </Grid>
                                             <Grid item={true} md={6} sm={6} xs={6} sx={{ float: 'right' }}>
-                                                <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'right', fontSize: '10px' }}>
+                                                 <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'right', fontSize: '10px' }}>
                                                     {item.date}
-                                                </Typography>
+                                                </Typography> 
                                             </Grid>
                                         </Grid>
                                     </CardActions>
@@ -147,7 +147,7 @@ export const AdCard = ({ data, grid }: AdvertProps) => {
                             <div style={{ borderLeft: '5px solid #ffd200' }}>
                                 <CardContent sx={{ color: '#2c2c2c' }}>
                                     <Typography gutterBottom component="div" sx={{ fontSize: '20px', fontWeight: '700' }}>
-                                        {item.price.value.raw} TL
+                                        {item.price} TL
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
                                         {item.title}
