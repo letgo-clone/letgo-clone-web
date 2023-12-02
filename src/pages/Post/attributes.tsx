@@ -14,6 +14,9 @@ import { Request, RequestPublic } from '../../helpers/Request';
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 
+import { setLoginData } from '../../redux/store';
+import { useSelector, useDispatch } from "react-redux";
+
 interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
@@ -51,6 +54,9 @@ function Attributes() {
     const navigate = useNavigate();
     const [value, setValue] = React.useState(0);
 
+    const dispatch = useDispatch();
+    const { loginData } = useSelector((state) => state.authUser);
+
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
@@ -83,6 +89,7 @@ function Attributes() {
             price: '',
             city_id: '',
             county_id: '',
+            fullname : loginData.fullname,
             photo: []
         },
         onSubmit: async (values) => {
@@ -91,6 +98,7 @@ function Attributes() {
             const price = values.price;
             const city_id = values.city_id;
             const county_id = values.county_id;
+            const fullname = values.fullname;
             const parameters = [
                 {
                     "key_name": 'Yıl',
@@ -111,7 +119,6 @@ function Attributes() {
                 formdata.append('photo', file);
             });
 
-
             formdata.append("parameters", JSON.stringify(parameters));
             formdata.append("price", price);
             formdata.append("city_id", city_id);
@@ -128,8 +135,21 @@ function Attributes() {
                     showConfirmButton: false,
                     timer: 1500
                 });
+                if(loginData.fullname != fullname){               
+                    const formdata: FormData = new FormData();
+                    formdata.append("fullname", fullname);
+    
+                    const url = '/account/session/user';
+                    await Request('PUT', url, formdata);
+    
+                    const newLoginData = {
+                        fullname: fullname,
+                    }
+                    dispatch(setLoginData(newLoginData)); 
+                }    
                 navigate('/'); 
-            } else {
+            } 
+            else {
                 Swal.fire({
                     position: "center",
                     icon: "error",
@@ -396,10 +416,17 @@ function Attributes() {
                                     </div>
                                 </Grid>
                                 <Grid xl={6} lg={6} md={6} sm={10} xs={10}>
-                                    <InputLabel shrink htmlFor="year">
+                                    <InputLabel shrink htmlFor="fullname">
                                         Ad Soyad
                                     </InputLabel>
-                                    <TextField fullWidth size='small' id="adsoyad" defaultValue={'Fırat YILDIZ'} />
+                                    <TextField 
+                                        fullWidth 
+                                        size='small' 
+                                        id="fullname" 
+                                        name="fullname"
+                                        onChange={formik.handleChange}
+                                        value={formik.values.fullname}
+                                        />
                                 </Grid>
                             </Grid>
                             <Grid container sx={{ borderBottom: '1px solid #e0e0e0', paddingBottom: '25px', marginTop: '20px', marginLeft: '3px' }}>
