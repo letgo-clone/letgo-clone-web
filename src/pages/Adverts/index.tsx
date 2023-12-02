@@ -47,7 +47,7 @@ const AdvertDetail = () => {
                                     <Carousel showArrows={true} autoPlay={true} verticalSwipe={'natural'} dynamicHeight={true}>
                                          {advertDetail && advertDetail.images.map((item, key) => (
                                             <div style={{ backgroundColor: 'red' }}>
-                                                <img src={item.big.url} width={item.big.width} />
+                                                <img src={item.url} width={item.width} />
                                             </div>
                                         ))} 
                                     </Carousel>
