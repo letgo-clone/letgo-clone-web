@@ -114,7 +114,7 @@ const AdvertDetail = () => {
                                             <Grid container>
                                                 <Grid item lg={6} md={6}>
                                                     <Typography sx={{ fontSize: '20px', lineHeight: '20px', fontWeight: 700, color: '#2c2c2c', marginTop: '10px' }}>
-                                                        {advertDetail.name} {advertDetail.surname}
+                                                        {advertDetail.fullname}
                                                     </Typography>
 
                                                 </Grid>
