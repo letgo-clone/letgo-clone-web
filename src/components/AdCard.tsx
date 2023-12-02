@@ -32,9 +32,7 @@ export const AdCard = ({ data, grid }: AdvertProps) => {
                             <CardMedia
                                 component="img"
                                 className={styles.cardMedia}
-                                image={item.images.map(image => (
-                                    image.url
-                                ))}
+                                image={item.images[0].url}
                             />
                             {(item.display_type == 'hot' && item.user_type !== 'OTOPLUS') && (
                                 <div className={styles.cardActionLeft} >
