@@ -17,8 +17,11 @@ import PostAttributes from '../pages/Post/attributes'
     { path: "/", exact: true, component: <Navigate to="/" />},
     { path: "/item/:itemId", component: <AdvertDetail /> },
     { path: "/item/search", component: <Search /> },
-    { path: "/post", component: <Post /> },
-    { path: "/post/attributes", component: <PostAttributes /> },
 ]; 
 
-export { publicRoutes };
+const authProtectedRoutes = [
+    { path: "/post", component: <Post /> },
+    { path: "/post/attributes", component: <PostAttributes /> },
+]
+
+export { publicRoutes, authProtectedRoutes };
