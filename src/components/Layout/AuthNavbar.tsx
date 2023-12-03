@@ -1,5 +1,5 @@
-import React, { useState, MouseEvent } from 'react';
-import { Grid, Box, Button, AppBar, Toolbar, IconButton, MenuItem, FormControl, Container, Paper, Select, Drawer, Dialog, DialogTitle, useMediaQuery, Menu, Tooltip, Typography } from "@mui/material"
+import React, { useState, MouseEvent, useEffect } from 'react';
+import { Grid, Box, Button, AppBar, Toolbar, IconButton, MenuItem, FormControl, Container, Paper, Select, Drawer, Menu, Tooltip, Typography } from "@mui/material"
 import InputBase from '@mui/material/InputBase';
 
 import MenuIcon from '@mui/icons-material/Menu';
@@ -14,6 +14,10 @@ import Divider from '@mui/material/Divider';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Face2Icon from '@mui/icons-material/Face2';
+import SmsIcon from '@mui/icons-material/Sms';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 import Logo from '../../assets/img/logo.svg'
 import MobileLogo from '../../assets/img/logo-mobile.svg'
@@ -24,11 +28,13 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
-import { Link } from 'react-router-dom';
-import { useTheme } from '@mui/material/styles';
-import LoginModal from '../LoginModal';
+import { Link, useNavigate } from 'react-router-dom';
 
-function Navbar() {
+import { useSelector } from "react-redux";
+import { removeAllData } from '../../redux/store';
+
+function AuthNavbar() {
+    const navigate = useNavigate();
     const [anchorNav, setAnchorNav] = useState<null | HTMLElement>(null);
     const openMenu = (event: MouseEvent<HTMLElement>) => {
         setAnchorNav(event.currentTarget);
@@ -38,17 +44,23 @@ function Navbar() {
         setAnchorNav(null)
     }
 
-    const [open, setOpen] = useState(false);
-    const theme = useTheme();
-    const fullScreen = useMediaQuery(theme.breakpoints.down('xs'));
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const LoginOpen = Boolean(anchorEl);
 
-    const handleOpen = () => {
-        setOpen(true);
+    const handleLoginClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleLoginClose = () => {
+        setAnchorEl(null);
     };
 
-    const handleClose = () => {
-        setOpen(false);
-    };
+    const { loginData } = useSelector((state) => state.authUser);
+
+    const handlelogout = async() => {
+        removeAllData();
+        navigate('/');
+        location.reload()
+    }
 
     return (
         <AppBar position="static" sx={{ bgcolor: 'hsla(0,0%,100%,.87)', boxShadow: 1 }}>
@@ -144,15 +156,131 @@ function Navbar() {
                         </Grid>
                     </Grid>
                     <Box sx={{ display: { md: 'contents', sm: 'contents', xs: 'none' } }}>
-                        <Button 
-                            onClick={handleOpen} 
-                            sx={{ 
-                                color: '#ff3f55',
-                                marginLeft:'24px'
-                            }}
-                        >
-                        <p style={{ fontWeight: '600', borderBottom: '2px solid #ff3f55', textTransform: 'none' }}>Giriş</p>
-                        </Button>
+                            <Grid container sx={{ display: 'contents' }}>
+                                <Grid item xl={1} lg={1} md={1} sx={{ paddingLeft: '24px' }}>
+                                    <IconButton>
+                                        <SmsIcon />
+                                    </IconButton>
+                                </Grid>
+                                <Grid item xl={1} lg={1} md={1} sx={{ paddingLeft: '12px' }}>
+                                    <IconButton>
+                                        <NotificationsIcon />
+                                    </IconButton>
+                                </Grid>
+                                <Grid item xl={1} lg={1} md={1} sx={{ paddingRight: '24px' }}>
+                                    <Tooltip title="Account settings">
+                                        <IconButton
+                                            onClick={handleLoginClick}
+                                            size="small"
+                                            sx={{ ml: 2 }}
+
+                                            aria-controls={LoginOpen ? 'account-menu' : undefined}
+                                            aria-haspopup="true"
+                                            aria-expanded={LoginOpen ? 'true' : undefined}
+                                        >
+                                            <Avatar
+                                                sx={{
+                                                    width: 32,
+                                                    height: 32,
+                                                    marginRight: '5px'
+                                                }}
+                                                src={loginData.photo.url}
+                                            ></Avatar>
+                                            <ExpandMoreIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                </Grid>
+                                <Menu
+                                    anchorEl={anchorEl}
+                                    id="account-menu"
+                                    open={LoginOpen}
+                                    onClose={handleLoginClose}
+                                    onClick={handleLoginClose}
+                                    PaperProps={{
+                                        elevation: 0,
+                                        sx: {
+                                            overflow: 'visible',
+                                            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                            mt: 1.5,
+                                            '& .MuiAvatar-root': {
+                                                width: 32,
+                                                height: 32,
+                                                ml: -0.5,
+                                                mr: 1,
+                                            },
+                                            '&:before': {
+                                                content: '""',
+                                                display: 'block',
+                                                position: 'absolute',
+                                                top: 0,
+                                                right: 14,
+                                                width: 10,
+                                                height: 10,
+                                                bgcolor: 'background.paper',
+                                                transform: 'translateY(-50%) rotate(45deg)',
+                                                zIndex: 0,
+                                            },
+                                        },
+                                    }}
+                                    transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                                >
+                                    <MenuItem onClick={handleLoginClose}>
+                                        <Avatar
+                                            src={loginData.photo.url}
+                                            sx={{
+                                                width: '56px !important',
+                                                height: '56px !important',
+                                            }}
+                                        />
+                                        <Typography
+                                            sx={{
+                                                fontSize: '20px',
+                                                lineHeight: '24px',
+                                                fontWeight: 700,
+                                                paddingLeft: '15px'
+                                            }}> {loginData.fullname}</Typography>
+                                    </MenuItem>
+                                    <MenuItem onClick={handleLoginClose}>
+                                        <Button
+                                            variant="outlined"
+                                            sx={{
+                                                backgroundColor: '#ff3f55',
+                                                color: '#FFFFFF',
+                                                textTransform: 'none',
+                                                border: '6px solid transparent',
+                                                padding: '0px 25px 0px 25px',
+                                                fontSize: '16px',
+                                                marginTop:'15px',
+                                                marginBottom:'5px',
+                                                borderRadius: 15,
+                                                '&:hover': { bgcolor: '#FFFFFF', border: '6px solid #ff3f55', color: '#ff3f55' },
+                                            }}
+                                            color="error"
+                                            type="submit"
+                                        >
+                                            Profili görüntüle ve düzenle
+                                        </Button>
+                                    </MenuItem>
+                                    <Divider />
+                                    <MenuItem onClick={handleLoginClose}>
+                                        <ListItemIcon>
+                                             <FavoriteIcon fontSize="small" />
+                                        </ListItemIcon>
+                                        İlanlarım
+                                    </MenuItem>
+                                    <Divider />
+                                    <MenuItem onClick={() => { 
+                                        handleLoginClose();
+                                        handlelogout();
+                                    }}>
+                                        <ListItemIcon>
+                                             <LogoutIcon fontSize="small" />
+                                        </ListItemIcon>
+                                        Çıkış
+                                    </MenuItem>
+                                </Menu>
+                            </Grid>
                         <Link to="/post">
                             <Button
                                 sx={
@@ -340,21 +468,8 @@ function Navbar() {
                     </Grid>
                 </Toolbar>
             </Container>
-            <Dialog
-                fullScreen={fullScreen}
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="responsive-dialog-title"
-            >
-                <DialogTitle id="responsive-dialog-title" sx={{ p: 0 }}>
-                    <IconButton onClick={handleClose} sx={{ float: 'right' }}>
-                        <CloseIcon sx={{ fontSize: '2.5rem' }} />
-                    </IconButton>
-                </DialogTitle>
-                <LoginModal />
-            </Dialog>
         </AppBar >
     )
 }
 
-export default Navbar
+export default AuthNavbar
