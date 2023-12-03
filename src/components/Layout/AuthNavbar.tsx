@@ -243,6 +243,7 @@ function AuthNavbar() {
                                     </MenuItem>
                                     <MenuItem onClick={handleLoginClose}>
                                         <Button
+                                            href="/editProfile/info"
                                             variant="outlined"
                                             sx={{
                                                 backgroundColor: '#ff3f55',

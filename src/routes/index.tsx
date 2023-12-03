@@ -12,6 +12,9 @@ import Search from "../pages/Adverts/search";
 import Post from '../pages/Post/index'
 import PostAttributes from '../pages/Post/attributes'
 
+// Profile
+import ProfileInfo from "../pages/Profile";
+
  const publicRoutes = [
     { path: "/", component: <Home /> },
     { path: "/", exact: true, component: <Navigate to="/" />},
@@ -22,6 +25,7 @@ import PostAttributes from '../pages/Post/attributes'
 const authProtectedRoutes = [
     { path: "/post", component: <Post /> },
     { path: "/post/attributes", component: <PostAttributes /> },
+    { path: "/editProfile/info", component: <ProfileInfo /> },
 ]
 
 export { publicRoutes, authProtectedRoutes };
