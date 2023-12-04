@@ -91,10 +91,10 @@ export const AdCard = ({ data, grid }: AdvertProps) => {
                         <div className={styles.cardMediaDiv}>
                             <div className={styles.cardActionRight} onClick={() => addFavorite(item.id, item.has_favorite)}>
                                 <IconButton aria-label="add to favorites" sx={{ padding: 0 }}>
-                                    {item.has_favorite ? (
-                                        <FavoriteBorderIcon sx={{ color:'red' }} />
-                                    ): (
+                                    {item.has_favorite == true ? (
                                         <FavoriteIcon sx={{ color:'red' }} />
+                                    ): (
+                                        <FavoriteBorderIcon sx={{ color:'red' }} />
                                     )}
                                    
                                 </IconButton>
