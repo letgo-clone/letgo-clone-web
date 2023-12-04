@@ -127,10 +127,13 @@ export const AdCard = ({ data, grid }: AdvertProps) => {
                                     </CardContent>
                                     <CardActions>
                                         <Grid container className={styles.cardFooter}>
+
                                             <Grid item={true} md={6} sm={6} xs={6}>
+                                            {item.city && (
                                                  <Typography variant="body2" color="text.secondary" sx={{ fontSize: '10px' }}>
-                                                    {item.county},{item.city}
+                                                        {item?.county}, {item?.city}
                                                 </Typography>
+                                            )}
                                             </Grid>
                                             <Grid item={true} md={6} sm={6} xs={6} sx={{ float: 'right' }}>
                                                  <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'right', fontSize: '10px' }}>
