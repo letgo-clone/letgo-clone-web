@@ -15,6 +15,7 @@ import PostAttributes from '../pages/Post/attributes'
 // Profile
 import ProfileInfo from "../pages/Profile";
 import ProfileView from "../pages/Profile/profileView";
+import MyAdsView from "../pages/Profile/myAdsView";
 import MyFavoriteView from "../pages/Profile/myFavoriteView";
 
  const publicRoutes = [
@@ -30,6 +31,7 @@ const authProtectedRoutes = [
     { path: "/editProfile/info", component: <ProfileInfo /> },
     { path: "/profile/", component: <ProfileView /> },
     { path: "/profile/:userId", component: <ProfileView /> },
+    { path: "/profile/myads", component: <MyAdsView /> },
     { path: "/profile/myfavorite", component: <MyFavoriteView /> },
 ]
 

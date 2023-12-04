@@ -264,7 +264,7 @@ function AuthNavbar() {
                                         </Button>
                                     </MenuItem>
                                     <Divider />
-                                    <MenuItem onClick={handleLoginClose}>
+                                    <MenuItem component="a" href="/profile/myads" onClick={handleLoginClose}>
                                         <ListItemIcon>
                                              <FavoriteIcon fontSize="small" />
                                         </ListItemIcon>
