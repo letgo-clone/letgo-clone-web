@@ -80,6 +80,7 @@ function ProfileInfo() {
       <Grid container sx={{ marginTop: 4 }}>
         <Grid item lg={4} md={4} sm={4}>
           <Button
+            href={'/profile'}
             variant="outlined"
             sx={{
               backgroundColor: '#FFFFFF',
