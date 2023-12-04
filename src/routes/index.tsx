@@ -14,6 +14,7 @@ import PostAttributes from '../pages/Post/attributes'
 
 // Profile
 import ProfileInfo from "../pages/Profile";
+import ProfileView from "../pages/Profile/profileView";
 
  const publicRoutes = [
     { path: "/", component: <Home /> },
@@ -26,6 +27,8 @@ const authProtectedRoutes = [
     { path: "/post", component: <Post /> },
     { path: "/post/attributes", component: <PostAttributes /> },
     { path: "/editProfile/info", component: <ProfileInfo /> },
+    { path: "/profile/", component: <ProfileView /> },
+    { path: "/profile/:userId", component: <ProfileView /> },
 ]
 
 export { publicRoutes, authProtectedRoutes };
