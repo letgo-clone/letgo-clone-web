@@ -28,11 +28,7 @@ function ProfileInfo() {
       email: loginData.email
     },
     onSubmit: async (values) => {
-      const fullname = values.fullname;
-      const about = values.about;
-      const phoneNumber = values.phoneNumber;
-      const email = values.email;
-
+      const { fullname, about, phoneNumber, email } = values
       const formdata: FormData = new FormData();
       formdata.append('fullname', fullname);
       formdata.append('about', about);
