@@ -49,9 +49,6 @@ function ProfileInfo() {
         const formdata: FormData = new FormData();
         formdata.append("fullname", fullname);
 
-        const url = '/account/session/user';
-        await Request('PUT', url, formdata);
-
         const newLoginData = {
           fullname: fullname,
           email : email,
