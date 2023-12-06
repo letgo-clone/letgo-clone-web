@@ -15,6 +15,7 @@ import {
     from '@mui/material'
 
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import { Link } from 'react-router-dom'
 import { Request } from '../../helpers/Request';
@@ -82,7 +83,8 @@ function MyAdsView() {
                         <Card
                             sx={{
                                 minWidth: 275,
-                                boxShadow: '0 1px 3px 0 rgba(0,47,52,.2), 0 1px 3px 0 rgba(0,47,52,.2)'
+                                boxShadow: '0 1px 3px 0 rgba(0,47,52,.2), 0 1px 3px 0 rgba(0,47,52,.2)',
+                                borderLeft: '4px solid #004bbe'
                             }}
                         >
                             <CardContent>
@@ -188,7 +190,19 @@ function MyAdsView() {
                             </CardContent>
                             <CardActions sx={{ borderTop: '1px solid #e0e0e0' }}>
                                 <Grid container>
-                                    <Grid item xl={6} lg={6} md={6} sm={12} xs={12}></Grid>
+                                    <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ display :'inline-flex' }}>
+                                        <FavoriteIcon sx={{ width : '16px', height :'16px', paddingRight : '4px', paddingTop: '4px' }} />
+                                        <Typography
+                                            sx={{
+                                                fontSize: '10px',
+                                                fontWeight: 700,
+                                                lineHeight: '15px',
+                                                paddingTop: '6px'
+                                            }}
+                                        >
+                                            Beğeniler: {item.likes}
+                                        </Typography>
+                                    </Grid>
                                     <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ textAlign: 'right' }}>
                                         <Button
                                             variant="outlined"
