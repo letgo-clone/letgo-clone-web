@@ -87,7 +87,7 @@ function MyAdsView() {
                         >
                             <CardContent>
                                 <Grid container spacing={3}>
-                                    <Grid item xl={6} md={6} sm={6} xs={6}>
+                                    <Grid item xl={6} md={6} sm={12} xs={12}>
                                         <Grid container>
                                             <Grid item xl={6} lg={6} md={6} sm={6} xs={6} sx={{ display: 'inline-flex' }}>
                                                 <img
@@ -119,7 +119,7 @@ function MyAdsView() {
                                                     {item.price}
                                                 </Typography>
                                             </Grid>
-                                            <Grid item xl={2} lg={2} md={2} sm={2} xs={2}>
+                                            <Grid item xl={2} lg={2} md={2} sm={6} xs={6}>
                                                 <Button
                                                     variant="contained"
                                                     sx={{
@@ -137,9 +137,9 @@ function MyAdsView() {
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                    <Grid item xl={6} md={6} sm={6} xs={6}>
+                                    <Grid item xl={6} md={6} sm={12} xs={12} sx={{ paddingTop: {sm : '0 !important', xs: '0 !important' }}}>
                                         <Grid container>
-                                            <Grid item xl={6} lg={6} md={6} sm={6} xs={6} sx={{ textAlign: 'center' }}>
+                                            <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ textAlign : { xl: 'center', lg :'center', md: 'center' ,xs: 'start', sm: 'start' } }}>
                                                 <Typography
                                                     sx={{
                                                         fontSize: '14px',
@@ -151,7 +151,7 @@ function MyAdsView() {
                                                     {item.is_visible ? 'Bu ilan şuanda yayında' : 'Bu ilan yayında değil'}
                                                 </Typography>
                                             </Grid>
-                                            <Grid item xl={6} lg={6} md={6} sm={6} xs={6} sx={{ textAlign: 'right' }}>
+                                            <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ textAlign: 'right' }}>
                                                 <IconButton
                                                     aria-label="more"
                                                     id="long-button"
@@ -188,8 +188,8 @@ function MyAdsView() {
                             </CardContent>
                             <CardActions sx={{ borderTop: '1px solid #e0e0e0' }}>
                                 <Grid container>
-                                    <Grid item xl={6} lg={6} md={6} sm={6} xs={6}></Grid>
-                                    <Grid item xl={6} lg={6} md={6} sm={6} xs={6} sx={{ textAlign: 'right' }}>
+                                    <Grid item xl={6} lg={6} md={6} sm={12} xs={12}></Grid>
+                                    <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ textAlign: 'right' }}>
                                         <Button
                                             variant="outlined"
                                             sx={{
