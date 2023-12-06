@@ -32,6 +32,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { useSelector } from "react-redux";
 import { removeAllData } from '../../redux/store';
+import { Request } from '../../helpers/Request';
 
 function AuthNavbar() {
     const navigate = useNavigate();
@@ -57,9 +58,14 @@ function AuthNavbar() {
     const { loginData } = useSelector((state) => state.authUser);
 
     const handlelogout = async() => {
-        removeAllData();
-        navigate('/');
-        location.reload()
+        const url = "/oauth/logout";
+        const result = await Request('GET', url);
+
+        if(result.success){
+            removeAllData();
+            navigate('/');
+            location.reload()
+        }
     }
 
     return (
