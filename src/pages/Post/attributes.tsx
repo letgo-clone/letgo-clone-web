@@ -74,7 +74,7 @@ function Attributes() {
             city_id: '',
             county_id: '',
             how_status: '',
-            fullname : loginData.fullname,
+            fullname: loginData.fullname,
             photo: []
         },
         onSubmit: async (values) => {
@@ -111,20 +111,20 @@ function Attributes() {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                if(loginData.fullname != fullname){               
+                if (loginData.fullname != fullname) {
                     const formdata: FormData = new FormData();
                     formdata.append("fullname", fullname);
-    
+
                     const url = '/account/session/user';
                     await Request('PUT', url, formdata);
-    
+
                     const newLoginData = {
                         fullname: fullname,
                     }
-                    dispatch(setLoginData(newLoginData)); 
-                }    
-                navigate('/'); 
-            } 
+                    dispatch(setLoginData(newLoginData));
+                }
+                navigate('/');
+            }
             else {
                 Swal.fire({
                     position: "center",
@@ -187,6 +187,26 @@ function Attributes() {
                             </Typography>
                             <Grid container spacing={3} sx={{ display: 'inline-block', borderBottom: '1px solid #e0e0e0', paddingBottom: '25px' }}>
                                 <Grid item lg={6} md={6} sm={12} xs={12}>
+                                    <InputLabel shrink htmlFor="how_status">
+                                        Durum
+                                    </InputLabel>
+                                    <TextField
+                                        id="outlined-select-currency"
+                                        fullWidth
+                                        select
+                                        size="small"
+                                        name="how_status"
+                                        value={formik.values.how_status}
+                                        onChange={formik.handleChange}
+                                    >
+                                        <MenuItem value="Yeni">Yeni</MenuItem>
+                                        <MenuItem value="Yeni gibi">Yeni gibi</MenuItem>
+                                        <MenuItem value="İyi">İyi</MenuItem>
+                                        <MenuItem value="Makul">Makul</MenuItem>
+                                        <MenuItem value="Yıpranmış">Yıpranmış</MenuItem>
+                                    </TextField>
+                                </Grid>
+                                <Grid item lg={6} md={6} sm={12} xs={12}>
                                     <InputLabel shrink htmlFor="year">
                                         İlan Başlığı
                                     </InputLabel>
@@ -214,26 +234,6 @@ function Attributes() {
                                         onChange={formik.handleChange}
                                         helperText="Durum, özellik ve satma nedeni gibi bilgileri ekle"
                                     />
-                                </Grid>
-                                <Grid item lg={6} md={6} sm={12} xs={12}>
-                                    <InputLabel shrink htmlFor="how_status">
-                                        Durum
-                                    </InputLabel>
-                                    <TextField
-                                        id="outlined-select-currency"
-                                        fullWidth
-                                        select
-                                        size="small"
-                                        name="how_status"
-                                        value={formik.values.how_status}
-                                        onChange={formik.handleChange}
-                                    >
-                                       <MenuItem value="Yeni">Yeni</MenuItem>
-                                       <MenuItem value="Yeni gibi">Yeni gibi</MenuItem>
-                                       <MenuItem value="İyi">İyi</MenuItem>
-                                       <MenuItem value="Makul">Makul</MenuItem>
-                                       <MenuItem value="Yıpranmış">Yıpranmış</MenuItem>
-                                    </TextField>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -382,14 +382,14 @@ function Attributes() {
                                     <InputLabel shrink htmlFor="fullname">
                                         Ad Soyad
                                     </InputLabel>
-                                    <TextField 
-                                        fullWidth 
-                                        size='small' 
-                                        id="fullname" 
+                                    <TextField
+                                        fullWidth
+                                        size='small'
+                                        id="fullname"
                                         name="fullname"
                                         onChange={formik.handleChange}
                                         value={formik.values.fullname}
-                                        />
+                                    />
                                 </Grid>
                             </Grid>
                             <Grid container sx={{ borderBottom: '1px solid #e0e0e0', paddingBottom: '25px', marginTop: '20px', marginLeft: '3px' }}>
