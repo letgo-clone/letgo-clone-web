@@ -19,6 +19,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import { Link } from 'react-router-dom'
 import { Request } from '../../helpers/Request';
+import slugify from 'react-slugify';
 
 function MyAdsView() {
     const [myAds, setMyAds] = useState({});
@@ -80,6 +81,7 @@ function MyAdsView() {
                 </Grid>
                 {myAds.length > 0 && myAds.map((item, key) => (
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12} key={key}>
+
                         <Card
                             sx={{
                                 minWidth: 275,
@@ -87,166 +89,174 @@ function MyAdsView() {
                                 borderLeft: '4px solid #004bbe'
                             }}
                         >
+
                             <CardContent>
                                 <Grid container spacing={3}>
                                     <Grid item xl={6} md={6} sm={12} xs={12}>
+                                    <Link  to={`/item/${slugify(item.title)}?id=${item.id}`} style={{ textDecoration :'none' }}>
                                         <Grid container>
-                                            <Grid item xl={6} lg={6} md={6} sm={6} xs={6} sx={{ display: 'inline-flex' }}>
-                                                <img
-                                                    src={item.images[0].url}
-                                                    style={{
-                                                        objectFit: 'cover',
-                                                        display: 'block'
-                                                    }}
-                                                    width={60}
-                                                    height={60}
-                                                />
-                                                <Typography
-                                                    sx={{
-                                                        fontSize: '14px',
-                                                        lineHeight: '20px',
-                                                        fontWeight: 700,
-                                                        paddingLeft: '15px',
-                                                        paddingTop: '20px'
-                                                    }}> {item.title}</Typography>
-                                            </Grid>
-                                            <Grid item xl={4} lg={4} md={4} sm={4} xs={4} sx={{ textAlign: 'center' }}>
-                                                <Typography
-                                                    sx={{
-                                                        fontSize: '14px',
-                                                        color: '#2c2c2c',
-                                                        marginTop: '28px'
-                                                    }}
-                                                >
-                                                    {item.price}
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item xl={2} lg={2} md={2} sm={6} xs={6}>
-                                                <Button
-                                                    variant="contained"
-                                                    sx={{
-                                                        backgroundColor: '#004bbe',
-                                                        color: '#ffffff',
-                                                        fontSize: '10px',
-                                                        fontWeight: 400,
-                                                        marginTop: '23px',
-                                                        padding: '4px 35px'
-                                                    }}
-                                                    disabled={!(item.is_visible)}
-                                                >
-                                                    {item.is_visible ? 'Etkin' : 'Devre dışı'}
-                                                </Button>
-                                            </Grid>
+                                                <Grid item xl={6} lg={6} md={6} sm={6} xs={6} sx={{ display: 'inline-flex' }}>
+                                                    <img
+                                                        src={item.images[0].url}
+                                                        style={{
+                                                            objectFit: 'cover',
+                                                            display: 'block'
+                                                        }}
+                                                        width={60}
+                                                        height={60}
+                                                    />
+                                                    <Typography
+                                                        sx={{
+                                                            fontSize: '14px',
+                                                            lineHeight: '20px',
+                                                            fontWeight: 700,
+                                                            color: '#2c2c2c',
+                                                            paddingLeft: '15px',
+                                                            paddingTop: '20px'
+                                                        }}> {item.title}</Typography>
+                                                </Grid>
+                                                <Grid item xl={4} lg={4} md={4} sm={4} xs={4} sx={{ textAlign: 'center' }}>
+                                                    <Typography
+                                                        sx={{
+                                                            fontSize: '14px',
+                                                            color: '#2c2c2c',
+                                                            marginTop: '28px'
+                                                        }}
+                                                    >
+                                                        {item.price}
+                                                    </Typography>
+                                                </Grid>
+                                                <Grid item xl={2} lg={2} md={2} sm={6} xs={6}>
+                                                    <Button
+                                                        variant="contained"
+                                                        sx={{
+                                                            backgroundColor: '#004bbe',
+                                                            color: '#ffffff',
+                                                            fontSize: '10px',
+                                                            fontWeight: 400,
+                                                            marginTop: '23px',
+                                                            padding: '4px 35px'
+                                                        }}
+                                                        disabled={!(item.is_visible)}
+                                                    >
+                                                        {item.is_visible ? 'Etkin' : 'Devre dışı'}
+                                                    </Button>
+                                                </Grid>
                                         </Grid>
-                                    </Grid>
-                                    <Grid item xl={6} md={6} sm={12} xs={12} sx={{ paddingTop: {sm : '0 !important', xs: '0 !important' }}}>
-                                        <Grid container>
-                                            <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ textAlign : { xl: 'center', lg :'center', md: 'center' ,xs: 'start', sm: 'start' } }}>
-                                                <Typography
-                                                    sx={{
-                                                        fontSize: '14px',
-                                                        lineHeight: 1.5,
-                                                        color: '#2c2c2c',
-                                                        marginTop: '28px'
-                                                    }}
-                                                >
-                                                    {item.is_visible ? 'Bu ilan şuanda yayında' : 'Bu ilan yayında değil'}
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ textAlign: 'right' }}>
-                                                <IconButton
-                                                    aria-label="more"
-                                                    id="long-button"
-                                                    aria-controls={open ? 'long-menu' : undefined}
-                                                    aria-expanded={open ? 'true' : undefined}
-                                                    aria-haspopup="true"
-                                                    onClick={handleClick}
-                                                >
-                                                    <MoreHorizIcon />
-                                                </IconButton>
-                                                <Menu
-                                                    id="long-button"
-                                                    aria-labelledby="more"
-                                                    anchorEl={anchorEl}
-                                                    open={open}
-                                                    onClose={handleClose}
-                                                    anchorOrigin={{
-                                                        vertical: 'top',
-                                                        horizontal: 'left',
-                                                    }}
-                                                    transformOrigin={{
-                                                        vertical: 'top',
-                                                        horizontal: 'left',
-                                                    }}
-                                                >
-                                                    <MenuItem onClick={handleClose}>Düzenle</MenuItem>
-                                                    <MenuItem onClick={handleClose}>Devre dışı bırak</MenuItem>
-                                                    <MenuItem onClick={handleClose}>İlanı kaldır</MenuItem>
-                                                </Menu>
-                                            </Grid>
+                                    </Link>
+                                </Grid>
+                                <Grid item xl={6} md={6} sm={12} xs={12} sx={{ paddingTop: { xl: '24px', lg: '24px', md: '24px', sm: '0', xs: '0' } }}>
+                                    <Grid container>
+                                        <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ textAlign: { xl: 'center', lg: 'center', md: 'center', xs: 'start', sm: 'start' } }}>
+                                            <Typography
+                                                sx={{
+                                                    fontSize: '14px',
+                                                    lineHeight: 1.5,
+                                                    color: '#2c2c2c',
+                                                    marginTop: '28px'
+                                                }}
+                                            >
+                                                {item.is_visible ? 'Bu ilan şuanda yayında' : 'Bu ilan yayında değil'}
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ textAlign: 'right' }}>
+                                            <IconButton
+                                                aria-label="more"
+                                                id="long-button"
+                                                aria-controls={open ? 'long-menu' : undefined}
+                                                aria-expanded={open ? 'true' : undefined}
+                                                aria-haspopup="true"
+                                                onClick={handleClick}
+                                            >
+                                                <MoreHorizIcon />
+                                            </IconButton>
+                                            <Menu
+                                                id="long-button"
+                                                aria-labelledby="more"
+                                                anchorEl={anchorEl}
+                                                open={open}
+                                                onClose={handleClose}
+                                                anchorOrigin={{
+                                                    vertical: 'top',
+                                                    horizontal: 'left',
+                                                }}
+                                                transformOrigin={{
+                                                    vertical: 'top',
+                                                    horizontal: 'left',
+                                                }}
+                                            >
+                                                <Link to={'/post/edit/' + item.id} style={{ textDecoration: 'none', color: '#2c2c2c' }}>
+                                                    <MenuItem onClick={handleClose}>Düzenle {item.id}</MenuItem>
+                                                </Link>
+                                                <MenuItem onClick={handleClose}>Devre dışı bırak</MenuItem>
+                                                <MenuItem onClick={handleClose}>İlanı kaldır</MenuItem>
+                                            </Menu>
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                            </CardContent>
-                            <CardActions sx={{ borderTop: '1px solid #e0e0e0' }}>
-                                <Grid container>
-                                    <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ display :'inline-flex' }}>
-                                        <FavoriteIcon sx={{ width : '16px', height :'16px', paddingRight : '4px', paddingTop: '4px' }} />
-                                        <Typography
-                                            sx={{
-                                                fontSize: '10px',
-                                                fontWeight: 700,
-                                                lineHeight: '15px',
-                                                paddingTop: '6px'
-                                            }}
-                                        >
-                                            Beğeniler: {item.likes}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ textAlign: 'right' }}>
-                                        <Button
-                                            variant="outlined"
-                                            sx={{
-                                                backgroundColor: '#FFFFFF',
-                                                color: '#ff3f55',
-                                                borderRadius: '50px',
-                                                border: '2px solid transparent',
-                                                outline: '#ff3f55 solid 2px',
-                                                textTransform: 'none',
-                                                fontSize: '12px',
-                                                marginRight: '20px',
-                                                padding: '2px 10px 2px 10px',
-                                                '&:hover': { backgroundColor: '#FFFFFF', border: '2px solid #ff3f55', color: '#ff3f55' },
-                                            }}
-                                            size='small'
-                                        >
-                                            Satıldı olarak işaretle
-                                        </Button>
-                                        <Button
-                                            variant="outlined"
-                                            sx={{
-                                                backgroundColor: '#FFFFFF',
-                                                color: '#ff3f55',
-                                                borderRadius: '50px',
-                                                border: '2px solid transparent',
-                                                outline: '#ff3f55 solid 2px',
-                                                textTransform: 'none',
-                                                fontSize: '12px',
-                                                padding: '2px 10px 2px 10px',
-                                                '&:hover': { backgroundColor: '#FFFFFF', border: '2px solid #ff3f55', color: '#ff3f55' },
-                                            }}
-                                            size='small'
-                                        >
-                                            Daha hızlı sat
-                                        </Button>
-                                    </Grid>
+                            </Grid>
+                        </CardContent>
+
+                        <CardActions sx={{ borderTop: '1px solid #e0e0e0' }}>
+                            <Grid container>
+                                <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ display: 'inline-flex' }}>
+                                    <FavoriteIcon sx={{ width: '16px', height: '16px', paddingRight: '4px', paddingTop: '4px' }} />
+                                    <Typography
+                                        sx={{
+                                            fontSize: '10px',
+                                            fontWeight: 700,
+                                            lineHeight: '15px',
+                                            paddingTop: '6px'
+                                        }}
+                                    >
+                                        Beğeniler: {item.likes}
+                                    </Typography>
                                 </Grid>
-                            </CardActions>
-                        </Card>
+                                <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ textAlign: 'right' }}>
+                                    <Button
+                                        variant="outlined"
+                                        sx={{
+                                            backgroundColor: '#FFFFFF',
+                                            color: '#ff3f55',
+                                            borderRadius: '50px',
+                                            border: '2px solid transparent',
+                                            outline: '#ff3f55 solid 2px',
+                                            textTransform: 'none',
+                                            fontSize: '12px',
+                                            marginRight: '20px',
+                                            padding: '2px 10px 2px 10px',
+                                            '&:hover': { backgroundColor: '#FFFFFF', border: '2px solid #ff3f55', color: '#ff3f55' },
+                                        }}
+                                        size='small'
+                                    >
+                                        Satıldı olarak işaretle
+                                    </Button>
+                                    <Button
+                                        variant="outlined"
+                                        sx={{
+                                            backgroundColor: '#FFFFFF',
+                                            color: '#ff3f55',
+                                            borderRadius: '50px',
+                                            border: '2px solid transparent',
+                                            outline: '#ff3f55 solid 2px',
+                                            textTransform: 'none',
+                                            fontSize: '12px',
+                                            padding: '2px 10px 2px 10px',
+                                            '&:hover': { backgroundColor: '#FFFFFF', border: '2px solid #ff3f55', color: '#ff3f55' },
+                                        }}
+                                        size='small'
+                                    >
+                                        Daha hızlı sat
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </CardActions>
+                    </Card>
+                        
                     </Grid>
                 ))}
-            </Grid>
-        </Container>
+        </Grid>
+        </Container >
     )
 }
 
