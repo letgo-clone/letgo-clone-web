@@ -20,6 +20,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link } from 'react-router-dom'
 import { Request } from '../../helpers/Request';
 import slugify from 'react-slugify';
+import Swal from 'sweetalert2';
 
 function MyAdsView() {
     const [myAds, setMyAds] = useState({});
@@ -32,6 +33,46 @@ function MyAdsView() {
         }
         getData();
     }, []);
+
+    const handleVisibleChange = async(advertId: number, advertValue: string) => {
+        const { value } = await Swal.fire({
+            title: advertValue ? 'İlanı yayından kaldırma' : 'İlanı yayına alma',
+            text: "Bu işlemi yapmak istediğinizden emin misiniz ?",
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'Vazgeç',
+            confirmButtonText: advertValue ? 'İlanı yayından kaldır' : 'İlanı tekrardan yayın al',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33'
+        });
+
+        if(value) {
+            const formdata: FormData = new FormData();
+            formdata.append("op", 'replace');
+            formdata.append("path", 'has_advert_visible');
+            formdata.append("value", !advertValue);
+            const url = '/advert/list/' + advertId;
+
+            const response = await Request('PATCH', url, formdata);
+
+            if(response.success){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'İşlem Başarılı',
+                    html: advertValue ? 'İlan yayından kaldırıldı' : 'İlan tekrar yayına alındı',
+                    confirmButtonText: 'Tamam'
+                });
+                setMyAds(prevObjects => {
+                    return prevObjects.map(obj => {
+                      if (obj.id === advertId) {
+                        return { ...obj, is_visible: advertValue ? false : true  }
+                      }
+                      return obj;
+                    })
+                })
+            }
+        }
+    } 
 
     return (
         <Container>
@@ -151,7 +192,7 @@ function MyAdsView() {
                                                 </Typography>
                                             </Grid>
                                             <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ textAlign: 'right' }}>
-                                                <IconButton aria-label="visible">
+                                                <IconButton aria-label="visible" onClick={() => handleVisibleChange(item.id, item.is_visible)}>
                                                     <VisibilityOffIcon />
                                                 </IconButton>
                                                 <IconButton aria-label="edit" href={`/post/edit/${item.id}`}>
