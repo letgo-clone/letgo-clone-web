@@ -60,20 +60,6 @@ function Attributes() {
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
-    const brands = [
-        {
-            value: 'honda',
-            label: 'Honda',
-        },
-        {
-            value: 'mercedes',
-            label: 'Mercedes-Benz',
-        },
-        {
-            value: 'bmw',
-            label: 'BMW',
-        }
-    ];
 
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
@@ -84,11 +70,10 @@ function Attributes() {
         initialValues: {
             title: '',
             description: '',
-            year: '',
-            brands: '',
             price: '',
             city_id: '',
             county_id: '',
+            how_status: '',
             fullname : loginData.fullname,
             photo: []
         },
@@ -99,16 +84,7 @@ function Attributes() {
             const city_id = values.city_id;
             const county_id = values.county_id;
             const fullname = values.fullname;
-            const parameters = [
-                {
-                    "key_name": 'Yıl',
-                    "value_name": values.year
-                },
-                {
-                    "key_name": 'Marka',
-                    "value_name": values.brands
-                }
-            ]
+            const howStatus = values.how_status
 
             const formdata: FormData = new FormData();
             formdata.append("title", title);
@@ -119,7 +95,7 @@ function Attributes() {
                 formdata.append('photo', file);
             });
 
-            formdata.append("parameters", JSON.stringify(parameters));
+            formdata.append("how_status", howStatus);
             formdata.append("price", price);
             formdata.append("city_id", city_id);
             formdata.append("county_id", county_id);
@@ -240,36 +216,23 @@ function Attributes() {
                                     />
                                 </Grid>
                                 <Grid item lg={6} md={6} sm={12} xs={12}>
-                                    <InputLabel shrink htmlFor="year">
-                                        Yıl
-                                    </InputLabel>
-                                    <TextField
-                                        fullWidth
-                                        size='small'
-                                        id="year"
-                                        name="year"
-                                        value={formik.values.year}
-                                        onChange={formik.handleChange}
-                                    />
-                                </Grid>
-                                <Grid item lg={6} md={6} sm={12} xs={12}>
-                                    <InputLabel shrink htmlFor="year">
-                                        Marka
+                                    <InputLabel shrink htmlFor="how_status">
+                                        Durum
                                     </InputLabel>
                                     <TextField
                                         id="outlined-select-currency"
                                         fullWidth
                                         select
                                         size="small"
-                                        name="brands"
-                                        value={formik.values.brands}
+                                        name="how_status"
+                                        value={formik.values.how_status}
                                         onChange={formik.handleChange}
                                     >
-                                        {brands.map((option) => (
-                                            <MenuItem key={option.value} value={option.value}>
-                                                {option.label}
-                                            </MenuItem>
-                                        ))}
+                                       <MenuItem value="Yeni">Yeni</MenuItem>
+                                       <MenuItem value="Yeni gibi">Yeni gibi</MenuItem>
+                                       <MenuItem value="İyi">İyi</MenuItem>
+                                       <MenuItem value="Makul">Makul</MenuItem>
+                                       <MenuItem value="Yıpranmış">Yıpranmış</MenuItem>
                                     </TextField>
                                 </Grid>
                             </Grid>
