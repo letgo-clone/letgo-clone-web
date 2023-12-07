@@ -228,6 +228,7 @@ const LoginModal = () => {
                                                 size='small'
                                                 id="password"
                                                 name="password"
+                                                type='password'
                                                 placeholder='Şifreni Gir'
                                                 sx={{
                                                     border: '1px solid #2c2c2c',
@@ -239,8 +240,6 @@ const LoginModal = () => {
                                         </Grid>
                                     </>
                                 )}
-
-
 
                                 <Grid item lg={12} md={12} sm={12} xs={12} sx={{ marginBottom: '20px', display: 'grid' }}>
                                     <Button
