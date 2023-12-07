@@ -96,14 +96,13 @@ export const AdCard = ({ data, grid }: AdvertProps) => {
                                     ): (
                                         <FavoriteBorderIcon sx={{ color:'red' }} />
                                     )}
-                                   
                                 </IconButton>
                             </div>
                             <Link to={`/item/${slugify(item.title)}?id=${item.id}`} style={{ textDecoration: 'none' }}>
                                 <CardMedia
                                     component="img"
                                     className={styles.cardMedia}
-                                    image={item.images[0].url}
+                                    image={item.photo}
                                 />
                                 {(item.display_type == 'hot' && item.user_type !== 'OTOPLUS') && (
                                     <div className={styles.cardActionLeft} >
