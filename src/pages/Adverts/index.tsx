@@ -57,12 +57,8 @@ const AdvertDetail = () => {
                                         Detaylar
                                     </Typography>
                                     <Grid container>
-                                         {advertDetail && advertDetail.parameters.map((item) => (
-                                            <>
-                                                <Grid lg={3} md={3} sm={3} xs={3}>{item.key_name}</Grid>
-                                                <Grid lg={3} md={3} sm={3} xs={3}>{item.value_name}</Grid>
-                                            </>
-                                        ))} 
+                                            <Grid lg={3} md={3} sm={3} xs={3}>Durum</Grid>
+                                            <Grid lg={3} md={3} sm={3} xs={3}>{advertDetail.how_status}</Grid>
                                     </Grid>
                                 </Grid>
                                 <Grid item lg={12} md={12} sm={12} xs={12} sx={{ padding: '20px' }}>
