@@ -43,7 +43,7 @@ function MyAdsView() {
             cancelButtonText: 'Vazgeç',
             confirmButtonText: advertValue ? 'İlanı yayından kaldır' : 'İlanı tekrardan yayın al',
             confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33'
+            cancelButtonColor: '#ff3f55'
         });
 
         if(value) {
@@ -70,6 +70,40 @@ function MyAdsView() {
                       return obj;
                     })
                 })
+            }
+        }
+    } 
+
+    const handleDeleteAdvert = async(advertId: number) => {
+        const { value } = await Swal.fire({
+            title: 'İlanı sattın mı ?',
+            text: "Bu işlemi yapmak istediğinizden emin misiniz ?",
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'Vazgeç',
+            confirmButtonText: 'İlanı sattım',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#ff3f55'
+        });
+
+        if(value) {
+            const formdata: FormData = new FormData();
+            formdata.append("op", 'remove');
+            formdata.append("path", 'has_advert_remove');
+            formdata.append("value", true);
+            const url = '/advert/list/' + advertId;
+
+            const response = await Request('PATCH', url, formdata);
+
+            if(response.success){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'İşlem Başarılı',
+                    html: 'İlan yayından kaldırıldı',
+                    confirmButtonText: 'Tamam'
+                });
+                const newList = myAds.filter((veri) => veri.id !== advertId);
+                setMyAds(newList);
             }
         }
     } 
@@ -198,7 +232,7 @@ function MyAdsView() {
                                                 <IconButton aria-label="edit" href={`/post/edit/${item.id}`}>
                                                     <EditIcon />
                                                 </IconButton>
-                                                <IconButton aria-label="delete">
+                                                <IconButton aria-label="delete" onClick={() => handleDeleteAdvert(item.id)}>
                                                     <DeleteIcon />
                                                 </IconButton>
                                             </Grid>
