@@ -45,7 +45,7 @@ const AdvertDetail = () => {
                             }}>
                                 <Grid item lg={12} md={12} sm={12} xs={12}>
                                     <Carousel showArrows={true} autoPlay={true} verticalSwipe={'natural'} dynamicHeight={true}>
-                                         {advertDetail && advertDetail.images.map((item, key) => (
+                                         {advertDetail && advertDetail.photo.map((item, key) => (
                                             <div style={{ backgroundColor: 'red' }}>
                                                 <img src={item.url} width={item.width} />
                                             </div>
