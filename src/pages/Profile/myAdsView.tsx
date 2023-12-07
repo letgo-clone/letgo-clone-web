@@ -8,13 +8,13 @@ import {
     Card,
     CardContent,
     CardActions,
-    Menu,
-    MenuItem,
-    IconButton,
+    IconButton
 }
     from '@mui/material'
 
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import { Link } from 'react-router-dom'
@@ -32,15 +32,6 @@ function MyAdsView() {
         }
         getData();
     }, []);
-
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
 
     return (
         <Container>
@@ -93,8 +84,8 @@ function MyAdsView() {
                             <CardContent>
                                 <Grid container spacing={3}>
                                     <Grid item xl={6} md={6} sm={12} xs={12}>
-                                    <Link  to={`/item/${slugify(item.title)}?id=${item.id}`} style={{ textDecoration :'none' }}>
-                                        <Grid container>
+                                        <Link to={`/item/${slugify(item.title)}?id=${item.id}`} style={{ textDecoration: 'none' }}>
+                                            <Grid container>
                                                 <Grid item xl={6} lg={6} md={6} sm={6} xs={6} sx={{ display: 'inline-flex' }}>
                                                     <img
                                                         src={item.images[0].url}
@@ -142,120 +133,98 @@ function MyAdsView() {
                                                         {item.is_visible ? 'Etkin' : 'Devre dışı'}
                                                     </Button>
                                                 </Grid>
-                                        </Grid>
-                                    </Link>
-                                </Grid>
-                                <Grid item xl={6} md={6} sm={12} xs={12} sx={{ paddingTop: { xl: '24px', lg: '24px', md: '24px', sm: '0', xs: '0' } }}>
-                                    <Grid container>
-                                        <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ textAlign: { xl: 'center', lg: 'center', md: 'center', xs: 'start', sm: 'start' } }}>
-                                            <Typography
-                                                sx={{
-                                                    fontSize: '14px',
-                                                    lineHeight: 1.5,
-                                                    color: '#2c2c2c',
-                                                    marginTop: '28px'
-                                                }}
-                                            >
-                                                {item.is_visible ? 'Bu ilan şuanda yayında' : 'Bu ilan yayında değil'}
-                                            </Typography>
-                                        </Grid>
-                                        <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ textAlign: 'right' }}>
-                                            <IconButton
-                                                aria-label="more"
-                                                id="long-button"
-                                                aria-controls={open ? 'long-menu' : undefined}
-                                                aria-expanded={open ? 'true' : undefined}
-                                                aria-haspopup="true"
-                                                onClick={handleClick}
-                                            >
-                                                <MoreHorizIcon />
-                                            </IconButton>
-                                            <Menu
-                                                id="long-button"
-                                                aria-labelledby="more"
-                                                anchorEl={anchorEl}
-                                                open={open}
-                                                onClose={handleClose}
-                                                anchorOrigin={{
-                                                    vertical: 'top',
-                                                    horizontal: 'left',
-                                                }}
-                                                transformOrigin={{
-                                                    vertical: 'top',
-                                                    horizontal: 'left',
-                                                }}
-                                            >
-                                                <Link to={'/post/edit/' + item.id} style={{ textDecoration: 'none', color: '#2c2c2c' }}>
-                                                    <MenuItem onClick={handleClose}>Düzenle {item.id}</MenuItem>
-                                                </Link>
-                                                <MenuItem onClick={handleClose}>Devre dışı bırak</MenuItem>
-                                                <MenuItem onClick={handleClose}>İlanı kaldır</MenuItem>
-                                            </Menu>
+                                            </Grid>
+                                        </Link>
+                                    </Grid>
+                                    <Grid item xl={6} md={6} sm={12} xs={12} sx={{ paddingTop: { xl: '24px', lg: '24px', md: '24px', sm: '0', xs: '0' } }}>
+                                        <Grid container>
+                                            <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ textAlign: { xl: 'center', lg: 'center', md: 'center', xs: 'start', sm: 'start' } }}>
+                                                <Typography
+                                                    sx={{
+                                                        fontSize: '14px',
+                                                        lineHeight: 1.5,
+                                                        color: '#2c2c2c',
+                                                        marginTop: '28px'
+                                                    }}
+                                                >
+                                                    {item.is_visible ? 'Bu ilan şuanda yayında' : 'Bu ilan yayında değil'}
+                                                </Typography>
+                                            </Grid>
+                                            <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ textAlign: 'right' }}>
+                                                <IconButton aria-label="visible">
+                                                    <VisibilityOffIcon />
+                                                </IconButton>
+                                                <IconButton aria-label="edit" href={`/post/edit/${item.id}`}>
+                                                    <EditIcon />
+                                                </IconButton>
+                                                <IconButton aria-label="delete">
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                            </Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>
-                            </Grid>
-                        </CardContent>
+                            </CardContent>
 
-                        <CardActions sx={{ borderTop: '1px solid #e0e0e0' }}>
-                            <Grid container>
-                                <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ display: 'inline-flex' }}>
-                                    <FavoriteIcon sx={{ width: '16px', height: '16px', paddingRight: '4px', paddingTop: '4px' }} />
-                                    <Typography
-                                        sx={{
-                                            fontSize: '10px',
-                                            fontWeight: 700,
-                                            lineHeight: '15px',
-                                            paddingTop: '6px'
-                                        }}
-                                    >
-                                        Beğeniler: {item.likes}
-                                    </Typography>
+                            <CardActions sx={{ borderTop: '1px solid #e0e0e0' }}>
+                                <Grid container>
+                                    <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ display: 'inline-flex' }}>
+                                        <FavoriteIcon sx={{ width: '16px', height: '16px', paddingRight: '4px', paddingTop: '4px' }} />
+                                        <Typography
+                                            sx={{
+                                                fontSize: '10px',
+                                                fontWeight: 700,
+                                                lineHeight: '15px',
+                                                paddingTop: '6px'
+                                            }}
+                                        >
+                                            Beğeniler: {item.likes}
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ textAlign: 'right' }}>
+                                        <Button
+                                            variant="outlined"
+                                            sx={{
+                                                backgroundColor: '#FFFFFF',
+                                                color: '#ff3f55',
+                                                borderRadius: '50px',
+                                                border: '2px solid transparent',
+                                                outline: '#ff3f55 solid 2px',
+                                                textTransform: 'none',
+                                                fontSize: '12px',
+                                                marginRight: '20px',
+                                                padding: '2px 10px 2px 10px',
+                                                '&:hover': { backgroundColor: '#FFFFFF', border: '2px solid #ff3f55', color: '#ff3f55' },
+                                            }}
+                                            size='small'
+                                        >
+                                            Satıldı olarak işaretle
+                                        </Button>
+                                        <Button
+                                            variant="outlined"
+                                            sx={{
+                                                backgroundColor: '#FFFFFF',
+                                                color: '#ff3f55',
+                                                borderRadius: '50px',
+                                                border: '2px solid transparent',
+                                                outline: '#ff3f55 solid 2px',
+                                                textTransform: 'none',
+                                                fontSize: '12px',
+                                                padding: '2px 10px 2px 10px',
+                                                '&:hover': { backgroundColor: '#FFFFFF', border: '2px solid #ff3f55', color: '#ff3f55' },
+                                            }}
+                                            size='small'
+                                        >
+                                            Daha hızlı sat
+                                        </Button>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ textAlign: 'right' }}>
-                                    <Button
-                                        variant="outlined"
-                                        sx={{
-                                            backgroundColor: '#FFFFFF',
-                                            color: '#ff3f55',
-                                            borderRadius: '50px',
-                                            border: '2px solid transparent',
-                                            outline: '#ff3f55 solid 2px',
-                                            textTransform: 'none',
-                                            fontSize: '12px',
-                                            marginRight: '20px',
-                                            padding: '2px 10px 2px 10px',
-                                            '&:hover': { backgroundColor: '#FFFFFF', border: '2px solid #ff3f55', color: '#ff3f55' },
-                                        }}
-                                        size='small'
-                                    >
-                                        Satıldı olarak işaretle
-                                    </Button>
-                                    <Button
-                                        variant="outlined"
-                                        sx={{
-                                            backgroundColor: '#FFFFFF',
-                                            color: '#ff3f55',
-                                            borderRadius: '50px',
-                                            border: '2px solid transparent',
-                                            outline: '#ff3f55 solid 2px',
-                                            textTransform: 'none',
-                                            fontSize: '12px',
-                                            padding: '2px 10px 2px 10px',
-                                            '&:hover': { backgroundColor: '#FFFFFF', border: '2px solid #ff3f55', color: '#ff3f55' },
-                                        }}
-                                        size='small'
-                                    >
-                                        Daha hızlı sat
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                        </CardActions>
-                    </Card>
-                        
+                            </CardActions>
+                        </Card>
+
                     </Grid>
                 ))}
-        </Grid>
+            </Grid>
         </Container >
     )
 }
