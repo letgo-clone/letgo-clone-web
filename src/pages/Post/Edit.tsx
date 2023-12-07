@@ -80,10 +80,11 @@ function AdvertEdit() {
             price: (advertDetail && advertDetail.price) || '',
             city_id: (advertDetail && advertDetail.city_id) || '',
             county_id: (advertDetail && advertDetail.county_id) || '',
+            how_status : (advertDetail && advertDetail.how_status) || '',
             photo: []
         },
         onSubmit: async (values) => {
-            const {title, description, price, city_id, county_id} = values;
+            const {title, description, price, city_id, county_id, how_status} = values;
 
             const formdata: FormData = new FormData();
             formdata.append("title", title);
@@ -91,6 +92,7 @@ function AdvertEdit() {
             formdata.append("price", price);
             formdata.append("city_id", city_id);
             formdata.append("county_id", county_id);
+            formdata.append("how_status", how_status);
 
             const url = "/advert/actual/" + advertId;
             const response = await Request('PUT', url, formdata);
@@ -165,6 +167,26 @@ function AdvertEdit() {
                                 BİRAZ BİLGİ EKLE
                             </Typography>
                             <Grid container spacing={3} sx={{ display: 'inline-block', borderBottom: '1px solid #e0e0e0', paddingBottom: '25px' }}>
+                                <Grid item lg={6} md={6} sm={12} xs={12}>
+                                    <InputLabel shrink htmlFor="how_status">
+                                        Durum
+                                    </InputLabel>
+                                    <TextField
+                                        id="outlined-select-currency"
+                                        fullWidth
+                                        select
+                                        size="small"
+                                        name="how_status"
+                                        value={formik.values.how_status}
+                                        onChange={formik.handleChange}
+                                    >
+                                       <MenuItem value="Yeni">Yeni</MenuItem>
+                                       <MenuItem value="Yeni gibi">Yeni gibi</MenuItem>
+                                       <MenuItem value="İyi">İyi</MenuItem>
+                                       <MenuItem value="Makul">Makul</MenuItem>
+                                       <MenuItem value="Yıpranmış">Yıpranmış</MenuItem>
+                                    </TextField>
+                                </Grid>
                                 <Grid item lg={6} md={6} sm={12} xs={12}>
                                     <InputLabel shrink htmlFor="year">
                                         İlan Başlığı
