@@ -146,13 +146,14 @@ function AdvertEdit() {
                 <Typography sx={{ fontSize: '16px', fontWeight: 700, lineHeight: 1.5, margin: '25px 15px 15px 25px' }}>
                     SEÇİLEN KATEGORİ
                 </Typography>
-                <Grid container>
-                    {advertDetail.length !== 0 && (
-                    <form
+                <form
                         method='POST'
                         onSubmit={formik.handleSubmit}
                         encType='multipart/form-data'
                     >
+                <Grid container>
+                    {advertDetail.length !== 0 && (
+                        <>
                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12} sx={{ marginLeft: '25px', paddingBottom: '25px', display: 'inline-flex', borderBottom: '1px solid #e0e0e0' }}>
                             <Breadcrumbs aria-label="breadcrumb">
                                 <Link underline="hover" color="inherit" href="/">
@@ -240,9 +241,6 @@ function AdvertEdit() {
                                             </InputAdornment>
                                         }}
                                     />
-                                </Grid>
-                                <Grid item lg={6} md={6} sm={12} xs={12}>
-                                    <Alert sx={{ backgroundColor: '#f8f9fa', color: '#2c2c2c' }} severity="info">Ticaret Bakanlığı’nın 06.07.2023 tarihli yönetmeliği uyarınca ikinci el arabalar, sıfır araba fiyatından daha yüksek bir fiyata satılamaz.</Alert>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -368,9 +366,10 @@ function AdvertEdit() {
                             </Grid>
 
                         </Grid>
-                    </form>
+                        </>
                     )}
                 </Grid>
+                </form>
             </Grid>
         </Container>
     )
