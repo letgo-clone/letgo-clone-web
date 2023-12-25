@@ -16,6 +16,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 
 import { Link } from 'react-router-dom'
 import { Request } from '../../helpers/Request';
@@ -147,7 +148,6 @@ function MyAdsView() {
                 </Grid>
                 {myAds.length > 0 && myAds.map((item, key) => (
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12} key={key}>
-
                         <Card
                             sx={{
                                 minWidth: 275,
@@ -155,22 +155,33 @@ function MyAdsView() {
                                 borderLeft: '4px solid #004bbe'
                             }}
                         >
-
                             <CardContent>
                                 <Grid container spacing={3}>
                                     <Grid item xl={6} md={6} sm={12} xs={12}>
                                         <Link to={`/item/${slugify(item.title)}?id=${item.id}`} style={{ textDecoration: 'none' }}>
                                             <Grid container>
                                                 <Grid item xl={6} lg={6} md={6} sm={6} xs={6} sx={{ display: 'inline-flex' }}>
-                                                    <img
-                                                        src={item.images[0].url}
-                                                        style={{
-                                                            objectFit: 'cover',
-                                                            display: 'block'
-                                                        }}
-                                                        width={60}
-                                                        height={60}
-                                                    />
+                                                    {item.images?.url ? (
+                                                        <img
+                                                            src={item.images[0].url}
+                                                            style={{
+                                                                objectFit: 'cover',
+                                                                display: 'block'
+                                                            }}
+                                                            width={60}
+                                                            height={60}
+                                                         />
+                                                    ): (
+                                                        <Box 
+                                                            sx={{
+                                                                backgroundColor: '#c8c0c0',
+                                                                padding: '15px'
+                                                            }}
+                                                        >
+                                                            <InsertPhotoIcon sx={{ color: 'black' }} />
+                                                        </Box>
+                                                    )}
+                                                   
                                                     <Typography
                                                         sx={{
                                                             fontSize: '14px',
@@ -240,7 +251,6 @@ function MyAdsView() {
                                     </Grid>
                                 </Grid>
                             </CardContent>
-
                             <CardActions sx={{ borderTop: '1px solid #e0e0e0' }}>
                                 <Grid container>
                                     <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ display: 'inline-flex' }}>
