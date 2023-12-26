@@ -161,9 +161,9 @@ function MyAdsView() {
                                         <Link to={`/item/${slugify(item.title)}?id=${item.id}`} style={{ textDecoration: 'none' }}>
                                             <Grid container>
                                                 <Grid item xl={6} lg={6} md={6} sm={6} xs={6} sx={{ display: 'inline-flex' }}>
-                                                    {item.images?.url ? (
+                                                    {item?.is_cover_image ? (
                                                         <img
-                                                            src={item.images[0].url}
+                                                            src={item.is_cover_image}
                                                             style={{
                                                                 objectFit: 'cover',
                                                                 display: 'block'
@@ -175,7 +175,7 @@ function MyAdsView() {
                                                         <Box 
                                                             sx={{
                                                                 backgroundColor: '#c8c0c0',
-                                                                padding: '15px'
+                                                                padding: '18px'
                                                             }}
                                                         >
                                                             <InsertPhotoIcon sx={{ color: 'black' }} />
