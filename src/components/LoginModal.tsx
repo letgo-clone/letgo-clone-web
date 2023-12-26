@@ -180,7 +180,7 @@ const LoginModal = () => {
                             <ArrowBackIcon sx={{ fontSize: '1.5rem' }} />
                         </IconButton>
                     </DialogTitle>
-                    <DialogContent sx={{ marginBottom: '20%' }}>
+                    <DialogContent sx={{ marginBottom: '20%', overflowY: 'visible' }}>
                         <form
                             method='POST'
                             onSubmit={formik.handleSubmit}
