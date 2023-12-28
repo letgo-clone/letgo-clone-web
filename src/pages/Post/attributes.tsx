@@ -82,61 +82,68 @@ function Attributes() {
             photo: []
         },
         onSubmit: async (values) => {
-            const title = values.title;
-            const description = values.description;
-            const price = values.price;
-            const city_id = values.city_id;
-            const county_id = values.county_id;
-            const fullname = values.fullname;
-            const howStatus = values.how_status;
+            const {title, description, price, city_id, county_id, fullname, how_status} = values;
 
-            const formdata: FormData = new FormData();
-            formdata.append("title", title);
-            formdata.append("description", description);
-
-            images.forEach((file, index) => {
-                formdata.append('photo', file);
-            });
-
-            formdata.append("how_status", howStatus);
-            formdata.append("price", price);
-            formdata.append("city_id", city_id);
-            formdata.append("county_id", county_id);
-            const url = "/advert/actual";
-
-            const response = await Request('POST', url, formdata);
-
-            if (response.success) {
-                Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: "İşlem tamamlanıyor.",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                if (loginData.fullname != fullname) {
-                    const formdata: FormData = new FormData();
-                    formdata.append("fullname", fullname);
-
-                    const url = '/account/session/user';
-                    await Request('PUT', url, formdata);
-
-                    const newLoginData = {
-                        fullname: fullname,
-                    }
-                    dispatch(setLoginData(newLoginData));
-                }
-                navigate('/');
-            }
-            else {
+            if(title == '' || description == '' || price == '' || county_id == '' || fullname == '' || how_status == '' || images.length == 0){
                 Swal.fire({
                     position: "center",
                     icon: "error",
-                    title: "Bi hata oluştu",
+                    title: "Gerekli alanları doldurmanız gerekiyor.",
                     showConfirmButton: false,
                     timer: 1500
                 });
-            } 
+            }
+            else{
+                const formdata: FormData = new FormData();
+                formdata.append("title", title);
+                formdata.append("description", description);
+    
+                images.forEach((file, index) => {
+                    formdata.append('photo', file);
+                });
+    
+                formdata.append("how_status", how_status);
+                formdata.append("price", price);
+                formdata.append("city_id", city_id);
+                formdata.append("county_id", county_id);
+                const url = "/advert/actual";
+    
+                const response = await Request('POST', url, formdata);
+    
+                if (response.success) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "İşlem tamamlanıyor.",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    if (loginData.fullname != fullname) {
+                        const formdata: FormData = new FormData();
+                        formdata.append("fullname", fullname);
+    
+                        const url = '/account/session/user';
+                        await Request('PUT', url, formdata);
+    
+                        const newLoginData = {
+                            fullname: fullname,
+                        }
+                        dispatch(setLoginData(newLoginData));
+                    }
+                    navigate('/');
+                }
+                else {
+                    Swal.fire({
+                        position: "center",
+                        icon: "error",
+                        title: "Bi hata oluştu",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                } 
+
+            }
+         
         }
     })
 
@@ -221,6 +228,8 @@ function Attributes() {
                                         name="how_status"
                                         value={formik.values.how_status}
                                         onChange={formik.handleChange}
+                                        error={Boolean(formik.values.how_status == '' && formik.touched.how_status )}
+                                        helperText={formik.values.how_status == '' && formik.touched.how_status && 'Durumu belirtmeniz gerekiyor'}
                                     >
                                         <MenuItem value="Yeni">Yeni</MenuItem>
                                         <MenuItem value="Yeni gibi">Yeni gibi</MenuItem>
@@ -240,6 +249,8 @@ function Attributes() {
                                         name="title"
                                         value={formik.values.title}
                                         onChange={formik.handleChange}
+                                        error={Boolean(formik.values.title == '' && formik.touched.title)}
+                                        helperText={formik.values.title == '' && formik.touched.title && 'En az 1 karakter olması gerekir. Lütfen alanı düzenle.'}
                                     />
                                 </Grid>
                                 <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -255,7 +266,8 @@ function Attributes() {
                                         name="description"
                                         value={formik.values.description}
                                         onChange={formik.handleChange}
-                                        helperText="Durum, özellik ve satma nedeni gibi bilgileri ekle"
+                                        error={Boolean(formik.values.description == '' && formik.touched.description)}
+                                        helperText={formik.values.description == '' && formik.touched.description ? 'En az 10 karakter olması gerekir. Lütfen alanı düzenle.' : 'Durum, özellik ve satma nedeni gibi bilgileri ekle'}
                                     />
                                 </Grid>
                             </Grid>
@@ -281,6 +293,8 @@ function Attributes() {
                                                 <Typography sx={{ borderRight: '1px solid #e0e0e0', paddingRight: '10px', fontSize: '12px' }}>TL</Typography>
                                             </InputAdornment>
                                         }}
+                                        error={Boolean(formik.values.price == '' && formik.touched.price)}
+                                        helperText={formik.values.price == '' && formik.touched.price && 'Bu alan zorunludur'}
                                     />
                                 </Grid>
                             </Grid>
@@ -289,7 +303,7 @@ function Attributes() {
                             <Typography sx={{ fontSize: '16px', fontWeight: 700, lineHeight: 1.5, margin: '25px 15px 15px 0px' }}>
                                 21 ADEDE KADAR FOTOĞRAF YÜKLEYEBİLİRSİN
                             </Typography>
-                            <Grid container sx={{ borderBottom: '1px solid #e0e0e0', paddingTop: '25px', paddingBottom: '25px', marginTop: '10px', marginLeft: '10px' }}>
+                            <Grid container sx={{ display: 'inline-block', borderBottom: '1px solid #e0e0e0', paddingTop: '25px', paddingBottom: '25px', marginTop: '10px', marginLeft: '10px' }}>
                                 <input
                                     multiple
                                     type="file"
@@ -301,6 +315,9 @@ function Attributes() {
                                             handlePhoto(event)
                                         }}
                                 />
+                                {images.length < 1 &&
+                                     <Typography sx={{ color : '#ff3f55', fontSize: '12px', marginTop: '30px' }}>Bu alan zorunludur</Typography>
+                                }
                             </Grid>
                             <Grid container sx={{marginTop: '25px', marginBottom: '25px' }}>
                             {images.length > 0 && images.map((item, key) => (
@@ -346,7 +363,6 @@ function Attributes() {
                             ))}
                             </Grid>
                         </Grid>
-                       
                         <Grid item xl={12} lg={12} sm={12} xs={12} sx={{ marginLeft: '25px', marginRight: '25px' }}>
                             <Typography sx={{ fontSize: '16px', fontWeight: 700, lineHeight: 1.5, margin: '25px 15px 15px 0px' }}>
                                 KONUMUNU ONAYLA
@@ -380,6 +396,8 @@ function Attributes() {
                                                 name="city_id"
                                                 value={formik.values.city_id}
                                                 onChange={formik.handleChange}
+                                                error={Boolean(formik.values.city_id == '' && formik.touched.city_id)}
+                                                helperText={formik.values.city_id == '' && formik.touched.city_id  && 'Bu alan zorunludur'}
                                             >
                                                 {cities.length > 0 && cities.map((option) => (
                                                     <MenuItem key={option.id} value={option.id}>
@@ -401,6 +419,8 @@ function Attributes() {
                                                     name="county_id"
                                                     value={formik.values.county_id}
                                                     onChange={formik.handleChange}
+                                                    error={Boolean(formik.values.county_id == '' && formik.touched.county_id)}
+                                                    helperText={formik.values.county_id == '' && formik.touched.county_id && 'Bu alan zorunludur'}
                                                 >
                                                     {counties.length > 0 && counties.map((option) => (
                                                         <MenuItem key={option.id} value={option.id}>
@@ -456,6 +476,8 @@ function Attributes() {
                                         name="fullname"
                                         onChange={formik.handleChange}
                                         value={formik.values.fullname}
+                                        error={Boolean(formik.values.fullname == '')}
+                                        helperText={formik.values.fullname == '' && 'Bu alan zorunludur'}
                                     />
                                 </Grid>
                             </Grid>
