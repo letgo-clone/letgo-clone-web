@@ -95,44 +95,54 @@ function AdvertEdit() {
         onSubmit: async (values) => {
             const {title, description, price, city_id, county_id, how_status} = values;
 
-            const formdata: FormData = new FormData();
-            formdata.append("title", title);
-            formdata.append("description", description);
-            formdata.append("price", price);
-            formdata.append("city_id", city_id);
-            formdata.append("county_id", county_id);
-            formdata.append("how_status", how_status);
-            formdata.append("old_images", JSON.stringify(deletedAdvertImages));
-            formdata.append("cover_image_id", advertImages[0].image_id);
-
-            const filterNewImage = advertImages.filter(item => item instanceof File)
-            filterNewImage.forEach((file, index) => { 
-                formdata.append('photo', file);
-            });
-
-            const url = "/advert/actual/" + advertId;
-            const response = await Request('PUT', url, formdata);
-
-            if (response.success) {
-                await Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: "Güncellendi.",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                navigate('/profile/myads')
-            } 
-            else {
-                await Swal.fire({
+            if(title == '' || description == '' || price == '' || county_id == '' || how_status == '' || advertImages.length == 0){
+                Swal.fire({
                     position: "center",
                     icon: "error",
-                    title: "Bi hata oluştu",
+                    title: "Gerekli alanları doldurmanız gerekiyor.",
                     showConfirmButton: false,
                     timer: 1500
                 });
             }
-
+            else{
+                const formdata: FormData = new FormData();
+                formdata.append("title", title);
+                formdata.append("description", description);
+                formdata.append("price", price);
+                formdata.append("city_id", city_id);
+                formdata.append("county_id", county_id);
+                formdata.append("how_status", how_status);
+                formdata.append("old_images", JSON.stringify(deletedAdvertImages));
+                formdata.append("cover_image_id", advertImages[0].image_id);
+    
+                const filterNewImage = advertImages.filter(item => item instanceof File)
+                filterNewImage.forEach((file, index) => { 
+                    formdata.append('photo', file);
+                });
+    
+                const url = "/advert/actual/" + advertId;
+                const response = await Request('PUT', url, formdata);
+    
+                if (response.success) {
+                    await Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Güncellendi.",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    navigate('/profile/myads')
+                } 
+                else {
+                    await Swal.fire({
+                        position: "center",
+                        icon: "error",
+                        title: "Bi hata oluştu",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            }
         }
     })
 
@@ -223,6 +233,8 @@ function AdvertEdit() {
                                         name="how_status"
                                         value={formik.values.how_status}
                                         onChange={formik.handleChange}
+                                        error={Boolean(formik.values.how_status == '' && formik.touched.how_status )}
+                                        helperText={formik.values.how_status == '' && formik.touched.how_status && 'Durumu belirtmeniz gerekiyor'}
                                     >
                                        <MenuItem value="Yeni">Yeni</MenuItem>
                                        <MenuItem value="Yeni gibi">Yeni gibi</MenuItem>
@@ -242,6 +254,8 @@ function AdvertEdit() {
                                         name="title"
                                         value={formik.values.title}
                                         onChange={formik.handleChange}
+                                        error={Boolean(formik.values.title == '')}
+                                        helperText={formik.values.title == '' && 'En az 1 karakter olması gerekir. Lütfen alanı düzenle.'}
                                     />
                                 </Grid>
                                 <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -257,7 +271,8 @@ function AdvertEdit() {
                                         name="description"
                                         value={formik.values.description}
                                         onChange={formik.handleChange}
-                                        helperText="Durum, özellik ve satma nedeni gibi bilgileri ekle"
+                                        error={Boolean(formik.values.description == '')}
+                                        helperText={formik.values.description == '' ? 'En az 10 karakter olması gerekir. Lütfen alanı düzenle.' : 'Durum, özellik ve satma nedeni gibi bilgileri ekle'}
                                     />
                                 </Grid>
                             </Grid>
@@ -283,6 +298,8 @@ function AdvertEdit() {
                                                 <Typography sx={{ borderRight: '1px solid #e0e0e0', paddingRight: '10px', fontSize: '12px' }}>TL</Typography>
                                             </InputAdornment>
                                         }}
+                                        error={Boolean(formik.values.price == '')}
+                                        helperText={formik.values.price == '' && 'Bu alan zorunludur'}
                                     />
                                 </Grid>
                             </Grid>
@@ -291,7 +308,7 @@ function AdvertEdit() {
                             <Typography sx={{ fontSize: '16px', fontWeight: 700, lineHeight: 1.5, margin: '25px 15px 15px 0px' }}>
                                 21 ADEDE KADAR FOTOĞRAF YÜKLEYEBİLİRSİN
                             </Typography>
-                            <Grid container sx={{ borderBottom: '1px solid #e0e0e0', paddingTop: '25px', paddingBottom: '25px', marginTop: '10px', marginLeft: '10px' }}>
+                            <Grid container sx={{ display: 'inline-block', borderBottom: '1px solid #e0e0e0', paddingTop: '25px', paddingBottom: '25px', marginTop: '10px', marginLeft: '10px' }}>
                                 <input
                                     multiple
                                     type="file"
@@ -303,6 +320,9 @@ function AdvertEdit() {
                                             handlePhoto(event)
                                         }}
                                 />
+                                 {advertImages.length < 1 &&
+                                     <Typography sx={{ color : '#ff3f55', fontSize: '12px', marginTop: '30px' }}>Bu alan zorunludur</Typography>
+                                }
                             </Grid>
                             <Grid container sx={{marginTop: '25px', marginBottom: '25px' }}>
                                 {advertImages.length > 0 && advertImages.map((item, key) => (
@@ -384,6 +404,8 @@ function AdvertEdit() {
                                                 name="city_id"
                                                 value={formik.values.city_id}
                                                 onChange={formik.handleChange}
+                                                error={Boolean(formik.values.city_id == '')}
+                                                helperText={formik.values.city_id == '' && 'Bu alan zorunludur'}
                                             >
                                                 {cities.length > 0 && cities.map((option) => (
                                                     <MenuItem key={option.id} value={option.id}>
@@ -405,6 +427,8 @@ function AdvertEdit() {
                                                     name="county_id"
                                                     value={formik.values.county_id}
                                                     onChange={formik.handleChange}
+                                                    error={Boolean(formik.values.county_id == '')}
+                                                    helperText={formik.values.county_id == '' && 'Bu alan zorunludur'}
                                                 >
                                                     {counties.length > 0 && counties.map((option) => (
                                                         <MenuItem key={option.id} value={option.id}>
