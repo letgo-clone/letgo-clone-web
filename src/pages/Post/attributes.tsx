@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import {
     Container, Typography, Grid, MenuItem, InputLabel, TextField, InputAdornment, Divider,
     Alert, Tab, Tabs, Breadcrumbs, Link, Box, Table, TableCell, TableHead, TableRow, ListItem,
-    List, ListItemAvatar, Avatar, ListItemText, Button, Switch, Card, CardMedia
+    List, ListItemAvatar, Avatar, ListItemText, Button, Switch, Card, CardMedia, IconButton
 } from '@mui/material'
+
+import CancelIcon from '@mui/icons-material/Cancel';
 
 import profileImage from '../../assets/img/profile-logo.jpeg'
 import ImageOutlinedIcon from '../../assets/img/image-icon.png';
 import CallIcon from '@mui/icons-material/Call';
+import CloseIcon from '@mui/icons-material/Close';
 
 import { useFormik } from 'formik';
 import { Request, RequestPublic } from '../../helpers/Request';
@@ -65,6 +68,7 @@ function Attributes() {
 
     const [cities, setCities] = useState({});
     const [counties, setCounties] = useState({});
+    const [images, setImages] = useState<object[]>([]);
 
     const formik = useFormik({
         initialValues: {
@@ -84,14 +88,13 @@ function Attributes() {
             const city_id = values.city_id;
             const county_id = values.county_id;
             const fullname = values.fullname;
-            const howStatus = values.how_status
+            const howStatus = values.how_status;
 
             const formdata: FormData = new FormData();
             formdata.append("title", title);
             formdata.append("description", description);
-            const filesArray = Array.from(values.photo);
 
-            filesArray.forEach((file, index) => {
+            images.forEach((file, index) => {
                 formdata.append('photo', file);
             });
 
@@ -133,7 +136,7 @@ function Attributes() {
                     showConfirmButton: false,
                     timer: 1500
                 });
-            }
+            } 
         }
     })
 
@@ -155,6 +158,26 @@ function Attributes() {
         getCounties();
     }, [formik.values.city_id]);
 
+
+    const handlePhoto = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const fileList = event.target.files;
+
+        if(fileList){
+            const files: File[] = Array.from(fileList);
+
+            setImages((prevImages) => {
+                const prevArray = prevImages ? Array.from(prevImages) : [];
+                return [...prevArray, ...files];
+            });
+        }
+
+        formik.setFieldValue("photo", event.currentTarget.files);
+    }
+
+    const removeImage = (imageKey: number) => {
+        const newList = images.filter((veri, key) => key !== imageKey);
+        setImages(newList);
+    }
 
     return (
         <Container>
@@ -273,10 +296,57 @@ function Attributes() {
                                     name="photo"
                                     className="form-control"
                                     accept='image/png, image/jpeg'
-                                    onChange={(event) => formik.setFieldValue('photo', event.currentTarget.files)}
+                                    onChange={(event) => 
+                                        {
+                                            handlePhoto(event)
+                                        }}
                                 />
                             </Grid>
+                            <Grid container sx={{marginTop: '25px', marginBottom: '25px' }}>
+                            {images.length > 0 && images.map((item, key) => (
+                                <Box sx={{ position: 'relative', padding: '0px 20px 20px 0px' }}>
+                                <div className='advert-image' style={{ position: 'relative' }}>
+                                    <img 
+                                        src={URL.createObjectURL(item)}
+                                        style={{ objectFit: 'fill' }} 
+                                        width={140} 
+                                        height={140} 
+                                        alt="Advert" 
+                                    />
+                                    <div className='image-content' style={{ position: 'absolute', top: 0, right: 0, padding: '5px', display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                                        <IconButton 
+                                            aria-label="remove to advert" 
+                                            onClick={() => removeImage(key)}
+                                            sx={{ backgroundColor: '#000000', borderRadius: 3, '&:hover': {backgroundColor :'#000000'}}}
+                                        >
+                                                <CloseIcon sx={{ fontSize: '21px',color: '#ffffff' }} />
+                                        </IconButton>
+                                    </div>
+                                    {key == 0  &&
+                                        <Typography 
+                                            variant="body2" 
+                                            sx={{ 
+                                                position: 'absolute', 
+                                                bottom: '10px', 
+                                                left: '50px', 
+                                                backgroundColor: 'red',
+                                                color: 'white', 
+                                                padding: '3px',
+                                                borderRadius: '5px', 
+                                                margin: '5px',
+                                                fontSize: '12px',
+                                                fontWeight: 300
+                                            }}
+                                        >
+                                            KAPAK
+                                        </Typography>
+                                    }
+                                </div>
+                                </Box>
+                            ))}
+                            </Grid>
                         </Grid>
+                       
                         <Grid item xl={12} lg={12} sm={12} xs={12} sx={{ marginLeft: '25px', marginRight: '25px' }}>
                             <Typography sx={{ fontSize: '16px', fontWeight: 700, lineHeight: 1.5, margin: '25px 15px 15px 0px' }}>
                                 KONUMUNU ONAYLA
