@@ -2,16 +2,17 @@ import React, { useState, useEffect } from 'react'
 import {
     Container, Typography, Grid, MenuItem, InputLabel, TextField, InputAdornment, Divider,
     Alert, Tab, Tabs, Breadcrumbs, Link, Table, TableCell, TableHead, TableRow, ListItem,
-    Button, Switch, Box
+    Button, Switch, Box, IconButton, Card, CardMedia, CardContent
 } from '@mui/material'
 
 import profileImage from '../../assets/img/profile-logo.jpeg'
 import ImageOutlinedIcon from '../../assets/img/image-icon.png';
 import CallIcon from '@mui/icons-material/Call';
+import CloseIcon from '@mui/icons-material/Close';
 
 import { useFormik } from 'formik';
 import { Request, RequestPublic } from '../../helpers/Request';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 
 
@@ -48,9 +49,10 @@ function a11yProps(index: number) {
     };
 }
 
-
 function AdvertEdit() {
     const params = useParams();
+    const navigate = useNavigate();
+
     const advertId = params.advertId;
     
     const [value, setValue] = React.useState(0);
@@ -62,12 +64,19 @@ function AdvertEdit() {
     const [cities, setCities] = useState({});
     const [counties, setCounties] = useState({});
     const [advertDetail, setAdvertDetail] = useState({});
+    const [advertImages, setAdvertImages] = useState<object[]>([]);
+    const [deletedAdvertImages, setDeletedAdvertImages] = useState<object[] | object>([]);
 
     useEffect(() => {
         const getData = async() => {
             const url = '/advert/detail/' + advertId;
             const data = await Request('GET', url);
             setAdvertDetail(data);
+            
+            const sortedImages = data.images.length > 0 && data.images.sort((item, key) =>
+                item.is_cover_image === key.is_cover_image ? 0 : item.is_cover_image ? -1 : 1
+            );
+            setAdvertImages(sortedImages);
         }
         getData();
     }, []);
@@ -93,21 +102,29 @@ function AdvertEdit() {
             formdata.append("city_id", city_id);
             formdata.append("county_id", county_id);
             formdata.append("how_status", how_status);
+            formdata.append("old_images", JSON.stringify(deletedAdvertImages));
+            formdata.append("cover_image_id", advertImages[0].image_id);
+
+            const filterNewImage = advertImages.filter(item => item instanceof File)
+            filterNewImage.forEach((file, index) => { 
+                formdata.append('photo', file);
+            });
 
             const url = "/advert/actual/" + advertId;
             const response = await Request('PUT', url, formdata);
 
             if (response.success) {
-                Swal.fire({
+                await Swal.fire({
                     position: "center",
                     icon: "success",
-                    title: "İşlem tamamlanıyor.",
+                    title: "Güncellendi.",
                     showConfirmButton: false,
                     timer: 1500
                 });
+                navigate('/profile/myads')
             } 
             else {
-                Swal.fire({
+                await Swal.fire({
                     position: "center",
                     icon: "error",
                     title: "Bi hata oluştu",
@@ -137,6 +154,32 @@ function AdvertEdit() {
         getCounties();
     }, [formik.values.city_id]);
 
+    const handlePhoto = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const fileList = event.target.files;
+
+        if(fileList){
+            const files: File[] = Array.from(fileList);
+
+            setAdvertImages((prevImages) => {
+                const prevArray = prevImages ? Array.from(prevImages) : [];
+                return [...prevArray, ...files];
+            });
+        }
+
+        formik.setFieldValue("photo", event.currentTarget.files);
+    }
+
+    const removeImage = (imageId: number, imageKey: number) => {
+        const newList = advertImages.filter((item, key) => key !== imageKey);
+        setAdvertImages(newList);
+
+        if(imageId){
+            setDeletedAdvertImages((prevDeletedImages) => [
+                ...prevDeletedImages,
+                advertImages.find((item) => item.image_id == imageId),
+            ]);
+        }
+    }
     return (
         <Container>
             <Typography sx={{ fontSize: '24px', fontWeight: 700, textTransform: 'uppercase', marginTop: '25px', textAlign: 'center' }}>
@@ -255,8 +298,57 @@ function AdvertEdit() {
                                     name="photo"
                                     className="form-control"
                                     accept='image/png, image/jpeg'
-                                    onChange={(event) => formik.setFieldValue('photo', event.currentTarget.files)}
+                                    onChange={(event) => 
+                                        {
+                                            handlePhoto(event)
+                                        }}
                                 />
+                            </Grid>
+                            <Grid container sx={{marginTop: '25px', marginBottom: '25px' }}>
+                                {advertImages.length > 0 && advertImages.map((item, key) => (
+                                    <Box sx={{ position: 'relative', padding: '0px 20px 20px 0px' }}>
+                                        <div className='advert-image' style={{ position: 'relative' }}>
+                                            <img 
+                                                src={item.image_id ? item.url : URL.createObjectURL(item)} 
+                                                style={{ objectFit: 'fill' }} 
+                                                width={140} 
+                                                height={140} 
+                                                alt="Advert" 
+                                            />
+                                            <div className='image-content' style={{ position: 'absolute', top: 0, right: 0, padding: '5px', display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                                                {advertImages.length > 1 &&
+                                                <IconButton 
+                                                    aria-label="remove to advert" 
+                                                    onClick={() => removeImage(item.image_id,key)}
+                                                    sx={{ backgroundColor: '#000000', borderRadius: 3, '&:hover': {backgroundColor :'#000000'}}}
+                                                 >
+                                                         <CloseIcon sx={{ fontSize: '21px',color: '#ffffff' }} />
+                                                 </IconButton>
+                                                }
+                                               
+                                            </div>
+                                            {key == 0  &&
+                                                <Typography 
+                                                    variant="body2" 
+                                                    sx={{ 
+                                                        position: 'absolute', 
+                                                        bottom: '10px', 
+                                                        left: '50px', 
+                                                        backgroundColor: 'red',
+                                                        color: 'white', 
+                                                        padding: '3px',
+                                                        borderRadius: '5px', 
+                                                        margin: '5px',
+                                                        fontSize: '12px',
+                                                        fontWeight: 300
+                                                    }}
+                                                >
+                                                    KAPAK
+                                                </Typography>
+                                            }
+                                        </div>
+                                    </Box>
+                                ))}
                             </Grid>
                         </Grid>
                         <Grid item xl={12} lg={12} sm={12} xs={12} sx={{ marginLeft: '25px', marginRight: '25px' }}>
