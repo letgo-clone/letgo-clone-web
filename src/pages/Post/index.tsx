@@ -1,8 +1,10 @@
 import { Container, Typography, Grid, List, ListItem, ListItemButton, ListItemText, Tabs, Tab, Box } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 
 import { Link } from 'react-router-dom';
-
+import { useAppSelector } from '../../redux/store';
+import { KeyOffTwoTone } from '@mui/icons-material';
+import { setCurrentCategory, useAppDispatch } from '../../redux/store';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -22,7 +24,7 @@ function TabPanel(props: TabPanelProps) {
             {...other}
         >
             {value === index && (
-                <Box sx={{ p: 1 }}>
+                <Box sx={{ p: 0 }}>
                     <Typography>{children}</Typography>
                 </Box>
             )}
@@ -39,12 +41,33 @@ function a11yProps(index: number) {
 
 
 function Index() {
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = useState();
+    const {menuData} = useAppSelector((state) => state?.Menu);
+    const dispatch = useAppDispatch();
 
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    const [subCategory, setSubCategory] = useState<object[]>([]);
+
+    const handleChange = (event: React.SyntheticEvent, newValue: number = 0) => {
         setValue(newValue);
+
+        const filteredSubCategory = menuData!
+        .filter((category, key) => (key == newValue && category.sub_category))
+        .map(item => ({ ...item, key_id: newValue }))
+       
+        setSubCategory(filteredSubCategory)
     };
 
+    const handleGetPage = (mainCategoryName: string , subCategoryName: string, subCategoryId: number, mainCategoryId: number) => {
+        const currentCategoryObject = {
+            subCategoryName: subCategoryName,
+            mainCategoryName: mainCategoryName,
+            subCategoryId: subCategoryId,
+            mainCategoryId: mainCategoryId
+        }
+        dispatch(setCurrentCategory(currentCategoryObject));
+
+    }
+   
     return (
         <Container>
             <Typography sx={{ fontSize: '24px', fontWeight: 700, textTransform: 'uppercase', marginTop: '25px', textAlign: 'center' }}>
@@ -64,208 +87,46 @@ function Index() {
                             aria-label="Vertical tabs example"
                             sx={{ borderRight: 1, borderColor: 'divider' }}
                         >
-                            <Tab
-                                label="Araba"
-                                iconPosition="start"
-                                sx={{
-                                    justifyContent: 'flex-start',
-                                    '&.Mui-selected': {
-                                        color: '#2c2c2c',
-                                        backgroundColor: '#e0e0e0'
-                                    },
-                                    minHeight: '54px',
-                                    maxWidth: '100%',
-                                    borderBottom: '1px solid #e0e0e0'
-                                }}
-                                icon={<img src="https://statics.olx.com.tr/olxtr/category_icons/v4/category_5_1x.png" width={28} height={28} />}
-                                {...a11yProps(0)}
-                            />
-                            <Tab
-                                label="Telefon"
-                                iconPosition="start"
-                                sx={{
-                                    justifyContent: 'flex-start',
-                                    '&.Mui-selected': {
-                                        color: '#2c2c2c',
-                                        backgroundColor: '#e0e0e0'
-                                    },
-                                    minHeight: '54px',
-                                    maxWidth: '100%',
-                                    borderBottom: '1px solid #e0e0e0'
-                                }}
-                                icon={<img src="https://statics.olx.com.tr/olxtr/category_icons/v4/category_6_1x.png" width={28} height={28} />}
-                                {...a11yProps(1)}
-                            />
-                            <Tab
-                                label="Ev Eşyaları"
-                                iconPosition="start"
-                                sx={{
-                                    justifyContent: 'flex-start',
-                                    '&.Mui-selected': {
-                                        color: '#2c2c2c',
-                                        backgroundColor: '#e0e0e0'
-                                    },
-                                    minHeight: '54px',
-                                    maxWidth: '100%',
-                                    borderBottom: '1px solid #e0e0e0'
-                                }}
-                                icon={<img src="https://statics.olx.com.tr/olxtr/category_icons/v4/category_10_1x.png" width={28} height={28} />}
-                                {...a11yProps(2)}
-                            />
-                            <Tab
-                                label="Elektronik"
-                                iconPosition="start"
-                                sx={{
-                                    justifyContent: 'flex-start',
-                                    '&.Mui-selected': {
-                                        color: '#2c2c2c',
-                                        backgroundColor: '#e0e0e0'
-                                    },
-                                    minHeight: '54px',
-                                    maxWidth: '100%',
-                                    borderBottom: '1px solid #e0e0e0'
-                                }}
-                                icon={<img src="https://statics.olx.com.tr/olxtr/category_icons/v4/category_7_1x.png" width={28} height={28} />}
-                                {...a11yProps(3)}
-                            />
-                            <Tab
-                                label="Motosiklet"
-                                iconPosition="start"
-                                sx={{
-                                    justifyContent: 'flex-start',
-                                    '&.Mui-selected': {
-                                        color: '#2c2c2c',
-                                        backgroundColor: '#e0e0e0'
-                                    },
-                                    minHeight: '54px',
-                                    maxWidth: '100%',
-                                    borderBottom: '1px solid #e0e0e0'
-                                }}
-                                icon={<img src="https://statics.olx.com.tr/olxtr/category_icons/v4/category_8_1x.png" width={28} height={28} />}
-                                {...a11yProps(4)}
-                            />
-                            <Tab
-                                label="Bebek ve Çocuk"
-                                iconPosition="start"
-                                sx={{
-                                    justifyContent: 'flex-start',
-                                    '&.Mui-selected': {
-                                        color: '#2c2c2c',
-                                        backgroundColor: '#e0e0e0'
-                                    },
-                                    minHeight: '54px',
-                                    maxWidth: '100%',
-                                    borderBottom: '1px solid #e0e0e0'
-                                }}
-                                icon={<img src="https://statics.olx.com.tr/olxtr/category_icons/v4/category_13_1x.png" width={28} height={28} />}
-                                {...a11yProps(5)}
-                            />
-                            <Tab
-                                label="Hobi ve Eğlence"
-                                iconPosition="start"
-                                sx={{
-                                    justifyContent: 'flex-start',
-                                    '&.Mui-selected': {
-                                        color: '#2c2c2c',
-                                        backgroundColor: '#e0e0e0'
-                                    },
-                                    minHeight: '54px',
-                                    maxWidth: '100%',
-                                    borderBottom: '1px solid #e0e0e0'
-                                }}
-                                icon={<img src="https://statics.olx.com.tr/olxtr/category_icons/v4/category_11_1x.png" width={28} height={28} />}
-                                {...a11yProps(6)}
-                            />
-                            <Tab
-                                label="Giyim ve Aksesuar"
-                                iconPosition="start"
-                                sx={{
-                                    justifyContent: 'flex-start',
-                                    '&.Mui-selected': {
-                                        color: '#2c2c2c',
-                                        backgroundColor: '#e0e0e0'
-                                    },
-                                    minHeight: '54px',
-                                    maxWidth: '100%',
-                                    borderBottom: '1px solid #e0e0e0'
-                                }}
-                                icon={<img src="https://statics.olx.com.tr/olxtr/category_icons/v4/category_14_1x.png" width={28} height={28} />}
-                                {...a11yProps(7)}
-                            />
+                            {menuData!.length > 0 && menuData!.map((item) => (
+                                <Tab
+                                    label={item.category_name}
+                                    iconPosition="start"
+                                    sx={{
+                                        justifyContent: 'flex-start',
+                                        '&.Mui-selected': {
+                                            color: '#2c2c2c',
+                                            backgroundColor: '#e0e0e0'
+                                        },
+                                        minHeight: '54px',
+                                        maxWidth: '100%',
+                                        borderBottom: '1px solid #e0e0e0'
+                                    }}
+                                    icon={<img src={item.icon} width={28} height={28} />}
+                                    {...a11yProps(Number(item.category_id))}
+                              />
+
+                            ))}
                         </Tabs>
                     </Grid>
-                    <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-                        <TabPanel value={value} index={0}>
-                            <List sx={{ padding: 0 }}>
-                                <ListItem sx={{ p: 0 }}>
-                                    <Link to="/post/attributes" style={{ display: 'contents', color: '#2c2c2c', padding:0 }}>
-                                        <ListItemButton sx={{ padding: '10px 10px 12px 20px', borderBottom: '1px solid #e0e0e0' }}>
-                                            <ListItemText primary="Araba" />
-                                        </ListItemButton>
-                                    </Link>
-                                </ListItem>
-                                <ListItem disablePadding>
-                                    <Link to="/post/attributes" style={{ display: 'contents', color: '#2c2c2c' }}>
-                                        <ListItemButton sx={{ padding: '10px 10px 12px 20px', borderBottom: '1px solid #e0e0e0' }}>
-                                            <ListItemText primary="Araba Yedek Parça ve Aksesuar" />
-                                        </ListItemButton>
-                                    </Link>
-                                </ListItem>
-                                <ListItem disablePadding>
-                                    <ListItemButton sx={{ padding: '10px 10px 12px 20px', borderBottom: '1px solid #e0e0e0' }}>
-                                        <ListItemText primary="Araba Ses ve Görüntü Sistemleri" />
-                                    </ListItemButton>
-                                </ListItem>
-                                <ListItem disablePadding>
-                                    <ListItemButton sx={{ padding: '10px 10px 12px 20px', borderBottom: '1px solid #e0e0e0' }}>
-                                        <ListItemText primary="Jant ve Lastik" />
-                                    </ListItemButton>
-                                </ListItem>
-                                <ListItem disablePadding>
-                                    <ListItemButton sx={{ padding: '10px 10px 12px 20px', borderBottom: '1px solid #e0e0e0' }}>
-                                        <ListItemText primary="Kiralık Araçlar" />
-                                    </ListItemButton>
-                                </ListItem>
-                            </List>
-                        </TabPanel>
-                        <TabPanel value={value} index={1}>
-                            <List sx={{ padding: 0 }}>
-                                <ListItem disablePadding sx={{ padding: 0 }}>
-                                    <ListItemButton sx={{ padding: '10px 10px 12px 20px', borderBottom: '1px solid #e0e0e0' }}>
-                                        <ListItemText primary="Akıllı Telefon" />
-                                    </ListItemButton>
-                                </ListItem>
-                                <ListItem disablePadding sx={{ padding: 0 }}>
-                                    <ListItemButton sx={{ padding: '10px 10px 12px 20px', borderBottom: '1px solid #e0e0e0' }}>
-                                        <ListItemText primary="Telefon Aksesuarları ve Parçaları" />
-                                    </ListItemButton>
-                                </ListItem>
-                                <ListItem disablePadding sx={{ padding: 0 }}>
-                                    <ListItemButton sx={{ padding: '10px 10px 12px 20px', borderBottom: '1px solid #e0e0e0' }}>
-                                        <ListItemText primary="Sabit ve Telsiz Telefon" />
-                                    </ListItemButton>
-                                </ListItem>
-                            </List>
-                        </TabPanel>
-                        <TabPanel value={value} index={2}>
-                            Item Three333
-                        </TabPanel>
-                        <TabPanel value={value} index={3}>
-                            Item Four44
-                        </TabPanel>
-                        <TabPanel value={value} index={4}>
-                            Item Five555
-                        </TabPanel>
-                        <TabPanel value={value} index={5}>
-                            Item Six666
-                        </TabPanel>
-                        <TabPanel value={value} index={6}>
-                            Item Seven777
-                        </TabPanel>
-                        <TabPanel value={value} index={7}>
-                            Item Seven777
-                        </TabPanel>
-                    </Grid>
+                     <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+                        {subCategory && subCategory.map((mainItem) =>  (
+                            <TabPanel value={value} index={mainItem.key_id}>
+                                 <List sx={{ padding:0 }}>
+                                     {mainItem.sub_category.map((SubItem, key) => (
+                                         <ListItem sx={{ padding: 0 }} key={key}>
+                                             <Link to="/post/attributes" onClick={() => handleGetPage(mainItem.category_name, SubItem.sub_category_name, SubItem.sub_category_id, SubItem.main_category_id)} style={{ display: 'contents', color: '#2c2c2c', padding:0 }}>
+                                                 <ListItemButton sx={{ padding: '0', borderBottom: '1px solid #e0e0e0',  maxWidth: '100%', minHeight: '54px' }}>
+                                                     <ListItemText sx={{ paddingLeft: '20px' }} primary={SubItem.sub_category_name} />
+                                                 </ListItemButton>
+                                             </Link>
+                                         </ListItem>
+                                     ))}
+                                 </List>
+                             </TabPanel>
+                        ))}
+                        
+
+                    </Grid> 
                 </Grid>
             </Grid>
         </Container>
