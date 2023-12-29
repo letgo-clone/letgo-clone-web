@@ -5,6 +5,7 @@ import AuthNavbar from './AuthNavbar';
 import Footer from './Footer'
 import { setMenuData, useAppSelector, useAppDispatch } from '../../redux/store';
 import { RequestPublic } from '../../helpers/Request';
+import SubNavbar from './SubNavbar';
 
 const Layout = (props) => {
   const [login, setLogin] = useState(false);
@@ -33,9 +34,15 @@ const Layout = (props) => {
   return (
     <React.Fragment>
       {login ? (
-        <AuthNavbar categories={menuData} />
+        <>
+          <AuthNavbar categories={menuData!} />
+          <SubNavbar categories={menuData!}/>
+        </>
       ): (
-        <Navbar categories={menuData!} />
+        <>
+          <Navbar categories={menuData!} />
+          <SubNavbar categories={menuData!}/>
+        </>
       )}
      
         <div> {props.children} </div>
