@@ -53,16 +53,15 @@ function Index() {
         const filteredSubCategory = menuData!
         .filter((category, key) => (key == newValue && category.sub_category))
         .map(item => ({ ...item, key_id: newValue }))
-       
+
         setSubCategory(filteredSubCategory)
     };
 
-    const handleGetPage = (mainCategoryName: string , subCategoryName: string, subCategoryId: number, mainCategoryId: number) => {
+    const handleGetPage = (mainCategoryName: string , subCategoryName: string, subCategoryId: number) => {
         const currentCategoryObject = {
             subCategoryName: subCategoryName,
             mainCategoryName: mainCategoryName,
-            subCategoryId: subCategoryId,
-            mainCategoryId: mainCategoryId
+            subCategoryId: subCategoryId
         }
         dispatch(setCurrentCategory(currentCategoryObject));
 
@@ -114,7 +113,7 @@ function Index() {
                                  <List sx={{ padding:0 }}>
                                      {mainItem.sub_category.map((SubItem, key) => (
                                          <ListItem sx={{ padding: 0 }} key={key}>
-                                             <Link to="/post/attributes" onClick={() => handleGetPage(mainItem.category_name, SubItem.sub_category_name, SubItem.sub_category_id, SubItem.main_category_id)} style={{ display: 'contents', color: '#2c2c2c', padding:0 }}>
+                                             <Link to="/post/attributes" onClick={() => handleGetPage(mainItem.category_name, SubItem.sub_category_name, SubItem.sub_category_id)} style={{ display: 'contents', color: '#2c2c2c', padding:0 }}>
                                                  <ListItemButton sx={{ padding: '0', borderBottom: '1px solid #e0e0e0',  maxWidth: '100%', minHeight: '54px' }}>
                                                      <ListItemText sx={{ paddingLeft: '20px' }} primary={SubItem.sub_category_name} />
                                                  </ListItemButton>

@@ -38,8 +38,7 @@ export interface AuthUserState {
 export interface Category {
     subCategoryName: string,
     mainCategoryName: string,
-    subCategoryId: number,
-    mainCategoryId: number,
+    subCategoryId: number
 }
 
 export interface CurrentCategoryState {
