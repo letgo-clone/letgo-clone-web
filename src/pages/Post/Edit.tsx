@@ -72,7 +72,7 @@ function AdvertEdit() {
             const url = '/advert/detail/' + advertId;
             const data = await Request('GET', url);
             setAdvertDetail(data);
-            
+           
             const sortedImages = data.images.length > 0 && data.images.sort((item, key) =>
                 item.is_cover_image === key.is_cover_image ? 0 : item.is_cover_image ? -1 : 1
             );
@@ -255,7 +255,7 @@ function AdvertEdit() {
                                         value={formik.values.title}
                                         onChange={formik.handleChange}
                                         error={Boolean(formik.values.title == '')}
-                                        helperText={formik.values.title == '' && 'En az 1 karakter olması gerekir. Lütfen alanı düzenle.'}
+                                        helperText={formik.values.title == '' ? 'En az 1 karakter olması gerekir. Lütfen alanı düzenle.': 'Ürününün temel özelliklerinden bahset (ör. marka, model, yaş, tip)'}
                                     />
                                 </Grid>
                                 <Grid item lg={6} md={6} sm={12} xs={12}>

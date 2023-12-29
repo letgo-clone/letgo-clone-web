@@ -262,7 +262,7 @@ function Attributes() {
                                         value={formik.values.title}
                                         onChange={formik.handleChange}
                                         error={Boolean(formik.values.title == '' && formik.touched.title)}
-                                        helperText={formik.values.title == '' && formik.touched.title && 'En az 1 karakter olması gerekir. Lütfen alanı düzenle.'}
+                                        helperText={formik.values.title == '' && formik.touched.title ? 'En az 1 karakter olması gerekir. Lütfen alanı düzenle.': 'Ürününün temel özelliklerinden bahset (ör. marka, model, yaş, tip)'}
                                     />
                                 </Grid>
                                 <Grid item lg={6} md={6} sm={12} xs={12}>
