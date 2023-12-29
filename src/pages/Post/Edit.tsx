@@ -209,10 +209,10 @@ function AdvertEdit() {
                         <>
                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12} sx={{ marginLeft: '25px', paddingBottom: '25px', display: 'inline-flex', borderBottom: '1px solid #e0e0e0' }}>
                             <Breadcrumbs aria-label="breadcrumb">
-                                <Link underline="hover" color="inherit" href="/">
-                                    Araba
+                                <Link sx={{fontSize: '14px', color: 'inherit', textDecoration: 'none'}}>
+                                    {advertDetail.category_name}
                                 </Link>
-                                <Typography color="text.primary">Araba</Typography>
+                                <Typography sx={{fontSize: '14px', color: 'inherit'}}> {advertDetail.sub_category_name}</Typography>
                             </Breadcrumbs>
                         </Grid>
                         <Divider />
