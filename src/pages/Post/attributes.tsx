@@ -115,7 +115,8 @@ function Attributes() {
                 formdata.append("price", price);
                 formdata.append("city_id", city_id);
                 formdata.append("county_id", county_id);
-                formdata.append("category_id", selectedCategory.subCategoryId);
+                formdata.append("main_category_id", selectedCategory.mainCategoryId);
+                formdata.append("sub_category_id", selectedCategory.subCategoryId);
                 const url = "/advert/actual";
     
                 const response = await Request('POST', url, formdata);
