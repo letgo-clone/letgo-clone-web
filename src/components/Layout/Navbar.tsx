@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { useState, MouseEvent, useEffect } from 'react';
 import { Grid, Box, Button, AppBar, Toolbar, IconButton, MenuItem, FormControl, Container, Paper, Select, Drawer, Dialog, DialogTitle, useMediaQuery, Menu, Tooltip, Typography } from "@mui/material"
 import InputBase from '@mui/material/InputBase';
 
@@ -28,8 +28,14 @@ import { Link } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import LoginModal from '../LoginModal';
 
-function Navbar() {
+interface NavbarAreaProps {
+    categories: object[],
+}
+
+const Navbar: React.FC<NavbarAreaProps> = ({categories}) => {
+    // useState elements
     const [anchorNav, setAnchorNav] = useState<null | HTMLElement>(null);
+
     const openMenu = (event: MouseEvent<HTMLElement>) => {
         setAnchorNav(event.currentTarget);
     }
@@ -67,7 +73,7 @@ function Navbar() {
                         paddingRight: { sm: '0px' },
                         paddingLeft: { sm: '0px', xs: '0' },
                         display: { md: 'flex', xs: 'none' }
-                    }}>
+                    }}> 
                     <Link to="/">
                         <IconButton
                             size='small'

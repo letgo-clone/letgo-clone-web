@@ -34,7 +34,11 @@ import { useSelector } from "react-redux";
 import { removeAllData } from '../../redux/store';
 import { Request } from '../../helpers/Request';
 
-function AuthNavbar() {
+interface AuthNavbarAreaProps {
+    categories: object[],
+}
+
+const AuthNavbar: React.FC<AuthNavbarAreaProps> = ({categories}) => {
     const navigate = useNavigate();
     const [anchorNav, setAnchorNav] = useState<null | HTMLElement>(null);
     const openMenu = (event: MouseEvent<HTMLElement>) => {
