@@ -1,14 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     Container, Typography, Grid, MenuItem, InputLabel, TextField, InputAdornment, Divider,
-    Alert, Tab, Tabs, Breadcrumbs, Link, Box, Table, TableCell, TableHead, TableRow, ListItem,
-    List, ListItemAvatar, Avatar, ListItemText, Button, Switch, Card, CardMedia, IconButton
+    Tab, Tabs, Breadcrumbs, Box, Table, TableCell, TableHead, TableRow, ListItem,
+    List, ListItemAvatar, Avatar, ListItemText, Button, Switch, IconButton
 } from '@mui/material'
 
-import CancelIcon from '@mui/icons-material/Cancel';
-
 import profileImage from '../../assets/img/profile-logo.jpeg'
-import ImageOutlinedIcon from '../../assets/img/image-icon.png';
 import CallIcon from '@mui/icons-material/Call';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -18,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 
 import { setLoginData, useAppSelector, useAppDispatch } from '../../redux/store';
+import { Link } from 'react-router-dom';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -58,6 +56,8 @@ function Attributes() {
 
     const dispatch = useAppDispatch();
     const {loginData} = useAppSelector((state) => state?.authUser);
+    const {currentCategoryData} = useAppSelector((state) => state?.currentCategory);
+
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -65,9 +65,19 @@ function Attributes() {
 
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
+    const [selectedCategory, setSelectedCategory] = useState<object>({});
     const [cities, setCities] = useState({});
     const [counties, setCounties] = useState({});
     const [images, setImages] = useState<object[]>([]);
+   
+    useEffect(() => {
+
+        if(currentCategoryData){
+            setSelectedCategory(currentCategoryData);
+        }else{
+            navigate('/post');
+        }
+    },[currentCategoryData])
 
     const formik = useFormik({
         initialValues: {
@@ -105,6 +115,7 @@ function Attributes() {
                 formdata.append("price", price);
                 formdata.append("city_id", city_id);
                 formdata.append("county_id", county_id);
+                formdata.append("category_id", selectedCategory.subCategoryId);
                 const url = "/advert/actual";
     
                 const response = await Request('POST', url, formdata);
@@ -202,12 +213,14 @@ function Attributes() {
                 <Grid container>
                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12} sx={{ marginLeft: '25px', paddingBottom: '25px', display: 'inline-flex', borderBottom: '1px solid #e0e0e0' }}>
                             <Breadcrumbs aria-label="breadcrumb">
-                                <Link underline="hover" color="inherit" href="/">
-                                    Araba
+                                <Link style={{ color: 'inherit', textDecoration: 'none', fontSize: '14px' }} to="/post">
+                                    {selectedCategory.mainCategoryName}
                                 </Link>
-                                <Typography color="text.primary">Araba</Typography>
+                                <Typography sx={{fontSize: '14px', color: 'inherit'}}>{selectedCategory.subCategoryName}</Typography>
                             </Breadcrumbs>
-                            <Typography sx={{ color: '#ff3f55', fontSize: '14px', marginLeft: '20px', fontWeight: 700, borderBottom: '1px solid #ff3f55', '&.hover': { borderBottom: 'none' } }}>Değiştir</Typography>
+                            <Link to="/post" style={{ textDecoration: 'none' }}>
+                                <Typography sx={{ color: '#ff3f55', fontSize: '14px', marginLeft: '20px', fontWeight: 700, borderBottom: '1px solid #ff3f55', '&.hover': { borderBottom: 'none' } }}>Değiştir</Typography>
+                            </Link>
                         </Grid>
                         <Divider />
                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12} sx={{ marginLeft: '25px', marginRight: '25px' }}>
