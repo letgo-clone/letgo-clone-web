@@ -25,17 +25,16 @@ function Index() {
 
   return (
     <Container>
-      <Grid container className={styles.bannerDiv}>
-        <img src={otoplusBanner} className={styles.bannerDesktop} />
+       <Grid container className={styles.bannerDiv} position="relative">
+        <img src={otoplusBanner} className={styles.bannerDesktop} alt="Banner" />
         <img src={otoplusBannerMobile} className={styles.bannerMobile} />
-        <Grid container sx={{ position: 'absolute' }}>
-          <Grid item xl={3} lg={3} md={3} sm={8} xs={8}>
-            <Grid container spacing={3} sx={{ marginLeft: '10%', marginTop: { xl: '50%', lg: '70%', md: '80%', sm: '65%', xs: '60%' } }}>
-              <Grid item lg={6} md={6} xs={6} className={styles.bottonDiv}>
-                <Button
+        <Grid item className={styles.buttonContainer}>
+            <Button
                   variant="outlined"
                   sx={{
+                    padding: {lg: '10px 50px 10px 50px', md: '10px 50px 10px 50px', sm: '10px 40px 10px 40px'},
                     backgroundColor: '#ff3f55',
+                    marginRight:'20px',
                     textTransform: 'none',
                     color: '#FFFFFF',
                     borderRadius: '50px',
@@ -44,26 +43,21 @@ function Index() {
                   }}
                 >
                   Araba Al
-                </Button>
-              </Grid>
-              <Grid item lg={6} md={6} xs={6} className={styles.bottonDiv}>
-                <Button
-                  variant="outlined"
-                  sx={{
-                    backgroundColor: '#ff3f55',
-                    textTransform: 'none',
-                    color: '#FFFFFF',
-                    borderRadius: '50px',
-                    border: '3px solid #ff3f55',
-                    '&:hover': { backgroundColor: '#ff3f55', border: '3px solid #ff3f55', color: '#FFFFFF' },
-                  }}
-                >
-                  Araba Sat
-                </Button>
-              </Grid>
-            </Grid>
-          </Grid>
-
+            </Button>
+            <Button
+                variant="outlined"
+                sx={{
+                  padding: {lg: '10px 50px 10px 50px', md: '10px 50px 10px 50px', sm: '10px 40px 10px 40px'},
+                  backgroundColor: '#ff3f55',
+                  textTransform: 'none',
+                  color: '#FFFFFF',
+                  borderRadius: '50px',
+                  border: '3px solid #ff3f55',
+                  '&:hover': { backgroundColor: '#ff3f55', border: '3px solid #ff3f55', color: '#FFFFFF' },
+                }}
+              >
+                Araba Sat
+            </Button>
         </Grid>
       </Grid>
       <Typography

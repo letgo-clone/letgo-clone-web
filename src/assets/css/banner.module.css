@@ -19,9 +19,14 @@
     display: grid !important;
 }
 
-.styles.bottonContainer {
-    margin-left:10%;
-    margin-top: 70%;
+.bannerDiv {
+    position: relative;
+  }
+  
+.buttonContainer {
+    position: absolute;
+    bottom: 30px;
+    left: 16px;
 }
 
 @media only screen and (max-width:900px) { 
@@ -32,5 +37,9 @@
         display: inline-block;
         width: 100%;
         height: auto;
+    }
+    .buttonContainer {
+        position: absolute;
+        bottom: 15px;
     }
 }
