@@ -17,8 +17,7 @@ import { Request, RequestPublic } from '../../helpers/Request';
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 
-import { setLoginData } from '../../redux/store';
-import { useSelector, useDispatch } from "react-redux";
+import { setLoginData, useAppSelector, useAppDispatch } from '../../redux/store';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -57,8 +56,8 @@ function Attributes() {
     const navigate = useNavigate();
     const [value, setValue] = React.useState(0);
 
-    const dispatch = useDispatch();
-    const { loginData } = useSelector((state) => state.authUser);
+    const dispatch = useAppDispatch();
+    const {loginData} = useAppSelector((state) => state?.authUser);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);

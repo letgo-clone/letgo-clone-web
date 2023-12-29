@@ -5,9 +5,8 @@ import Carousel from 'react-material-ui-carousel'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Logo from '../assets/img/logo.svg'
 
-import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
-import { setLoginData } from '../redux/store';
+import { setLoginData, useAppDispatch } from '../redux/store';
 
 import { HandleLoginToken, Request } from '../helpers/Request';
 
@@ -33,7 +32,7 @@ const LoginModal = () => {
 
     const hanldeLogin = () => setShowLogin(!showLogin);
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     let items = [
         {

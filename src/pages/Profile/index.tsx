@@ -11,14 +11,14 @@ import {
 
 import { useFormik } from 'formik'
 import { Link } from 'react-router-dom';
-import { setLoginData } from '../../redux/store';
-import { useSelector, useDispatch } from "react-redux";
+import { setLoginData, useAppSelector, useAppDispatch } from '../../redux/store';
 import { Request } from '../../helpers/Request';
 import Swal from 'sweetalert2';
 
 function ProfileInfo() {
-  const { loginData } = useSelector((state) => state.authUser);
-  const dispatch = useDispatch();
+
+  const dispatch = useAppDispatch();
+  const {loginData} = useAppSelector((state) => state?.authUser);
 
   const formik = useFormik({
       initialValues: {
