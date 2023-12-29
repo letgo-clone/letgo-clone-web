@@ -1,33 +1,8 @@
-import { AnyAction, configureStore, createSlice } from '@reduxjs/toolkit';
+import { configureStore, createSlice, Middleware } from '@reduxjs/toolkit';
+import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux'
+import { MenuState, AuthUserState } from './interface';
 
-interface FormState {
-    formData?: any;
-  }
   
-  interface AuthUserState {
-    loginData?: any;
-  }
-  
-  interface MenuState {
-    menuData?: any;
-  }
-  
-  interface OffcanvasState {
-    OffcanvasData?: any;
-  }
-  
-
-// formSlice oluşturulması ve reducer tanımlanması
-const formSlice = createSlice({
-  name: 'form',
-  initialState: {} as FormState,
-  reducers: {
-    updateFormData: (state, action) => {
-      state.formData = action.payload;
-    },
-  },
-});
-
 // loginSlice oluşturulması ve reducer tanımlanması
 const loginSlice = createSlice({
   name: 'authUser',
@@ -39,32 +14,30 @@ const loginSlice = createSlice({
   },
 });
 
-const canvasSlice = createSlice({
-  name: 'Offcanvas',
-  initialState: {} as OffcanvasState,
+
+const menuSlice = createSlice({
+  name: 'Menu',
+  initialState: {menuData: []} as MenuState,
   reducers: {
-    setOffcanvasData: (state, action) => {
-      state.OffcanvasData = action.payload;
+    setMenuData: (state, action) => {
+      state.menuData = action.payload;
     },
   },
 });
 
-export const { updateFormData } = formSlice.actions;
 export const { setLoginData } = loginSlice.actions;
-export const { setOffcanvasData } = canvasSlice.actions;
+export const { setMenuData } = menuSlice.actions;
 
 // rootReducer oluşturulması ve tüm reducer'ların birleştirilmesi
 const rootReducer = {
-  form: formSlice.reducer,
   authUser: loginSlice.reducer,
-  Offcanvas: canvasSlice.reducer,
+  Menu: menuSlice.reducer,
 };
 
 // Özel bir middleware oluşturun
-const saveToLocalStorageMiddleware = (store) => (next) => (action: AnyAction) => {
+const saveToLocalStorageMiddleware: Middleware = (store) => (next) => (action) => {
   const result = next(action);
-  // Redux store verilerini Local Storage'a kaydetme
-  localStorage.setItem('form', JSON.stringify(store.getState().form));
+
   localStorage.setItem('authUser', JSON.stringify(store.getState().authUser));
   return result;
 };
@@ -73,7 +46,6 @@ const store = configureStore({
   reducer: rootReducer,
   preloadedState: {
     // Local Storage'dan veriyi yükleme
-    form: JSON.parse(localStorage.getItem('form') || '{}'),
     authUser: JSON.parse(localStorage.getItem('authUser') || '{}')
   },
   middleware: (getDefaultMiddleware) =>
@@ -85,3 +57,8 @@ export function removeAllData(){
 }
 
 export default store;
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
