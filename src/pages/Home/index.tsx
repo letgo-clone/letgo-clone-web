@@ -15,9 +15,10 @@ function Index() {
 
   useEffect(() => {
     const getData = async () => {
-      const url = "/advert/actual"
-      const data = await RequestPublic('GET', url);
-      setAdvertData(data);
+        const advertGetUrl = "/advert/actual"
+        const advertData = await RequestPublic('GET', advertGetUrl);
+        setAdvertData(advertData);
+
     }
     getData();
   }, [])
