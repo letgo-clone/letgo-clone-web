@@ -1,6 +1,6 @@
 import { configureStore, createSlice, Middleware } from '@reduxjs/toolkit';
 import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux'
-import { MenuState, AuthUserState } from './interface';
+import { MenuState, AuthUserState, CurrentCategoryState } from './interface';
 
   
 // loginSlice oluşturulması ve reducer tanımlanması
@@ -25,13 +25,25 @@ const menuSlice = createSlice({
   },
 });
 
+const currentCategorySlice = createSlice({
+  name: 'currentCategory',
+  initialState: {currentCategory: []} as CurrentCategoryState,
+  reducers: {
+    setCurrentCategory: (state, action) => {
+      state.currentCategoryData = action.payload;
+    },
+  },
+});
+
 export const { setLoginData } = loginSlice.actions;
 export const { setMenuData } = menuSlice.actions;
+export const { setCurrentCategory } = currentCategorySlice.actions;
 
 // rootReducer oluşturulması ve tüm reducer'ların birleştirilmesi
 const rootReducer = {
-  authUser: loginSlice.reducer,
-  Menu: menuSlice.reducer,
+    authUser: loginSlice.reducer,
+    Menu: menuSlice.reducer,
+    currentCategory: currentCategorySlice.reducer,
 };
 
 // Özel bir middleware oluşturun

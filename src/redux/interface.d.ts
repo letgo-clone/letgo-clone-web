@@ -6,6 +6,7 @@ export interface SubCategory {
 }
 
 export interface Menu {
+    category_id: string
     category_name: string,
     icon: string,
     sub_category: SubCategory[]
@@ -31,4 +32,16 @@ export interface LoginData {
 
 export interface AuthUserState {
     loginData?: LoginData[];
+}
+
+// Category
+export interface Category {
+    subCategoryName: string,
+    mainCategoryName: string,
+    subCategoryId: number,
+    mainCategoryId: number,
+}
+
+export interface CurrentCategoryState {
+    currentCategoryData?: Category[];
 }
