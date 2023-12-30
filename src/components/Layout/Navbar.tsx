@@ -46,7 +46,7 @@ import {
     Menu as MenuIcon } from '@mui/icons-material';
 
 // Material UI styles
-import { navbarStyles, authUserMenuStyle } from '../../styles/navbarStyles';
+import { navbarStyles, authUserMenuStyle } from '../../styles/styles';
 
 // Logo
 import Logo from '../../assets/img/logo.svg'

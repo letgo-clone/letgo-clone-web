@@ -1,8 +1,8 @@
 import React from 'react'
 import { Grid, Box, Button, AppBar, Toolbar, MenuItem, Container, Paper, Select, Drawer, Menu, Tooltip, Typography } from "@mui/material"
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import { ExpandLess } from '@mui/icons-material';
+
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import { subNavbarStyles } from '../../styles/styles';
 
 interface SubNavbarAreaProps {
     categories: object[],
@@ -31,123 +31,59 @@ const SubNavbar: React.FC<SubNavbarAreaProps>  = ({ categories }) => {
   const chunkedCategories = chunkArray(categories, 3);
   
   return (
-    <AppBar position="static" sx={{ bgcolor: 'hsla(0,0%,100%,.87)', boxShadow: 1 }}>
-        <Container
-            maxWidth='lg'
-            sx={{
-                marginTop: '5px',
-                marginBottom: '5px',
-                paddingRight: { sm: '0px' },
-                paddingLeft: { sm: '0px' }
-            }}
-        >
-            <Toolbar
-              sx={{
-                  minHeight: { sm: '30px' },
-                  marginBottom: '7px'
-              }}
-            >
-              <div>
-              <Button
-                  id="basic-button"
-                  aria-controls={open ? 'basic-menu' : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? 'true' : undefined}
-                  onClick={handleClick}
-                  endIcon={open ? <ExpandLess/> : <ExpandMoreIcon/>}
-                  sx={{
-                    color: '#2c2c2c',
-                    fontSize: '14px',
-                    fontWeight: 700,
-                    lineHeight: '16.1px',
-                    textTransform: 'uppercase',
-                  }}
-              >
-                  Tüm Kategoriler
-              </Button>
-              <Menu
-                  id="basic-menu"
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleClose}
-                  MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                  }}
-                  sx={{
-                      marginTop: '1.5%'
-                  }}
-                  disableScrollLock={true}
-              >
-              <Grid container spacing={1}>
-                {chunkedCategories.map((row, rowIndex) => (
-                    <Grid item xl={2} lg={2} xs={2} key={rowIndex} sx={{ margin: '40px 40px' }}>
-                      {row.map((category, key) => (
-                        <div key={key} style={{ marginBottom: '40px' }}>
-                          <Typography
-                            sx={{
-                              color: '#2c2c2c',
-                              fontSize: '14px',
-                              lineHeight: 1.5,
-                              fontWeight: 700,
-                              textTransform: 'capitalize',
-                              margin: '0px 8px',
-                            }}
-                          >
-                            {category.category_name}
-                          </Typography>
-                          {category?.sub_category.map((subItem, subKey) => (
-                            <ul
-                              key={subKey}
-                              style={{
-                                padding: '0px 8px'
-                              }}
-                            >
-                              <li
-                                style={{
-                                  display: 'grid',
-                                  marginTop: '8px'
-                                }}
-                              >
-                                <a
-                                  style={{
-                                    color: '#2c2c2c',
-                                    fontSize: '14px',
-                                    lineHeight: 1.5,
-                                    fontWeight: 400,
-                                  }}
-                                >
-                                  {subItem.sub_category_name}
-                                </a>
-                              </li>
-                            </ul>
-                          ))}
-                        </div>
-                      ))}
-                    </Grid>
-                ))}
-            </Grid>
-                
-              </Menu>
-              </div>
-              <Box sx={{ textAlign: 'left', marginLeft: '30px', display : 'inline-flex' }}>
+    <AppBar position="static" sx={subNavbarStyles.appBar}>
+        <Container maxWidth='lg' sx={subNavbarStyles.container}>
+            <Toolbar sx={subNavbarStyles.toolbar}>
+                <Button
+                    id="basic-button"
+                    aria-controls={open ? 'basic-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                    onClick={handleClick}
+                    endIcon={open ? <ExpandLess/> : <ExpandMore/>}
+                    sx={subNavbarStyles.allCategoryButton}
+                >
+                    Tüm Kategoriler
+                </Button>
+                <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                      'aria-labelledby': 'basic-button',
+                    }}
+                    PaperProps={{
+                      style: {
+                        width: 'auto',
+                      },
+                    }}
+                    sx={subNavbarStyles.allCategoryMenu}
+                    disableScrollLock={true}
+                >
+                <Grid container spacing={1}>
+                  {chunkedCategories.map((row, rowIndex) => (
+                      <Grid item xl={2} lg={2} xs={2} key={rowIndex} sx={subNavbarStyles.allCategoryGrid}>
+                        {row.map((category, key) => (
+                          <Box key={key} sx={subNavbarStyles.allCategoryBox}>
+                              <Typography sx={subNavbarStyles.allCategoryTitle}>
+                                  {category.category_name}
+                              </Typography>
+                                {category?.sub_category.map((subItem, subKey) => (
+                                    <Typography sx={subNavbarStyles.allCategoryContentA} >{subItem.sub_category_name}</Typography>
+                                ))}
+                          </Box>
+                        ))}
+                      </Grid>
+                  ))}
+              </Grid>
+                  
+                </Menu>
+              <Box sx={subNavbarStyles.firstSixCategoryBox}>
                 {firstSixCategory.length > 0 && firstSixCategory.map((item, key ) => (
                     <MenuItem
-                        key={key}
-                        sx={{
-                          display: 'contents'
-                        }}
-                    >
-                        <Typography 
-                              sx={{ 
-                                color: '#2c2c2c',
-                                fontSize: '14px',
-                                lineHeight: 1.5,
-                                fontWeight: 400,
-                                textTransform: 'capitalize',
-                                margin: '0px 8px'
-                              }} 
-                              textAlign="center"
-                          >
+                        key={key} sx={subNavbarStyles.firstSixCategoryMenuItem}>
+                        <Typography sx={subNavbarStyles.firstSixCategoryText} textAlign="center">
                             {item?.category_name}
                         </Typography>
                     </MenuItem>

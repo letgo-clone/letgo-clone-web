@@ -266,3 +266,69 @@ export const authUserMenuStyle = {
         zIndex: 0,
     }
 }
+
+export const subNavbarStyles: Record<string, SxProps<Theme> | undefined> = {
+    appBar: {
+        bgcolor: 'hsla(0,0%,100%,.87)', 
+        boxShadow: 1
+    },
+    container: {
+        marginTop: '5px',
+        marginBottom: '5px',
+        paddingRight: { sm: '0px' },
+        paddingLeft: { sm: '0px' }
+    },
+    toolbar: {
+        minHeight: { 
+            sm: '30px' },
+        marginBottom: '7px'
+    },
+    allCategoryButton: {
+        color: '#2c2c2c',
+        fontSize: '14px',
+        fontWeight: 700,
+        lineHeight: '16.1px',
+        textTransform: 'uppercase',
+    },
+    allCategoryMenu: {
+        marginTop: '1.5%'
+    },
+    allCategoryGrid: {
+        margin: '40px 40px' 
+    },
+    allCategoryBox: {
+        marginBottom: '40px'
+    },
+    allCategoryTitle: {
+        color: '#2c2c2c',
+        fontSize: '14px',
+        lineHeight: 1.5,
+        fontWeight: 700,
+        textTransform: 'capitalize',
+        margin: '0px 8px 8px 8px',
+    },
+    allCategoryContentA : {
+        color: '#2c2c2c',
+        fontSize: '14px',
+        lineHeight: 1.5,
+        fontWeight: 300,
+        paddingBottom: '8px',
+        margin: '0px 8px',
+    },
+    firstSixCategoryBox: {
+        textAlign: 'left', 
+        marginLeft: '30px', 
+        display : 'inline-flex'
+    },
+    firstSixCategoryMenuItem: {
+        display: 'contents'
+    },
+    firstSixCategoryText: {
+        color: '#2c2c2c',
+        fontSize: '14px',
+        lineHeight: 1.5,
+        fontWeight: 300,
+        textTransform: 'capitalize',
+        margin: '0px 8px'
+    }
+}
