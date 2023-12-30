@@ -21,13 +21,15 @@ import EditIcon from '@mui/icons-material/Edit';
 import Swal from 'sweetalert2';
 
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { Request } from '../../helpers/Request';
 
 import { AdCard } from '../../components/AdCard';
 
+import { useAppSelector } from '../../redux/store';
+
 function ProfileView() {
-    const { loginData } = useSelector((state) => state.authUser);
+    const {loginData} = useAppSelector((state) => state?.authUser);
+    
     let userId;
     const params = useParams();
     const paramsId = params.userId;

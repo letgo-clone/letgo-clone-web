@@ -1,9 +1,9 @@
 import React from 'react'
 import { Navigate } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../redux/store';
 
 const AuthCheck = (props) => {
-    const LoginData =  useSelector((state) => state.authUser.loginData);
+    const LoginData =  useAppSelector((state) => state?.authUser.loginData);
 
     if(LoginData === undefined)
     {
