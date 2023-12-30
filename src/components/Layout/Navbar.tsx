@@ -28,11 +28,7 @@ import { Link } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import LoginModal from '../LoginModal';
 
-interface NavbarAreaProps {
-    categories: object[],
-}
-
-const Navbar: React.FC<NavbarAreaProps> = ({categories}) => {
+const Navbar = () => {
     // useState elements
     const [anchorNav, setAnchorNav] = useState<null | HTMLElement>(null);
 
