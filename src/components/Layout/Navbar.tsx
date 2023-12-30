@@ -1,40 +1,67 @@
-import React, { useState, MouseEvent, useEffect } from 'react';
-import { Grid, Box, Button, AppBar, Toolbar, IconButton, MenuItem, FormControl, Container, Paper, Select, Drawer, Dialog, DialogTitle, useMediaQuery, Menu, Tooltip, Typography } from "@mui/material"
-import InputBase from '@mui/material/InputBase';
+import React, { useState, MouseEvent } from 'react';
 
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import CloseIcon from '@mui/icons-material/Close';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import MessageIcon from '@mui/icons-material/Message';
-import HelpIcon from '@mui/icons-material/Help';
-import Divider from '@mui/material/Divider';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
-import Face2Icon from '@mui/icons-material/Face2';
-import SmsIcon from '@mui/icons-material/Sms';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import LogoutIcon from '@mui/icons-material/Logout';
+// Material UI elements
+import { 
+    Grid, 
+    Box, 
+    Button, 
+    AppBar, 
+    Toolbar, 
+    IconButton, 
+    MenuItem, 
+    FormControl, 
+    Container, 
+    Paper, 
+    Select, 
+    Drawer, 
+    Dialog, 
+    DialogTitle, 
+    Menu, 
+    Tooltip, 
+    Divider,
+    Avatar,
+    ListItemAvatar,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    InputBase,
+    Typography } from "@mui/material"
 
+// Material UI Icons
+import { 
+    SearchOutlined, 
+    LocationOn, 
+    CameraAlt, 
+    Close, 
+    Favorite, 
+    Message, 
+    Help, 
+    Face2,
+    Sms, 
+    Notifications,
+    ExpandMore,
+    Logout, 
+    Menu as MenuIcon } from '@mui/icons-material';
+
+// Material UI styles
+import { navbarStyles, authUserMenuStyle } from '../../styles/navbarStyles';
+
+// Logo
 import Logo from '../../assets/img/logo.svg'
 import MobileLogo from '../../assets/img/logo-mobile.svg'
 
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-
-import { useTheme } from '@mui/material/styles';
+// Components
 import LoginModal from '../LoginModal';
-import { navbarStyles, authUserMenuStyle } from '../../styles/navbarStyles';
+import { Request } from '../../helpers/Request';
+
+// React Router
+import { Link, useNavigate } from 'react-router-dom';
+
+// Redux
 import { useSelector } from "react-redux";
 import { removeAllData } from '../../redux/store';
-import { Request } from '../../helpers/Request';
-import { Link, useNavigate } from 'react-router-dom';
 
 interface NavbarAreaProps {
     isLogin: boolean
@@ -42,42 +69,45 @@ interface NavbarAreaProps {
 
 const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
 
+    // React router elements
     const navigate = useNavigate();
-    // useState elements
-    const [anchorNav, setAnchorNav] = useState<null | HTMLElement>(null);
-
-    const openMenu = (event: MouseEvent<HTMLElement>) => {
-        setAnchorNav(event.currentTarget);
-    }
-
-    const closeMenu = () => {
-        setAnchorNav(null)
-    }
-
-    const [open, setOpen] = useState(false);
-    const theme = useTheme();
-    const fullScreen = useMediaQuery(theme.breakpoints.down('xs'));
-
-    const handleOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const LoginOpen = Boolean(anchorEl);
-
-    const handleLoginClick = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleLoginClose = () => {
-        setAnchorEl(null);
-    };
-
     const { loginData } = useSelector((state) => state.authUser);
 
+    // useState elements
+    const [mobileNav, setMobileNav] = useState<null | HTMLElement>(null);
+    const [profilePopover, setProfilePopover] = React.useState<null | HTMLElement>(null);
+    const [loginOpen, setLoginOpen] = useState<boolean>(false);
+    
+    // Mobile navbar drawer
+    const openMobileMenu = (event: MouseEvent<HTMLElement>) => {
+        setMobileNav(event.currentTarget);
+    }
+    const closeMobileMenu = () => {
+        setMobileNav(null)
+    }
+
+    // Login Dialog
+    const handleLoginOpen = () => {
+        setLoginOpen(true);
+        setMobileNav(null)
+    };
+
+    const handleLoginClose = () => {
+        setLoginOpen(false);
+    };
+
+   // Profile avatar Menu
+    const LoginOpen = Boolean(profilePopover);
+
+    const handleProfileOpen = (event: React.MouseEvent<HTMLElement>) => {
+        setProfilePopover(event.currentTarget);
+    };
+    const handleProfileClose = () => {
+        setProfilePopover(null);
+    };
+
+   
+    // Logout
     const handlelogout = async() => {
         const url = "/oauth/logout";
         const result = await Request('GET', url);
@@ -116,7 +146,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                     <MenuItem value="34">
                                         <ListItem sx={navbarStyles.selectLocationListItem}>
                                             <ListItemIcon sx={navbarStyles.selectLocationListItemFirstIcon}>
-                                                <LocationOnIcon />
+                                                <LocationOn />
                                             </ListItemIcon>
                                             <ListItemText primary="İstanbul, Türkiye" />
                                         </ListItem>
@@ -124,7 +154,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                     <MenuItem value="06">
                                         <ListItem sx={navbarStyles.selectLocationListItem}>
                                             <ListItemIcon>
-                                                <LocationOnIcon />
+                                                <LocationOn />
                                             </ListItemIcon>
                                             <ListItemText primary="Ankara" />
                                         </ListItem>
@@ -132,7 +162,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                     <MenuItem value="35">
                                         <ListItem sx={navbarStyles.selectLocationListItem}>
                                             <ListItemIcon>
-                                                <LocationOnIcon />
+                                                <LocationOn />
                                             </ListItemIcon>
                                             <ListItemText primary="İzmir" />
                                         </ListItem>
@@ -152,7 +182,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                     color="primary"
                                     sx={navbarStyles.searchInputIconButton}
                                     aria-label="directions">
-                                    <SearchOutlinedIcon />
+                                    <SearchOutlined />
                                 </IconButton>
                             </Paper>
                         </Grid>
@@ -162,18 +192,18 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                             <Grid container sx={navbarStyles.authBoxGrid}>
                                 <Grid item xl={1} lg={1} md={1} sx={navbarStyles.authIconsGrid}>
                                     <IconButton>
-                                        <SmsIcon />
+                                        <Sms />
                                     </IconButton>
                                 </Grid>
                                 <Grid item xl={1} lg={1} md={1} sx={navbarStyles.authIconsGrid}>
                                     <IconButton>
-                                        <NotificationsIcon />
+                                        <Notifications />
                                     </IconButton>
                                 </Grid>
                                 <Grid item xl={1} lg={1} md={1} sx={navbarStyles.authAvatarIconGrid}>
                                     <Tooltip title="Account settings">
                                         <IconButton
-                                            onClick={handleLoginClick}
+                                            onClick={handleProfileOpen}
                                             size="small"
                                             sx={navbarStyles.authAvatarIconButton}
                                             aria-controls={LoginOpen ? 'account-menu' : undefined}
@@ -181,16 +211,16 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                             aria-expanded={LoginOpen ? 'true' : undefined}
                                         >
                                             <Avatar sx={navbarStyles.authAvatar} src={loginData.photo.url}></Avatar>
-                                            <ExpandMoreIcon />
+                                            <ExpandMore />
                                         </IconButton>
                                     </Tooltip>
                                 </Grid>
                                 <Menu
-                                    anchorEl={anchorEl}
+                                    anchorEl={profilePopover}
                                     id="account-menu"
                                     open={LoginOpen}
-                                    onClose={handleLoginClose}
-                                    onClick={handleLoginClose}
+                                    onClose={handleProfileOpen}
+                                    onClick={handleProfileClose}
                                     PaperProps={{
                                         elevation: 0,
                                         sx: {authUserMenuStyle}
@@ -198,14 +228,14 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                 >
-                                    <MenuItem onClick={handleLoginClose}>
+                                    <MenuItem onClick={handleProfileClose}>
                                         <Avatar
                                             src={loginData.photo.url}
                                             sx={navbarStyles.authMenuAvatar}
                                         />
                                         <Typography sx={navbarStyles.authMenuAvatarText}>{loginData.fullname}</Typography>
                                     </MenuItem>
-                                    <MenuItem onClick={handleLoginClose}>
+                                    <MenuItem onClick={handleProfileClose}>
                                         <Button
                                             href="/editProfile/info"
                                             variant="outlined"
@@ -217,19 +247,19 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                         </Button>
                                     </MenuItem>
                                     <Divider />
-                                    <MenuItem component="a" href="/profile/myads" onClick={handleLoginClose}>
+                                    <MenuItem component="a" href="/profile/myads" onClick={handleProfileClose}>
                                         <ListItemIcon>
-                                            <FavoriteIcon fontSize="small" />
+                                            <Favorite fontSize="small" />
                                         </ListItemIcon>
                                         İlanlarım
                                     </MenuItem>
                                     <Divider />
                                     <MenuItem onClick={() => { 
-                                        handleLoginClose();
+                                        handleProfileClose();
                                         handlelogout();
                                     }}>
                                         <ListItemIcon>
-                                            <LogoutIcon fontSize="small" />
+                                            <Logout fontSize="small" />
                                         </ListItemIcon>
                                         Çıkış
                                     </MenuItem>
@@ -240,14 +270,14 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                     sx={navbarStyles.authMenuSellButton}
                                     variant='contained'
                                     color='error'
-                                    startIcon={<CameraAltIcon />} >
+                                    startIcon={<CameraAlt />} >
                                     <Typography sx={navbarStyles.authMenuSellButtonText}>Sat</Typography>
                                 </Button>
                             </Link>
                         </Box>
                     ): (
                         <Box sx={navbarStyles.rightButtonsGrid}>
-                            <Button onClick={handleOpen} sx={navbarStyles.loginButtonOnRight}>
+                            <Button onClick={handleLoginOpen} sx={navbarStyles.loginButtonOnRight}>
                                 <Typography sx={navbarStyles.loginButtonTextOnRight}>Giriş</Typography>
                             </Button>
                             <Link to="/post">
@@ -255,7 +285,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                     sx={navbarStyles.sellButtonOnRight}
                                     variant='contained'
                                     color='error'
-                                    startIcon={<CameraAltIcon />} >
+                                    startIcon={<CameraAlt />} >
                                     <Typography sx={navbarStyles.sellButtonTextOnRight}>Sat</Typography>
                                 </Button>
                             </Link>
@@ -267,13 +297,13 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                         <Grid item xs={6}>
                             <Grid container>
                                 <Grid item xs={2}>
-                                    <IconButton size='small' edge='start' onClick={openMenu}>
+                                    <IconButton size='small' edge='start' onClick={openMobileMenu}>
                                         <MenuIcon sx={navbarStyles.mobileNavbarHamburgerMenuIcon} />
                                     </IconButton>
                                     <Drawer
                                         anchor={'top'}
-                                        open={Boolean(anchorNav)}
-                                        onClose={closeMenu}
+                                        open={Boolean(mobileNav)}
+                                        onClose={closeMobileMenu}
                                         PaperProps={{
                                             sx: {
                                                 height: '100%',
@@ -284,8 +314,8 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                         <Container>
                                             <Grid container>
                                                 <Grid item xs={1} sx={navbarStyles.drawerCloseIconGrid}>
-                                                    <IconButton size='medium' edge='start' onClick={closeMenu}>
-                                                        <CloseIcon sx={navbarStyles.drawerCloseIcon} />
+                                                    <IconButton size='medium' edge='start' onClick={closeMobileMenu}>
+                                                        <Close sx={navbarStyles.drawerCloseIcon} />
                                                     </IconButton>
                                                 </Grid>
                                                 <Grid item xs={5}>
@@ -303,7 +333,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                                 <ListItem sx={navbarStyles.drawerAvatarListItem}>
                                                     <ListItemAvatar>
                                                         <Avatar sx={navbarStyles.drawerAvatar}>
-                                                            <Face2Icon />
+                                                            <Face2 />
                                                         </Avatar>
                                                     </ListItemAvatar>
                                                     <ListItemText
@@ -316,7 +346,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                                 <ListItem disablePadding>
                                                     <ListItemButton sx={navbarStyles.drawerMenuListItemButton}>
                                                             <ListItemIcon sx={navbarStyles.mobileNavbarListItemIcon}>
-                                                                <CameraAltIcon />
+                                                                <CameraAlt />
                                                             </ListItemIcon>
                                                         <ListItemText primary="Satmaya Başla" />
                                                     </ListItemButton>
@@ -324,7 +354,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                                 <ListItem disablePadding>
                                                     <ListItemButton sx={navbarStyles.drawerMenuListItemButton}>
                                                             <ListItemIcon sx={navbarStyles.drawerMenuListItemIcon}>
-                                                                <FavoriteIcon />
+                                                                <Favorite />
                                                             </ListItemIcon>
                                                         <ListItemText primary="İlanlarım" />
                                                     </ListItemButton>
@@ -332,7 +362,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                                 <ListItem disablePadding>
                                                     <ListItemButton sx={navbarStyles.drawerMenuListItemButton}>
                                                             <ListItemIcon sx={navbarStyles.drawerMenuListItemIcon}>
-                                                                <MessageIcon />
+                                                                <Message />
                                                             </ListItemIcon>
                                                         <ListItemText primary="Sohbet" />
                                                     </ListItemButton>
@@ -341,7 +371,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                                 <ListItem disablePadding>
                                                     <ListItemButton sx={navbarStyles.drawerMenuListItemButton}>
                                                             <ListItemIcon sx={navbarStyles.drawerMenuListItemIcon}>
-                                                                <HelpIcon />
+                                                                <Help />
                                                             </ListItemIcon>
                                                         <ListItemText primary="Yardım" />
                                                     </ListItemButton>
@@ -374,7 +404,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                 <ListItem sx={navbarStyles.mobileLocationListItem}>
                                     <ListItemText primary="İstanbul, Türkiye" sx={navbarStyles.mobileLocationListItemText} />
                                     <ListItemIcon sx={navbarStyles.mobileLocationListItemIcon}>
-                                        <LocationOnIcon />
+                                        <LocationOn />
                                     </ListItemIcon>
                                 </ListItem>
                             </Box>
@@ -382,7 +412,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                         <Grid item xs={12}>
                             <Paper component="form" sx={navbarStyles.mobileSearchPaper}>
                                 <IconButton color="primary" sx={navbarStyles.mobileSearchIconButton} aria-label="directions">
-                                    <SearchOutlinedIcon />
+                                    <SearchOutlined />
                                 </IconButton>
                                 <InputBase
                                     sx={navbarStyles.mobileSearchInputBase}
@@ -395,14 +425,14 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                 </Toolbar>
             </Container>
             <Dialog
-                fullScreen={fullScreen}
-                open={open}
-                onClose={handleClose}
+                fullScreen={false}
+                open={loginOpen}
+                onClose={handleLoginClose}
                 aria-labelledby="responsive-dialog-title"
             >
                 <DialogTitle id="responsive-dialog-title" sx={{ p: 0 }}>
-                    <IconButton onClick={handleClose} sx={navbarStyles.dialogTitle}>
-                        <CloseIcon sx={navbarStyles.dialogTitleClose} />
+                    <IconButton onClick={handleLoginClose} sx={navbarStyles.dialogTitle}>
+                        <Close sx={navbarStyles.dialogTitleClose} />
                     </IconButton>
                 </DialogTitle>
                 <LoginModal />
