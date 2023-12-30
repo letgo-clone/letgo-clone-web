@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid, Box, Button, AppBar, Toolbar, MenuItem, Container, Paper, Select, Drawer, Menu, Tooltip, Typography } from "@mui/material"
 
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import { subNavbarStyles } from '../../styles/styles';
+import { subNavbarStyles } from '../../styles';
 
 interface SubNavbarAreaProps {
     categories: object[],

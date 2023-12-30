@@ -11,7 +11,7 @@ import { ThemeProvider } from 'styled-components'
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from 'react-redux';
 
-import theme from './styles/theme.tsx';
+import theme from './theme.tsx';
 
 import store from './redux/store.ts';
 

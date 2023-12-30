@@ -10,7 +10,7 @@ import Divider from '@mui/material/Divider';
 import GooglePlay from '../../assets/img/playstore.webp'
 import AppStore from '../../assets/img/appstore.webp'
 
-import { footerStyles } from '../../styles/styles';
+import { footerStyles } from '../../styles';
 
 function Footer() {
     return (
