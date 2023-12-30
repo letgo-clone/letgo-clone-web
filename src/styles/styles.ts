@@ -332,3 +332,116 @@ export const subNavbarStyles: Record<string, SxProps<Theme> | undefined> = {
         margin: '0px 8px'
     }
 }
+
+export const footerStyles: Record<string, SxProps<Theme> | undefined> = {
+    container: {
+        marginTop: '5%',
+        position: 'relative',
+        left: 0,
+        bottom: 0,
+        right: 0,
+    },
+    gridContainer: {
+        display: { 
+            md: 'flex', 
+            xs: 'none' 
+        }
+    },
+    footerHead: {
+        color: '#000000',
+        fontStyle: 'normal',
+        fontWeight: 700,
+        fontSize: '13px',
+        lineHeight: '20px',
+        textTransform: 'uppercase',
+    },
+    footerContent: {
+        marginTop: '15px',
+        marginBottom: {lg: '35px', xs: '20', sm: '20'},
+        paddingLeft: '0px',
+        listStyleType: 'none',
+    },
+    footerContentText: {
+        color: '#2c2c2c',
+        fontSize: '12px',
+        paddingBottom: '6px'
+    },
+
+    // Mobile footer styles
+    mobileFooterContainer: {
+        display: { 
+            md: 'none', 
+            xs: 'flex' 
+        } 
+    },
+    mobileFooterAccordingDetail: {
+        backgroundColor: '#f5f5f5', 
+        padding: '8px 12px 16px'
+    },
+    mobileFooterLastAccordingGrid : {
+        marginTop: '10px'
+    },
+    mobileFooterLastAccordingTitle: {
+        padding: '10px 0px 10px 20px' 
+    },
+    mobileFooterBetweenAppIconGrid: {
+        marginTop: '20px', 
+        marginBottom:'10px'
+    },
+    mobileFooterBetweenLeftAppIconGrid: {
+        paddingRight:'5px',
+        textAlign: 'end'
+    },
+    mobileFooterBetweenRightAppIconGrid: {
+        paddingRight:'5px'
+    },
+
+    // Footer bottom Styles
+    bottomFooterContainer: {
+        backgroundColor: '#ff3f55'
+    },
+    bottomFooterGridContainer: {
+        marginTop: '25px', 
+        marginBottom: '15px', 
+        color: '#FFFFFF', 
+        fontSize: '12px'
+    },
+    bottomFooterLeftTitle: {
+        textAlign: { 
+            xs: 'center', 
+            md: 'left', 
+            marginBottom: '10px', 
+            fontWeight: 600 
+        } 
+    },
+    bottomFooterLeftContentGrid: {
+        textAlign: 'center', 
+        marginBottom: '30px', 
+        display: { 
+            md: 'inline-flex', 
+            xs: 'block' 
+        } 
+    },
+    bottomFooterLeftContent: {
+        display: 'inline-block', 
+        margin: '0px 4px 0px 0px', 
+        fontSize: '12px', 
+        lineHeight: '18px', 
+        fontWeight: 300
+    },
+    bottomFooterRightContent: {
+        textAlign: { 
+            md: 'right', 
+            xs: 'center',
+        },
+        display: {
+            xl:'inline-flex', 
+            lg: 'inline-flex'
+        }
+    },
+    bottomFooterRightText: {
+        fontWeight: '600', 
+        fontSize: '12px',
+        paddingRight: '12px'
+    }
+}

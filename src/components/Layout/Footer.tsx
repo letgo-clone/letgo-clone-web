@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Container, Typography } from "@mui/material"
+import { Grid, Container, Typography, Box, Paper } from "@mui/material"
 import { Facebook, Instagram, Twitter, YouTube } from '@mui/icons-material';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -10,52 +10,52 @@ import Divider from '@mui/material/Divider';
 import GooglePlay from '../../assets/img/playstore.webp'
 import AppStore from '../../assets/img/appstore.webp'
 
+import { footerStyles } from '../../styles/styles';
+
 function Footer() {
     return (
-
-        <footer>
-            <Container sx={{ paddingRight: { xs: '0', md: '16' }, paddingLeft: { xs: '0', md: '16' } }}>
-                <Grid container sx={{ display: { md: 'flex', xs: 'none' } }}>
+        <>
+            <Container sx={footerStyles.container}>
+                <Grid container sx={footerStyles.gridContainer}>
                     <Grid item md={3}>
-                        <p id={'footer-head'}>Popüler Kategoriler</p>
-                        <ol id={'footer-content'}>
-                            <li>İkinci El Cep Telefonu</li>
-                            <li>İkinci El Bilgisayar</li>
-                            <li>İkinci El Araba</li>
-                            <li>İkinci El Motosiklet</li>
-                        </ol>
+                        <Typography sx={footerStyles.footerHead}>Popüler Kategoriler</Typography>
+                        <Box sx={footerStyles.footerContent}>
+                            <Typography sx={footerStyles.footerContentText}>İkinci El Cep Telefonu</Typography>
+                            <Typography sx={footerStyles.footerContentText}>İkinci El Bilgisayar</Typography>
+                            <Typography sx={footerStyles.footerContentText}>İkinci El Araba</Typography>
+                            <Typography sx={footerStyles.footerContentText}>İkinci El Motosiklet</Typography>
+                        </Box>
                     </Grid>
                     <Grid item md={3}>
-                        <p id={'footer-head'}>Popüler Sayfalar</p>
-                        <ol id={'footer-content'}>
-                            <li>İkinci El Mobilya</li>
-                            <li>İkinci El Bilgisayar</li>
-                            <li>İkinci El Araba</li>
-                            <li>İkinci El Motosiklet</li>
-                        </ol>
+                        <Typography sx={footerStyles.footerHead}>Popüler Sayfalar</Typography>
+                        <Box sx={footerStyles.footerContent}>
+                            <Typography sx={footerStyles.footerContentText}>İkinci El Mobilya</Typography>
+                            <Typography sx={footerStyles.footerContentText}>İkinci El Bilgisayar</Typography>
+                            <Typography sx={footerStyles.footerContentText}>İkinci El Araba</Typography>
+                            <Typography sx={footerStyles.footerContentText}>İkinci El Motosiklet</Typography>
+                        </Box>
                     </Grid>
                     <Grid item md={2}>
-                        <p id={'footer-head'}>Letgo</p>
-                        <ol id={'footer-content'}>
-                            <li>Hakkımızda</li>
-                            <li>Yardım ve Destek</li>
-                            <li>Güvenlik Önerileri</li>
-                        </ol>
+                        <Typography sx={footerStyles.footerHead}>Letgo</Typography>
+                        <Box sx={footerStyles.footerContent}>
+                            <Typography sx={footerStyles.footerContentText}>Hakkımızda</Typography>
+                            <Typography sx={footerStyles.footerContentText}>Yardım ve Destek</Typography>
+                            <Typography sx={footerStyles.footerContentText}>Güvenlik Önerileri</Typography>
+                        </Box>
                     </Grid>
                     <Grid item md={2}>
-                        <p id={'footer-head'}>OTOPLUS</p>
-                        <ol id={'footer-content'}>
-                            <li>İkinci El Cep Telefonu</li>
-                            <li>Araba Sat</li>
-                            <li>Merkezlerimiz</li>
-                            <li>İletişim</li>
-                            <li>Güvenlik Açığı İfşa Programı</li>
-                        </ol>
+                        <Typography sx={footerStyles.footerHead}>OTOPLUS</Typography>
+                        <Box sx={footerStyles.footerContent}>
+                            <Typography sx={footerStyles.footerContentText}>Araba Sat</Typography>
+                            <Typography sx={footerStyles.footerContentText}>Merkezlerimiz</Typography>
+                            <Typography sx={footerStyles.footerContentText}>İletişim</Typography>
+                            <Typography sx={footerStyles.footerContentText}>Güvenlik Açığı İfşa Programı</Typography>
+                        </Box>
                     </Grid>
                     <Grid item md={2}>
                         <Grid container>
                             <Grid item md={12}>
-                                <p id={'footer-head'}>Bizi Takip Et</p>
+                                <Typography sx={footerStyles.footerHead}>Bizi Takip Et</Typography>
                                 <Grid container>
                                     <Grid item md={3}>
                                         <Facebook />
@@ -82,10 +82,9 @@ function Footer() {
                                 </Grid>
                             </Grid>
                         </Grid>
-
                     </Grid>
                 </Grid>
-                <Grid container sx={{ display: { md: 'none', xs: 'flex' } }}>
+                <Grid container sx={footerStyles.mobileFooterContainer}>
                     <Grid item xs={12}>
                         <Divider />
                         <Accordion>
@@ -96,13 +95,13 @@ function Footer() {
                             >
                                 <Typography>Popüler Kategoriler</Typography>
                             </AccordionSummary>
-                            <AccordionDetails sx={{ backgroundColor: '#f5f5f5', padding: '8px 12px 16px' }}>
-                                <ol id={'footer-content'}>
-                                    <li>İkinci El Cep Telefonu</li>
-                                    <li>İkinci El Bilgisayar</li>
-                                    <li>İkinci El Araba</li>
-                                    <li>İkinci El Motosiklet</li>
-                                </ol>
+                            <AccordionDetails sx={footerStyles.mobileFooterAccordingDetail}>
+                                <Box sx={footerStyles.footerContent}>
+                                    <Typography sx={footerStyles.footerContentText}>İkinci El Cep Telefonu</Typography>
+                                    <Typography sx={footerStyles.footerContentText}>İkinci El Bilgisayar</Typography>
+                                    <Typography sx={footerStyles.footerContentText}>İkinci El Araba</Typography>
+                                    <Typography sx={footerStyles.footerContentText}>İkinci El Motosiklet</Typography>
+                                </Box>
                             </AccordionDetails>
                         </Accordion>
                     </Grid>
@@ -116,13 +115,13 @@ function Footer() {
                             >
                                 <Typography>Popüler Sayfalar</Typography>
                             </AccordionSummary>
-                            <AccordionDetails sx={{ backgroundColor: '#f5f5f5', padding: '8px 12px 16px' }}>
-                                <ol id={'footer-content'}>
-                                    <li>İkinci El Mobilya</li>
-                                    <li>İkinci El Bilgisayar</li>
-                                    <li>İkinci El Araba</li>
-                                    <li>İkinci El Motosiklet</li>
-                                </ol>
+                            <AccordionDetails sx={footerStyles.mobileFooterAccordingDetail}>
+                                <Box sx={footerStyles.footerContent}>
+                                    <Typography sx={footerStyles.footerContentText}>İkinci El Mobilya</Typography>
+                                    <Typography sx={footerStyles.footerContentText}>İkinci El Bilgisayar</Typography>
+                                    <Typography sx={footerStyles.footerContentText}>İkinci El Araba</Typography>
+                                    <Typography sx={footerStyles.footerContentText}>İkinci El Motosiklet</Typography>
+                                </Box>
                             </AccordionDetails>
                         </Accordion>
                     </Grid>
@@ -136,12 +135,12 @@ function Footer() {
                             >
                                 <Typography>letgo</Typography>
                             </AccordionSummary>
-                            <AccordionDetails sx={{ backgroundColor: '#f5f5f5', padding: '8px 12px 16px' }}>
-                                <ol id={'footer-content'}>
-                                    <li>Hakkımızda</li>
-                                    <li>Yardım ve Destek</li>
-                                    <li>Güvenlik Önerileri</li>
-                                </ol>
+                            <AccordionDetails sx={footerStyles.mobileFooterAccordingDetail}>
+                                <Box sx={footerStyles.footerContent}>
+                                    <Typography sx={footerStyles.footerContentText}>Hakkımızda</Typography>
+                                    <Typography sx={footerStyles.footerContentText}>Yardım ve Destek</Typography>
+                                    <Typography sx={footerStyles.footerContentText}>Güvenlik Önerileri</Typography>
+                                </Box>
                             </AccordionDetails>
                         </Accordion>
                     </Grid>
@@ -155,14 +154,13 @@ function Footer() {
                             >
                                 <Typography>otoplus</Typography>
                             </AccordionSummary>
-                            <AccordionDetails sx={{ backgroundColor: '#f5f5f5', padding: '8px 12px 16px' }}>
-                                <ol id={'footer-content'}>
-                                    <li>İkinci El Cep Telefonu</li>
-                                    <li>Araba Sat</li>
-                                    <li>Merkezlerimiz</li>
-                                    <li>İletişim</li>
-                                    <li>Güvenlik Açığı İfşa Programı</li>
-                                </ol>
+                            <AccordionDetails sx={footerStyles.mobileFooterAccordingDetail}>
+                                <Box sx={footerStyles.footerContent}>
+                                    <Typography sx={footerStyles.footerContentText}>Araba Sat</Typography>
+                                    <Typography sx={footerStyles.footerContentText}>Merkezlerimiz</Typography>
+                                    <Typography sx={footerStyles.footerContentText}>İletişim</Typography>
+                                    <Typography sx={footerStyles.footerContentText}>Güvenlik Açığı İfşa Programı</Typography>
+                                </Box>
                             </AccordionDetails>
                         </Accordion>
                     </Grid>
@@ -176,19 +174,19 @@ function Footer() {
                             >
                                 <Typography>Resmi bağlantılar</Typography>
                             </AccordionSummary>
-                            <AccordionDetails sx={{ backgroundColor: '#f5f5f5', padding: '8px 12px 16px' }}>
-                                <ol id={'footer-content'}>
-                                    <li>Şartlar ve Koşullar</li>
-                                    <li>Reklam Politikası</li>
-                                    <li>Resmi Kurumlar için Kılavuz</li>
-                                    <li>Gizlilik Bildirimi</li>
-                                </ol>
+                            <AccordionDetails sx={footerStyles.mobileFooterAccordingDetail}>
+                                <Box sx={footerStyles.footerContent}>
+                                    <Typography sx={footerStyles.footerContentText}>Şartlar ve Koşullar</Typography>
+                                    <Typography sx={footerStyles.footerContentText}>Reklam Politikası</Typography>
+                                    <Typography sx={footerStyles.footerContentText}>Resmi Kurumlar için Kılavuz</Typography>
+                                    <Typography sx={footerStyles.footerContentText}>Gizlilik Bildirimi</Typography>
+                                </Box>
                             </AccordionDetails>
                         </Accordion>
                     </Grid>
                     
-                    <Grid item xs={12} sx={{ marginTop: '10px' }}>
-                        <Grid container sx={{ padding: '10px 0px 10px 20px' }}>
+                    <Grid item xs={12} sx={footerStyles.mobileFooterLastAccordingGrid}>
+                        <Grid container sx={footerStyles.mobileFooterLastAccordingTitle}>
                             <Grid item xs={6}>
                                 BİZİ TAKİP ET
                             </Grid>
@@ -211,39 +209,44 @@ function Footer() {
                         </Grid>
                     <Divider />
                     </Grid>
-                    <Grid item xs={12} sx={{ marginTop: '20px', marginBottom:'10px' }}>
+                    <Grid item xs={12} sx={footerStyles.mobileFooterBetweenAppIconGrid}>
                         <Grid container>
-                            <Grid item xs={6} sx={{ paddingRight:'5px' }}>
-                                    <img src={GooglePlay} width={86} height={25} style={{ float:'right' }} />
+                            <Grid item xs={6} sx={footerStyles.mobileFooterBetweenLeftAppIconGrid}>
+                                    <img src={GooglePlay} width={86} height={25} />
                                 </Grid>
-                            <Grid item xs={6} sx={{ paddingLeft:'5px' }}>
+                            <Grid item xs={6} sx={footerStyles.mobileFooterBetweenRightAppIconGrid}>
                                 <img src={AppStore} width={86} height={25} />
                             </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
             </Container>
-            <Grid container sx={{ backgroundColor: '#ff3f55' }}>
+            <Grid container sx={footerStyles.bottomFooterContainer}>
                 <Container>
-                    <Grid container sx={{ marginTop: '25px', marginBottom: '15px', color: '#FFFFFF', fontSize: '12px' }}>
+                    <Grid container sx={footerStyles.bottomFooterGridContainer}>
                         <Grid item md={8} xs={12}>
                             <Grid container>
-                                <Grid item md={12} xs={12} sx={{ textAlign: { xs: 'center', md: 'left', marginBottom: '10px', fontWeight: 600 } }}>
+                                <Grid item md={12} xs={12} sx={footerStyles.bottomFooterLeftTitle}>
                                     Resmi bağlantılar
                                 </Grid>
-                                <Grid item md={12} xs={12} sx={{ textAlign: 'center', marginBottom: '30px', display: { md: 'inline-flex', xs: 'block' } }}>
-                                    <Typography sx={{ display: 'inline-block', margin: '0px 4px 0px 0px', fontSize: '12px', lineHeight: '18px', fontWeight: 300 }}>Şartlar ve Koşullar</Typography>
-                                    <Typography sx={{ display: 'inline-block', margin: '0px 4px 0px 0px', fontSize: '12px', lineHeight: '18px', fontWeight: 300 }}>-Reklam Politikası</Typography>
-                                    <Typography sx={{ display: 'inline-block', margin: '0px 4px 0px 0px', fontSize: '12px', lineHeight: '18px', fontWeight: 300 }}>-Resmi Kurumlar için Kılavuz</Typography>
-                                    <Typography sx={{ display: 'inline-block', margin: '0px 4px 0px 0px', fontSize: '12px', lineHeight: '18px', fontWeight: 300 }}>-Gizlilik Bildirimi</Typography>
+                                <Grid item md={12} xs={12} sx={footerStyles.bottomFooterLeftContentGrid}>
+                                    <Typography  sx={footerStyles.bottomFooterLeftContent}>Şartlar ve Koşullar</Typography>
+                                    <Typography  sx={footerStyles.bottomFooterLeftContent}>-Reklam Politikası</Typography>
+                                    <Typography  sx={footerStyles.bottomFooterLeftContent}>-Resmi Kurumlar için Kılavuz</Typography>
+                                    <Typography  sx={footerStyles.bottomFooterLeftContent}>-Gizlilik Bildirimi</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item md={4} xs={12} sx={{ textAlign: { md: 'right', xs: 'center' }, fontSize: '12px', fontWeight: 100 }}> <span style={{ fontWeight: '600', paddingRight: '12px' }}> Türkiye'de ikinci el eşya al ve sat</span> © 2006-2023 letgo</Grid>
+                        <Grid item md={4} xs={12} sx={footerStyles.bottomFooterRightContent}> 
+                            <Typography sx={footerStyles.bottomFooterRightText}> 
+                                Türkiye'de ikinci el eşya al ve sat
+                            </Typography> 
+                                © 2006-2023 letgo
+                        </Grid>
                     </Grid>
                 </Container>
             </Grid>
-        </footer>
+        </>
     )
 }
 
