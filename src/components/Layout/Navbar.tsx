@@ -14,6 +14,10 @@ import Divider from '@mui/material/Divider';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Face2Icon from '@mui/icons-material/Face2';
+import SmsIcon from '@mui/icons-material/Sms';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 import Logo from '../../assets/img/logo.svg'
 import MobileLogo from '../../assets/img/logo-mobile.svg'
@@ -24,11 +28,21 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
-import { Link } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import LoginModal from '../LoginModal';
+import { navbarStyles, authUserMenuStyle } from '../../styles/navbarStyles';
+import { useSelector } from "react-redux";
+import { removeAllData } from '../../redux/store';
+import { Request } from '../../helpers/Request';
+import { Link, useNavigate } from 'react-router-dom';
 
-const Navbar = () => {
+interface NavbarAreaProps {
+    isLogin: boolean
+}
+
+const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
+
+    const navigate = useNavigate();
     // useState elements
     const [anchorNav, setAnchorNav] = useState<null | HTMLElement>(null);
 
@@ -52,33 +66,40 @@ const Navbar = () => {
         setOpen(false);
     };
 
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const LoginOpen = Boolean(anchorEl);
+
+    const handleLoginClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleLoginClose = () => {
+        setAnchorEl(null);
+    };
+
+    const { loginData } = useSelector((state) => state.authUser);
+
+    const handlelogout = async() => {
+        const url = "/oauth/logout";
+        const result = await Request('GET', url);
+
+        if(result.success){
+            removeAllData();
+            navigate('/');
+            location.reload()
+        }
+    }
+
     return (
-        <AppBar position="static" sx={{ bgcolor: 'hsla(0,0%,100%,.87)', boxShadow: 1 }}>
-            <Container
-                maxWidth='lg'
-                sx={{
-                    marginTop: '5px',
-                    marginBottom: '5px',
-                    paddingRight: { sm: '0px' },
-                    paddingLeft: { sm: '0px' }
-                }
-                }
-            >
-                <Toolbar
-                    sx={{
-                        paddingRight: { sm: '0px' },
-                        paddingLeft: { sm: '0px', xs: '0' },
-                        display: { md: 'flex', xs: 'none' }
-                    }}> 
+        <AppBar position="static" sx={navbarStyles.appBar}>
+            <Container maxWidth='lg' sx={navbarStyles.container}>
+                <Toolbar sx={navbarStyles.toolbar}> 
                     <Link to="/">
                         <IconButton
                             size='small'
                             edge='start'
                             color="inherit"
                             aria-label="logo"
-                            sx={{
-                                display: { md: 'flex', xs: 'none' }
-                            }}
+                            sx={navbarStyles.logoIconButton}
                         >
                             <img src={Logo} width={'120'} height={'48'} />
                         </IconButton>
@@ -90,18 +111,18 @@ const Navbar = () => {
                                     id="location"
                                     name="location"
                                     value="34"
-                                    sx={{ flex: 1 }}
+                                    sx={navbarStyles.selectLocation}
                                 >
                                     <MenuItem value="34">
-                                        <ListItem sx={{ padding: '0.6px' }}>
-                                            <ListItemIcon sx={{ minWidth: { xs: '20%' } }}>
+                                        <ListItem sx={navbarStyles.selectLocationListItem}>
+                                            <ListItemIcon sx={navbarStyles.selectLocationListItemFirstIcon}>
                                                 <LocationOnIcon />
                                             </ListItemIcon>
                                             <ListItemText primary="İstanbul, Türkiye" />
                                         </ListItem>
                                     </MenuItem>
                                     <MenuItem value="06">
-                                        <ListItem sx={{ padding: '0.6px' }}>
+                                        <ListItem sx={navbarStyles.selectLocationListItem}>
                                             <ListItemIcon>
                                                 <LocationOnIcon />
                                             </ListItemIcon>
@@ -109,7 +130,7 @@ const Navbar = () => {
                                         </ListItem>
                                     </MenuItem>
                                     <MenuItem value="35">
-                                        <ListItem sx={{ padding: '0.6px' }}>
+                                        <ListItem sx={navbarStyles.selectLocationListItem}>
                                             <ListItemIcon>
                                                 <LocationOnIcon />
                                             </ListItemIcon>
@@ -119,74 +140,135 @@ const Navbar = () => {
                                 </Select>
                             </FormControl>
                         </Grid>
-                        <Grid item xl={8} md={8} xs={12} sx={{ paddingLeft: '1%' }}>
-                            <Paper
-                                component="form"
-                                sx={{ display: 'flex', alignItems: 'center', border: '1px solid #c4baba', boxShadow: '0', p: '0px', width: '100%' }}
-                            >
+                        <Grid item xl={8} md={8} xs={12} sx={navbarStyles.inputSearchGrid}>
+                            <Paper component="form" sx={navbarStyles.inputSearchPaper}>
                                 <InputBase
-                                    sx={{ ml: 1, flex: 1, pt: 1 }}
+                                    sx={navbarStyles.inputSearchAreaInputBase}
                                     placeholder="Araba, telefon, bisiklet ve daha fazlası"
                                     inputProps={{ 'aria-label': 'search google maps' }}
                                 />
                                 <IconButton
                                     href='/item/search'
                                     color="primary"
-                                    sx={{
-                                        p: '12px',
-                                        color: '#FFFFFF',
-                                        backgroundColor: '#2c2c2c',
-                                        borderRadius: '0px 2px 2px 0px',
-                                        '&:hover': { color: 'FFFFFF', backgroundColor: '#2c2c2c' }
-                                    }}
+                                    sx={navbarStyles.searchInputIconButton}
                                     aria-label="directions">
                                     <SearchOutlinedIcon />
                                 </IconButton>
                             </Paper>
                         </Grid>
                     </Grid>
-                    <Box sx={{ display: { md: 'contents', sm: 'contents', xs: 'none' } }}>
-                        <Button 
-                            onClick={handleOpen} 
-                            sx={{ 
-                                color: '#ff3f55',
-                                marginLeft:'24px'
-                            }}
-                        >
-                        <p style={{ fontWeight: '600', borderBottom: '2px solid #ff3f55', textTransform: 'none' }}>Giriş</p>
-                        </Button>
-                        <Link to="/post">
-                            <Button
-                                sx={
-                                    {
-                                        color: '#FFFFFF',
-                                        backgroundColor: '#ff3f55',
-                                        borderRadius: 5,
-                                        border: '4px solid white',
-                                        '&:hover': { backgroundColor: '#FFFFFF', color: '#ff3f55' },
-                                        padding: '6px 15px 6px 15px'
-                                    }
-                                }
-                                variant='contained'
-                                color='error'
-                                startIcon={<CameraAltIcon />} >
-                                <p style={{ fontWeight: '600', textTransform: 'none' }}>Sat</p>
+                    {isLogin ? (
+                        <Box sx={navbarStyles.rightButtonsGrid}>
+                            <Grid container sx={navbarStyles.authBoxGrid}>
+                                <Grid item xl={1} lg={1} md={1} sx={navbarStyles.authIconsGrid}>
+                                    <IconButton>
+                                        <SmsIcon />
+                                    </IconButton>
+                                </Grid>
+                                <Grid item xl={1} lg={1} md={1} sx={navbarStyles.authIconsGrid}>
+                                    <IconButton>
+                                        <NotificationsIcon />
+                                    </IconButton>
+                                </Grid>
+                                <Grid item xl={1} lg={1} md={1} sx={navbarStyles.authAvatarIconGrid}>
+                                    <Tooltip title="Account settings">
+                                        <IconButton
+                                            onClick={handleLoginClick}
+                                            size="small"
+                                            sx={navbarStyles.authAvatarIconButton}
+                                            aria-controls={LoginOpen ? 'account-menu' : undefined}
+                                            aria-haspopup="true"
+                                            aria-expanded={LoginOpen ? 'true' : undefined}
+                                        >
+                                            <Avatar sx={navbarStyles.authAvatar} src={loginData.photo.url}></Avatar>
+                                            <ExpandMoreIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                </Grid>
+                                <Menu
+                                    anchorEl={anchorEl}
+                                    id="account-menu"
+                                    open={LoginOpen}
+                                    onClose={handleLoginClose}
+                                    onClick={handleLoginClose}
+                                    PaperProps={{
+                                        elevation: 0,
+                                        sx: {authUserMenuStyle}
+                                    }}
+                                    transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                                >
+                                    <MenuItem onClick={handleLoginClose}>
+                                        <Avatar
+                                            src={loginData.photo.url}
+                                            sx={navbarStyles.authMenuAvatar}
+                                        />
+                                        <Typography sx={navbarStyles.authMenuAvatarText}>{loginData.fullname}</Typography>
+                                    </MenuItem>
+                                    <MenuItem onClick={handleLoginClose}>
+                                        <Button
+                                            href="/editProfile/info"
+                                            variant="outlined"
+                                            sx={navbarStyles.authMenuProfileButton}
+                                            color="error"
+                                            type="submit"
+                                        >
+                                            Profili görüntüle ve düzenle
+                                        </Button>
+                                    </MenuItem>
+                                    <Divider />
+                                    <MenuItem component="a" href="/profile/myads" onClick={handleLoginClose}>
+                                        <ListItemIcon>
+                                            <FavoriteIcon fontSize="small" />
+                                        </ListItemIcon>
+                                        İlanlarım
+                                    </MenuItem>
+                                    <Divider />
+                                    <MenuItem onClick={() => { 
+                                        handleLoginClose();
+                                        handlelogout();
+                                    }}>
+                                        <ListItemIcon>
+                                            <LogoutIcon fontSize="small" />
+                                        </ListItemIcon>
+                                        Çıkış
+                                    </MenuItem>
+                                </Menu>
+                            </Grid>
+                            <Link to="/post">
+                                <Button
+                                    sx={navbarStyles.authMenuSellButton}
+                                    variant='contained'
+                                    color='error'
+                                    startIcon={<CameraAltIcon />} >
+                                    <Typography sx={navbarStyles.authMenuSellButtonText}>Sat</Typography>
+                                </Button>
+                            </Link>
+                        </Box>
+                    ): (
+                        <Box sx={navbarStyles.rightButtonsGrid}>
+                            <Button onClick={handleOpen} sx={navbarStyles.loginButtonOnRight}>
+                                <Typography sx={navbarStyles.loginButtonTextOnRight}>Giriş</Typography>
                             </Button>
-                        </Link>
-                    </Box>
+                            <Link to="/post">
+                                <Button
+                                    sx={navbarStyles.sellButtonOnRight}
+                                    variant='contained'
+                                    color='error'
+                                    startIcon={<CameraAltIcon />} >
+                                    <Typography sx={navbarStyles.sellButtonTextOnRight}>Sat</Typography>
+                                </Button>
+                            </Link>
+                        </Box>
+                    )}
                 </Toolbar>
-                <Toolbar
-                    sx={{
-                        paddingRight: 0,
-                        paddingLeft: 0,
-                        display: { md: 'none' }
-                    }}>
+                <Toolbar sx={navbarStyles.mobileToolbar}>
                     <Grid container>
                         <Grid item xs={6}>
                             <Grid container>
                                 <Grid item xs={2}>
                                     <IconButton size='small' edge='start' onClick={openMenu}>
-                                        <MenuIcon sx={{ fontSize: '2.0rem' }} />
+                                        <MenuIcon sx={navbarStyles.mobileNavbarHamburgerMenuIcon} />
                                     </IconButton>
                                     <Drawer
                                         anchor={'top'}
@@ -200,10 +282,10 @@ const Navbar = () => {
                                         }}
                                     >
                                         <Container>
-                                            <Grid container >
-                                                <Grid item xs={1} sx={{ marginTop: '1px' }}>
+                                            <Grid container>
+                                                <Grid item xs={1} sx={navbarStyles.drawerCloseIconGrid}>
                                                     <IconButton size='medium' edge='start' onClick={closeMenu}>
-                                                        <CloseIcon sx={{ fontSize: '2.5rem' }} />
+                                                        <CloseIcon sx={navbarStyles.drawerCloseIcon} />
                                                     </IconButton>
                                                 </Grid>
                                                 <Grid item xs={5}>
@@ -211,90 +293,65 @@ const Navbar = () => {
                                                         edge='start'
                                                         color="inherit"
                                                         aria-label="logo"
-                                                        sx={{
-                                                            marginTop: '10px',
-                                                            marginLeft: '1px'
-                                                        }}
+                                                        sx={navbarStyles.drawerLogoIconButton}
                                                     >
                                                         <img src={MobileLogo} width={'60'} height={'28'} />
                                                     </IconButton>
                                                 </Grid>
                                             </Grid>
-                                            <List
-                                                sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
-                                                aria-label="contacts"
-                                            >
-                                                <ListItem
-                                                    sx={{
-                                                        marginTop: '20px',
-                                                        marginBottom: '20px',
-                                                        paddingLeft: 0
-                                                    }}
-                                                >
+                                            <List sx={navbarStyles.drawerMenuList} aria-label="contacts">
+                                                <ListItem sx={navbarStyles.drawerAvatarListItem}>
                                                     <ListItemAvatar>
-                                                        <Avatar
-                                                            sx={{
-                                                                width: 50,
-                                                                height: 50
-                                                            }}
-                                                        >
+                                                        <Avatar sx={navbarStyles.drawerAvatar}>
                                                             <Face2Icon />
                                                         </Avatar>
                                                     </ListItemAvatar>
                                                     <ListItemText
                                                         primary="Hesabına Gir"
                                                         secondary="Hesabına giriş yap"
-                                                        sx={{
-                                                            marginLeft: '10px'
-                                                        }}
+                                                        sx={navbarStyles.drawerAvatarListItemText}
                                                     />
                                                 </ListItem>
                                                 <Divider />
                                                 <ListItem disablePadding>
-                                                    <ListItemButton sx={{ paddingLeft: 0 }}>
-                                                        <ListItemIcon sx={{ minWidth: '45px' }}>
-                                                            <CameraAltIcon />
-                                                        </ListItemIcon>
+                                                    <ListItemButton sx={navbarStyles.drawerMenuListItemButton}>
+                                                            <ListItemIcon sx={navbarStyles.mobileNavbarListItemIcon}>
+                                                                <CameraAltIcon />
+                                                            </ListItemIcon>
                                                         <ListItemText primary="Satmaya Başla" />
                                                     </ListItemButton>
                                                 </ListItem>
                                                 <ListItem disablePadding>
-                                                    <ListItemButton sx={{ paddingLeft: 0 }}>
-                                                        <ListItemIcon sx={{ minWidth: '45px' }}>
-                                                            <FavoriteIcon />
-                                                        </ListItemIcon>
+                                                    <ListItemButton sx={navbarStyles.drawerMenuListItemButton}>
+                                                            <ListItemIcon sx={navbarStyles.drawerMenuListItemIcon}>
+                                                                <FavoriteIcon />
+                                                            </ListItemIcon>
                                                         <ListItemText primary="İlanlarım" />
                                                     </ListItemButton>
                                                 </ListItem>
                                                 <ListItem disablePadding>
-                                                    <ListItemButton sx={{ paddingLeft: 0 }}>
-                                                        <ListItemIcon sx={{ minWidth: '45px' }}>
-                                                            <MessageIcon />
-                                                        </ListItemIcon>
+                                                    <ListItemButton sx={navbarStyles.drawerMenuListItemButton}>
+                                                            <ListItemIcon sx={navbarStyles.drawerMenuListItemIcon}>
+                                                                <MessageIcon />
+                                                            </ListItemIcon>
                                                         <ListItemText primary="Sohbet" />
                                                     </ListItemButton>
                                                 </ListItem>
                                                 <Divider />
                                                 <ListItem disablePadding>
-                                                    <ListItemButton sx={{ paddingLeft: 0 }}>
-                                                        <ListItemIcon sx={{ minWidth: '45px' }}>
-                                                            <HelpIcon />
-                                                        </ListItemIcon>
+                                                    <ListItemButton sx={navbarStyles.drawerMenuListItemButton}>
+                                                            <ListItemIcon sx={navbarStyles.drawerMenuListItemIcon}>
+                                                                <HelpIcon />
+                                                            </ListItemIcon>
                                                         <ListItemText primary="Yardım" />
                                                     </ListItemButton>
                                                 </ListItem>
                                             </List>
-                                            <Container sx={{ display: 'inline-grid', paddingLeft: 0, paddingRight: 0 }}>
+                                            <Container sx={navbarStyles.drawerLoginButtonContainer}>
                                                 <Button
                                                     variant="contained"
                                                     color="error" size='large'
-                                                    sx={{
-                                                        borderRadius: 5,
-                                                        backgroundColor: '#ff3f55',
-                                                        textTransform: 'none',
-                                                        marginTop: '20px',
-                                                        padding: '10px'
-                                                    }}
+                                                    sx={navbarStyles.drawerLoginButton}
                                                 >Giriş</Button>
                                             </Container>
                                         </Container>
@@ -305,9 +362,7 @@ const Navbar = () => {
                                         edge='start'
                                         color="inherit"
                                         aria-label="logo"
-                                        sx={{
-                                            marginLeft: '3px'
-                                        }}
+                                        sx={navbarStyles.mobileTopLogo}
                                     >
                                         <img src={MobileLogo} width={'60'} height={'28'} />
                                     </IconButton>
@@ -316,24 +371,21 @@ const Navbar = () => {
                         </Grid>
                         <Grid item xs={6}>
                             <Box>
-                                <ListItem sx={{ paddingRight: 0 }}>
-                                    <ListItemText primary="İstanbul, Türkiye" sx={{ color: '#2c2c2c', fontWeight: '600', textAlign: 'end' }} />
-                                    <ListItemIcon sx={{ minWidth: { xs: '0' } }}>
+                                <ListItem sx={navbarStyles.mobileLocationListItem}>
+                                    <ListItemText primary="İstanbul, Türkiye" sx={navbarStyles.mobileLocationListItemText} />
+                                    <ListItemIcon sx={navbarStyles.mobileLocationListItemIcon}>
                                         <LocationOnIcon />
                                     </ListItemIcon>
                                 </ListItem>
                             </Box>
                         </Grid>
                         <Grid item xs={12}>
-                            <Paper
-                                component="form"
-                                sx={{ display: 'flex', alignItems: 'center', border: '1px solid #c4baba', boxShadow: '0', p: '0px' }}
-                            >
-                                <IconButton color="primary" sx={{ color: '#2c2c2c', backgroundColor: '#FFFFFF', borderRadius: '0px 2px 2px 0px' }} aria-label="directions">
+                            <Paper component="form" sx={navbarStyles.mobileSearchPaper}>
+                                <IconButton color="primary" sx={navbarStyles.mobileSearchIconButton} aria-label="directions">
                                     <SearchOutlinedIcon />
                                 </IconButton>
                                 <InputBase
-                                    sx={{ ml: 1, flex: 1, pt: 1 }}
+                                    sx={navbarStyles.mobileSearchInputBase}
                                     placeholder="Araba, telefon, bisiklet ve daha fazlası"
                                     inputProps={{ 'aria-label': 'search google maps' }}
                                 />
@@ -349,8 +401,8 @@ const Navbar = () => {
                 aria-labelledby="responsive-dialog-title"
             >
                 <DialogTitle id="responsive-dialog-title" sx={{ p: 0 }}>
-                    <IconButton onClick={handleClose} sx={{ float: 'right' }}>
-                        <CloseIcon sx={{ fontSize: '2.5rem' }} />
+                    <IconButton onClick={handleClose} sx={navbarStyles.dialogTitle}>
+                        <CloseIcon sx={navbarStyles.dialogTitleClose} />
                     </IconButton>
                 </DialogTitle>
                 <LoginModal />

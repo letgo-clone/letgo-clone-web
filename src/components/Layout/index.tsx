@@ -33,18 +33,8 @@ const Layout = (props) => {
 
   return (
     <React.Fragment>
-      {login ? (
-        <>
-          <AuthNavbar />
-          <SubNavbar categories={menuData!}/>
-        </>
-      ): (
-        <>
-          <Navbar />
-          <SubNavbar categories={menuData!}/>
-        </>
-      )}
-     
+        <Navbar isLogin={login!} />
+        <SubNavbar categories={menuData!}/>
         <div> {props.children} </div>
       <Footer />
     </React.Fragment>
