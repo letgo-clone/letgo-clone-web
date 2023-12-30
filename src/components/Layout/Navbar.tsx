@@ -60,8 +60,7 @@ import { Request } from '../../helpers/Request';
 import { Link, useNavigate } from 'react-router-dom';
 
 // Redux
-import { useSelector } from "react-redux";
-import { removeAllData } from '../../redux/store';
+import { removeAllData,useAppSelector } from '../../redux/store';
 
 interface NavbarAreaProps {
     isLogin: boolean
@@ -71,7 +70,9 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
 
     // React router elements
     const navigate = useNavigate();
-    const { loginData } = useSelector((state) => state.authUser);
+
+    // Redux
+    const {loginData} = useAppSelector((state) => state?.authUser);
 
     // useState elements
     const [mobileNav, setMobileNav] = useState<null | HTMLElement>(null);
@@ -112,7 +113,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
         const url = "/oauth/logout";
         const result = await Request('GET', url);
 
-        if(result.success){
+        if(result?.success){
             removeAllData();
             navigate('/');
             location.reload()
