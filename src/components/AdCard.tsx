@@ -1,23 +1,41 @@
 import React, { useState } from 'react'
 
-import { Box, Grid, Card, CardActions, CardContent, CardMedia, Typography, Chip, Button } from '@mui/material';
+// Material UI elements
+import { 
+    Box, 
+    Grid, 
+    Card, 
+    CardActions, 
+    CardContent, 
+    CardMedia, 
+    Typography, 
+    Chip, 
+    IconButton,
+    Button 
+    } from '@mui/material';
 
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import IconButton from '@mui/material/IconButton';
-import BoltIcon from '@mui/icons-material/Bolt';
-import CallIcon from '@mui/icons-material/Call';
+// Material UI Icons
+import { 
+    FavoriteBorder,
+    Favorite,
+    Bolt,
+    Call
+    } from '@mui/icons-material';
 
-import { Link } from 'react-router-dom';
+// Styles
+import { adCardStyles } from '../styles';
 
+// assets
 import otoplusBadge from '../assets/img/otoplus-badge.png'
 
-import slugify from 'react-slugify';
-
-import { Request } from '../helpers/Request';
+// Other package
 import Swal from 'sweetalert2';
+import slugify from 'react-slugify';
+import { Link } from 'react-router-dom';
 
-import { adCardStyles } from '../styles';
+// helper
+import { Request } from '../helpers/Request';
+
 
 type AdvertProps = {
     data: string[];
@@ -87,13 +105,14 @@ export const AdCard = ({ data, grid }: AdvertProps) => {
             {cardData.map((item, index) => (
                 <Grid item={true} lg={grid[0]} md={grid[1]} sm={grid[2]} xs={grid[3]} key={index}>
                     <Card sx={adCardStyles.card}>
+                        {/* Card Media */}
                         <Box sx={adCardStyles.cardMediaBox}>
                             <Box sx={adCardStyles.cardRightAction} onClick={() => addFavorite(item.id, item.has_favorite)}>
                                 <IconButton aria-label="add to favorites" sx={adCardStyles.cardRightActionIconButton}>
                                     {item.has_favorite == true ? (
-                                        <FavoriteIcon sx={{ color:'red' }} />
+                                        <Favorite sx={{ color:'red' }} />
                                     ): (
-                                        <FavoriteBorderIcon sx={{ color:'red' }} />
+                                        <FavoriteBorder sx={{ color:'red' }} />
                                     )}
                                 </IconButton>
                             </Box>
@@ -112,7 +131,7 @@ export const AdCard = ({ data, grid }: AdvertProps) => {
                                 {(item.display_type == 'hot' && item.display_name !== 'Otoplus') && (
                                     <Box sx={adCardStyles.cardLeftAction} >
                                         <Chip
-                                            avatar={<BoltIcon />}
+                                            avatar={<Bolt />}
                                             label="Öne Çıkan"
                                             variant="outlined"
                                             size="small"
@@ -132,6 +151,7 @@ export const AdCard = ({ data, grid }: AdvertProps) => {
                                 )}
                             </Link>
                         </Box>
+                        {/* Card Content */}
                         <Box 
                             sx={
                                 item.display_type == 'hot' || item.display_type == 'partner'  ? (
@@ -170,7 +190,7 @@ export const AdCard = ({ data, grid }: AdvertProps) => {
                                 <CardActions sx={adCardStyles.cardPartnerFooter}>
                                     <Button
                                         variant="outlined"
-                                        startIcon={<CallIcon />}
+                                        startIcon={<Call />}
                                         sx={adCardStyles.cardPartnerCallButton}
                                     >
                                         Ara
