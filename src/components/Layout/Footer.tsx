@@ -1,21 +1,40 @@
 import React from 'react'
-import { Grid, Container, Typography, Box, Paper } from "@mui/material"
-import { Facebook, Instagram, Twitter, YouTube } from '@mui/icons-material';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Divider from '@mui/material/Divider';
 
+// Material UI Elements
+import { 
+    Grid, 
+    Container, 
+    Typography, 
+    Box, 
+    Accordion, 
+    AccordionSummary,
+    AccordionDetails,
+    Divider
+    } from "@mui/material"
+
+// Material UI icons
+import { 
+    Facebook, 
+    Instagram, 
+    Twitter, 
+    YouTube,
+    ExpandMore
+    } from '@mui/icons-material';
+
+// styles
+import { footerStyles } from '../../styles';
+
+// assets
 import GooglePlay from '../../assets/img/playstore.webp'
 import AppStore from '../../assets/img/appstore.webp'
 
-import { footerStyles } from '../../styles';
 
 function Footer() {
     return (
-        <>
+        <React.Fragment>
+        {/* First Footer */}
             <Container sx={footerStyles.container}>
+                {/* Footer for desktop */}
                 <Grid container sx={footerStyles.gridContainer}>
                     <Grid item md={3}>
                         <Typography sx={footerStyles.footerHead}>Popüler Kategoriler</Typography>
@@ -84,12 +103,13 @@ function Footer() {
                         </Grid>
                     </Grid>
                 </Grid>
+                 {/* Footer for tablet and phone */}
                 <Grid container sx={footerStyles.mobileFooterContainer}>
                     <Grid item xs={12}>
                         <Divider />
                         <Accordion>
                             <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
+                                expandIcon={<ExpandMore />}
                                 aria-controls="panel1a-content"
                                 id="panel1a-header"
                             >
@@ -109,7 +129,7 @@ function Footer() {
                         <Divider />
                         <Accordion>
                             <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
+                                expandIcon={<ExpandMore />}
                                 aria-controls="panel1a-content"
                                 id="panel1a-header"
                             >
@@ -129,7 +149,7 @@ function Footer() {
                         <Divider />
                         <Accordion>
                             <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
+                                expandIcon={<ExpandMore />}
                                 aria-controls="panel1a-content"
                                 id="panel1a-header"
                             >
@@ -148,7 +168,7 @@ function Footer() {
                         <Divider />
                         <Accordion>
                             <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
+                                expandIcon={<ExpandMore />}
                                 aria-controls="panel1a-content"
                                 id="panel1a-header"
                             >
@@ -168,7 +188,7 @@ function Footer() {
                         <Divider />
                         <Accordion>
                             <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
+                                expandIcon={<ExpandMore />}
                                 aria-controls="panel1a-content"
                                 id="panel1a-header"
                             >
@@ -221,6 +241,7 @@ function Footer() {
                     </Grid>
                 </Grid>
             </Container>
+        {/* Second Footer */}
             <Grid container sx={footerStyles.bottomFooterContainer}>
                 <Container>
                     <Grid container sx={footerStyles.bottomFooterGridContainer}>
@@ -246,7 +267,7 @@ function Footer() {
                     </Grid>
                 </Container>
             </Grid>
-        </>
+        </React.Fragment>
     )
 }
 
