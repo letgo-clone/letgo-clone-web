@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Typography, Grid, Button, DialogContent, DialogActions, DialogTitle, IconButton, TextField } from '@mui/material'
+import { Typography, Grid, Button, DialogContent, Box, DialogTitle, IconButton, TextField } from '@mui/material'
 import Carousel from 'react-material-ui-carousel'
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -9,6 +9,8 @@ import { useFormik } from "formik";
 import { setLoginData, useAppDispatch } from '../redux/store';
 
 import { HandleLoginToken, Request } from '../helpers/Request';
+
+import { loginModalStyles } from '../styles';
 
 function Item(props) {
     return (
@@ -88,124 +90,92 @@ const LoginModal = () => {
         <>
             {!showLogin ? (
                 <>
-                    <DialogContent sx={{ marginBottom: '20%' }}>
+                    <DialogContent>
                         <Grid container spacing={2}>
-                            <Grid item lg={12} md={12} sm={12} xs={12} sx={{ marginBottom: '20px' }}>
+                            <Grid item lg={12} md={12} sm={12} xs={12}>
                                 <Carousel animation={'slide'} autoPlay={false} swipe={true}>
                                     {
                                         items.map((item, i) => <Item key={i} item={item} />)
                                     }
                                 </Carousel>
                             </Grid>
-                            <Grid item lg={12} md={12} sm={12} xs={12} sx={{ display: 'grid' }}>
+                            <Grid item lg={12} md={12} sm={12} xs={12} sx={loginModalStyles.buttonGrid}>
                                 <Button
                                     variant="outlined"
-                                    sx={{
-                                        backgroundColor: '#FFFFFF',
-                                        color: '#ff3f55',
-                                        textTransform: 'none',
-                                        border: '4px solid transparent',
-                                        outline: 'red solid 2px',
-                                        borderRadius: 5,
-                                        fontSize: '16px',
-                                        fontWeight: 700,
-                                        '&:hover': { bgcolor: '#FFFFFF', border: '4px solid #ff3f55', color: '#ff3f55' },
-                                    }}
+                                    sx={loginModalStyles.buttons}
                                     color="error"
                                 >
                                     Telefonla devam et
                                 </Button>
                             </Grid>
-                            <Grid item lg={12} md={12} sm={12} xs={12} sx={{ display: 'grid' }}>
+                            <Grid item lg={12} md={12} sm={12} xs={12} sx={loginModalStyles.buttonGrid}>
                                 <Button
                                     variant="outlined"
-                                    sx={{
-                                        backgroundColor: '#FFFFFF',
-                                        color: '#ff3f55',
-                                        textTransform: 'none',
-                                        border: '4px solid transparent',
-                                        outline: 'red solid 2px',
-                                        borderRadius: 5,
-                                        fontSize: '16px',
-                                        fontWeight: 700,
-                                        '&:hover': { bgcolor: '#FFFFFF', border: '4px solid #ff3f55', color: '#ff3f55' },
-                                    }}
+                                    sx={loginModalStyles.buttons}
                                     color="error"
                                 >
                                     Google ile devam et
                                 </Button>
                             </Grid>
-                            <Grid item lg={12} md={12} sm={12} xs={12} sx={{ display: 'grid' }}>
+                            <Grid item lg={12} md={12} sm={12} xs={12} sx={loginModalStyles.buttonGrid}>
                                 <Button
                                     onClick={hanldeLogin}
                                     variant="outlined"
-                                    sx={{
-                                        backgroundColor: '#FFFFFF',
-                                        color: '#ff3f55',
-                                        textTransform: 'none',
-                                        border: '4px solid transparent',
-                                        outline: 'red solid 2px',
-                                        borderRadius: 5,
-                                        fontSize: '16px',
-                                        fontWeight: 700,
-                                        '&:hover': { bgcolor: '#FFFFFF', border: '4px solid #ff3f55', color: '#ff3f55' },
-                                    }}
+                                    sx={loginModalStyles.buttons}
                                     color="error"
                                 >
                                     E-posta adresiyle devam et
                                 </Button>
                             </Grid>
                         </Grid>
-                    </DialogContent>
-                    <DialogActions>
-                        <Grid container sx={{ textAlign: 'center' }}>
-                            <Grid item lg={12} md={12} sm={12} xs={12} sx={{ marginBottom: '10px' }}>
-                                <Typography sx={{ fontSize: '12px', color: '#004BBE' }}>
+                        <Grid container sx={loginModalStyles.footerModalGridContainer}>
+                            <Grid item lg={12} md={12} sm={12} xs={12} sx={loginModalStyles.footerModalFirstGrid}>
+                                <Typography sx={loginModalStyles.footerModalFristText}>
                                     Aydınlatma metnimizi okuyunuz
                                 </Typography>
                             </Grid>
-                            <Grid item lg={12} md={12} sm={12} xs={12} sx={{ marginBottom: '20px' }}>
-                                <Typography sx={{ fontSize: '12px', color: '#424242' }}>
-                                    Devam ederek bu şartları kabul etmiş olursun:<span style={{ color: "#004BBE" }}> letgo Şartlar ve Koşulları </span>
+                            <Grid item lg={12} md={12} sm={12} xs={12} sx={loginModalStyles.footerModalSecondGrid}>
+                                <Typography sx={loginModalStyles.footerModalSecondText}>
+                                    Devam ederek bu şartları kabul etmiş olursun: &nbsp;
+                                </Typography>
+                                <Typography sx={loginModalStyles.footerModalFristText}> 
+                                    letgo Şartlar ve Koşulları 
                                 </Typography>
                             </Grid>
                         </Grid>
-                    </DialogActions>
+                    </DialogContent>
                 </>
             ) : (
                 <>
-                    <DialogTitle id="responsive-dialog-title" sx={{ position: 'absolute', p: 0 }}>
-                        <IconButton onClick={hanldeLogin} sx={{ float: 'left', marginTop: '10px' }}>
-                            <ArrowBackIcon sx={{ fontSize: '1.5rem' }} />
+                    <DialogTitle id="responsive-dialog-title" sx={loginModalStyles.dialogTitle}>
+                        <IconButton onClick={hanldeLogin} sx={loginModalStyles.dialogTitleIconButton}>
+                            <ArrowBackIcon sx={loginModalStyles.dialogTitleIcon} />
                         </IconButton>
                     </DialogTitle>
-                    <DialogContent sx={{ marginBottom: '20%', overflowY: 'visible' }}>
+                    <DialogContent sx={loginModalStyles.dialogContent}>
                         <form
                             method='POST'
                             onSubmit={formik.handleSubmit}
                         >
                             <Grid container spacing={2}>
-                                <Grid item lg={12} md={12} sm={12} xs={12} sx={{ textAlign: 'center' }}>
+                                <Grid item lg={12} md={12} sm={12} xs={12} sx={loginModalStyles.iconGrid}>
                                     <img src={Logo} width={74} height={47} />
                                 </Grid>
                                 {!showPassword ? (
                                     <>
-                                        <Grid item lg={12} md={12} sm={12} xs={12} sx={{ marginBottom: '20px' }}>
-                                            <Typography sx={{ fontSize: '20px', fontWeight: 700, color: '#2c2c2c', textAlign: 'center' }}>
+                                        <Grid item lg={12} md={12} sm={12} xs={12}>
+                                            <Typography sx={loginModalStyles.InputsText}>
                                                 E-posta adresini gir
                                             </Typography>
                                         </Grid>
-                                        <Grid item lg={12} md={12} sm={12} xs={12} sx={{ marginBottom: '20px' }}>
+                                        <Grid item lg={12} md={12} sm={12} xs={12} sx={loginModalStyles.emailInputGrid}>
                                             <TextField
                                                 fullWidth
                                                 size='small'
                                                 id="email"
                                                 name="email"
                                                 placeholder='E-posta adresi'
-                                                sx={{
-                                                    border: '1px solid #2c2c2c',
-                                                    borderRadius: 2
-                                                }}
+                                                sx={loginModalStyles.emailInput}
                                                 value={formik.values.email}
                                                 onChange={formik.handleChange}
                                             />
@@ -213,15 +183,18 @@ const LoginModal = () => {
                                     </>
                                 ) : (
                                     <>
-                                        <Grid item lg={12} md={12} sm={12} xs={12} sx={{ marginBottom: '20px' }}>
-                                            <Typography sx={{ fontSize: '20px', fontWeight: 700, color: '#2c2c2c', textAlign: 'center', marginBottom:'10px' }}>
+                                        <Grid item lg={12} md={12} sm={12} xs={12}>
+                                            <Typography sx={loginModalStyles.InputsText}>
                                                 Şifreni gir
                                             </Typography>
-                                            <Typography sx={{ fontSize: '14px', color: '#2c2c2c', textAlign: 'center' }}>
-                                                Tekrar hoş geldin <span style={{ fontWeight: 700 }}> {formik.values.email} </span>
-                                            </Typography>
+                                            <Box sx={loginModalStyles.passwordWelcomeGrid}>
+                                                <Typography sx={loginModalStyles.passwordWelcomeText}>
+                                                    Tekrar hoş geldin&nbsp;
+                                                </Typography>
+                                                <Typography sx={loginModalStyles.passwordWelcomeInfo}> {formik.values.email} </Typography>
+                                            </Box>
                                         </Grid>
-                                        <Grid item lg={12} md={12} sm={12} xs={12} sx={{ marginBottom: '20px' }}>
+                                        <Grid item lg={12} md={12} sm={12} xs={12} sx={loginModalStyles.InputsGrid}>
                                             <TextField
                                                 fullWidth
                                                 size='small'
@@ -229,10 +202,7 @@ const LoginModal = () => {
                                                 name="password"
                                                 type='password'
                                                 placeholder='Şifreni Gir'
-                                                sx={{
-                                                    border: '1px solid #2c2c2c',
-                                                    borderRadius: 2
-                                                }}
+                                                sx={loginModalStyles.Input}
                                                 value={formik.values.password}
                                                 onChange={formik.handleChange}
                                             />
@@ -240,18 +210,10 @@ const LoginModal = () => {
                                     </>
                                 )}
 
-                                <Grid item lg={12} md={12} sm={12} xs={12} sx={{ marginBottom: '20px', display: 'grid' }}>
+                                <Grid item lg={12} md={12} sm={12} xs={12} sx={loginModalStyles.forwardButtonGrid}>
                                     <Button
                                         variant="outlined"
-                                        sx={{
-                                            backgroundColor: '#ff3f55',
-                                            color: '#FFFFFF',
-                                            textTransform: 'none',
-                                            border: '6px solid transparent',
-                                            fontSize: '16px',
-                                            borderRadius: 15,
-                                            '&:hover': { bgcolor: '#FFFFFF', border: '6px solid #ff3f55', color: '#ff3f55' },
-                                        }}
+                                        sx={loginModalStyles.forwardButton}
                                         color="error"
                                         type="submit"
                                     >

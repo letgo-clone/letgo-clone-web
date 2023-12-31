@@ -541,3 +541,110 @@ export const adCardStyles: Record<string, SxProps<Theme> | undefined> = {
     }
     
 }
+
+export const loginModalStyles: Record<string, SxProps<Theme> | undefined> = {
+    buttonGrid: {
+        display: 'grid'
+    },
+    buttons: {
+        backgroundColor: '#FFFFFF',
+        color: '#ff3f55',
+        textTransform: 'none',
+        border: '4px solid transparent',
+        outline: 'red solid 2px',
+        borderRadius: 5,
+        fontSize: '16px',
+        fontWeight: 700,
+        '&:hover': { bgcolor: '#FFFFFF', border: '4px solid #ff3f55', color: '#ff3f55' },
+    },
+    footerModalGridContainer: {
+        textAlign: 'center', marginTop: '20%' 
+    },
+    footerModalFirstGrid: {
+        marginBottom: '10px'
+    },
+    footerModalFristText: {
+        fontSize: '12px', 
+        color: '#004BBE' 
+    },
+    footerModalSecondGrid: {
+        marginBottom: '20px',
+        display: 'contents'
+    },
+    footerModalSecondText:{
+        fontSize: '12px', 
+        color: '#424242' 
+    },
+
+                    // Login area
+    dialogTitle: {
+        position: 'absolute', 
+        p: 0
+    },
+    dialogTitleIconButton: {
+        float: 'left', 
+        marginTop: '10px'
+    },
+    dialogTitleIcon : {
+        fontSize: '1.5rem'
+    },
+    dialogContent: {
+        marginBottom: '20%', 
+        overflowY: 'visible'
+    },
+    iconGrid : {
+        textAlign: 'center'
+    },
+    // input area
+    InputsText: {
+        fontSize: '20px', 
+        fontWeight: 700, 
+        color: '#2c2c2c', 
+        textAlign: 'center'
+    },
+    InputsGrid: {
+        marginBottom: '20px', 
+        marginTop: '20px'
+    },
+    Input: {
+        border: '1px solid #2c2c2c',
+        borderRadius: 2
+    },
+    // password area
+    passwordWelcomeGrid: {
+        display : 'inline-flex',
+        marginLeft: '12%',
+        marginTop: '10px'
+    },
+    passwordWelcomeText: {
+        fontSize: '14px', 
+        color: '#2c2c2c', 
+        textAlign: 'center', 
+    },
+    passwordWelcomeInfo: {
+        fontWeight: 700, 
+        fontSize: '14px'
+    },
+    forwardButtonGrid: {
+        marginBottom: '20px', 
+        display: 'grid'
+    },
+    forwardButton: {
+        backgroundColor: '#ff3f55',
+        color: '#FFFFFF',
+        textTransform: 'none',
+        border: '6px solid transparent',
+        fontSize: '16px',
+        borderRadius: 15,
+        '&:hover': { 
+            bgcolor: '#FFFFFF', 
+            border: '6px solid #ff3f55', 
+            color: '#ff3f55' 
+        },
+    },
+    forwardButtonBottomText: {
+        fontSize: '12px', 
+        color: '#004BBE', 
+        textAlign: 'center'
+    }
+}
