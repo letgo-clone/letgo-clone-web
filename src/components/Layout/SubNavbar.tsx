@@ -29,7 +29,7 @@ const SubNavbar: React.FC<SubNavbarAreaProps>  = ({ categories }) => {
   };
   
   const chunkedCategories = chunkArray(categories, 3);
-  
+
   return (
     <AppBar position="static" sx={subNavbarStyles.appBar}>
         <Container maxWidth='lg' sx={subNavbarStyles.container}>
@@ -61,23 +61,22 @@ const SubNavbar: React.FC<SubNavbarAreaProps>  = ({ categories }) => {
                     sx={subNavbarStyles.allCategoryMenu}
                     disableScrollLock={true}
                 >
-                <Grid container spacing={1}>
-                  {chunkedCategories.map((row, rowIndex) => (
-                      <Grid item xl={2} lg={2} xs={2} key={rowIndex} sx={subNavbarStyles.allCategoryGrid}>
-                        {row.map((category, key) => (
-                          <Box key={key} sx={subNavbarStyles.allCategoryBox}>
-                              <Typography sx={subNavbarStyles.allCategoryTitle}>
-                                  {category.category_name}
-                              </Typography>
-                                {category?.sub_category.map((subItem, subKey) => (
-                                    <Typography sx={subNavbarStyles.allCategoryContentA} >{subItem.sub_category_name}</Typography>
-                                ))}
-                          </Box>
-                        ))}
-                      </Grid>
-                  ))}
-              </Grid>
-                  
+                  <Grid container spacing={1}>
+                    {chunkedCategories.map((row, rowIndex) => (
+                        <Grid item xl={2} lg={2} xs={2} key={rowIndex} sx={subNavbarStyles.allCategoryGrid}>
+                          {row.map((category, key) => (
+                            <Box key={category.category_id} sx={subNavbarStyles.allCategoryBox}>
+                                <Typography sx={subNavbarStyles.allCategoryTitle}>
+                                    {category.category_name} {category.category_id}
+                                </Typography>
+                                  {category?.sub_category.map((subItem, subKey) => (
+                                      <Typography key={subItem.sub_category_id} sx={subNavbarStyles.allCategoryContentA} >{subItem.sub_category_name}</Typography>
+                                  ))}
+                            </Box>
+                          ))}
+                        </Grid>
+                    ))}
+                  </Grid>
                 </Menu>
               <Box sx={subNavbarStyles.firstSixCategoryBox}>
                 {firstSixCategory.length > 0 && firstSixCategory.map((item, key ) => (
