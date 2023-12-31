@@ -1,17 +1,36 @@
 import React from 'react'
-import { Grid, Box, Button, AppBar, Toolbar, MenuItem, Container, Paper, Select, Drawer, Menu, Tooltip, Typography } from "@mui/material"
 
-import { ExpandLess, ExpandMore } from '@mui/icons-material';
+// Material UI elements
+import { 
+    Grid, 
+    Box, 
+    Button, 
+    AppBar, 
+    Toolbar, 
+    MenuItem, 
+    Container, 
+    Menu,
+    Typography } from "@mui/material"
+
+// Material UI ıcons
+import { 
+    ExpandLess, 
+    ExpandMore } from '@mui/icons-material';
+
+// Styles
 import { subNavbarStyles } from '../../styles';
 
+// interfaces
 interface SubNavbarAreaProps {
     categories: object[],
 }
 
 const SubNavbar: React.FC<SubNavbarAreaProps>  = ({ categories }) => {
-  const firstSixCategory: object[] = categories.slice(0, 5);
-
+  
+  // UseState area 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  // Category menu modal
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
       setAnchorEl(event.currentTarget);
@@ -20,6 +39,10 @@ const SubNavbar: React.FC<SubNavbarAreaProps>  = ({ categories }) => {
       setAnchorEl(null);
   };
 
+  // Top category
+  const firstSixCategory: object[] = categories.slice(0, 5);
+
+  // Category data in menu
   const chunkArray = (array, chunkSize) => {
       const result = [];
       for (let i = 0; i < array.length; i += chunkSize) {
@@ -45,6 +68,7 @@ const SubNavbar: React.FC<SubNavbarAreaProps>  = ({ categories }) => {
                 >
                     Tüm Kategoriler
                 </Button>
+                {/* to view all category the menu  */}
                 <Menu
                     id="basic-menu"
                     anchorEl={anchorEl}
@@ -78,16 +102,17 @@ const SubNavbar: React.FC<SubNavbarAreaProps>  = ({ categories }) => {
                     ))}
                   </Grid>
                 </Menu>
-              <Box sx={subNavbarStyles.firstSixCategoryBox}>
-                {firstSixCategory.length > 0 && firstSixCategory.map((item, key ) => (
-                    <MenuItem
-                        key={key} sx={subNavbarStyles.firstSixCategoryMenuItem}>
-                        <Typography sx={subNavbarStyles.firstSixCategoryText} textAlign="center">
-                            {item?.category_name}
-                        </Typography>
-                    </MenuItem>
-                ))}
-              </Box>
+                 {/* First category area */}
+                <Box sx={subNavbarStyles.firstSixCategoryBox}>
+                    {firstSixCategory.length > 0 && firstSixCategory.map((item, key ) => (
+                        <MenuItem
+                            key={key} sx={subNavbarStyles.firstSixCategoryMenuItem}>
+                            <Typography sx={subNavbarStyles.firstSixCategoryText} textAlign="center">
+                                {item?.category_name}
+                            </Typography>
+                        </MenuItem>
+                    ))}
+                </Box>
             </Toolbar>
         </Container>
     </AppBar>
