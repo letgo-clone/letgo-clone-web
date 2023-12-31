@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { Grid, Card, CardActions, CardContent, CardMedia, Typography, Chip, Button } from '@mui/material';
+import { Box, Grid, Card, CardActions, CardContent, CardMedia, Typography, Chip, Button } from '@mui/material';
 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -10,14 +10,14 @@ import CallIcon from '@mui/icons-material/Call';
 
 import { Link } from 'react-router-dom';
 
-import styles from "../assets/css/cards.module.css";
-
 import otoplusBadge from '../assets/img/otoplus-badge.png'
 
 import slugify from 'react-slugify';
 
 import { Request } from '../helpers/Request';
 import Swal from 'sweetalert2';
+
+import { adCardStyles } from '../styles';
 
 type AdvertProps = {
     data: string[];
@@ -26,7 +26,7 @@ type AdvertProps = {
 
 export const AdCard = ({ data, grid }: AdvertProps) => {
     const [cardData, setCardData] = useState(data);
-
+   
     const addFavorite = async (advertId: number, hasFavorite: any) => {
 
         if(hasFavorite){
@@ -86,158 +86,99 @@ export const AdCard = ({ data, grid }: AdvertProps) => {
         <Grid container spacing={2}>
             {cardData.map((item, index) => (
                 <Grid item={true} lg={grid[0]} md={grid[1]} sm={grid[2]} xs={grid[3]} key={index}>
-                    <Card className={styles.card}>
-
-                        <div className={styles.cardMediaDiv}>
-                            <div className={styles.cardActionRight} onClick={() => addFavorite(item.id, item.has_favorite)}>
-                                <IconButton aria-label="add to favorites" sx={{ padding: 0 }}>
+                    <Card sx={adCardStyles.card}>
+                        <Box sx={adCardStyles.cardMediaBox}>
+                            <Box sx={adCardStyles.cardRightAction} onClick={() => addFavorite(item.id, item.has_favorite)}>
+                                <IconButton aria-label="add to favorites" sx={adCardStyles.cardRightActionIconButton}>
                                     {item.has_favorite == true ? (
                                         <FavoriteIcon sx={{ color:'red' }} />
                                     ): (
                                         <FavoriteBorderIcon sx={{ color:'red' }} />
                                     )}
                                 </IconButton>
-                            </div>
+                            </Box>
                             <Link to={`/item/${slugify(item.title)}?id=${item.id}`} style={{ textDecoration: 'none' }}>
                                 <CardMedia
                                     component="img"
-                                    className={styles.cardMedia}
+                                    sx={
+                                        item.display_type !== 'partner' ? (
+                                            adCardStyles.cardMedia
+                                        ): (
+                                            adCardStyles.cardPartnerMedia
+                                        )
+                                    }
                                     image={item.photo}
                                 />
-                                {(item.display_type == 'hot' && item.user_type !== 'OTOPLUS') && (
-                                    <div className={styles.cardActionLeft} >
+                                {(item.display_type == 'hot' && item.display_name !== 'Otoplus') && (
+                                    <Box sx={adCardStyles.cardLeftAction} >
                                         <Chip
                                             avatar={<BoltIcon />}
                                             label="Öne Çıkan"
                                             variant="outlined"
                                             size="small"
-                                            className={styles.actionFeatured}
+                                            sx={adCardStyles.cardLeftActionChip}
                                         />
-                                    </div>
+                                    </Box>
                                 )}
-                                {(item.user_type == 'OTOPLUS') && (
-                                    <div className={styles.cardActionLeft} >
+                                {(item.display_type == 'partner') && (
+                                    <Box sx={adCardStyles.cardLeftAction} >
                                         <Chip
                                             label={<img src={otoplusBadge} />}
                                             variant="outlined"
                                             size="small"
-                                            className={styles.actionOtoplusFeatured}
+                                            sx={adCardStyles.cardLeftActionChipPartner}
                                         />
-                                    </div>
+                                    </Box>
                                 )}
                             </Link>
-                        </div>
-                        {item.user_type != 'OTOPLUS' ? (
-                            item.display_type == 'hot' ? (
-                                <div style={{ borderLeft: '5px solid #ffd200' }}>
-                                    <CardContent sx={{ color: '#2c2c2c' }}>
-                                        <Typography gutterBottom component="div" sx={{ fontSize: '20px', fontWeight: '700' }}>
-                                            {item.price} TL
-                                        </Typography>
-                                        <Typography variant="body2" color="text.secondary">
-                                            {item.title}
-                                        </Typography>
-                                    </CardContent>
-                                    <CardActions>
-                                        <Grid container className={styles.cardFooter}>
-                                            <Grid item={true} md={6} sm={6} xs={6}>
-                                                <Typography variant="body2" color="text.secondary" sx={{ fontSize: '10px' }}>
-                                                    {item.county},{item.city}
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item={true} md={6} sm={6} xs={6} sx={{ float: 'right' }}>
-                                                <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'right', fontSize: '10px' }}>
-                                                    {item.date}
-                                                </Typography>
-                                            </Grid>
-                                        </Grid>
-                                    </CardActions>
-                                </div>
-                            ) : item.display_type == 'new' ? (
-                                <div style={{ borderLeft: '5px solid #004bbe' }}>
-                                    <CardContent sx={{ color: '#2c2c2c' }}>
-                                        <Typography gutterBottom component="div" sx={{ fontSize: '12px', fontWeight: '400', color: '#004bbe' }}>
-                                            Yeni
-                                        </Typography>
-                                        <Typography gutterBottom component="div" sx={{ fontSize: '20px', fontWeight: '700' }}>
-                                            {item.price} TL
-                                        </Typography>
-                                        <Typography variant="body2" color="text.secondary">
-                                            {item.title}
-                                        </Typography>
-                                    </CardContent>
-                                    <CardActions>
-                                        <Grid container className={styles.cardFooter}>
-                                            <Grid item={true} md={6} sm={6} xs={6}>
-                                                <Typography variant="body2" color="text.secondary" sx={{ fontSize: '10px' }}>
-                                                    {item.county},{item.city}
-                                                </Typography>
-                                            </Grid>
-                                            <Grid item={true} md={6} sm={6} xs={6} sx={{ float: 'right' }}>
-                                                <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'right', fontSize: '10px' }}>
-                                                    {item.date}
-                                                </Typography>
-                                            </Grid>
-                                        </Grid>
-                                    </CardActions>
-                                </div>
-                            ) : (
-                                <div>
-                                    <CardContent sx={{ color: '#2c2c2c' }}>
-                                        <Typography gutterBottom component="div" sx={{ fontSize: '20px', fontWeight: '700' }}>
-                                            {item.price} TL
-                                        </Typography>
-                                        <Typography variant="body2" color="text.secondary">
-                                            {item.title}
-                                        </Typography>
-                                    </CardContent>
-                                    <CardActions>
-                                        <Grid container className={styles.cardFooter}>
-
-                                            <Grid item={true} md={6} sm={6} xs={6}>
-                                                {item.city && (
-                                                    <Typography variant="body2" color="text.secondary" sx={{ fontSize: '10px' }}>
-                                                        {item?.county}, {item?.city}
-                                                    </Typography>
-                                                )}
-                                            </Grid>
-                                            <Grid item={true} md={6} sm={6} xs={6} sx={{ float: 'right' }}>
-                                                <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'right', fontSize: '10px' }}>
-                                                    {item.date}
-                                                </Typography>
-                                            </Grid>
-                                        </Grid>
-                                    </CardActions>
-                                </div>
-                            )
-                        ) : (
-                            <div style={{ borderLeft: '5px solid #ffd200' }}>
-                                <CardContent sx={{ color: '#2c2c2c' }}>
-                                    <Typography gutterBottom component="div" sx={{ fontSize: '20px', fontWeight: '700' }}>
-                                        {item.price} TL
-                                    </Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                        {item.title}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions sx={{ display: 'grid' }}>
+                        </Box>
+                        <Box 
+                            sx={
+                                item.display_type == 'hot' || item.display_type == 'partner'  ? (
+                                    adCardStyles.cardContentFeaturedBox
+                                ): item.display_type == 'new' ? (
+                                    adCardStyles.cardContentNewStatusBox
+                                ): (
+                                    adCardStyles.cardContentFreeStatusBox
+                                )
+                            }
+                        >
+                            <CardContent sx={adCardStyles.cardContent}>
+                                <Typography gutterBottom component="div" sx={adCardStyles.cardContentPrice}>
+                                    {item.price} TL
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    {item.title}
+                                </Typography>
+                            </CardContent>
+                            {item.display_type !== 'partner' ? (
+                                <CardActions>
+                                  <Grid container sx={adCardStyles.cardFooterGrid}>
+                                      <Grid item={true} md={6} sm={6} xs={6}>
+                                          <Typography variant="body2" color="text.secondary" sx={adCardStyles.cardFooterLocation}>
+                                              {item.county},{item.city}
+                                          </Typography>
+                                      </Grid>
+                                      <Grid item={true} md={6} sm={6} xs={6} >
+                                          <Typography variant="body2" color="text.secondary" sx={adCardStyles.cardFooterDateText}>
+                                              {item.date}
+                                          </Typography>
+                                      </Grid>
+                                  </Grid>
+                                </CardActions>
+                            ): (
+                                <CardActions sx={adCardStyles.cardPartnerFooter}>
                                     <Button
                                         variant="outlined"
                                         startIcon={<CallIcon />}
-                                        sx={{
-                                            backgroundColor: '#ff3f55',
-                                            color: '#FFFFFF',
-                                            borderRadius: '50px',
-                                            border: '3px solid #ff3f55',
-                                            '&:hover': { backgroundColor: '#FFFFFF', border: '3px solid #ff3f55', color: '#ff3f55' },
-                                        }}
+                                        sx={adCardStyles.cardPartnerCallButton}
                                     >
                                         Ara
                                     </Button>
                                 </CardActions>
-                            </div>
-                        )}
-
+                            )}
+                          
+                        </Box>
                     </Card>
                 </Grid>
             ))}

@@ -445,3 +445,99 @@ export const footerStyles: Record<string, SxProps<Theme> | undefined> = {
         paddingRight: '12px'
     }
 }
+
+export const adCardStyles: Record<string, SxProps<Theme> | undefined> = {
+    card: {
+        maxWidth: '345px'
+    },
+    cardMediaBox: {
+        position: 'relative',
+        padding: '7px 7px 7px 7px'
+    },
+    cardRightAction: {
+        position: 'absolute',
+        top: '0',
+        left: '93%',
+        transform: 'translateX(-50%)'
+    },
+    cardRightActionIconButton: {
+        padding: 0 
+    },
+    cardMedia: {
+        display: 'flex',
+        height: '140px',
+    },
+    cardPartnerMedia: {
+        display: 'flex',
+        width: '160px',
+        height: '114px',
+        marginLeft: '18%',
+    },
+    cardLeftAction: {
+        position: 'absolute',
+        top: '0',
+        left: '20%',
+        transform: 'translateX(-50%)'
+    },
+    cardLeftActionChip: {
+        height: '18px !important',
+        backgroundColor: '#ffd200 !important',
+        fontSize: '10px !important',
+    },
+    cardLeftActionChipPartner: {
+        height: '18px !important',
+        fontSize: '10px !important',
+        border:'0 !important',
+    },
+
+                                // Card Content
+    // box area for status
+
+    cardContentFeaturedBox: {
+        borderLeft: '5px solid #ffd200'
+    },
+    cardContentNewStatusBox: {
+        borderLeft: '5px solid #004bbe'
+    },
+    cardContentFreeStatusBox: {
+        borderLeft: 'none'
+    },
+    
+    cardContent: {
+        color: '#2c2c2c' 
+    },
+    cardContentPrice: {
+        fontSize: '20px', 
+        fontWeight: '700'
+    },
+
+    // Card Footer
+    cardFooterGrid: {
+        paddingRight: '10px',
+        paddingLeft: '10px',
+    },
+    cardFooterLocation: {
+        fontSize: '10px' 
+    },
+    cardFooterDateText: {
+        textAlign: 'right', 
+        fontSize: '10px'
+    },
+
+    // Card footer for partner 
+    cardPartnerFooter: {
+        display: 'grid'
+    },
+    cardPartnerCallButton: {
+        backgroundColor: '#ff3f55',
+        color: '#FFFFFF',
+        borderRadius: '50px',
+        border: '3px solid #ff3f55',
+        '&:hover': { 
+            backgroundColor: '#FFFFFF', 
+            border: '3px solid #ff3f55', 
+            color: '#ff3f55' 
+        },
+    }
+    
+}
