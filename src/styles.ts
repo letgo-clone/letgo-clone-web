@@ -357,7 +357,7 @@ export const footerStyles: Record<string, SxProps<Theme> | undefined> = {
     },
     footerContent: {
         marginTop: '15px',
-        marginBottom: {lg: '35px', xs: '20', sm: '20'},
+        marginBottom: {lg: '35px', xs: '20px', sm: '20px'},
         paddingLeft: '0px',
         listStyleType: 'none',
     },
