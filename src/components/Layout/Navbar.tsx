@@ -107,7 +107,6 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
         setProfilePopover(null);
     };
 
-   
     // Logout
     const handlelogout = async() => {
         const url = "/oauth/logout";
@@ -123,6 +122,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
     return (
         <AppBar position="static" sx={navbarStyles.appBar}>
             <Container maxWidth='lg' sx={navbarStyles.container}>
+                {/* Desktop navbar */}
                 <Toolbar sx={navbarStyles.toolbar}> 
                     <Link to="/">
                         <IconButton
@@ -136,6 +136,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                         </IconButton>
                     </Link>
                     <Grid container>
+                        {/* Location select input */}
                         <Grid item xl={4} md={4} xs={4}>
                             <FormControl size="small" fullWidth>
                                 <Select
@@ -171,6 +172,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                 </Select>
                             </FormControl>
                         </Grid>
+                        {/* Search input */}
                         <Grid item xl={8} md={8} xs={12} sx={navbarStyles.inputSearchGrid}>
                             <Paper component="form" sx={navbarStyles.inputSearchPaper}>
                                 <InputBase
@@ -188,6 +190,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                             </Paper>
                         </Grid>
                     </Grid>
+                     {/* Right menu content according to login */}
                     {isLogin ? (
                         <Box sx={navbarStyles.rightButtonsGrid}>
                             <Grid container sx={navbarStyles.authBoxGrid}>
@@ -293,6 +296,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                         </Box>
                     )}
                 </Toolbar>
+                {/* Mobile navbar */}
                 <Toolbar sx={navbarStyles.mobileToolbar}>
                     <Grid container>
                         <Grid item xs={6}>
@@ -425,6 +429,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                     </Grid>
                 </Toolbar>
             </Container>
+             {/* Login dialog for logging in */}
             <Dialog
                 fullScreen={false}
                 open={loginOpen}
