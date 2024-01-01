@@ -1,4 +1,5 @@
 import { SxProps, Theme } from "@mui/material";
+import { CSSProperties } from "react";
 
 export const navbarStyles: Record<string, SxProps<Theme> | undefined> = {
     appBar: {
@@ -914,4 +915,67 @@ export const advertSearchStyles: Record<string, SxProps<Theme> | undefined> = {
     rightSortingFilter: {
         textAlign: 'left'
     }
+}
+
+export const homeBannerStyles: Record<string, CSSProperties | undefined > = {
+    bannerDesktop: {
+        width: '100%',
+        height: 'auto',
+    },
+    bannerMobile: {
+        width: '100%',
+        height: 'auto'
+    },
+}
+
+export const homePageStyles: Record<string, CSSProperties | SxProps<Theme>  | undefined > = {
+    bannerDiv: {
+        marginTop: '10px',
+        display :'block'
+    },
+    bannerDesktopBox: {
+        display: {
+            xl: 'block', 
+            lg: 'block', 
+            md: 'block', 
+            sm: 'none', 
+            xs: 'none'
+        }
+    },
+    bannerMobileBox: {
+        display: {
+            xl: 'none', 
+            lg: 'none', 
+            md: 'none', 
+            sm : 'block', 
+            xs: 'block'
+        },
+       
+    },
+    bannerContainer: {
+        position: 'absolute',
+        bottom: '30px',
+        left: '16px'
+    },
+    bannerButton: {
+        padding: {lg: '10px 50px 10px 50px', md: '10px 50px 10px 50px', sm: '10px 40px 10px 40px'},
+        backgroundColor: '#ff3f55',
+        marginRight:'20px',
+        textTransform: 'none',
+        color: '#FFFFFF',
+        borderRadius: '50px',
+        border: '3px solid #ff3f55',
+        '&:hover': { 
+            backgroundColor: '#ff3f55', 
+            border: '3px solid #ff3f55', 
+            color: '#FFFFFF' 
+        },
+    },
+    homeTitle: {
+        marginTop: '25px',
+        marginBottom: '15px',
+        fontSize: '24px',
+        fontWeight: 200
+    }
+    
 }
