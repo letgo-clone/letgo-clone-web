@@ -985,7 +985,8 @@ export const homePostAdvertStyles: Record<string, SxProps<Theme>  | undefined > 
         fontSize: '24px', 
         fontWeight: 700, 
         textTransform: 'uppercase', 
-        marginTop: '25px', 
+        marginTop: '15px', 
+        marginBottom: '15px', 
         textAlign: 'center'
     },
     containerGrid: {
@@ -1015,9 +1016,9 @@ export const homePostAdvertStyles: Record<string, SxProps<Theme>  | undefined > 
         },
         minHeight: '54px',
         maxWidth: '100%',
-        borderBottom: '1px solid #e0e0e0'
+        border: '1px solid #e0e0e0'
     },
-    
+
     // right category column
     rightCategoryListItem: {
         padding: 0,
@@ -1025,7 +1026,7 @@ export const homePostAdvertStyles: Record<string, SxProps<Theme>  | undefined > 
     },
     rightCategoryListItemButton: {
         padding: '0', 
-        borderBottom: '1px solid #e0e0e0',
+        border: '1px solid #e0e0e0',
         maxWidth: '100%', 
         minHeight: '54px'
     },
