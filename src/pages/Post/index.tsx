@@ -1,13 +1,30 @@
-import { Container, Typography, Grid, List, ListItem, ListItemButton, ListItemText, Tabs, Tab, Box } from '@mui/material'
 import React, { useState } from 'react'
 
-import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../redux/store';
-import { KeyOffTwoTone } from '@mui/icons-material';
-import { setCurrentCategory, useAppDispatch } from '../../redux/store';
+// Material UI Elements
+import { 
+    Container, 
+    Typography, 
+    Grid, 
+    List, 
+    ListItem, 
+    ListItemButton, 
+    ListItemText, 
+    Tabs, 
+    Tab, 
+    Box 
+    } from '@mui/material'
 
+// styles
 import { homePostAdvertStyles } from '../../styles';
 
+// React router
+import { Link } from 'react-router-dom';
+
+// Redux
+import { useAppSelector } from '../../redux/store';
+import { setCurrentCategory, useAppDispatch } from '../../redux/store';
+
+// Material UI TabPanel for category
 interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
@@ -34,6 +51,7 @@ function TabPanel(props: TabPanelProps) {
     );
 }
 
+// view sub category according to Selected category
 function a11yProps(index: number) {
     return {
         id: `vertical-tab-${index}`,
@@ -43,12 +61,15 @@ function a11yProps(index: number) {
 
 
 function Index() {
-    const [value, setValue] = useState();
+    // Redux elements
     const {menuData} = useAppSelector((state) => state?.Menu);
     const dispatch = useAppDispatch();
 
+    // useEffect area
+    const [value, setValue] = useState();
     const [subCategory, setSubCategory] = useState<object[]>([]);
 
+    // Category filter
     const handleChange = (event: React.SyntheticEvent, newValue: number = 0) => {
         setValue(newValue);
 
@@ -59,6 +80,7 @@ function Index() {
         setSubCategory(filteredSubCategory)
     };
 
+    // saves selected categorys of user in redux
     const handleGetPage = (mainCategoryName: string , subCategoryName: string, subCategoryId: number, mainCategoryId: number) => {
         const currentCategoryObject = {
             subCategoryName: subCategoryName,
@@ -71,14 +93,17 @@ function Index() {
    
     return (
         <Container>
+             {/* Top title */}
             <Typography sx={homePostAdvertStyles.topTitle}>
                 İlan Yayınla
             </Typography>
             <Grid container sx={homePostAdvertStyles.containerGrid}>
+                 {/* Left sub title */}
                 <Typography sx={homePostAdvertStyles.categoryColumnTitle}>
                     BİR KATEGORİ SEÇ
                 </Typography>
                 <Grid container>
+                    {/* Left main category section */}
                     <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={homePostAdvertStyles.leftCategoryGrid}>
                         <Tabs
                             orientation="vertical"
@@ -99,6 +124,7 @@ function Index() {
                             ))}
                         </Tabs>
                     </Grid>
+                     {/* Right sub category section */}
                      <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                         {subCategory && subCategory.map((mainItem) =>  (
                             <TabPanel value={value} index={mainItem.key_id}>
