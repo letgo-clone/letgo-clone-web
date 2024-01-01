@@ -15,39 +15,8 @@ import { Request, RequestPublic } from '../../helpers/Request';
 import { useParams, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 
+import { postAdvertStyles } from '../../styles';
 
-interface TabPanelProps {
-    children?: React.ReactNode;
-    index: number;
-    value: number;
-}
-
-function TabPanel(props: TabPanelProps) {
-    const { children, value, index, ...other } = props;
-
-    return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`vertical-tabpanel-${index}`}
-            aria-labelledby={`vertical-tab-${index}`}
-            {...other}
-        >
-            {value === index && (
-                <Box sx={{ p: 1 }}>
-                    <Typography>{children}</Typography>
-                </Box>
-            )}
-        </div>
-    );
-}
-
-function a11yProps(index: number) {
-    return {
-        id: `vertical-tab-${index}`,
-        'aria-controls': `vertical-tabpanel-${index}`,
-    };
-}
 
 function AdvertEdit() {
     const params = useParams();
@@ -192,11 +161,11 @@ function AdvertEdit() {
     }
     return (
         <Container>
-            <Typography sx={{ fontSize: '24px', fontWeight: 700, textTransform: 'uppercase', marginTop: '25px', textAlign: 'center' }}>
+            <Typography sx={postAdvertStyles.toptTile}>
                 Düzenle
             </Typography>
-            <Grid container sx={{ border: '1px solid #e0e0e0', borderRadius: 2 }}>
-                <Typography sx={{ fontSize: '16px', fontWeight: 700, lineHeight: 1.5, margin: '25px 15px 15px 25px' }}>
+            <Grid container sx={postAdvertStyles.mainGrid}>
+                <Typography sx={postAdvertStyles.subTitle}>
                     SEÇİLEN KATEGORİ
                 </Typography>
                 <form
@@ -207,20 +176,21 @@ function AdvertEdit() {
                 <Grid container>
                     {advertDetail.length !== 0 && (
                         <>
-                        <Grid item xl={12} lg={12} md={12} sm={12} xs={12} sx={{ marginLeft: '25px', paddingBottom: '25px', display: 'inline-flex', borderBottom: '1px solid #e0e0e0' }}>
+                        <Grid item xl={12} lg={12} md={12} sm={12} xs={12} sx={postAdvertStyles.breadCrumbGrid}>
                             <Breadcrumbs aria-label="breadcrumb">
-                                <Link sx={{fontSize: '14px', color: 'inherit', textDecoration: 'none'}}>
-                                    {advertDetail.category_name}
-                                </Link>
-                                <Typography sx={{fontSize: '14px', color: 'inherit'}}> {advertDetail.sub_category_name}</Typography>
+                                <Typography
+                                        sx={postAdvertStyles.breadCrumbText}>
+                                             {advertDetail.category_name}
+                                </Typography>
+                                <Typography sx={postAdvertStyles.breadCrumbText}> {advertDetail.sub_category_name}</Typography>
                             </Breadcrumbs>
                         </Grid>
                         <Divider />
-                        <Grid item xl={12} lg={12} md={12} sm={12} xs={12} sx={{ marginLeft: '25px', marginRight: '25px' }}>
-                            <Typography sx={{ fontSize: '16px', fontWeight: 700, lineHeight: 1.5, margin: '25px 15px 15px 0px' }}>
+                        <Grid item xl={12} lg={12} md={12} sm={12} xs={12} sx={postAdvertStyles.inputGrids}>
+                            <Typography sx={postAdvertStyles.inputTopTitles}>
                                 BİRAZ BİLGİ EKLE
                             </Typography>
-                            <Grid container spacing={3} sx={{ display: 'inline-block', borderBottom: '1px solid #e0e0e0', paddingBottom: '25px' }}>
+                            <Grid container spacing={3} sx={postAdvertStyles.inputsGridContainer}>
                                 <Grid item lg={6} md={6} sm={12} xs={12}>
                                     <InputLabel shrink htmlFor="how_status">
                                         Durum
@@ -277,11 +247,11 @@ function AdvertEdit() {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item xl={12} lg={12} sm={12} xs={12} sx={{ marginLeft: '25px', marginRight: '25px' }}>
-                            <Typography sx={{ fontSize: '16px', fontWeight: 700, lineHeight: 1.5, margin: '25px 15px 15px 0px' }}>
+                        <Grid item xl={12} lg={12} sm={12} xs={12} sx={postAdvertStyles.inputGrids}>
+                            <Typography sx={postAdvertStyles.inputTopTitles}>
                                 FİYAT BELİRLE
                             </Typography>
-                            <Grid container spacing={3} sx={{ display: 'inline-block', borderBottom: '1px solid #e0e0e0', paddingBottom: '25px' }}>
+                            <Grid container spacing={3} sx={postAdvertStyles.inputsGridContainer}>
                                 <Grid item lg={6} md={6} sm={12} xs={12}>
                                     <InputLabel shrink htmlFor="price">
                                         Yıl
@@ -304,11 +274,11 @@ function AdvertEdit() {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item xl={12} lg={12} sm={12} xs={12} sx={{ marginLeft: '25px', marginRight: '25px' }}>
-                            <Typography sx={{ fontSize: '16px', fontWeight: 700, lineHeight: 1.5, margin: '25px 15px 15px 0px' }}>
+                        <Grid item xl={12} lg={12} sm={12} xs={12} sx={postAdvertStyles.inputGrids}>
+                            <Typography sx={postAdvertStyles.inputTopTitles}>
                                 21 ADEDE KADAR FOTOĞRAF YÜKLEYEBİLİRSİN
                             </Typography>
-                            <Grid container sx={{ display: 'inline-block', borderBottom: '1px solid #e0e0e0', paddingTop: '25px', paddingBottom: '25px', marginTop: '10px', marginLeft: '10px' }}>
+                            <Grid container sx={postAdvertStyles.fileInputGrid}>
                                 <input
                                     multiple
                                     type="file"
@@ -321,21 +291,20 @@ function AdvertEdit() {
                                         }}
                                 />
                                  {advertImages.length < 1 &&
-                                     <Typography sx={{ color : '#ff3f55', fontSize: '12px', marginTop: '30px' }}>Bu alan zorunludur</Typography>
+                                      <Typography sx={postAdvertStyles.fileInputValidationText}>Bu alan zorunludur</Typography>
                                 }
                             </Grid>
-                            <Grid container sx={{marginTop: '25px', marginBottom: '25px' }}>
+                            <Grid container sx={postAdvertStyles.fileInputImageGrid}>
                                 {advertImages.length > 0 && advertImages.map((item, key) => (
-                                    <Box sx={{ position: 'relative', padding: '0px 20px 20px 0px' }}>
-                                        <div className='advert-image' style={{ position: 'relative' }}>
+                                    <Box sx={postAdvertStyles.fileInputImageBox}>
                                             <img 
                                                 src={item.image_id ? item.url : URL.createObjectURL(item)} 
-                                                style={{ objectFit: 'fill' }} 
+                                                style={{ objectFit: 'cover' }} 
                                                 width={140} 
                                                 height={140} 
                                                 alt="Advert" 
                                             />
-                                            <div className='image-content' style={{ position: 'absolute', top: 0, right: 0, padding: '5px', display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+                                            <Box className='image-content' sx={postAdvertStyles.fileInputIconBox}>
                                                 {advertImages.length > 1 &&
                                                 <IconButton 
                                                     aria-label="remove to advert" 
@@ -345,52 +314,21 @@ function AdvertEdit() {
                                                          <CloseIcon sx={{ fontSize: '21px',color: '#ffffff' }} />
                                                  </IconButton>
                                                 }
-                                               
-                                            </div>
+                                            </Box>
                                             {key == 0  &&
-                                                <Typography 
-                                                    variant="body2" 
-                                                    sx={{ 
-                                                        position: 'absolute', 
-                                                        bottom: '10px', 
-                                                        left: '50px', 
-                                                        backgroundColor: 'red',
-                                                        color: 'white', 
-                                                        padding: '3px',
-                                                        borderRadius: '5px', 
-                                                        margin: '5px',
-                                                        fontSize: '12px',
-                                                        fontWeight: 300
-                                                    }}
-                                                >
+                                                <Typography variant="body2" sx={postAdvertStyles.fileInputImageText}>
                                                     KAPAK
                                                 </Typography>
                                             }
-                                        </div>
                                     </Box>
                                 ))}
                             </Grid>
                         </Grid>
-                        <Grid item xl={12} lg={12} sm={12} xs={12} sx={{ marginLeft: '25px', marginRight: '25px' }}>
-                            <Typography sx={{ fontSize: '16px', fontWeight: 700, lineHeight: 1.5, margin: '25px 15px 15px 0px' }}>
+                        <Grid item xl={12} lg={12} sm={12} xs={12} sx={postAdvertStyles.inputGrids}>
+                            <Typography sx={postAdvertStyles.locationInputTopTitle}>
                                 KONUMUNU ONAYLA
                             </Typography>
-                            <Grid container spacing={3} sx={{ display: 'inline-block', borderBottom: '1px solid #e0e0e0', paddingBottom: '25px', marginLeft: '5px', marginRight: '5px' }}>
-                                <Tabs
-                                    centered
-                                    value={value}
-                                    onChange={handleChange}
-                                >
-                                    <Tab
-                                        label="LİSTEDEN SEÇ"
-                                        {...a11yProps(0)}
-                                    />
-                                    <Tab
-                                        label="MEVCUT KONUM"
-                                        {...a11yProps(1)}
-                                    />
-                                </Tabs>
-                                <TabPanel value={value} index={0}>
+                            <Grid container spacing={3} sx={postAdvertStyles.locationInputGrid}>
                                     <Grid container spacing={2} sx={{ display: 'contents' }}>
                                         <Grid item lg={6} md={6} sm={12} xs={12}>
                                             <InputLabel shrink htmlFor="year">
@@ -439,40 +377,14 @@ function AdvertEdit() {
                                             </Grid>
                                         )}
                                     </Grid>
-                                </TabPanel>
-                                <TabPanel value={value} index={1}>
-                                    <Grid item lg={6} md={6} sm={12} xs={12}>
-                                        <Table>
-                                            <TableHead>
-                                                <TableRow>
-                                                    <TableCell variant='head'>İlçe</TableCell>
-                                                    <TableCell sx={{ textAlign: 'right' }}>İstanbul</TableCell>
-                                                </TableRow>
-                                                <TableRow>
-                                                    <TableCell variant='head'>Konum</TableCell>
-                                                    <TableCell sx={{ textAlign: 'right' }}>Kağıthane</TableCell>
-                                                </TableRow>
-                                            </TableHead>
-                                        </Table>
-                                    </Grid>
-                                </TabPanel>
                             </Grid>
                         </Grid>
-                        <Grid item xl={12} lg={12} sm={12} xs={12} sx={{ marginLeft: '25px', marginRight: '25px' }}>
+                        <Grid item xl={12} lg={12} sm={12} xs={12} sx={postAdvertStyles.inputGrids}>
                             <Grid container>
-                                <Grid lg={12} md={12} sx={{ textAlign: 'center', marginTop: '30px', marginBottom: '30px' }}>
+                                <Grid lg={12} md={12} sx={postAdvertStyles.sendButtonGrid}>
                                     <Button
                                         variant="outlined"
-                                        sx={{
-                                            backgroundColor: '#ff3f55',
-                                            color: '#FFFFFF',
-                                            textTransform: 'none',
-                                            border: '6px solid transparent',
-                                            padding: 1.4,
-                                            fontSize: '16px',
-                                            borderRadius: 15,
-                                            '&:hover': { bgcolor: '#FFFFFF', border: '6px solid #ff3f55', color: '#ff3f55' },
-                                        }}
+                                        sx={postAdvertStyles.sendButton}
                                         color="error"
                                         type="submit"
                                     >
