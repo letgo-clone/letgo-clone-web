@@ -1,42 +1,49 @@
 import React, { useEffect, useState } from 'react'
-import { Typography, Grid, Button, DialogContent, Box, DialogTitle, IconButton, TextField } from '@mui/material'
-import Carousel from 'react-material-ui-carousel'
 
+// Material UI elements
+import { 
+    Typography, 
+    Grid, 
+    Button, 
+    DialogContent, 
+    Box, 
+    DialogTitle, 
+    IconButton, 
+    TextField 
+    } from '@mui/material'
+
+// Material UI Icons
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
+// styles and assets
+import { loginModalStyles } from '../styles';
 import Logo from '../assets/img/logo.svg'
 
+// Other packages
+import Carousel from 'react-material-ui-carousel'
 import { useFormik } from "formik";
+
+// Redux
 import { setLoginData, useAppDispatch } from '../redux/store';
 
+// Helpers
 import { HandleLoginToken, Request } from '../helpers/Request';
 
-import { loginModalStyles } from '../styles';
-
-function Item(props) {
-    return (
-        <>
-            <Grid container sx={{ paddingBottom: '20px' }}>
-                <Grid lg={12} md={12} xs={12} sm={12} sx={{ textAlign: 'center', marginBottom: '10px' }}>
-                    <img src={props.item.image} width={100} height={100} />
-                </Grid>
-                <Grid lg={12} md={12} xs={12} sm={12} sx={{ paddingBottom: '10px' }}>
-                    <Typography sx={{ textAlign: 'center', fontSize: '16px', fontWeight: 500 }}>{props.item.description}</Typography>
-                </Grid>
-            </Grid>
-        </>
-    )
-}
-
 const LoginModal = () => {
+    // Redux
+    const dispatch = useAppDispatch();
+    
+    // useState
     const [showLogin, setShowLogin] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [passLogin, setPassLogin] = useState(false);
-
+    
+    // Login area on/off
     const hanldeLogin = () => setShowLogin(!showLogin);
 
-    const dispatch = useAppDispatch();
-
-    let items = [
+   
+    // Carousel Items
+    const caroselItems = [
         {
             image: "https://statics.olx.com.tr/external/base/img/letgo/loginEntryPointPost.webp",
             description: "letgo'yu daha güvenli bir hale getirmeye sen de destek ol"
@@ -73,6 +80,7 @@ const LoginModal = () => {
         }
     });
 
+    // Login verification
     useEffect(() => {
         if(localStorage.getItem('access_token')){
             const loginVerify = async () => {
@@ -90,15 +98,27 @@ const LoginModal = () => {
         <>
             {!showLogin ? (
                 <>
+                    {/* First page of login modal  */}
                     <DialogContent>
                         <Grid container spacing={2}>
+                            {/* Carousel */}
                             <Grid item lg={12} md={12} sm={12} xs={12}>
                                 <Carousel animation={'slide'} autoPlay={false} swipe={true}>
                                     {
-                                        items.map((item, i) => <Item key={i} item={item} />)
+                                        caroselItems.map((item, i) => (
+                                            <Grid key={i} container sx={{ paddingBottom: '20px' }}>
+                                                <Grid lg={12} md={12} xs={12} sm={12} sx={{ textAlign: 'center', marginBottom: '10px' }}>
+                                                    <img src={item.image} width={100} height={100} />
+                                                </Grid>
+                                                <Grid lg={12} md={12} xs={12} sm={12} sx={{ paddingBottom: '10px' }}>
+                                                    <Typography sx={{ textAlign: 'center', fontSize: '16px', fontWeight: 500 }}>{item.description}</Typography>
+                                                </Grid>
+                                            </Grid>
+                                        ))
                                     }
                                 </Carousel>
                             </Grid>
+                              {/* Buttons */}
                             <Grid item lg={12} md={12} sm={12} xs={12} sx={loginModalStyles.buttonGrid}>
                                 <Button
                                     variant="outlined"
@@ -128,6 +148,7 @@ const LoginModal = () => {
                                 </Button>
                             </Grid>
                         </Grid>
+                        {/* Modal footer */}
                         <Grid container sx={loginModalStyles.footerModalGridContainer}>
                             <Grid item lg={12} md={12} sm={12} xs={12} sx={loginModalStyles.footerModalFirstGrid}>
                                 <Typography sx={loginModalStyles.footerModalFristText}>
@@ -147,6 +168,7 @@ const LoginModal = () => {
                 </>
             ) : (
                 <>
+                    {/* Login modal elements */}
                     <DialogTitle id="responsive-dialog-title" sx={loginModalStyles.dialogTitle}>
                         <IconButton onClick={hanldeLogin} sx={loginModalStyles.dialogTitleIconButton}>
                             <ArrowBackIcon sx={loginModalStyles.dialogTitleIcon} />
