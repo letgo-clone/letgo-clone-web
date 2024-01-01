@@ -18,8 +18,8 @@ function useQuery() {
 }
 
 const AdvertDetail = () => {
-    const query = useQuery()
-    const id = query.get("id");
+    const params = useParams();
+    const id = params.itemId;
 
     const [advertDetail, setAdvertDetail] = useState('');
 

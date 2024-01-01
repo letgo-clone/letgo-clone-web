@@ -116,7 +116,7 @@ export const AdCard = ({ data, grid }: AdvertProps) => {
                                     )}
                                 </IconButton>
                             </Box>
-                            <Link to={`/item/${slugify(item.title)}?id=${item.id}`} style={{ textDecoration: 'none' }}>
+                            <Link to={`/item/${slugify(item.title)}/${item.id}`} style={{ textDecoration: 'none' }}>
                                 <CardMedia
                                     component="img"
                                     sx={

@@ -22,7 +22,7 @@ import AdvertEdit from "../pages/Post/Edit";
  const publicRoutes = [
     { path: "/", component: <Home /> },
     { path: "/", exact: true, component: <Navigate to="/" />},
-    { path: "/item/:itemId", component: <AdvertDetail /> },
+    { path: "/item/:title/:itemId", component: <AdvertDetail /> },
     { path: "/item/search", component: <Search /> },
 ]; 
 
