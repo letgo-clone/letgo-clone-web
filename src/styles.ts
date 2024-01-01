@@ -1035,3 +1035,156 @@ export const homePostAdvertStyles: Record<string, SxProps<Theme>  | undefined > 
         color: '#2c2c2c' 
     }
 }
+
+// pages/Post/attributes
+export const postAdvertStyles: Record<string, SxProps<Theme>  | undefined > = {
+    toptTile: {
+        fontSize: '24px', 
+        fontWeight: 700, 
+        textTransform: 'uppercase', 
+        marginTop: '25px', 
+        textAlign: 'center' 
+    },
+    mainGrid: {
+        border: '1px solid #e0e0e0', 
+        borderRadius: 2 
+    },
+    subTitle: {
+        fontSize: '16px', 
+        fontWeight: 700, 
+        lineHeight: 1.5, 
+        margin: '25px 15px 15px 25px'
+    },
+    breadCrumbGrid: {
+        marginLeft: '25px', 
+        marginRight: '25px', 
+        paddingBottom: '25px', 
+        display: 'inline-flex', 
+        borderBottom: '1px solid #e0e0e0',
+       
+    },
+    breadCrumbText: {
+        fontSize: '14px',
+        color: '#00000099' 
+    },
+    breadCrumbChangeText: {
+        color: '#ff3f55',
+        fontSize: '14px', 
+        marginLeft: '20px', 
+        fontWeight: 700, 
+        '&.hover': { 
+            borderBottom: 'none' 
+        }
+    },
+    // Inputs
+    inputGrids: {
+        marginLeft: '25px', 
+        marginRight: '25px',
+        borderBottom: '1px solid #e0e0e0'
+    },
+    inputTopTitles: {
+        fontSize: '16px', 
+        fontWeight: 700, 
+        lineHeight: 1.5, 
+        margin: '25px 15px 15px 0px' 
+    },
+    inputsGridContainer: {
+        display: 'inline-block', 
+        paddingBottom: '25px' 
+    },
+
+    // file column
+    fileInputGrid: {
+        display: 'inline-block', 
+        paddingTop: '25px', 
+        paddingBottom: '25px', 
+        marginTop: '10px', 
+        marginLeft: '10px'
+    },
+    fileInputValidationText: {
+        color : '#ff3f55', 
+        fontSize: '12px', 
+        marginTop: '30px'
+    },
+    fileInputImageGrid: {
+        marginTop: '25px', 
+        marginBottom: '25px'
+    },
+    fileInputImageBox: {
+        position: 'relative', 
+        margin: '0px 20px 20px 0px' 
+    },
+    fileInputIconBox: {
+        position: 'absolute', 
+        top: 0, 
+        right: 0, 
+        padding: '5px', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'flex-end'
+    },
+    fileInputIconButton: {
+        backgroundColor: '#000000', 
+        borderRadius: 3, 
+        '&:hover': {
+            backgroundColor :'#000000'
+        }
+    },
+    fileInputImageCloseInput: {
+        fontSize: '21px',
+        color: '#ffffff' 
+    },
+    fileInputImageText: {
+        position: 'absolute', 
+        bottom: '10px', 
+        left: '50px', 
+        backgroundColor: 'red',
+        color: 'white', 
+        padding: '3px',
+        borderRadius: '5px', 
+        margin: '5px',
+        fontSize: '12px',
+        fontWeight: 300
+    },
+
+    // location column
+    locationInputTopTitle: {
+        fontSize: '16px', 
+        fontWeight: 700, 
+        lineHeight: 1.5, 
+        margin: '25px 0px 35px 15px' 
+    },
+    locationInputGrid: {
+        display: 'inline-block', 
+        paddingBottom: '25px', 
+        marginLeft: '0px', 
+        marginRight: '5px'
+    },
+
+    // Profile
+    profileGridContainer: {
+        display: 'inline-flex', 
+        paddingBottom: '25px', 
+        marginTop: '20px', 
+        marginLeft: '3px'
+    },
+    profileGridImage: {
+        position: 'relative', 
+        marginRight: '35px'
+    },
+    sendButtonGrid: {
+        textAlign: 'center', 
+        marginTop: '30px', 
+        marginBottom: '30px'
+    },
+    sendButton: {
+        backgroundColor: '#ff3f55',
+        color: '#FFFFFF',
+        textTransform: 'none',
+        border: '6px solid transparent',
+        padding: 1.4,
+        fontSize: '16px',
+        borderRadius: 15,
+        '&:hover': { bgcolor: '#FFFFFF', border: '6px solid #ff3f55', color: '#ff3f55' },
+    }
+}
