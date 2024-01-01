@@ -1,85 +1,56 @@
 import React, { useState, useEffect } from 'react'
+
+// Material UI Elements
 import {
-    Container, Typography, Grid, MenuItem, InputLabel, TextField, InputAdornment, Divider,
-    Tab, Tabs, Breadcrumbs, Box, Table, TableCell, TableHead, TableRow, ListItem,
-    List, ListItemAvatar, Avatar, ListItemText, Button, Switch, IconButton
+    Container, 
+    Typography, 
+    Grid, 
+    MenuItem, 
+    InputLabel, 
+    TextField, 
+    InputAdornment, 
+    Divider,
+    Breadcrumbs, 
+    Box, 
+    Button, 
+    IconButton
 } from '@mui/material'
 
-import profileImage from '../../assets/img/profile-logo.jpeg'
-import CallIcon from '@mui/icons-material/Call';
+// Material UI icons
 import CloseIcon from '@mui/icons-material/Close';
 
-import { useFormik } from 'formik';
+// styles and assets
+import profileImage from '../../assets/img/profile-logo.jpeg'
+import { postAdvertStyles } from '../../styles';
+
+// React router
+import { useNavigate, Link } from "react-router-dom";
+
+// Helpers
 import { Request, RequestPublic } from '../../helpers/Request';
-import { useNavigate } from "react-router-dom";
+
+// Redux
+import { setLoginData, useAppSelector, useAppDispatch } from '../../redux/store';
+
+// Other
+import { useFormik } from 'formik';
 import Swal from 'sweetalert2';
 
-import { setLoginData, useAppSelector, useAppDispatch } from '../../redux/store';
-import { Link } from 'react-router-dom';
-
-import { homePostAdvertStyles, postAdvertStyles } from '../../styles';
-
-interface TabPanelProps {
-    children?: React.ReactNode;
-    index: number;
-    value: number;
-}
-
-function TabPanel(props: TabPanelProps) {
-    const { children, value, index, ...other } = props;
-
-    return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`vertical-tabpanel-${index}`}
-            aria-labelledby={`vertical-tab-${index}`}
-            {...other}
-        >
-            {value === index && (
-                <Box sx={{ p: 1 }}>
-                    <Typography>{children}</Typography>
-                </Box>
-            )}
-        </div>
-    );
-}
-
-function a11yProps(index: number) {
-    return {
-        id: `vertical-tab-${index}`,
-        'aria-controls': `vertical-tabpanel-${index}`,
-    };
-}
 
 function Attributes() {
+    // React router elements
     const navigate = useNavigate();
-    const [value, setValue] = React.useState(0);
 
+    // Redux elements
     const dispatch = useAppDispatch();
     const {loginData} = useAppSelector((state) => state?.authUser);
     const {currentCategoryData} = useAppSelector((state) => state?.currentCategory);
 
-
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        setValue(newValue);
-    };
-
-    const label = { inputProps: { 'aria-label': 'Switch demo' } };
-
+    // useState elements
     const [selectedCategory, setSelectedCategory] = useState<object>({});
     const [cities, setCities] = useState({});
     const [counties, setCounties] = useState({});
     const [images, setImages] = useState<object[]>([]);
-   
-    useEffect(() => {
-
-        if(currentCategoryData){
-            setSelectedCategory(currentCategoryData);
-        }else{
-            navigate('/post');
-        }
-    },[currentCategoryData])
 
     const formik = useFormik({
         initialValues: {
@@ -160,6 +131,22 @@ function Attributes() {
         }
     })
 
+     // useEffect elements
+
+     /*
+        gets selected category from redux
+     */
+     useEffect(() => {
+        if(currentCategoryData){
+            setSelectedCategory(currentCategoryData);
+        }else{
+            navigate('/post');
+        }
+    },[currentCategoryData])
+
+    /*
+        gets cities of location data from API
+    */
     useEffect(() => {
         const getCities = async () => {
             const url = "/advert/location";
@@ -169,6 +156,9 @@ function Attributes() {
         getCities();
     }, [])
 
+    /*
+        gets counties of location data from API
+    */
     useEffect(() => {
         const getCounties = async () => {
             const url = "/advert/location/" + formik.values.city_id;
@@ -178,7 +168,9 @@ function Attributes() {
         getCounties();
     }, [formik.values.city_id]);
 
-
+    /*
+       gets selected image from pc
+    */
     const handlePhoto = (event: React.ChangeEvent<HTMLInputElement>) => {
         const fileList = event.target.files;
 
@@ -194,6 +186,9 @@ function Attributes() {
         formik.setFieldValue("photo", event.currentTarget.files);
     }
 
+    /*
+        Remove selected image from upload images
+    */
     const removeImage = (imageKey: number) => {
         const newList = images.filter((veri, key) => key !== imageKey);
         setImages(newList);
@@ -201,6 +196,7 @@ function Attributes() {
 
     return (
         <Container>
+            {/* Top title */}
             <Typography sx={postAdvertStyles.toptTile}>
                 İlan Yayınla
             </Typography>
@@ -214,6 +210,7 @@ function Attributes() {
                         encType='multipart/form-data'
                     >
                     <Grid container>
+                        {/* BreadCrumb area */}
                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12} sx={postAdvertStyles.breadCrumbGrid}>
                             <Breadcrumbs aria-label="breadcrumb">
                                 <Link to="/post" style={{textDecoration: 'none'}}>
@@ -232,6 +229,7 @@ function Attributes() {
                             </Link>
                         </Grid>
                         <Divider />
+                        {/* advert info column = title, description, status */}
                         <Grid item xl={12} lg={12} md={12} sm={12} xs={12} sx={postAdvertStyles.inputGrids}>
                             <Typography sx={postAdvertStyles.inputTopTitles}>
                                 BİRAZ BİLGİ EKLE
@@ -293,6 +291,7 @@ function Attributes() {
                                 </Grid>
                             </Grid>
                         </Grid>
+                         {/* advert price column */}
                         <Grid item xl={12} lg={12} sm={12} xs={12} sx={postAdvertStyles.inputGrids}>
                             <Typography sx={postAdvertStyles.inputTopTitles}>
                                 FİYAT BELİRLE
@@ -320,6 +319,7 @@ function Attributes() {
                                 </Grid>
                             </Grid>
                         </Grid>
+                         {/* advert image column */}
                         <Grid item xl={12} lg={12} sm={12} xs={12} sx={postAdvertStyles.inputGrids}>
                             <Typography sx={postAdvertStyles.inputTopTitles}>
                                 21 ADEDE KADAR FOTOĞRAF YÜKLEYEBİLİRSİN
@@ -368,6 +368,7 @@ function Attributes() {
                                 ))}
                             </Grid>
                         </Grid>
+                         {/* advert location column */}
                         <Grid item xl={12} lg={12} sm={12} xs={12} sx={postAdvertStyles.inputGrids}>
                             <Typography sx={postAdvertStyles.locationInputTopTitle}>
                                 KONUMUNU ONAYLA
@@ -423,6 +424,7 @@ function Attributes() {
                                     </Grid>
                             </Grid>
                         </Grid>
+                         {/* user info column */}
                         <Grid item xl={12} lg={12} sm={12} xs={12} sx={postAdvertStyles.inputGrids}>
                             <Typography sx={postAdvertStyles.inputTopTitles}>
                                 BİLGİLERİNİ GÖZDEN GEÇİR
@@ -448,6 +450,7 @@ function Attributes() {
                                 </Grid>
                             </Grid>
                         </Grid>
+                         {/* send button */}
                         <Grid item xl={12} lg={12} sm={12} xs={12} sx={postAdvertStyles.inputGrids}>
                             <Grid container>
                                 <Grid lg={12} md={12} sx={postAdvertStyles.sendButtonGrid}>
