@@ -1,19 +1,31 @@
 import { useEffect, useState } from 'react';
 
-import { AdCard } from '../../components/AdCard';
-import { Typography, Button, Grid, Container, Box } from '@mui/material';
+// Material UI elements
+import { 
+  Typography, 
+  Button, 
+  Grid, 
+  Container, 
+  Box 
+  } from '@mui/material';
 
-import { RequestPublic } from '../../helpers/Request';
+// Style and assets
+import { homePageStyles, homeBannerStyles } from '../../styles';
 
 import otoplusBanner from '../../assets/img/banner-otoplus.png'
 import otoplusBannerMobile from '../../assets/img/banner-otoplus-mobile.png'
 
-import styles from "../../assets/css/banner.module.css";
-import { homePageStyles, homeBannerStyles } from '../../styles';
+// Components
+import { AdCard } from '../../components/AdCard';
+
+// helpers
+import { RequestPublic } from '../../helpers/Request';
 
 function Index() {
+  // useState area
   const [advertData, setAdvertData] = useState('');
 
+  // useEffect area
   useEffect(() => {
     const getData = async () => {
         const advertGetUrl = "/advert/actual"
@@ -26,22 +38,25 @@ function Index() {
 
   return (
     <Container>
+      {/* Banner  */}
        <Grid container sx={homePageStyles.bannerDiv} position="relative">
-       <Box sx={homePageStyles.bannerDesktopBox}>
-          <img src={otoplusBanner} style={homeBannerStyles.bannerDesktop} alt="Banner" />
-       </Box>
-       <Box sx={homePageStyles.bannerMobileBox}>
-          <img src={otoplusBannerMobile} style={homeBannerStyles.bannerMobile} />
-        </Box>
-        <Grid item sx={homePageStyles.bannerContainer}>
-            <Button variant="outlined" sx={homePageStyles.bannerButton}>
-                  Araba Al
-            </Button>
-            <Button variant="outlined" sx={homePageStyles.bannerButton}>
-                Araba Sat
-            </Button>
-        </Grid>
+          <Box sx={homePageStyles.bannerDesktopBox}>
+              <img src={otoplusBanner} style={homeBannerStyles.bannerDesktop} loading='lazy' />
+          </Box>
+          <Box sx={homePageStyles.bannerMobileBox}>
+              <img src={otoplusBannerMobile} style={homeBannerStyles.bannerMobile} loading='lazy' />
+          </Box>
+           {/* Buttons into banner  */}
+          <Grid item sx={homePageStyles.bannerContainer}>
+              <Button variant="outlined" sx={homePageStyles.bannerButton}>
+                    Araba Al
+              </Button>
+              <Button variant="outlined" sx={homePageStyles.bannerButton}>
+                  Araba Sat
+              </Button>
+          </Grid>
       </Grid>
+      {/* Actual advert */}
       <Typography sx={homePageStyles.homeTitle}>Güncel İlanlar</Typography>
           {advertData && <AdCard data={advertData} grid={[3,3,4,6]} />}
     </Container>
