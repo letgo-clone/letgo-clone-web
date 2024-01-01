@@ -832,3 +832,86 @@ export const advertDetailStyles: Record<string, SxProps<Theme> | undefined> = {
         textAlign: 'right'
     }
 }
+
+export const advertSearchStyles: Record<string, SxProps<Theme> | undefined> = {
+                            // Left Filter Columns
+    leftFilterGrid: {
+        marginTop: '30px',
+        paddingRight: '22px'
+    },
+
+    // Title
+    leftFilterTitleLink: {
+        fontSize: '12px', 
+        fontWeight: 400,
+        color: '#424242'
+    },
+    leftFilterTitle: {
+        fontSize: '24px', 
+        fontWeight: 600
+    },
+    leftFilterAccording: {
+        boxShadow: 'none'
+    },
+    leftFilterAccordingSummary: {
+        padding:0
+    },
+    leftFilterCardsTitle: {
+        flexShrink: 0, 
+        fontWeight: 700, 
+        textTransform: 'uppercase'
+    },
+
+    // Filter Price 
+    textBetweenPriceFilter: {
+        textAlign: 'center', 
+        marginTop: '10px'
+    },
+    priceFilterButton: {
+        color: '#FFFFFF',
+        backgroundColor: '#ff3f55',
+        borderRadius: 5,
+        border: '3px solid #ff3f55',
+        textTransform: 'none',
+        padding: 0,
+        '&:hover': { 
+            backgroundColor: '#FFFFFF', 
+            color: '#ff3f55', 
+            border: '3px solid #ff3f55' 
+        },
+    },
+
+                             // Top Right Filter Columns
+    rightFilterGrid: {
+        marginTop: '15%',
+        marginBottom: '10px',
+        borderBottom: '1px solid #0000001f'
+    },
+    rightFilterInfoBox: {
+        display :'flex',
+        marginTop: '14px'
+    },
+    rightFilterInfo: {
+        marginBottom: '15px',
+        fontSize: '14px',
+        fontWeight: 200
+    },
+    rightFilterCount: {
+        borderRadius: 2,
+        backgroundColor: '#99b7e5',
+        color: '#000000',
+        fontWeight: 600,
+        fontSize: '12px',
+        marginTop: '7px'
+    },
+    rightSortingFilterText: {
+        fontSize: '14px', 
+        fontWeight: 600, 
+        marginTop: 1.8, 
+        textTransform: 'uppercase',
+        textAlign: 'right'
+    },
+    rightSortingFilter: {
+        textAlign: 'left'
+    }
+}
