@@ -6,6 +6,8 @@ import { useAppSelector } from '../../redux/store';
 import { KeyOffTwoTone } from '@mui/icons-material';
 import { setCurrentCategory, useAppDispatch } from '../../redux/store';
 
+import { homePostAdvertStyles } from '../../styles';
+
 interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
@@ -65,46 +67,35 @@ function Index() {
             mainCategoryId: mainCategoryId
         }
         dispatch(setCurrentCategory(currentCategoryObject));
-
     }
    
     return (
         <Container>
-            <Typography sx={{ fontSize: '24px', fontWeight: 700, textTransform: 'uppercase', marginTop: '25px', textAlign: 'center' }}>
+            <Typography sx={homePostAdvertStyles.topTitle}>
                 İlan Yayınla
             </Typography>
-            <Grid container sx={{ border: '1px solid #e0e0e0', borderRadius: '8' }}>
-                <Typography sx={{ fontSize: '16px', fontWeight: 700, lineHeight: 1.5, margin: '25px 15px 15px 30px' }}>
+            <Grid container sx={homePostAdvertStyles.containerGrid}>
+                <Typography sx={homePostAdvertStyles.categoryColumnTitle}>
                     BİR KATEGORİ SEÇ
                 </Typography>
                 <Grid container>
-                    <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ marginBottom: '20px' }}>
+                    <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={homePostAdvertStyles.leftCategoryGrid}>
                         <Tabs
                             orientation="vertical"
                             variant="scrollable"
                             value={value}
                             onChange={handleChange}
                             aria-label="Vertical tabs example"
-                            sx={{ borderRight: 1, borderColor: 'divider' }}
+                            sx={homePostAdvertStyles.leftCategoryTabs}
                         >
                             {menuData!.length > 0 && menuData!.map((item) => (
                                 <Tab
                                     label={item.category_name}
                                     iconPosition="start"
-                                    sx={{
-                                        justifyContent: 'flex-start',
-                                        '&.Mui-selected': {
-                                            color: '#2c2c2c',
-                                            backgroundColor: '#e0e0e0'
-                                        },
-                                        minHeight: '54px',
-                                        maxWidth: '100%',
-                                        borderBottom: '1px solid #e0e0e0'
-                                    }}
+                                    sx={homePostAdvertStyles.leftCategoryTab}
                                     icon={<img src={item.icon} width={28} height={28} />}
                                     {...a11yProps(Number(item.category_id))}
-                              />
-
+                                />
                             ))}
                         </Tabs>
                     </Grid>
@@ -113,10 +104,17 @@ function Index() {
                             <TabPanel value={value} index={mainItem.key_id}>
                                  <List sx={{ padding:0 }}>
                                      {mainItem.sub_category.map((SubItem, key) => (
-                                         <ListItem sx={{ padding: 0 }} key={key}>
-                                             <Link to="/post/attributes" onClick={() => handleGetPage(mainItem.category_name, SubItem.sub_category_name, SubItem.sub_category_id, SubItem.main_category_id)} style={{ display: 'contents', color: '#2c2c2c', padding:0 }}>
-                                                 <ListItemButton sx={{ padding: '0', borderBottom: '1px solid #e0e0e0',  maxWidth: '100%', minHeight: '54px' }}>
-                                                     <ListItemText sx={{ paddingLeft: '20px' }} primary={SubItem.sub_category_name} />
+                                         <ListItem sx={homePostAdvertStyles.rightCategoryListItem} key={key}>
+                                             <Link 
+                                                to="/post/attributes" 
+                                                onClick={() => handleGetPage(mainItem.category_name, SubItem.sub_category_name, SubItem.sub_category_id, SubItem.main_category_id)} 
+                                                style={{textDecoration: 'none'}}
+                                                >
+                                                 <ListItemButton sx={homePostAdvertStyles.rightCategoryListItemButton}>
+                                                        <ListItemText 
+                                                            sx={homePostAdvertStyles.rightCategoryListItemText} 
+                                                            primary={SubItem.sub_category_name} 
+                                                        />
                                                  </ListItemButton>
                                              </Link>
                                          </ListItem>
@@ -124,8 +122,6 @@ function Index() {
                                  </List>
                              </TabPanel>
                         ))}
-                        
-
                     </Grid> 
                 </Grid>
             </Grid>
