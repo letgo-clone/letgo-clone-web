@@ -1,54 +1,49 @@
 import React, { useState, useEffect } from 'react'
-import {
-    Container, Typography, Grid, MenuItem, InputLabel, TextField, InputAdornment, Divider,
-    Alert, Tab, Tabs, Breadcrumbs, Link, Table, TableCell, TableHead, TableRow, ListItem,
-    Button, Switch, Box, IconButton, Card, CardMedia, CardContent
-} from '@mui/material'
 
-import profileImage from '../../assets/img/profile-logo.jpeg'
-import ImageOutlinedIcon from '../../assets/img/image-icon.png';
-import CallIcon from '@mui/icons-material/Call';
+// Material UI elements
+import {
+    Container, 
+    Typography, 
+    Grid, 
+    MenuItem, 
+    InputLabel, 
+    TextField, 
+    InputAdornment, 
+    Divider,
+    Breadcrumbs, 
+    Button, 
+    Box, 
+    IconButton
+    } from '@mui/material'
+
+// Material UI icons
 import CloseIcon from '@mui/icons-material/Close';
 
-import { useFormik } from 'formik';
-import { Request, RequestPublic } from '../../helpers/Request';
-import { useParams, useNavigate } from "react-router-dom";
-import Swal from 'sweetalert2';
-
+// styles and assets
 import { postAdvertStyles } from '../../styles';
 
+// React router
+import { useParams, useNavigate } from "react-router-dom";
+
+// helpers
+import { Request, RequestPublic } from '../../helpers/Request';
+
+// Others
+import { useFormik } from 'formik';
+import Swal from 'sweetalert2';
 
 function AdvertEdit() {
+    // React router elements
     const params = useParams();
     const navigate = useNavigate();
-
     const advertId = params.advertId;
-    
-    const [value, setValue] = React.useState(0);
 
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        setValue(newValue);
-    };
-
+     // useState elements
     const [cities, setCities] = useState({});
     const [counties, setCounties] = useState({});
     const [advertDetail, setAdvertDetail] = useState({});
     const [advertImages, setAdvertImages] = useState<object[]>([]);
     const [deletedAdvertImages, setDeletedAdvertImages] = useState<object[] | object>([]);
-
-    useEffect(() => {
-        const getData = async() => {
-            const url = '/advert/detail/' + advertId;
-            const data = await Request('GET', url);
-            setAdvertDetail(data);
-           
-            const sortedImages = data.images.length > 0 && data.images.sort((item, key) =>
-                item.is_cover_image === key.is_cover_image ? 0 : item.is_cover_image ? -1 : 1
-            );
-            setAdvertImages(sortedImages);
-        }
-        getData();
-    }, []);
 
     const formik = useFormik({
         enableReinitialize: true,
@@ -115,6 +110,29 @@ function AdvertEdit() {
         }
     })
 
+     // useEffect elements
+
+
+    /*
+        gets advert data from API
+    */
+    useEffect(() => {
+        const getData = async() => {
+            const url = '/advert/detail/' + advertId;
+            const data = await Request('GET', url);
+            setAdvertDetail(data);
+           
+            const sortedImages = data.images.length > 0 && data.images.sort((item, key) =>
+                item.is_cover_image === key.is_cover_image ? 0 : item.is_cover_image ? -1 : 1
+            );
+            setAdvertImages(sortedImages);
+        }
+        getData();
+    }, []);
+
+    /*
+        gets cities of location data from API
+    */
     useEffect(() => {
         const getCities = async () => {
             const url = "/advert/location";
@@ -124,6 +142,9 @@ function AdvertEdit() {
         getCities();
     }, [])
 
+    /*
+        gets counties of location data from API
+    */
     useEffect(() => {
         const getCounties = async () => {
             const url = "/advert/location/" + formik.values.city_id;
@@ -133,6 +154,9 @@ function AdvertEdit() {
         getCounties();
     }, [formik.values.city_id]);
 
+    /*
+       gets selected image from pc
+    */
     const handlePhoto = (event: React.ChangeEvent<HTMLInputElement>) => {
         const fileList = event.target.files;
 
@@ -148,6 +172,9 @@ function AdvertEdit() {
         formik.setFieldValue("photo", event.currentTarget.files);
     }
 
+    /*
+        Remove selected image from upload images
+    */
     const removeImage = (imageId: number, imageKey: number) => {
         const newList = advertImages.filter((item, key) => key !== imageKey);
         setAdvertImages(newList);
@@ -173,230 +200,236 @@ function AdvertEdit() {
                         onSubmit={formik.handleSubmit}
                         encType='multipart/form-data'
                     >
-                <Grid container>
-                    {advertDetail.length !== 0 && (
-                        <>
-                        <Grid item xl={12} lg={12} md={12} sm={12} xs={12} sx={postAdvertStyles.breadCrumbGrid}>
-                            <Breadcrumbs aria-label="breadcrumb">
-                                <Typography
-                                        sx={postAdvertStyles.breadCrumbText}>
-                                             {advertDetail.category_name}
+                    <Grid container>
+                        {advertDetail.length !== 0 && (
+                            <>
+                             {/* BreadCrumb area */}
+                            <Grid item xl={12} lg={12} md={12} sm={12} xs={12} sx={postAdvertStyles.breadCrumbGrid}>
+                                <Breadcrumbs aria-label="breadcrumb">
+                                    <Typography
+                                            sx={postAdvertStyles.breadCrumbText}>
+                                                {advertDetail.category_name}
+                                    </Typography>
+                                    <Typography sx={postAdvertStyles.breadCrumbText}> {advertDetail.sub_category_name}</Typography>
+                                </Breadcrumbs>
+                            </Grid>
+                            <Divider />
+                            {/* advert info column = title, description, status */}
+                            <Grid item xl={12} lg={12} md={12} sm={12} xs={12} sx={postAdvertStyles.inputGrids}>
+                                <Typography sx={postAdvertStyles.inputTopTitles}>
+                                    BİRAZ BİLGİ EKLE
                                 </Typography>
-                                <Typography sx={postAdvertStyles.breadCrumbText}> {advertDetail.sub_category_name}</Typography>
-                            </Breadcrumbs>
-                        </Grid>
-                        <Divider />
-                        <Grid item xl={12} lg={12} md={12} sm={12} xs={12} sx={postAdvertStyles.inputGrids}>
-                            <Typography sx={postAdvertStyles.inputTopTitles}>
-                                BİRAZ BİLGİ EKLE
-                            </Typography>
-                            <Grid container spacing={3} sx={postAdvertStyles.inputsGridContainer}>
-                                <Grid item lg={6} md={6} sm={12} xs={12}>
-                                    <InputLabel shrink htmlFor="how_status">
-                                        Durum
-                                    </InputLabel>
-                                    <TextField
-                                        id="outlined-select-currency"
-                                        fullWidth
-                                        select
-                                        size="small"
-                                        name="how_status"
-                                        value={formik.values.how_status}
-                                        onChange={formik.handleChange}
-                                        error={Boolean(formik.values.how_status == '' && formik.touched.how_status )}
-                                        helperText={formik.values.how_status == '' && formik.touched.how_status && 'Durumu belirtmeniz gerekiyor'}
-                                    >
-                                       <MenuItem value="Yeni">Yeni</MenuItem>
-                                       <MenuItem value="Yeni gibi">Yeni gibi</MenuItem>
-                                       <MenuItem value="İyi">İyi</MenuItem>
-                                       <MenuItem value="Makul">Makul</MenuItem>
-                                       <MenuItem value="Yıpranmış">Yıpranmış</MenuItem>
-                                    </TextField>
-                                </Grid>
-                                <Grid item lg={6} md={6} sm={12} xs={12}>
-                                    <InputLabel shrink htmlFor="year">
-                                        İlan Başlığı
-                                    </InputLabel>
-                                    <TextField
-                                        fullWidth
-                                        size='small'
-                                        id="title"
-                                        name="title"
-                                        value={formik.values.title}
-                                        onChange={formik.handleChange}
-                                        error={Boolean(formik.values.title == '')}
-                                        helperText={formik.values.title == '' ? 'En az 1 karakter olması gerekir. Lütfen alanı düzenle.': 'Ürününün temel özelliklerinden bahset (ör. marka, model, yaş, tip)'}
-                                    />
-                                </Grid>
-                                <Grid item lg={6} md={6} sm={12} xs={12}>
-                                    <InputLabel shrink htmlFor="year">
-                                        Açıklama
-                                    </InputLabel>
-                                    <TextField
-                                        multiline
-                                        rows={4}
-                                        fullWidth
-                                        size='small'
-                                        id="description"
-                                        name="description"
-                                        value={formik.values.description}
-                                        onChange={formik.handleChange}
-                                        error={Boolean(formik.values.description == '')}
-                                        helperText={formik.values.description == '' ? 'En az 10 karakter olması gerekir. Lütfen alanı düzenle.' : 'Durum, özellik ve satma nedeni gibi bilgileri ekle'}
-                                    />
+                                <Grid container spacing={3} sx={postAdvertStyles.inputsGridContainer}>
+                                    <Grid item lg={6} md={6} sm={12} xs={12}>
+                                        <InputLabel shrink htmlFor="how_status">
+                                            Durum
+                                        </InputLabel>
+                                        <TextField
+                                            id="outlined-select-currency"
+                                            fullWidth
+                                            select
+                                            size="small"
+                                            name="how_status"
+                                            value={formik.values.how_status}
+                                            onChange={formik.handleChange}
+                                            error={Boolean(formik.values.how_status == '' && formik.touched.how_status )}
+                                            helperText={formik.values.how_status == '' && formik.touched.how_status && 'Durumu belirtmeniz gerekiyor'}
+                                        >
+                                        <MenuItem value="Yeni">Yeni</MenuItem>
+                                        <MenuItem value="Yeni gibi">Yeni gibi</MenuItem>
+                                        <MenuItem value="İyi">İyi</MenuItem>
+                                        <MenuItem value="Makul">Makul</MenuItem>
+                                        <MenuItem value="Yıpranmış">Yıpranmış</MenuItem>
+                                        </TextField>
+                                    </Grid>
+                                    <Grid item lg={6} md={6} sm={12} xs={12}>
+                                        <InputLabel shrink htmlFor="year">
+                                            İlan Başlığı
+                                        </InputLabel>
+                                        <TextField
+                                            fullWidth
+                                            size='small'
+                                            id="title"
+                                            name="title"
+                                            value={formik.values.title}
+                                            onChange={formik.handleChange}
+                                            error={Boolean(formik.values.title == '')}
+                                            helperText={formik.values.title == '' ? 'En az 1 karakter olması gerekir. Lütfen alanı düzenle.': 'Ürününün temel özelliklerinden bahset (ör. marka, model, yaş, tip)'}
+                                        />
+                                    </Grid>
+                                    <Grid item lg={6} md={6} sm={12} xs={12}>
+                                        <InputLabel shrink htmlFor="year">
+                                            Açıklama
+                                        </InputLabel>
+                                        <TextField
+                                            multiline
+                                            rows={4}
+                                            fullWidth
+                                            size='small'
+                                            id="description"
+                                            name="description"
+                                            value={formik.values.description}
+                                            onChange={formik.handleChange}
+                                            error={Boolean(formik.values.description == '')}
+                                            helperText={formik.values.description == '' ? 'En az 10 karakter olması gerekir. Lütfen alanı düzenle.' : 'Durum, özellik ve satma nedeni gibi bilgileri ekle'}
+                                        />
+                                    </Grid>
                                 </Grid>
                             </Grid>
-                        </Grid>
-                        <Grid item xl={12} lg={12} sm={12} xs={12} sx={postAdvertStyles.inputGrids}>
-                            <Typography sx={postAdvertStyles.inputTopTitles}>
-                                FİYAT BELİRLE
-                            </Typography>
-                            <Grid container spacing={3} sx={postAdvertStyles.inputsGridContainer}>
-                                <Grid item lg={6} md={6} sm={12} xs={12}>
-                                    <InputLabel shrink htmlFor="price">
-                                        Yıl
-                                    </InputLabel>
-                                    <TextField
-                                        fullWidth
-                                        size='small'
-                                        id="price"
-                                        name="price"
-                                        value={formik.values.price}
-                                        onChange={formik.handleChange}
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start">
-                                                <Typography sx={{ borderRight: '1px solid #e0e0e0', paddingRight: '10px', fontSize: '12px' }}>TL</Typography>
-                                            </InputAdornment>
-                                        }}
-                                        error={Boolean(formik.values.price == '')}
-                                        helperText={formik.values.price == '' && 'Bu alan zorunludur'}
-                                    />
+                            {/* advert price column */}
+                            <Grid item xl={12} lg={12} sm={12} xs={12} sx={postAdvertStyles.inputGrids}>
+                                <Typography sx={postAdvertStyles.inputTopTitles}>
+                                    FİYAT BELİRLE
+                                </Typography>
+                                <Grid container spacing={3} sx={postAdvertStyles.inputsGridContainer}>
+                                    <Grid item lg={6} md={6} sm={12} xs={12}>
+                                        <InputLabel shrink htmlFor="price">
+                                            Yıl
+                                        </InputLabel>
+                                        <TextField
+                                            fullWidth
+                                            size='small'
+                                            id="price"
+                                            name="price"
+                                            value={formik.values.price}
+                                            onChange={formik.handleChange}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">
+                                                    <Typography sx={{ borderRight: '1px solid #e0e0e0', paddingRight: '10px', fontSize: '12px' }}>TL</Typography>
+                                                </InputAdornment>
+                                            }}
+                                            error={Boolean(formik.values.price == '')}
+                                            helperText={formik.values.price == '' && 'Bu alan zorunludur'}
+                                        />
+                                    </Grid>
                                 </Grid>
                             </Grid>
-                        </Grid>
-                        <Grid item xl={12} lg={12} sm={12} xs={12} sx={postAdvertStyles.inputGrids}>
-                            <Typography sx={postAdvertStyles.inputTopTitles}>
-                                21 ADEDE KADAR FOTOĞRAF YÜKLEYEBİLİRSİN
-                            </Typography>
-                            <Grid container sx={postAdvertStyles.fileInputGrid}>
-                                <input
-                                    multiple
-                                    type="file"
-                                    name="photo"
-                                    className="form-control"
-                                    accept='image/png, image/jpeg'
-                                    onChange={(event) => 
-                                        {
-                                            handlePhoto(event)
-                                        }}
-                                />
-                                 {advertImages.length < 1 &&
-                                      <Typography sx={postAdvertStyles.fileInputValidationText}>Bu alan zorunludur</Typography>
-                                }
-                            </Grid>
-                            <Grid container sx={postAdvertStyles.fileInputImageGrid}>
-                                {advertImages.length > 0 && advertImages.map((item, key) => (
-                                    <Box sx={postAdvertStyles.fileInputImageBox}>
-                                            <img 
-                                                src={item.image_id ? item.url : URL.createObjectURL(item)} 
-                                                style={{ objectFit: 'cover' }} 
-                                                width={140} 
-                                                height={140} 
-                                                alt="Advert" 
-                                            />
-                                            <Box className='image-content' sx={postAdvertStyles.fileInputIconBox}>
-                                                {advertImages.length > 1 &&
-                                                <IconButton 
-                                                    aria-label="remove to advert" 
-                                                    onClick={() => removeImage(item.image_id,key)}
-                                                    sx={{ backgroundColor: '#000000', borderRadius: 3, '&:hover': {backgroundColor :'#000000'}}}
-                                                 >
-                                                         <CloseIcon sx={{ fontSize: '21px',color: '#ffffff' }} />
-                                                 </IconButton>
+                            {/* advert image column */}
+                            <Grid item xl={12} lg={12} sm={12} xs={12} sx={postAdvertStyles.inputGrids}>
+                                <Typography sx={postAdvertStyles.inputTopTitles}>
+                                    21 ADEDE KADAR FOTOĞRAF YÜKLEYEBİLİRSİN
+                                </Typography>
+                                <Grid container sx={postAdvertStyles.fileInputGrid}>
+                                    <input
+                                        multiple
+                                        type="file"
+                                        name="photo"
+                                        className="form-control"
+                                        accept='image/png, image/jpeg'
+                                        onChange={(event) => 
+                                            {
+                                                handlePhoto(event)
+                                            }}
+                                    />
+                                    {advertImages.length < 1 &&
+                                        <Typography sx={postAdvertStyles.fileInputValidationText}>Bu alan zorunludur</Typography>
+                                    }
+                                </Grid>
+                                <Grid container sx={postAdvertStyles.fileInputImageGrid}>
+                                    {advertImages.length > 0 && advertImages.map((item, key) => (
+                                        <Box sx={postAdvertStyles.fileInputImageBox}>
+                                                <img 
+                                                    src={item.image_id ? item.url : URL.createObjectURL(item)} 
+                                                    style={{ objectFit: 'cover' }} 
+                                                    width={140} 
+                                                    height={140} 
+                                                    alt="Advert" 
+                                                />
+                                                <Box className='image-content' sx={postAdvertStyles.fileInputIconBox}>
+                                                    {advertImages.length > 1 &&
+                                                    <IconButton 
+                                                        aria-label="remove to advert" 
+                                                        onClick={() => removeImage(item.image_id,key)}
+                                                        sx={{ backgroundColor: '#000000', borderRadius: 3, '&:hover': {backgroundColor :'#000000'}}}
+                                                    >
+                                                            <CloseIcon sx={{ fontSize: '21px',color: '#ffffff' }} />
+                                                    </IconButton>
+                                                    }
+                                                </Box>
+                                                {key == 0  &&
+                                                    <Typography variant="body2" sx={postAdvertStyles.fileInputImageText}>
+                                                        KAPAK
+                                                    </Typography>
                                                 }
-                                            </Box>
-                                            {key == 0  &&
-                                                <Typography variant="body2" sx={postAdvertStyles.fileInputImageText}>
-                                                    KAPAK
-                                                </Typography>
-                                            }
-                                    </Box>
-                                ))}
+                                        </Box>
+                                    ))}
+                                </Grid>
                             </Grid>
-                        </Grid>
-                        <Grid item xl={12} lg={12} sm={12} xs={12} sx={postAdvertStyles.inputGrids}>
-                            <Typography sx={postAdvertStyles.locationInputTopTitle}>
-                                KONUMUNU ONAYLA
-                            </Typography>
-                            <Grid container spacing={3} sx={postAdvertStyles.locationInputGrid}>
-                                    <Grid container spacing={2} sx={{ display: 'contents' }}>
-                                        <Grid item lg={6} md={6} sm={12} xs={12}>
-                                            <InputLabel shrink htmlFor="year">
-                                                İl
-                                            </InputLabel>
-                                            <TextField
-                                                id="city_id"
-                                                fullWidth
-                                                select
-                                                size="small"
-                                                name="city_id"
-                                                value={formik.values.city_id}
-                                                onChange={formik.handleChange}
-                                                error={Boolean(formik.values.city_id == '')}
-                                                helperText={formik.values.city_id == '' && 'Bu alan zorunludur'}
-                                            >
-                                                {cities.length > 0 && cities.map((option) => (
-                                                    <MenuItem key={option.id} value={option.id}>
-                                                        {option.city}
-                                                    </MenuItem>
-                                                ))}
-                                            </TextField>
-                                        </Grid>
-                                        {(formik.values.city_id && counties.length > 0) && (
+                             {/* advert location column */}
+                            <Grid item xl={12} lg={12} sm={12} xs={12} sx={postAdvertStyles.inputGrids}>
+                                <Typography sx={postAdvertStyles.locationInputTopTitle}>
+                                    KONUMUNU ONAYLA
+                                </Typography>
+                                <Grid container spacing={3} sx={postAdvertStyles.locationInputGrid}>
+                                        <Grid container spacing={2} sx={{ display: 'contents' }}>
                                             <Grid item lg={6} md={6} sm={12} xs={12}>
                                                 <InputLabel shrink htmlFor="year">
-                                                    İlçe
+                                                    İl
                                                 </InputLabel>
                                                 <TextField
-                                                    id="outlined-select-currency"
+                                                    id="city_id"
                                                     fullWidth
                                                     select
                                                     size="small"
-                                                    name="county_id"
-                                                    value={formik.values.county_id}
+                                                    name="city_id"
+                                                    value={formik.values.city_id}
                                                     onChange={formik.handleChange}
-                                                    error={Boolean(formik.values.county_id == '')}
-                                                    helperText={formik.values.county_id == '' && 'Bu alan zorunludur'}
+                                                    error={Boolean(formik.values.city_id == '')}
+                                                    helperText={formik.values.city_id == '' && 'Bu alan zorunludur'}
                                                 >
-                                                    {counties.length > 0 && counties.map((option) => (
+                                                    {cities.length > 0 && cities.map((option) => (
                                                         <MenuItem key={option.id} value={option.id}>
-                                                            {option.county}
+                                                            {option.city}
                                                         </MenuItem>
                                                     ))}
                                                 </TextField>
                                             </Grid>
-                                        )}
-                                    </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid item xl={12} lg={12} sm={12} xs={12} sx={postAdvertStyles.inputGrids}>
-                            <Grid container>
-                                <Grid lg={12} md={12} sx={postAdvertStyles.sendButtonGrid}>
-                                    <Button
-                                        variant="outlined"
-                                        sx={postAdvertStyles.sendButton}
-                                        color="error"
-                                        type="submit"
-                                    >
-                                        Devam et
-                                    </Button>
+                                            {(formik.values.city_id && counties.length > 0) && (
+                                                <Grid item lg={6} md={6} sm={12} xs={12}>
+                                                    <InputLabel shrink htmlFor="year">
+                                                        İlçe
+                                                    </InputLabel>
+                                                    <TextField
+                                                        id="outlined-select-currency"
+                                                        fullWidth
+                                                        select
+                                                        size="small"
+                                                        name="county_id"
+                                                        value={formik.values.county_id}
+                                                        onChange={formik.handleChange}
+                                                        error={Boolean(formik.values.county_id == '')}
+                                                        helperText={formik.values.county_id == '' && 'Bu alan zorunludur'}
+                                                    >
+                                                        {counties.length > 0 && counties.map((option) => (
+                                                            <MenuItem key={option.id} value={option.id}>
+                                                                {option.county}
+                                                            </MenuItem>
+                                                        ))}
+                                                    </TextField>
+                                                </Grid>
+                                            )}
+                                        </Grid>
                                 </Grid>
                             </Grid>
+                             {/* send button */}
+                            <Grid item xl={12} lg={12} sm={12} xs={12} sx={postAdvertStyles.inputGrids}>
+                                <Grid container>
+                                    <Grid lg={12} md={12} sx={postAdvertStyles.sendButtonGrid}>
+                                        <Button
+                                            variant="outlined"
+                                            sx={postAdvertStyles.sendButton}
+                                            color="error"
+                                            type="submit"
+                                        >
+                                            Devam et
+                                        </Button>
+                                    </Grid>
+                                </Grid>
 
-                        </Grid>
-                        </>
-                    )}
-                </Grid>
+                            </Grid>
+                            </>
+                        )}
+                    </Grid>
                 </form>
             </Grid>
         </Container>
