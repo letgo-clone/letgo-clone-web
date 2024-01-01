@@ -1,28 +1,55 @@
 import { useEffect, useState } from 'react';
-import { Typography, Grid, Card, CardContent, CardActions, Button, Container, IconButton, Divider } from "@mui/material"
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { useLocation } from "react-router-dom";
 
-import { RequestPublic } from '../../helpers/Request';
+// Material UI elements
+import { 
+    Avatar, 
+    Typography, 
+    Grid, 
+    Card, 
+    CardContent,
+    Box, 
+    CardActions, 
+    Button, 
+    Container, 
+    IconButton, 
+    Divider 
+    } from "@mui/material"
 
-import sampleLocation from '../../assets/img/sample-location.png'
-import { getItem } from 'localforage';
+// Material UI icons
+
+import {
+    Favorite,
+    Share,
+    ChevronRight
+    } from '@mui/icons-material';
+
+// styles and assets
+import { 
+    advertDetailStyles,
+    advertDetailCarouselStyles 
+    } from '../../styles';
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import sampleLocation from '../../assets/img/sample-location.png'
+
+// Helper
+import { RequestPublic } from '../../helpers/Request';
+
+// Other
+import { useParams } from "react-router-dom";
 import { Carousel } from 'react-responsive-carousel';
 
-function useQuery() {
-    return new URLSearchParams(useLocation().search)
-}
-
 const AdvertDetail = () => {
+    // React Router
     const params = useParams();
     const id = params.itemId;
 
+    // useState area
     const [advertDetail, setAdvertDetail] = useState('');
 
+    // useEffect area
+
+    // gets actual advert data
     useEffect(() => {
         const getData = async () => {
             const url = "/advert/actual/" + id
@@ -32,28 +59,55 @@ const AdvertDetail = () => {
         getData();
     }, [])
 
+    // rendered image thumb of carousel
+    const renderCustomThumbs = () => {
+        return (
+          advertDetail &&
+            advertDetail.photo.map((item, key) => (
+                <Box key={key} sx={advertDetailStyles.carouselThumb}>
+                    <img
+                        src={item.url}
+                        alt={`Thumb ${key}`}
+                        style={advertDetailCarouselStyles.carouselThumbImg}
+                    />
+                </Box>
+            ))
+        );
+      };
+
     return (
-        <div style={{ backgroundColor: '#f1f1f1', paddingTop: '20px', paddingBottom: '20px' }}>
+        <Box sx={advertDetailStyles.mainBox}>
             {advertDetail && (
                 <Container>
                     <Grid container>
                         <Grid xl={8} lg={8} md={12} sm={12} xs={12}>
-                            <Grid container sx={{
-                                width: { xl: '96%', lg: '96%', md: '100%', sm: '100%', xs: '100%' },
-                                backgroundColor: '#FFFFFF',
-                                marginBottom: { md: '10px', sm: '20px', xs: '20px' }
-                            }}>
+                            {/* Left Column Contents  */}
+                            <Grid container sx={advertDetailStyles.leftColumnGrid}>
+                                {/* Carousel  */}
                                 <Grid item lg={12} md={12} sm={12} xs={12}>
-                                    <Carousel showArrows={true} autoPlay={true} verticalSwipe={'natural'} dynamicHeight={true}>
+                                    <Carousel 
+                                        showArrows={true} 
+                                        autoPlay={true} 
+                                        verticalSwipe={'natural'} 
+                                        dynamicHeight={false} 
+                                        showThumbs={true}
+                                        renderThumbs={renderCustomThumbs}
+                                        >
                                          {advertDetail && advertDetail.photo.map((item, key) => (
-                                            <div style={{ backgroundColor: 'red' }}>
-                                                <img src={item.url} width={item.width} />
-                                            </div>
+                                            <Box sx={advertDetailStyles.carouselBox}>
+                                                <img 
+                                                    src={item.url} 
+                                                    width={item.width}
+                                                    loading='lazy'
+                                                    style={advertDetailCarouselStyles.carouselImg} 
+                                                />
+                                            </Box>
                                         ))} 
                                     </Carousel>
                                 </Grid>
-                                <Grid item lg={12} md={12} sm={12} xs={12} sx={{ padding: '20px' }}>
-                                    <Typography sx={{ fontSize: '20px', lineHeight: '20px', fontWeight: 700, color: '#2c2c2c', marginTop: '10px', marginBottom: '10px' }}>
+                                {/* Detail Card  */}
+                                <Grid item lg={12} md={12} sm={12} xs={12} sx={advertDetailStyles.leftColumnInfoGrid}>
+                                    <Typography sx={advertDetailStyles.leftColumnInfoText}>
                                         Detaylar
                                     </Typography>
                                     <Grid container>
@@ -61,114 +115,110 @@ const AdvertDetail = () => {
                                             <Grid lg={3} md={3} sm={3} xs={3}>{advertDetail.how_status}</Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid item lg={12} md={12} sm={12} xs={12} sx={{ padding: '20px' }}>
+                                {/* Description Card */}
+                                <Grid item lg={12} md={12} sm={12} xs={12} sx={advertDetailStyles.leftColumnInfoGrid}>
                                     <Divider />
-                                    <Typography sx={{ fontSize: '20px', lineHeight: '20px', fontWeight: 700, color: '#2c2c2c', marginTop: '10px', marginBottom: '10px' }}>
+                                    <Typography sx={advertDetailStyles.leftColumnInfoText}>
                                         Açıklama
                                     </Typography>
-                                    <Typography sx={{ fontSize: '14px', lineHeight: '20px', fontWeight: 400, color: '#2c2c2c', marginTop: '10px', marginBottom: '10px' }}>
+                                    <Typography sx={advertDetailStyles.leftColumnDescription}>
                                         {advertDetail.description}
                                     </Typography>
-
                                 </Grid>
                             </Grid>
                         </Grid>
+                         {/*  Left Column Contents */}
                         <Grid xl={4} lg={4} md={12} sm={12} xs={12}>
                             <Grid container>
+                                {/* Price card */}
                                 <Grid item lg={12} md={12} sm={12} xs={12}>
-                                    <Card sx={{ minWidth: 275 }}>
-                                        <CardContent>
+                                    <Card sx={advertDetailStyles.rightColumnCards}>
+                                        <CardContent sx={advertDetailStyles.rightColumnCardContent}>
                                             <Grid container>
                                                 <Grid item lg={6} md={6}>
-                                                    <Typography sx={{ fontSize: '32px', lineHeight: '32px', fontWeight: 700, color: '#2c2c2c' }}>
+                                                    <Typography sx={advertDetailStyles.rightColumnPriceText}>
                                                         {advertDetail.price}
                                                     </Typography>
-                                                    <Typography sx={{ fontSize: 14, marginTop: '10px' }} color="text.secondary" gutterBottom>
+                                                    <Typography sx={advertDetailStyles.rightColumnPriceTitle} color="text.secondary" gutterBottom>
                                                         {advertDetail.title}
                                                     </Typography>
                                                 </Grid>
-                                                <Grid item lg={6} md={6} sx={{ textAlign: 'right' }}>
+                                                <Grid item lg={6} md={6} sx={advertDetailStyles.rightColumnPriceIconsGrid}>
                                                     <IconButton aria-label="share">
-                                                        <ShareIcon />
+                                                        <Share />
                                                     </IconButton>
                                                     <IconButton aria-label="add to favorites">
-                                                        <FavoriteIcon />
+                                                        <Favorite />
                                                     </IconButton>
                                                 </Grid>
                                             </Grid>
                                         </CardContent>
-                                        <CardActions sx={{ marginLeft: '8px' }}>
-                                            <Typography sx={{ fontSize: '12px', lineHeight: '20px', fontWeight: 400, color: '#424242' }}>
+                                        <CardActions>
+                                            <Typography sx={advertDetailStyles.rightColumnLocationText}>
                                                 {advertDetail.county}, {advertDetail.city}
                                             </Typography>
                                         </CardActions>
                                     </Card>
                                 </Grid>
-                                <Grid item lg={12} md={12} sm={12} xs={12} sx={{ marginTop: '20px' }}>
-                                    <Card sx={{ minWidth: 275 }}>
-                                        <CardContent>
+                                 {/* Seller card */}
+                                <Grid item lg={12} md={12} sm={12} xs={12} sx={advertDetailStyles.rightColumnsGrid}>
+                                    <Card sx={advertDetailStyles.rightColumnCards}>
+                                        <CardContent sx={advertDetailStyles.rightColumnCardContent}>
                                             <Grid container>
+                                                <Grid item lg={3} md={3}>
+                                                    <Avatar alt="Remy Sharp" src={advertDetail.user_image.url} sx={advertDetailStyles.rightColumnSellerAvatar} />
+                                                </Grid>
                                                 <Grid item lg={6} md={6}>
-                                                    <Typography sx={{ fontSize: '20px', lineHeight: '20px', fontWeight: 700, color: '#2c2c2c', marginTop: '10px' }}>
+                                                    <Typography sx={advertDetailStyles.rightColumnSellerFullname}>
                                                         {advertDetail.fullname}
                                                     </Typography>
-
                                                 </Grid>
-                                                <Grid item lg={6} md={6} sx={{ textAlign: 'right' }}>
+                                                <Grid item lg={3} md={3} sx={advertDetailStyles.rightColumnSellerIconGrid}>
                                                     <IconButton aria-label="share">
-                                                        <ChevronRightIcon />
+                                                        <ChevronRight />
                                                     </IconButton>
                                                 </Grid>
                                             </Grid>
                                         </CardContent>
-                                        <CardActions sx={{ marginLeft: '8px', display: 'grid', marginBottom: '20px' }}>
-                                            <Button
-                                                variant="outlined"
-                                                sx={{
-                                                    backgroundColor: '#FFFFFF',
-                                                    color: '#ff3f55',
-                                                    borderRadius: '50px',
-                                                    border: '3px solid transparent',
-                                                    outline: '#ff3f55 solid 3px',
-                                                    textTransform: 'none',
-                                                    '&:hover': { backgroundColor: '#FFFFFF', border: '3px solid #ff3f55', color: '#ff3f55' },
-                                                }}
-                                            >
+                                        <CardActions sx={advertDetailStyles.rightColumnSellerButtonGrid}>
+                                            <Button variant="outlined" sx={advertDetailStyles.rightColumnSellerButton}>
                                                 Satıcıyla sohbet et
                                             </Button>
                                         </CardActions>
                                     </Card>
                                 </Grid>
-                                <Grid item lg={12} md={12} sm={12} xs={12} sx={{ marginTop: '20px' }} >
-                                    <Card sx={{ minWidth: 275 }}>
-                                        <CardContent>
+                                 {/* Location card */}
+                                <Grid item lg={12} md={12} sm={12} xs={12} sx={advertDetailStyles.rightColumnsGrid}>
+                                    <Card sx={advertDetailStyles.rightColumnCards}>
+                                        <CardContent sx={advertDetailStyles.rightColumnCardContent}>
                                             <Grid container>
                                                 <Grid item lg={12} md={12}>
-                                                    <Typography sx={{ fontSize: '20px', lineHeight: '20px', fontWeight: 700, color: '#2c2c2c', marginTop: '10px' }}>
+                                                    <Typography sx={advertDetailStyles.rightColumnLocationTitle}>
                                                         İlan Konumu
                                                     </Typography>
                                                 </Grid>
-                                                <Grid item lg={12} md={12} sx={{ marginTop: '10px' }}>
-                                                    <Typography sx={{ fontSize: '12px', lineHeight: '20px', fontWeight: 400, color: '#424242' }}>
+                                                <Grid item lg={12} md={12}>
+                                                    <Typography sx={advertDetailStyles.rightColumnLocationText}>
                                                         {advertDetail.county}, {advertDetail.city}
                                                     </Typography>
                                                 </Grid>
                                             </Grid>
                                         </CardContent>
-                                        <CardActions sx={{ marginLeft: '8px', display: 'grid', marginBottom: '20px' }}>
+                                        <CardActions sx={advertDetailStyles.rightColumnLocation}>
                                             <img src={sampleLocation} width="640" />
                                         </CardActions>
                                     </Card>
                                 </Grid>
-                                <Grid item lg={12} md={12} sm={12} xs={12} sx={{ marginTop: '20px' }}>
+                                 {/* Advert Report */}
+                                <Grid item lg={12} md={12} sm={12} xs={12} sx={advertDetailStyles.rightColumnsGrid}>
                                     <Grid container>
                                         <Grid lg={6} md={6}>
-                                            <Typography sx={{ fontSize: '14px', marginTop: '10px', color: '#2c2c2c', fontWeight: 'bolder' }} color="text.secondary" gutterBottom>
+                                            <Typography sx={advertDetailStyles.rightColumnAdvertInfoText} color="text.secondary" gutterBottom>
                                                 İlan no {advertDetail.id}
                                             </Typography>
                                         </Grid>
-                                        <Grid lg={6} md={6} sx={{ textAlign: 'right' }}>
-                                            <Typography sx={{ fontSize: '12px', color: '#ff3f55', fontWeight: 700, textTransform: 'uppercase', marginTop: '10px' }} color="text.secondary" gutterBottom>
+                                        <Grid lg={6} md={6}>
+                                            <Typography sx={advertDetailStyles.rightColumnAdvertComplaint} color="text.secondary" gutterBottom>
                                                 İlani Şikayet Et
                                             </Typography>
                                         </Grid>
@@ -179,7 +229,7 @@ const AdvertDetail = () => {
                     </Grid>
                 </Container>
             )}
-        </div>
+        </Box>
     )
 }
 

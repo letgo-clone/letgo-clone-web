@@ -667,3 +667,168 @@ export const loginModalStyles: Record<string, SxProps<Theme> | undefined> = {
         textAlign: 'center'
     }
 }
+
+
+export const advertDetailCarouselStyles = {
+    carouselImg: {
+        maxHeight: '400px', 
+        width: 'auto', 
+        height: '100%' 
+    },
+    carouselThumbImg: {
+        width: 'auto', 
+        height: '100%', 
+        maxHeight: 50 
+    }
+}
+
+export const advertDetailStyles: Record<string, SxProps<Theme> | undefined> = {
+    mainBox: {
+        backgroundColor: '#f1f1f1', 
+        paddingTop: '20px', 
+        paddingBottom: '20px'
+    },
+                        // Left Column = Carousel, Detail and Description boxs
+    leftColumnGrid: {
+        width: { 
+            xl: '96%', 
+            lg: '96%', 
+            md: '100%', 
+            sm: '100%', 
+            xs: '100%' 
+        },
+        backgroundColor: '#FFFFFF',
+        marginBottom: { md: '10px', sm: '20px', xs: '20px' }
+    },
+
+     // Carousel
+     carouselThumbBox: {
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+    },
+    carouselBox: {
+        backgroundColor: '#616161', 
+        maxHeight: '400px', 
+        width: 'auto', 
+        height: '100%',
+        overflow: 'hidden'
+    },
+
+    // Left column cards
+    leftColumnInfoGrid: {
+        padding: '20px'
+    },
+    leftColumnInfoText: {
+        fontSize: '20px', 
+        lineHeight: '20px', 
+        fontWeight: 700, 
+        color: '#2c2c2c', 
+        marginTop: '10px', 
+        marginBottom: '10px'
+    },
+    leftColumnDescription: {
+        fontSize: '14px', 
+        lineHeight: '20px', 
+        fontWeight: 400, 
+        color: '#2c2c2c', 
+        marginTop: '10px', 
+        marginBottom: '10px'
+    },
+
+                    // Right Column: Price, Seller, Location cards
+    rightColumnCards: {
+        minWidth: 275,
+        paddingLeft: '10px'
+    },
+    rightColumnCardContent: {
+        padding: '16px 16px 16px 8px'
+    },
+    rightColumnPriceText: {
+        fontSize: '32px', 
+        lineHeight: '32px', 
+        fontWeight: 700, 
+        color: '#2c2c2c'
+    },
+    rightColumnPriceTitle: {
+        fontSize: 14, 
+        marginTop: '10px'
+    },
+    rightColumnPriceIconsGrid: {
+        textAlign: 'right' 
+    },
+    rightColumnsGrid: {
+        marginTop: '20px'
+    },
+    rightColumnLocationText: {
+        fontSize: '12px', 
+        lineHeight: '20px', 
+        fontWeight: 400, 
+        color: '#424242'
+    },
+    // Seller card
+    rightColumnSellerAvatar: {
+        width: '68px', 
+        height: '68px'
+    },
+    rightColumnSellerFullname: {
+        fontSize: '20px', 
+        lineHeight: '20px', 
+        fontWeight: 700, 
+        color: '#2c2c2c', 
+        marginTop: '20px' 
+    },
+    rightColumnSellerIconGrid: {
+        textAlign: 'right', 
+        marginTop: '10px' 
+    },
+    rightColumnSellerButtonGrid: {
+        marginLeft: '8px', 
+        marginRight: '18px', 
+        display: 'grid', 
+        marginBottom: '20px'
+    },
+    rightColumnSellerButton: {
+        backgroundColor: '#FFFFFF',
+        color: '#ff3f55',
+        borderRadius: '50px',
+        border: '3px solid transparent',
+        outline: '#ff3f55 solid 3px',
+        textTransform: 'none',
+        '&:hover': { 
+            backgroundColor: '#FFFFFF', 
+            border: '3px solid #ff3f55', 
+            color: '#ff3f55' 
+        },
+    },
+
+    // Location card
+    rightColumnLocationTitle: {
+        fontSize: '20px', 
+        lineHeight: '20px', 
+        fontWeight: 700, 
+        color: '#2c2c2c', 
+        marginTop: '10px',
+        marginBottom: '10px'
+    },
+    rightColumnLocation: {
+        display: 'grid', 
+        marginBottom: '20px' 
+    },
+
+    // Advert info area
+    rightColumnAdvertInfoText: {
+        fontSize: '14px', 
+        marginTop: '10px', 
+        color: '#2c2c2c', 
+        fontWeight: 'bolder'
+    },
+    rightColumnAdvertComplaint: {
+        fontSize: '12px', 
+        color: '#ff3f55', 
+        fontWeight: 700, 
+        textTransform: 'uppercase', 
+        marginTop: '10px',
+        textAlign: 'right'
+    }
+}
