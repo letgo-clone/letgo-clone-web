@@ -433,6 +433,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
             <Dialog
                 fullScreen={false}
                 open={loginOpen}
+                maxWidth="xs"
                 onClose={handleLoginClose}
                 aria-labelledby="responsive-dialog-title"
             >

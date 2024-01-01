@@ -543,6 +543,25 @@ export const adCardStyles: Record<string, SxProps<Theme> | undefined> = {
 }
 
 export const loginModalStyles: Record<string, SxProps<Theme> | undefined> = {
+    // Carousel
+    carouselGrid: {
+        paddingBottom: '20px'
+    },
+    carouselImgGrid: {
+        textAlign: 'center', 
+        marginBottom: '10px' 
+    },
+    carouselTextGrid: {
+        paddingBottom: '10px', 
+        marginLeft: '20px', 
+        marginRight: '20px'
+    },
+    carouselText: {
+        textAlign: 'center', 
+        fontSize: '16px', 
+        fontWeight: 500,
+        height: '50px'
+    },
     buttonGrid: {
         display: 'grid'
     },

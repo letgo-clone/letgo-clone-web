@@ -106,12 +106,12 @@ const LoginModal = () => {
                                 <Carousel animation={'slide'} autoPlay={false} swipe={true}>
                                     {
                                         caroselItems.map((item, i) => (
-                                            <Grid key={i} container sx={{ paddingBottom: '20px' }}>
-                                                <Grid lg={12} md={12} xs={12} sm={12} sx={{ textAlign: 'center', marginBottom: '10px' }}>
+                                            <Grid key={i} container sx={loginModalStyles.carouselGrid}>
+                                                <Grid lg={12} md={12} xs={12} sm={12} sx={loginModalStyles.carouselImgGrid}>
                                                     <img src={item.image} width={100} height={100} />
                                                 </Grid>
-                                                <Grid lg={12} md={12} xs={12} sm={12} sx={{ paddingBottom: '10px' }}>
-                                                    <Typography sx={{ textAlign: 'center', fontSize: '16px', fontWeight: 500 }}>{item.description}</Typography>
+                                                <Grid lg={12} md={12} xs={12} sm={12} sx={loginModalStyles.carouselTextGrid}>
+                                                    <Typography sx={loginModalStyles.carouselText}>{item.description}</Typography>
                                                 </Grid>
                                             </Grid>
                                         ))
