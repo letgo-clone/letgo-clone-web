@@ -1,17 +1,43 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Grid, Container, Typography, Accordion, AccordionSummary, AccordionDetails, Divider, TextField, Button, Select, MenuItem, Chip, FormControl } from '@mui/material'
 
-import { RequestPublic } from '../../helpers/Request';
+// Material UI elements
+import { 
+    Box, 
+    Grid, 
+    Container, 
+    Typography, 
+    Accordion, 
+    AccordionSummary, 
+    AccordionDetails, 
+    Divider, 
+    TextField, 
+    Button, 
+    Select, 
+    MenuItem, 
+    Chip, 
+    FormControl 
+    } from '@mui/material'
 
-import { AdCard } from '../../components/AdCard';
+// Material UI icons
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import { Link } from 'react-router-dom';
+// styles and assets
 import { advertSearchStyles } from '../../styles';
 
+// helper
+import { RequestPublic } from '../../helpers/Request';
+
+// Component
+import { AdCard } from '../../components/AdCard';
+
+// other
+import { Link } from 'react-router-dom';
+
 const Search = () => {
+    // useState area
     const [advertData, setAdvertData] = useState('');
 
+    // useEffect area
     useEffect(() => {
         const getData = async () => {
             const url = "/advert/actual"
@@ -23,14 +49,17 @@ const Search = () => {
     return (
         <Container>
             <Grid container>
+                {/* Elements of left filter column */}
                 <Grid xl={4} lg={4} md={4} sx={advertSearchStyles.leftFilterGrid}>
                     <Grid spacing={2} container>
+                         {/* Top right elements */}
                         <Grid item xl={12} md={12} sm={12} xs={12}>
                             <Link to="/" style={{ textDecoration: 'none' }}>
                                 <Typography sx={advertSearchStyles.leftFilterTitleLink}>Ana sayfa (Breadcumb) </Typography>
                             </Link>
                             <Typography sx={advertSearchStyles.leftFilterTitle}>İphone 14 in Istanbul</Typography>
                         </Grid>
+                        {/* filter category of column */}
                         <Grid item xl={12} md={12} sm={12} xs={12}>
                             <Accordion sx={advertSearchStyles.leftFilterAccording}>
                                 <AccordionSummary
@@ -50,6 +79,7 @@ const Search = () => {
                                 </AccordionDetails>
                             </Accordion>
                         </Grid>
+                         {/* filter Location of column */}
                         <Grid item xl={12} md={12} sm={12} xs={12}>
                             <Divider />
                             <Accordion sx={advertSearchStyles.leftFilterAccording}>
@@ -70,6 +100,7 @@ const Search = () => {
                                 </AccordionDetails>
                             </Accordion>
                         </Grid>
+                         {/* filter Price of column */}
                         <Grid item xl={12} md={12} sm={12} xs={12}>
                             <Divider />
                             <Accordion sx={advertSearchStyles.leftFilterAccording}>
@@ -107,16 +138,20 @@ const Search = () => {
                     </Grid>
                 </Grid>
                 <Grid xl={8} lg={8} md={8}>
+                     {/* Elements of right filter column */}
                     <Grid container sx={advertSearchStyles.rightFilterGrid}>
+                         {/* Search info */}
                         <Grid xl={4} md={4} sm={4} xs={4}>
                             <Box sx={advertSearchStyles.rightFilterInfoBox}>
                                 <Typography sx={{ fontWeight: 600 }}>&quot;Araba&quot;&nbsp; </Typography>
                                 <Typography sx={advertSearchStyles.rightFilterInfo}>için arama sonuçları</Typography>
                             </Box>
                         </Grid>
+                        {/* data count of search */}
                         <Grid xl={2} md={2} sm={2} xs={2}>
                             <Chip label="3878 ilan" sx={advertSearchStyles.rightFilterCount} color="primary" />
                         </Grid>
+                          {/* sorting filter */}
                         <Grid xl={3} md={3} sm={3} xs={3}>
                             <Typography sx={advertSearchStyles.rightSortingFilterText}>
                                 Sıralama Ölçütü :
