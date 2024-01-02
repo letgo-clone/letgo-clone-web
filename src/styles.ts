@@ -1191,7 +1191,7 @@ export const postAdvertStyles: Record<string, SxProps<Theme>  | undefined > = {
 
 // pages/Profile/index.tsx
 export const profileEditStyles: Record<string, SxProps<Theme>  | undefined > = {
-    GridOfProfileViewButton: {
+    mainGrid: {
         marginTop: 4 
     },
     profileViewButton: {

@@ -1,4 +1,6 @@
 import React from 'react'
+
+// Material UI elements
 import {
   Container,
   Grid,
@@ -9,17 +11,27 @@ import {
 }
   from '@mui/material'
 
+// Styles
+import { profileEditStyles } from '../../styles';
+
+// Helper
+import { Request } from '../../helpers/Request';
+
+// Redux
+import { 
+  setLoginData, 
+  useAppSelector, 
+  useAppDispatch 
+  } from '../../redux/store';
+
+// other npm packages 
 import { useFormik } from 'formik'
 import { Link } from 'react-router-dom';
-import { setLoginData, useAppSelector, useAppDispatch } from '../../redux/store';
-import { Request } from '../../helpers/Request';
 import Swal from 'sweetalert2';
 
 
-import { profileEditStyles } from '../../styles';
-
 function ProfileInfo() {
-
+  // Redux elemen ts
   const dispatch = useAppDispatch();
   const {loginData} = useAppSelector((state) => state?.authUser);
 
@@ -86,7 +98,8 @@ function ProfileInfo() {
   })
   return (
     <Container>
-        <Grid container sx={profileEditStyles.GridOfProfileViewButton}>
+        <Grid container sx={profileEditStyles.mainGrid}>
+          {/* Profile view button */}
             <Grid item lg={4} md={4} sm={4}>
                 <Button
                     href={'/profile'}
@@ -96,6 +109,7 @@ function ProfileInfo() {
                   Profili Görüntüle
                 </Button>
             </Grid>
+              {/* Left column grids, inputs */}
             <Grid item lg={8} md={8} sm={8} sx={profileEditStyles.profileEditGrid}>
                 <form
                     method='POST'
