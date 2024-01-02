@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+
+// Material UI elements
 import {
     Container,
     Grid,
@@ -9,25 +11,33 @@ import {
     CardContent,
     CardActions,
     IconButton
-}
-    from '@mui/material'
+    } from '@mui/material'
 
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
+// Material UI icons
+import {
+    Delete,
+    Edit,
+    VisibilityOff,
+    Favorite,
+    InsertPhoto
+    } from '@mui/icons-material';
 
-import { Link } from 'react-router-dom'
+// Styles
+import { adViewStyles } from '../../styles';
+
+// Helpers
 import { Request } from '../../helpers/Request';
+
+// npm packages
+import { Link } from 'react-router-dom'
 import slugify from 'react-slugify';
 import Swal from 'sweetalert2';
 
-import { adViewStyles } from '../../styles';
-
 function MyAdsView() {
+    // useState area
     const [myAds, setMyAds] = useState({});
 
+    // useEffect area
     useEffect(() => {
         const getData = async () => {
             const url = "/advert/list";
@@ -114,6 +124,7 @@ function MyAdsView() {
     return (
         <Container>
             <Grid container spacing={3} sx={adViewStyles.mainGrid}>
+                {/* Top menu */}
                 <Grid item xl={12} lg={12} md={12}>
                     <Box sx={adViewStyles.topMenuBox}>
                         <Link
@@ -136,9 +147,11 @@ function MyAdsView() {
                 </Grid>
                 {myAds.length > 0 && myAds.map((item, key) => (
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12} key={key}>
+                         {/* Ad card */}
                         <Card sx={adViewStyles.adCard}>
                             <CardContent>
                                 <Grid container spacing={3}>
+                                     {/* Left column elements of card: Image, price, status */}
                                     <Grid item xl={6} md={6} sm={12} xs={12}>
                                         <Link to={`/item/${slugify(item.title)}/${item.id}`} style={{ textDecoration: 'none' }}>
                                             <Grid container>
@@ -155,7 +168,7 @@ function MyAdsView() {
                                                          />
                                                     ): (
                                                         <Box sx={adViewStyles.defaultImageCardBox}>
-                                                            <InsertPhotoIcon sx={adViewStyles.defaultImageIcon} />
+                                                            <InsertPhoto sx={adViewStyles.defaultImageIcon} />
                                                         </Box>
                                                     )}
                                                     <Typography sx={adViewStyles.adTitle}>{item.title}</Typography>
@@ -177,6 +190,7 @@ function MyAdsView() {
                                             </Grid>
                                         </Link>
                                     </Grid>
+                                     {/* Right column elements of card: Status, Action */}
                                     <Grid item xl={6} md={6} sm={12} xs={12} sx={adViewStyles.adRightColumnGrid}>
                                         <Grid container>
                                             <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={adViewStyles.adStatusGridOfRightColumn}>
@@ -186,27 +200,30 @@ function MyAdsView() {
                                             </Grid>
                                             <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={adViewStyles.adActionIconGrid}>
                                                 <IconButton aria-label="visible" onClick={() => handleVisibleChange(item.id, item.is_visible)}>
-                                                    <VisibilityOffIcon />
+                                                    <VisibilityOff />
                                                 </IconButton>
                                                 <IconButton aria-label="edit" href={`/post/edit/${item.id}`}>
-                                                    <EditIcon />
+                                                    <Edit />
                                                 </IconButton>
                                                 <IconButton aria-label="delete" onClick={() => handleDeleteAdvert(item.id)}>
-                                                    <DeleteIcon />
+                                                    <Delete />
                                                 </IconButton>
                                             </Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>
                             </CardContent>
+                             {/* Card footer elements = favorites and status button */}
                             <CardActions sx={adViewStyles.cardActions}>
                                 <Grid container>
+                                    {/* Favorite status */}
                                     <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={adViewStyles.cardFavoriteStatusGrid}>
-                                        <FavoriteIcon sx={adViewStyles.adFavoriteIcon} />
+                                        <Favorite sx={adViewStyles.adFavoriteIcon} />
                                         <Typography sx={adViewStyles.adFavoriteText}>
                                             Beğeniler: {item.likes}
                                         </Typography>
                                     </Grid>
+                                     {/*  status determination buttons */}
                                     <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                                         <Box sx={adViewStyles.rightButtonsBox}>
                                         <Button
