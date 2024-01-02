@@ -23,6 +23,8 @@ import { Request } from '../../helpers/Request';
 import slugify from 'react-slugify';
 import Swal from 'sweetalert2';
 
+import { adViewStyles } from '../../styles';
+
 function MyAdsView() {
     const [myAds, setMyAds] = useState({});
 
@@ -111,24 +113,14 @@ function MyAdsView() {
 
     return (
         <Container>
-            <Grid container spacing={3} sx={{ marginTop: '25px' }}>
+            <Grid container spacing={3} sx={adViewStyles.mainGrid}>
                 <Grid item xl={12} lg={12} md={12}>
-                    <Box
-                        sx={{
-                            display: 'inline-flex',
-                            borderBottom: '1px solid #e0e0e0',
-                            paddingBottom: '15px'
-                        }}>
+                    <Box sx={adViewStyles.topMenuBox}>
                         <Link
                             to="/profile/myads"
                             style={{ textDecoration: 'none' }}
                         >
-                            <Typography
-                                sx={{
-                                    color: '#2c2c2c',
-                                    paddingRight: '20px'
-                                }}
-                            >
+                            <Typography sx={adViewStyles.topMenuText}>
                                 İlanlarım
                             </Typography>
                         </Link>
@@ -136,11 +128,7 @@ function MyAdsView() {
                             to="/profile/myfavorite"
                             style={{ textDecoration: 'none' }}
                         >
-                            <Typography
-                                sx={{
-                                    color: '#2c2c2c'
-                                }}
-                            >
+                            <Typography sx={adViewStyles.topMenuText}>
                                 Favorilerim
                             </Typography>
                         </Link>
@@ -148,19 +136,13 @@ function MyAdsView() {
                 </Grid>
                 {myAds.length > 0 && myAds.map((item, key) => (
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12} key={key}>
-                        <Card
-                            sx={{
-                                minWidth: 275,
-                                boxShadow: '0 1px 3px 0 rgba(0,47,52,.2), 0 1px 3px 0 rgba(0,47,52,.2)',
-                                borderLeft: '4px solid #004bbe'
-                            }}
-                        >
+                        <Card sx={adViewStyles.adCard}>
                             <CardContent>
                                 <Grid container spacing={3}>
                                     <Grid item xl={6} md={6} sm={12} xs={12}>
-                                        <Link to={`/item/${slugify(item.title)}?id=${item.id}`} style={{ textDecoration: 'none' }}>
+                                        <Link to={`/item/${slugify(item.title)}/${item.id}`} style={{ textDecoration: 'none' }}>
                                             <Grid container>
-                                                <Grid item xl={6} lg={6} md={6} sm={6} xs={6} sx={{ display: 'inline-flex' }}>
+                                                <Grid item xl={6} lg={6} md={6} sm={6} xs={6} sx={adViewStyles.cardTitleGrid}>
                                                     {item?.is_cover_image ? (
                                                         <img
                                                             src={item.is_cover_image}
@@ -172,48 +154,21 @@ function MyAdsView() {
                                                             height={60}
                                                          />
                                                     ): (
-                                                        <Box 
-                                                            sx={{
-                                                                backgroundColor: '#c8c0c0',
-                                                                padding: '18px'
-                                                            }}
-                                                        >
-                                                            <InsertPhotoIcon sx={{ color: 'black' }} />
+                                                        <Box sx={adViewStyles.defaultImageCardBox}>
+                                                            <InsertPhotoIcon sx={adViewStyles.defaultImageIcon} />
                                                         </Box>
                                                     )}
-                                                   
-                                                    <Typography
-                                                        sx={{
-                                                            fontSize: '14px',
-                                                            lineHeight: '20px',
-                                                            fontWeight: 700,
-                                                            color: '#2c2c2c',
-                                                            paddingLeft: '15px',
-                                                            paddingTop: '20px'
-                                                        }}> {item.title}</Typography>
+                                                    <Typography sx={adViewStyles.adTitle}>{item.title}</Typography>
                                                 </Grid>
-                                                <Grid item xl={4} lg={4} md={4} sm={4} xs={4} sx={{ textAlign: 'center' }}>
-                                                    <Typography
-                                                        sx={{
-                                                            fontSize: '14px',
-                                                            color: '#2c2c2c',
-                                                            marginTop: '28px'
-                                                        }}
-                                                    >
+                                                <Grid item xl={4} lg={4} md={4} sm={4} xs={4}>
+                                                    <Typography sx={adViewStyles.adPrice}>
                                                         {item.price}
                                                     </Typography>
                                                 </Grid>
                                                 <Grid item xl={2} lg={2} md={2} sm={6} xs={6}>
                                                     <Button
                                                         variant="contained"
-                                                        sx={{
-                                                            backgroundColor: '#004bbe',
-                                                            color: '#ffffff',
-                                                            fontSize: '10px',
-                                                            fontWeight: 400,
-                                                            marginTop: '23px',
-                                                            padding: '4px 35px'
-                                                        }}
+                                                        sx={adViewStyles.adStatusButton}
                                                         disabled={!(item.is_visible)}
                                                     >
                                                         {item.is_visible ? 'Etkin' : 'Devre dışı'}
@@ -222,21 +177,14 @@ function MyAdsView() {
                                             </Grid>
                                         </Link>
                                     </Grid>
-                                    <Grid item xl={6} md={6} sm={12} xs={12} sx={{ paddingTop: { xl: '24px', lg: '24px', md: '24px', sm: '0', xs: '0' } }}>
+                                    <Grid item xl={6} md={6} sm={12} xs={12} sx={adViewStyles.adRightColumnGrid}>
                                         <Grid container>
-                                            <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ textAlign: { xl: 'center', lg: 'center', md: 'center', xs: 'start', sm: 'start' } }}>
-                                                <Typography
-                                                    sx={{
-                                                        fontSize: '14px',
-                                                        lineHeight: 1.5,
-                                                        color: '#2c2c2c',
-                                                        marginTop: '28px'
-                                                    }}
-                                                >
+                                            <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={adViewStyles.adStatusGridOfRightColumn}>
+                                                <Typography sx={adViewStyles.adStatusText}>
                                                     {item.is_visible ? 'Bu ilan şuanda yayında' : 'Bu ilan yayında değil'}
                                                 </Typography>
                                             </Grid>
-                                            <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ textAlign: 'right' }}>
+                                            <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={adViewStyles.adActionIconGrid}>
                                                 <IconButton aria-label="visible" onClick={() => handleVisibleChange(item.id, item.is_visible)}>
                                                     <VisibilityOffIcon />
                                                 </IconButton>
@@ -251,63 +199,36 @@ function MyAdsView() {
                                     </Grid>
                                 </Grid>
                             </CardContent>
-                            <CardActions sx={{ borderTop: '1px solid #e0e0e0' }}>
+                            <CardActions sx={adViewStyles.cardActions}>
                                 <Grid container>
-                                    <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ display: 'inline-flex' }}>
-                                        <FavoriteIcon sx={{ width: '16px', height: '16px', paddingRight: '4px', paddingTop: '4px' }} />
-                                        <Typography
-                                            sx={{
-                                                fontSize: '10px',
-                                                fontWeight: 700,
-                                                lineHeight: '15px',
-                                                paddingTop: '6px'
-                                            }}
-                                        >
+                                    <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={adViewStyles.cardFavoriteStatusGrid}>
+                                        <FavoriteIcon sx={adViewStyles.adFavoriteIcon} />
+                                        <Typography sx={adViewStyles.adFavoriteText}>
                                             Beğeniler: {item.likes}
                                         </Typography>
                                     </Grid>
-                                    <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={{ textAlign: 'right' }}>
+                                    <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+                                        <Box sx={adViewStyles.rightButtonsBox}>
                                         <Button
                                             onClick={() => handleDeleteAdvert(item.id)}
                                             variant="outlined"
-                                            sx={{
-                                                backgroundColor: '#FFFFFF',
-                                                color: '#ff3f55',
-                                                borderRadius: '50px',
-                                                border: '2px solid transparent',
-                                                outline: '#ff3f55 solid 2px',
-                                                textTransform: 'none',
-                                                fontSize: '12px',
-                                                marginRight: '20px',
-                                                padding: '2px 10px 2px 10px',
-                                                '&:hover': { backgroundColor: '#FFFFFF', border: '2px solid #ff3f55', color: '#ff3f55' },
-                                            }}
+                                            sx={adViewStyles.rightButtons}
                                             size='small'
                                         >
                                             Satıldı olarak işaretle
                                         </Button>
                                         <Button
                                             variant="outlined"
-                                            sx={{
-                                                backgroundColor: '#FFFFFF',
-                                                color: '#ff3f55',
-                                                borderRadius: '50px',
-                                                border: '2px solid transparent',
-                                                outline: '#ff3f55 solid 2px',
-                                                textTransform: 'none',
-                                                fontSize: '12px',
-                                                padding: '2px 10px 2px 10px',
-                                                '&:hover': { backgroundColor: '#FFFFFF', border: '2px solid #ff3f55', color: '#ff3f55' },
-                                            }}
+                                            sx={adViewStyles.rightButtons}
                                             size='small'
                                         >
                                             Daha hızlı sat
                                         </Button>
+                                        </Box>
                                     </Grid>
                                 </Grid>
                             </CardActions>
                         </Card>
-
                     </Grid>
                 ))}
             </Grid>

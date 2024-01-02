@@ -1282,3 +1282,123 @@ export const profileEditStyles: Record<string, SxProps<Theme>  | undefined > = {
         },
     }
 }
+
+// pages/Profile/MyAdsView.tsx
+export const adViewStyles: Record<string, SxProps<Theme>  | undefined > = {
+    mainGrid: {
+        marginTop: '25px' 
+    },
+    topMenuBox: {
+        display: 'inline-flex',
+        borderBottom: '1px solid #e0e0e0',
+        paddingBottom: '15px'
+    },
+    topMenuText: {
+        color: '#2c2c2c',
+        paddingRight: '20px'
+    },
+    adCard: {
+        minWidth: 275,
+        boxShadow: '0 1px 3px 0 rgba(0,47,52,.2), 0 1px 3px 0 rgba(0,47,52,.2)',
+        borderLeft: '4px solid #004bbe'
+    },
+    cardTitleGrid: {
+        display: 'inline-flex' 
+    },
+    defaultImageCardBox: {
+        backgroundColor: '#c8c0c0',
+        padding: '18px'
+    },
+    defaultImageIcon: {
+        color: 'black'
+    },
+    adTitle: {
+        fontSize: '14px',
+        lineHeight: '20px',
+        fontWeight: 700,
+        color: '#2c2c2c',
+        paddingLeft: '15px',
+        paddingTop: '20px'
+    },
+    adPrice: {
+        fontSize: '14px',
+        color: '#2c2c2c',
+        marginTop: '28px'
+    },
+    adStatusButton: {
+        backgroundColor: '#004bbe',
+        color: '#ffffff',
+        fontSize: '10px',
+        fontWeight: 400,
+        marginTop: '23px',
+        padding: '4px 35px'
+    },
+    // ad right column elements
+    adRightColumnGrid: {
+        paddingTop: { 
+            xl: '24px', 
+            lg: '24px', 
+            md: '24px', 
+            sm: '0', 
+            xs: '0' 
+        }
+    },
+    adStatusGridOfRightColumn:{
+        textAlign: { 
+            xl: 'center', 
+            lg: 'center', 
+            md: 'center', 
+            xs: 'start', 
+            sm: 'start' 
+        },
+    },
+    adStatusText: {
+        fontSize: '14px',
+        lineHeight: 1.5,
+        color: '#2c2c2c',
+        marginTop: '28px'
+    },
+    adActionIconGrid: {
+        textAlign: 'right'
+    },
+
+    // ad footer
+    cardActions: {
+        borderTop: '1px solid #e0e0e0'
+    },
+    cardFavoriteStatusGrid: {
+        display: 'inline-flex'
+    },
+    adFavoriteIcon: {
+        width: '16px', 
+        height: '16px', 
+        paddingRight: '4px', 
+        paddingTop: '4px'
+    },
+    adFavoriteText: {
+        fontSize: '10px',
+        fontWeight: 700,
+        lineHeight: '15px',
+        paddingTop: '6px'
+    },
+    rightButtonsBox: {
+        textAlign: 'right'
+    },
+    rightButtons: {
+        backgroundColor: '#FFFFFF',
+        color: '#ff3f55',
+        borderRadius: '50px',
+        border: '2px solid transparent',
+        outline: '#ff3f55 solid 2px',
+        textTransform: 'none',
+        fontSize: '12px',
+        marginRight: '20px',
+        padding: '2px 10px 2px 10px',
+        '&:hover': { 
+            backgroundColor: '#FFFFFF', 
+            border: '2px solid #ff3f55', 
+            color: '#ff3f55' 
+        },
+    }
+
+}
