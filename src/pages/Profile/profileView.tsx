@@ -1,53 +1,57 @@
 import React, { useEffect, useState } from 'react'
+
+// Material UI elements
 import {
     Container,
     Grid,
     Button,
     Typography,
-    InputAdornment,
-    TextField,
     Avatar,
     Box,
     List,
     ListItem,
     ListItemText,
     ListItemAvatar
-}
+    }
     from '@mui/material'
 
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import EditIcon from '@mui/icons-material/Edit';
+// Material UI icons
 
-import Swal from 'sweetalert2';
+import {
+    CalendarMonth,
+    Edit
+    } from '@mui/icons-material';
 
-import { useParams } from "react-router-dom";
-import { Request } from '../../helpers/Request';
-
-import { AdCard } from '../../components/AdCard';
-
-import { useAppSelector } from '../../redux/store';
-
+// Styles
 import { profileViewStyles } from '../../styles';
 
+// Components
+import { AdCard } from '../../components/AdCard';
+
+// Helpers
+import { Request } from '../../helpers/Request';
+
+// Redux
+import { useAppSelector } from '../../redux/store';
+
+import { useParams } from "react-router-dom";
+
 function ProfileView() {
+    // Redux
     const {loginData} = useAppSelector((state) => state?.authUser);
-    
-    let userId;
+
+    // Router
     const params = useParams();
     const paramsId = params.userId;
 
-    if (paramsId) {
-        userId = paramsId
-    } else {
-        userId = loginData.id
-    }
-
+    // useState
     const [profile, setProfile] = useState({});
     const [advert, setAdvert] = useState({})
-
+    
     useEffect(() => {
         const getData = async () => {
-            const url = "/account/info/" + userId;
+            const userID = paramsId ? paramsId : loginData.id;
+            const url = "/account/info/" + userID;
             const data = await Request('GET', url);
             setProfile(data.userData);
             setAdvert(data.advertData);
@@ -62,19 +66,22 @@ function ProfileView() {
                     <Grid container>
                         <Grid item xl={4} lg={4} md={4} xs={12}>
                             <Box sx={profileViewStyles.profileInfoBox}>
+                                {/* User image */}
                                 <Box sx={profileViewStyles.profileImageBox}>
                                     <Avatar
                                         src={profile.photo?.url}
                                         sx={profileViewStyles.profileImage}
                                     />
                                 </Box>
+                                 {/* User fullname */}
                                 <Typography sx={profileViewStyles.profileFullname}>
                                     {profile.fullname}
                                 </Typography>
+                                 {/* User info */}
                                 <List>
                                     <ListItem sx={profileViewStyles.profileListItem}>
                                         <ListItemAvatar sx={profileViewStyles.profileListItemAvatar}>
-                                            <CalendarMonthIcon />
+                                            <CalendarMonth />
                                         </ListItemAvatar>
                                         <ListItemText secondary={`${profile.date} tarihinden beri üye`} />
                                     </ListItem>
@@ -85,7 +92,7 @@ function ProfileView() {
                                             href="/editProfile/info"
                                             variant="outlined"
                                             sx={profileViewStyles.editProfileButton}
-                                            startIcon={<EditIcon />}
+                                            startIcon={<Edit />}
                                             color="error"
                                             type="submit"
                                         >
