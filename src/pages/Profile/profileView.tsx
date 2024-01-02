@@ -27,6 +27,8 @@ import { AdCard } from '../../components/AdCard';
 
 import { useAppSelector } from '../../redux/store';
 
+import { profileViewStyles } from '../../styles';
+
 function ProfileView() {
     const {loginData} = useAppSelector((state) => state?.authUser);
     
@@ -56,60 +58,48 @@ function ProfileView() {
     return (
         <Container>
             {profile && (
-                <Grid container sx={{ marginTop: '25px' }}>
-                    <Grid item xl={4} lg={4} md={4} xs={12} sm={12} sx={{ paddingLeft: '45px', marginBottom: '25px' }}>
-                        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                            <Avatar
-                                src={profile.photo?.url}
-                                sx={{ width: 120, height: 120, alignSelf: 'center' }}
-                            />
-                        </Box>
-                        <Typography
-                            sx={{
-                                fontSize: '24px',
-                                lineHeight: '24px',
-                                fontWeight: 700,
-                                marginTop: '25px'
-                            }}
-                        >
-                            {profile.fullname}
-                        </Typography>
-                        <List>
-                            <ListItem sx={{ paddingLeft: '0' }}>
-                                <ListItemAvatar sx={{ minWidth: '35px' }}>
-                                    <CalendarMonthIcon />
-                                </ListItemAvatar>
-                                <ListItemText secondary={`${profile.date} tarihinden beri üye`} />
-                            </ListItem>
-                        </List>
-                        <Grid xl={12} lg={12} md={12} xs={12} sm={12} sx={{ display: 'grid' }}>
-                            <Button
-                                href="/editProfile/info"
-                                variant="outlined"
-                                sx={{
-                                    backgroundColor: '#ff3f55',
-                                    color: '#FFFFFF',
-                                    textTransform: 'none',
-                                    border: '6px solid transparent',
-
-                                    fontSize: '16px',
-                                    marginRight: '15px',
-                                    marginBottom: '5px',
-                                    borderRadius: 15,
-                                    '&:hover': { bgcolor: '#FFFFFF', border: '6px solid #ff3f55', color: '#ff3f55' },
-                                }}
-                                startIcon={<EditIcon />}
-                                color="error"
-                                type="submit"
-                            >
-                                Profili Düzenle
-                            </Button>
+                <Box sx={profileViewStyles.mainBox}>
+                    <Grid container>
+                        <Grid item xl={4} lg={4} md={4} xs={12}>
+                            <Box sx={profileViewStyles.profileInfoBox}>
+                                <Box sx={profileViewStyles.profileImageBox}>
+                                    <Avatar
+                                        src={profile.photo?.url}
+                                        sx={profileViewStyles.profileImage}
+                                    />
+                                </Box>
+                                <Typography sx={profileViewStyles.profileFullname}>
+                                    {profile.fullname}
+                                </Typography>
+                                <List>
+                                    <ListItem sx={profileViewStyles.profileListItem}>
+                                        <ListItemAvatar sx={profileViewStyles.profileListItemAvatar}>
+                                            <CalendarMonthIcon />
+                                        </ListItemAvatar>
+                                        <ListItemText secondary={`${profile.date} tarihinden beri üye`} />
+                                    </ListItem>
+                                </List>
+                                <Grid xl={12} lg={12} md={12} xs={12} sm={12}>
+                                    <Box sx={profileViewStyles.editProfileButtonBox}>
+                                        <Button
+                                            href="/editProfile/info"
+                                            variant="outlined"
+                                            sx={profileViewStyles.editProfileButton}
+                                            startIcon={<EditIcon />}
+                                            color="error"
+                                            type="submit"
+                                        >
+                                            Profili Düzenle
+                                        </Button>
+                                    </Box>
+                                </Grid>
+                            </Box>
+                        </Grid>
+                        <Grid item xl={8} lg={8} md={8} xs={12} sm={12}>
+                            {advert.length > 0 && <AdCard data={advert} grid={[4, 4, 4, 6]} />}
                         </Grid>
                     </Grid>
-                    <Grid item xl={8} lg={8} md={8} xs={12} sm={12}>
-                        {advert.length > 0 && <AdCard data={advert} grid={[4, 4, 4, 6]} />}
-                    </Grid>
-                </Grid>
+                </Box>
             )}
         </Container>
     )

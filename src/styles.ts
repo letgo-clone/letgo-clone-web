@@ -1402,3 +1402,49 @@ export const adViewStyles: Record<string, SxProps<Theme>  | undefined > = {
     }
 
 }
+
+// pages/Profile/profileView.tsx
+export const profileViewStyles: Record<string, SxProps<Theme>  | undefined > = {
+    mainBox: {
+        marginTop: '25px'
+    },
+    profileInfoBox: {
+        paddingLeft: '45px', 
+        marginBottom: '25px'
+    },
+    profileImageBox: {
+        display: 'flex', 
+        justifyContent: 'center'
+    },
+    profileImage: {
+        width: 120, 
+        height: 120, 
+        alignSelf: 'center'
+    },
+    profileFullname: {
+        fontSize: '24px',
+        lineHeight: '24px',
+        fontWeight: 700,
+        marginTop: '25px'
+    },
+    profileListItem: {
+        paddingLeft: '0'
+    },
+    profileListItemAvatar: {
+        minWidth: '35px'
+    },
+    editProfileButtonBox: {
+        display :'grid'
+    },
+    editProfileButton: {
+        backgroundColor: '#ff3f55',
+        color: '#FFFFFF',
+        textTransform: 'none',
+        border: '6px solid transparent',
+        fontSize: '16px',
+        marginRight: '15px',
+        marginBottom: '5px',
+        borderRadius: 15,
+        '&:hover': { bgcolor: '#FFFFFF', border: '6px solid #ff3f55', color: '#ff3f55' },
+    }
+}
