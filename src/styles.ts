@@ -1036,7 +1036,7 @@ export const homePostAdvertStyles: Record<string, SxProps<Theme>  | undefined > 
     }
 }
 
-// pages/Post/attributes
+// pages/Post/attributes and pages/Post/Edit
 export const postAdvertStyles: Record<string, SxProps<Theme>  | undefined > = {
     toptTile: {
         fontSize: '24px', 
@@ -1186,5 +1186,99 @@ export const postAdvertStyles: Record<string, SxProps<Theme>  | undefined > = {
         fontSize: '16px',
         borderRadius: 15,
         '&:hover': { bgcolor: '#FFFFFF', border: '6px solid #ff3f55', color: '#ff3f55' },
+    }
+}
+
+// pages/Profile/index.tsx
+export const profileEditStyles: Record<string, SxProps<Theme>  | undefined > = {
+    GridOfProfileViewButton: {
+        marginTop: 4 
+    },
+    profileViewButton: {
+        backgroundColor: '#FFFFFF',
+        color: '#ff3f55',
+        borderRadius: '50px',
+        border: '3px solid transparent',
+        outline: '#ff3f55 solid 3px',
+        textTransform: 'none',
+        padding: '0px 100px 0px 100px',
+        '&:hover': { 
+            ackgroundColor: '#FFFFFF', 
+            border: '3px solid #ff3f55', 
+            color: '#ff3f55' 
+        },
+    },
+    profileEditGrid: {
+        border: '1px solid #e0e0e0',
+        borderRadius: '5px',
+    },
+    profileEditTitleGrid: {
+        borderBottom: '1px solid #e0e0e0',
+        padding: '25px 0px 15px 25px'
+    },
+    profileEditTitle: {
+        fontSize: '20px',
+        lineHeight: '24px',
+        fontWeight: 700
+    },
+    basicInputGrid: {
+        borderBottom: '1px solid #e0e0e0',
+        padding: '25px 0px 15px',
+        marginLeft: '20px'
+    },
+    basicInputTitle: {
+        fontSize: '16px',
+        lineHeight: '24px',
+        fontWeight: 700,
+        marginBottom: '15px'
+    },
+    InputsGrid: {
+        display: 'inline-block' 
+    },
+    contactInputsGrid: {
+        borderBottom: '1px solid #e0e0e0',
+        padding: '25px 0px 15px 25px',
+    },
+    contactInputTitle: {
+        fontSize: '16px',
+        lineHeight: '24px',
+        fontWeight: 700,
+        marginBottom: '15px'
+    },
+    contactAdornment: {
+        borderRight: '1px solid #e0e0e0', 
+        paddingRight: '10px', 
+        fontSize: '12px'
+    },
+    buttonsGrid: {
+        borderBottom: '1px solid #e0e0e0',
+        padding: '25px 0px 15px 25px',
+    },
+    cancelButton: {
+        display: 'inline-block',
+        fontSize: '16px',
+        fontWeight: 700,
+        color: '#ff3f55',
+        marginTop: '15px',
+        borderBottom: '1px solid #ff3f55'
+    },
+    saveButtonGrid: {
+        textAlign: 'right'
+    },
+    saveButton: {
+        backgroundColor: '#ff3f55',
+        color: '#FFFFFF',
+        textTransform: 'none',
+        border: '6px solid transparent',
+        padding: '7px 5px 7px 5px',
+        fontSize: '16px',
+        marginRight: '15px',
+        marginBottom: '5px',
+        borderRadius: 15,
+        '&:hover': { 
+            bgcolor: '#FFFFFF', 
+            border: '6px solid #ff3f55', 
+            color: '#ff3f55' 
+        },
     }
 }
