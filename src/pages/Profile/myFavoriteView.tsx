@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from 'react'
+
+// Material UI elements
 import {
     Container,
     Grid,
     Box,
-    Button,
     Typography,
-    InputAdornment,
-    TextField,
 }
     from '@mui/material'
 
-import { Link } from 'react-router-dom'
+// Styles
+import { adViewStyles } from '../../styles';
+
+// Helpers
 import { Request } from '../../helpers/Request';
+
+// Component
 import { AdCard } from '../../components/AdCard';
+
+import { Link } from 'react-router-dom'
 
 function MyFavoriteView() {
     const [favoriteData, setFavoriteData] = useState({});
@@ -29,22 +35,12 @@ function MyFavoriteView() {
         <Container>
             <Grid container spacing={3} sx={{ marginTop: '25px' }}>
                 <Grid item xl={12} lg={12} md={12}>
-                    <Box
-                        sx={{
-                            display: 'inline-flex',
-                            borderBottom: '1px solid #e0e0e0',
-                            paddingBottom: '15px'
-                        }}>
+                    <Box sx={adViewStyles.topMenuBox}>
                         <Link
                             to="/profile/myads"
                             style={{ textDecoration: 'none' }}
                         >
-                            <Typography
-                                sx={{
-                                    color: '#2c2c2c',
-                                    paddingRight: '20px'
-                                }}
-                            >
+                            <Typography sx={adViewStyles.topMenuText}>
                                 İlanlarım
                             </Typography>
                         </Link>
@@ -52,11 +48,7 @@ function MyFavoriteView() {
                             to="/profile/myfavorite"
                             style={{ textDecoration: 'none' }}
                         >
-                            <Typography
-                                sx={{
-                                    color: '#2c2c2c'
-                                }}
-                            >
+                            <Typography sx={adViewStyles.topMenuText}>
                                 Favorilerim
                             </Typography>
                         </Link>
