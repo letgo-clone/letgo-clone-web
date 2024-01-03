@@ -20,8 +20,12 @@ const Layout = (props) => {
 
   useEffect(() => {
         const getCategories = async() => {
-            const categoryGetUrl = "/advert/categories"
-            const categoryData = await RequestPublic('GET', categoryGetUrl);
+            const categoryGetUrl = "/advert/categories";
+            
+            const categoryData = await RequestPublic({
+                method: 'GET',
+                url: categoryGetUrl
+            });
            
             dispatch(setMenuData(categoryData))
         }
