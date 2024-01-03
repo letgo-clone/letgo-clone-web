@@ -36,24 +36,30 @@ import { Link } from 'react-router-dom';
 // helper
 import { Request } from '../helpers/Request';
 
-
-type AdvertProps = {
-    data: string[];
-    grid: number[];
-}
+// Interfaces or Types
+import { 
+    AdvertProps,
+    FavoriteProps,
+    CardTypes
+} from './adcardTypes';
 
 export const AdCard = ({ data, grid }: AdvertProps) => {
-    const [cardData, setCardData] = useState(data);
-   
-    const addFavorite = async (advertId: number, hasFavorite: any) => {
+    const [cardData, setCardData] = useState<CardTypes[]>(data);
 
+    const addFavorite = async (advertId: string, hasFavorite: boolean) => {
+        
         if(hasFavorite){
             const formdata: FormData = new FormData();
             formdata.append("op", 'remove');
             formdata.append("path", 'has_advert_favorite');
 
             const url = '/advert/favorite/' + advertId;
-            const data = await Request('PATCH', url, formdata);
+
+            const data: FavoriteProps = await Request({
+                method: 'PATCH',
+                url: url,
+                formData: formdata
+            });
 
             if(data.error){
                 Swal.fire({
@@ -70,7 +76,7 @@ export const AdCard = ({ data, grid }: AdvertProps) => {
                   }
                   return obj;
                 })
-            })  
+            }) 
         }
         else
         {
@@ -79,7 +85,12 @@ export const AdCard = ({ data, grid }: AdvertProps) => {
             formdata.append("path", 'has_advert_favorite');
 
             const url = '/advert/favorite/' + advertId;
-            const data = await Request('PATCH', url, formdata);
+            
+            const data: FavoriteProps = await Request({
+                method: 'PATCH',
+                url: url,
+                formData: formdata
+            });
 
             if(data.error){
                 Swal.fire({
@@ -91,10 +102,10 @@ export const AdCard = ({ data, grid }: AdvertProps) => {
 
             setCardData(prevObjects => {
                 return prevObjects.map(obj => {
-                  if (obj.id === advertId) {
-                    return { ...obj, has_favorite: true }
-                  }
-                  return obj;
+                    if (obj.id === advertId) {
+                        return { ...obj, has_favorite: true }
+                    }
+                    return obj;
                 })
             })  
         }
@@ -107,7 +118,7 @@ export const AdCard = ({ data, grid }: AdvertProps) => {
                     <Card sx={adCardStyles.card}>
                         {/* Card Media */}
                         <Box sx={adCardStyles.cardMediaBox}>
-                            <Box sx={adCardStyles.cardRightAction} onClick={() => addFavorite(item.id, item.has_favorite)}>
+                            <Box sx={adCardStyles.cardRightAction} onClick={() => addFavorite(item.id!, item.has_favorite!)}>
                                 <IconButton aria-label="add to favorites" sx={adCardStyles.cardRightActionIconButton}>
                                     {item.has_favorite == true ? (
                                         <Favorite sx={{ color:'red' }} />
@@ -197,7 +208,6 @@ export const AdCard = ({ data, grid }: AdvertProps) => {
                                     </Button>
                                 </CardActions>
                             )}
-                          
                         </Box>
                     </Card>
                 </Grid>
