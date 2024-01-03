@@ -21,8 +21,10 @@ import {
 import { subNavbarStyles } from '../../styles';
 
 // interfaces
+import { Menu as Category } from '../../redux/interface';
+
 interface SubNavbarAreaProps {
-    categories: object[],
+    categories: Category[],
 }
 
 const SubNavbar: React.FC<SubNavbarAreaProps>  = ({ categories }) => {
@@ -40,15 +42,17 @@ const SubNavbar: React.FC<SubNavbarAreaProps>  = ({ categories }) => {
   };
 
   // Top category
-  const firstSixCategory: object[] = categories.slice(0, 5);
+  const firstSixCategory: Category[] = categories.slice(0, 5);
 
-  // Category data in menu
-  const chunkArray = (array, chunkSize) => {
-      const result = [];
-      for (let i = 0; i < array.length; i += chunkSize) {
-        result.push(array.slice(i, i + chunkSize));
-      }
-      return result;
+  /* -Category data in menu
+     -Slices the categories data
+  */
+  const chunkArray = (array: Category[], chunkSize: number): Category[][] => {
+    const result: Category[][] = [];
+    for (let i = 0; i < array.length; i += chunkSize) {
+      result.push(array.slice(i, i + chunkSize));
+    }
+    return result;
   };
   
   const chunkedCategories = chunkArray(categories, 3);
@@ -88,12 +92,12 @@ const SubNavbar: React.FC<SubNavbarAreaProps>  = ({ categories }) => {
                   <Grid container spacing={1}>
                     {chunkedCategories.map((row, rowIndex) => (
                         <Grid item xl={2} lg={2} xs={2} key={rowIndex} sx={subNavbarStyles.allCategoryGrid}>
-                          {row.map((category, key) => (
-                            <Box key={category.category_id} sx={subNavbarStyles.allCategoryBox}>
+                          {row.map((category) => (
+                            <Box key={category?.category_id} sx={subNavbarStyles.allCategoryBox}>
                                 <Typography sx={subNavbarStyles.allCategoryTitle}>
                                     {category.category_name} {category.category_id}
                                 </Typography>
-                                  {category?.sub_category.map((subItem, subKey) => (
+                                  {category?.sub_category.map((subItem) => (
                                       <Typography key={subItem.sub_category_id} sx={subNavbarStyles.allCategoryContentA} >{subItem.sub_category_name}</Typography>
                                   ))}
                             </Box>
