@@ -1,4 +1,6 @@
 
+import { ParametersProps, Options, Token } from "./interface";
+
 let loadingAccessToken: boolean = false;
 
 const EndPoint = import.meta.env.VITE_ENDPOINT;
@@ -8,25 +10,71 @@ const GrantType = import.meta.env.VITE_GRANT_TYPE;
 
 import { jwtDecode } from "jwt-decode";
 
+/*
+    controls jwt for security in localstorage
+    because request management
+*/
 function verifyJWT(get_token: string){
     const now = Math.floor(Date.now() / 1000);
 
     try{
-        const decode = jwtDecode<JwtPayload>(get_token);
+        const decode = jwtDecode<Token>(get_token);
 
         if((now < decode.exp) || !(decode.username)){
            return true
-        }
-        else{
+        }else {
             return false
         }
+        
     }
     catch(err){
         return err
     }
-   
 } 
 
+/*
+   waits request when expired token
+*/
+function waiting(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/*
+    custom request function for login
+*/
+export async function HandleLoginToken(username: string, password: string) {
+    loadingAccessToken = true;
+
+    const appEndpoint = EndPoint + '/oauth/token';
+
+    const formdata: FormData = new FormData();
+    formdata.append("client_id", ClientId);
+    formdata.append("client_secret", ClientSecret);
+    formdata.append("grant_type", "password");
+    formdata.append("username", username);
+    formdata.append("password", password);
+
+    const options: Options = {
+        method: 'POST',
+        body: formdata
+    };
+
+    const response = await fetch(appEndpoint, options);
+
+    const data = await response.json();
+
+    if (!data.error) {
+        localStorage.setItem("access_token", data.access_token);
+        localStorage.setItem("refresh_token", data.refresh_token);
+        loadingAccessToken = false;
+    }
+
+    return data;
+} 
+
+/*
+    gives access token for  expired and invalid access token 
+*/
 export async function GetClientAccessToken(){
    
     loadingAccessToken = true;
@@ -75,6 +123,9 @@ export async function GetClientAccessToken(){
     return data;
 }
 
+/*
+    gives refrest and access token for expired and invalid refresh token
+*/
 export async function ReloadAccessToken() {
     if (loadingAccessToken == true) {
         return false;
@@ -93,12 +144,12 @@ export async function ReloadAccessToken() {
     formdata.append("grant_type", "refresh_token");
     formdata.append("refresh_token", refresh_token);
 
-    let options: any = {
+    const options: Options = {
         method: 'POST',
         body: formdata
     };
 
-    const response = refreshVerify == true ? await fetch(appEndpoint, options) : false;
+    const response: any = refreshVerify == true ? await fetch(appEndpoint, options) : false;
 
     if (response.status != 200) {
         localStorage.removeItem('access_token');
@@ -122,74 +173,41 @@ export async function ReloadAccessToken() {
     return data;
 } 
 
-export async function HandleLoginToken(username: string, password: string) {
-    loadingAccessToken = true;
-    
-    const appEndpoint = EndPoint + '/oauth/token';
-
-    const formdata: FormData = new FormData();
-    formdata.append("client_id", ClientId);
-    formdata.append("client_secret", ClientSecret);
-    formdata.append("grant_type", "password");
-    formdata.append("username", username);
-    formdata.append("password", password);
-
-    let options: any = {
-        method: 'POST',
-        body: formdata
-    };
-
-    const response = await fetch(appEndpoint, options);
-
-    const data = await response.json();
-
-    if (!data.error) {
-        localStorage.setItem("access_token", data.access_token);
-        localStorage.setItem("refresh_token", data.refresh_token);
-        loadingAccessToken = false;
-    }
-
-    return data;
-} 
-
-function sleep(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-export async function Request(method: string, url: string, parameters = ''): Promise <object | boolean> {
-
-    const access_token = localStorage.getItem('access_token');
+/*
+    Management Request for user
+*/
+export async function Request(parameters: ParametersProps): Promise <object | boolean> {
+    const {method, url, formData} = parameters
+    const access_token: string = localStorage.getItem('access_token')!;
     const accessVerify = verifyJWT(access_token);
-    
-    if (loadingAccessToken == true) {
-        await sleep(200);
 
-        return await Request(method, url, parameters);
+    if (loadingAccessToken == true) {
+        await waiting(500);
+        return await Request(parameters);
     }
 
     const appEndpoint = EndPoint + url;
     
-    let options: any = {
+    const options: Options = {
         method: method,
         headers: {
             "Authorization": "Bearer " +  access_token
-        }
+        },
     }
-
     if (method == 'POST' || method == 'PUT' || method == "PATCH") {
-        options["body"] = parameters ? parameters : null;
+        options.body = formData ? formData : undefined;
     }
-   
-    const response = accessVerify == true ?  await fetch(appEndpoint, options) : false
+    
+    const response: any = accessVerify == true ? await fetch(appEndpoint, options) : false
 
-    if ((response.status == 401 || response.status == 403 || response == false)) {
+    if ((response.status == 401 || response.status == 403 || response == false)) {
         if (localStorage.getItem("refresh_token")) {
             await ReloadAccessToken();
         } else {
             await GetClientAccessToken();
         }
        
-        return await Request(method, url, parameters);
+        return await Request(parameters);
     }
 
     const data = await response.json();
@@ -197,22 +215,26 @@ export async function Request(method: string, url: string, parameters = ''): Pro
     return data;
 }
 
-export async function RequestPublic(method: string, url: string, parameters = ''): Promise <object | boolean> {
+/*
+    Management Request for everyone
+*/
+export async function RequestPublic(parameters: ParametersProps): Promise < object[] | object> {
+    const {method, url, formData} = parameters
 
     const appEndpoint = EndPoint + url;
     
-    let options: any = {
+    const options: Options = {
         method: method
     }
 
     if (method == 'POST' || method == 'PUT' || method == "PATCH") {
-        options["body"] = parameters ? parameters : null;
+        options.body = formData ? formData : undefined;
     }
    
-    const response = await fetch(appEndpoint, options)
+    const response: Response = await fetch(appEndpoint, options)
 
     if ((response.status == 401 || response.status == 403)) {
-        return await Request(method, url, parameters);
+        return await RequestPublic(parameters);
     }
 
     const data = await response.json();
