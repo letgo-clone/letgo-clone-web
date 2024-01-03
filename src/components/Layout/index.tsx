@@ -1,13 +1,30 @@
-import React, {useEffect, useState} from 'react'
-import { Container } from '@mui/material'
-import Navbar from './Navbar';
-import AuthNavbar from './AuthNavbar';
-import Footer from './Footer'
-import { setMenuData, useAppSelector, useAppDispatch } from '../../redux/store';
-import { RequestPublic } from '../../helpers/Request';
-import SubNavbar from './SubNavbar';
+import React, {
+      useEffect, 
+      useState,
+      ReactNode
+    } from 'react'
 
-const Layout = (props) => {
+// Layout Components
+import Navbar from './Navbar';
+import SubNavbar from './SubNavbar';
+import Footer from './Footer'
+
+// Redux
+import { 
+  setMenuData, 
+  useAppSelector, 
+  useAppDispatch 
+  } from '../../redux/store';
+
+// helpers
+import { RequestPublic } from '../../helpers/Request';
+
+// interface
+interface LayoutProps {
+    children: ReactNode;
+}
+
+const Layout = (props: LayoutProps) => {
   const [login, setLogin] = useState(false);
   const dispatch = useAppDispatch();
   const {menuData} = useAppSelector((state) => state?.Menu);
@@ -39,8 +56,8 @@ const Layout = (props) => {
     <React.Fragment>
         <Navbar isLogin={login!} />
         <SubNavbar categories={menuData!}/>
-        <div> {props.children} </div>
-      <Footer />
+          <div> {props.children} </div>
+        <Footer />
     </React.Fragment>
   )
 }
