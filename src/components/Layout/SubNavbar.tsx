@@ -95,7 +95,7 @@ const SubNavbar: React.FC<SubNavbarAreaProps>  = ({ categories }) => {
                           {row.map((category) => (
                             <Box key={category?.category_id} sx={subNavbarStyles.allCategoryBox}>
                                 <Typography sx={subNavbarStyles.allCategoryTitle}>
-                                    {category.category_name} {category.category_id}
+                                    {category.category_name}
                                 </Typography>
                                   {category?.sub_category.map((subItem) => (
                                       <Typography key={subItem.sub_category_id} sx={subNavbarStyles.allCategoryContentA} >{subItem.sub_category_name}</Typography>
