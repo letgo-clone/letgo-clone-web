@@ -34,16 +34,15 @@ const LoginModal = () => {
     const dispatch = useAppDispatch();
     
     // useState
-    const [showLogin, setShowLogin] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
-    const [passLogin, setPassLogin] = useState(false);
+    const [showLogin, setShowLogin] = useState<boolean>(false);
+    const [showPassword, setShowPassword] = useState<boolean>(false);
+    const [passLogin, setPassLogin] = useState<boolean>(false);
     
     // Login area on/off
     const hanldeLogin = () => setShowLogin(!showLogin);
 
-   
     // Carousel Items
-    const caroselItems = [
+    const caroselItems: {image: string, description: string}[] = [
         {
             image: "https://statics.olx.com.tr/external/base/img/letgo/loginEntryPointPost.webp",
             description: "letgo'yu daha güvenli bir hale getirmeye sen de destek ol"
@@ -84,8 +83,12 @@ const LoginModal = () => {
     useEffect(() => {
         if(localStorage.getItem('access_token')){
             const loginVerify = async () => {
+                
                 const requestUrl = "/account/session";
-                const getData = await Request("GET", requestUrl);
+                const getData = await Request({
+                    method: 'GET',
+                    url: requestUrl
+                });
 
                 dispatch(setLoginData(getData));
                 location.reload();
