@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent } from 'react';
+import React, { useState, MouseEvent, useEffect } from 'react';
 
 // Material UI elements
 import { 
@@ -60,7 +60,8 @@ import { Request } from '../../helpers/Request';
 import { Link, useNavigate } from 'react-router-dom';
 
 // Redux
-import { removeAllData,useAppSelector } from '../../redux/store';
+import store,{ removeAllData } from '../../redux/store';
+import { LoginData } from '../../redux/interface';
 
 interface NavbarAreaProps {
     isLogin: boolean
@@ -72,12 +73,22 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
     const navigate = useNavigate();
 
     // Redux
-    const {loginData} = useAppSelector((state) => state?.authUser);
+    const loginData = store.getState().authUser?.loginData;
 
     // useState elements
     const [mobileNav, setMobileNav] = useState<null | HTMLElement>(null);
     const [profilePopover, setProfilePopover] = React.useState<null | HTMLElement>(null);
     const [loginOpen, setLoginOpen] = useState<boolean>(false);
+    const [userData, setUserData] = useState<LoginData>({});
+
+    /*
+        Gets user data in redux state
+    */
+    useEffect(() => {
+        if(loginData){
+            setUserData(loginData)
+        }
+    },[loginData])
     
     // Mobile navbar drawer
     const openMobileMenu = (event: MouseEvent<HTMLElement>) => {
@@ -109,10 +120,14 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
 
     // Logout
     const handlelogout = async() => {
+        
         const url = "/oauth/logout";
-        const result = await Request('GET', url);
-
-        if(result?.success){
+        const result = await Request({
+            method: 'GET',
+            url: url
+        });
+  
+        if(result){
             removeAllData();
             navigate('/');
             location.reload()
@@ -214,7 +229,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                             aria-haspopup="true"
                                             aria-expanded={LoginOpen ? 'true' : undefined}
                                         >
-                                            <Avatar sx={navbarStyles.authAvatar} src={loginData.photo.url}></Avatar>
+                                            <Avatar sx={navbarStyles.authAvatar} src={userData.photo?.url}></Avatar>
                                             <ExpandMore />
                                         </IconButton>
                                     </Tooltip>
@@ -234,10 +249,10 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                 >
                                     <MenuItem onClick={handleProfileClose}>
                                         <Avatar
-                                            src={loginData.photo.url}
+                                            src={userData.photo?.url}
                                             sx={navbarStyles.authMenuAvatar}
                                         />
-                                        <Typography sx={navbarStyles.authMenuAvatarText}>{loginData.fullname}</Typography>
+                                        <Typography sx={navbarStyles.authMenuAvatarText}>{userData?.fullname}</Typography>
                                     </MenuItem>
                                     <MenuItem onClick={handleProfileClose}>
                                         <Button
