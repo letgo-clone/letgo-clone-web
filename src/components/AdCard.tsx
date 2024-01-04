@@ -41,9 +41,10 @@ import {
     AdvertProps,
     FavoriteProps,
     CardTypes
-} from './adcardTypes';
+} from '../pages/advertTypes';
 
-export const AdCard = ({ data, grid }: AdvertProps) => {
+
+export const AdCard: React.FC<AdvertProps> = ({ data, grid }) => {
     const [cardData, setCardData] = useState<CardTypes[]>(data);
 
     const addFavorite = async (advertId: string, hasFavorite: boolean) => {
