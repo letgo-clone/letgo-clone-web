@@ -65,7 +65,7 @@ function Index() {
       </Grid>
       {/* Actual advert */}
       <Typography sx={homePageStyles.homeTitle}>Güncel İlanlar</Typography>
-          {advertData && <AdCard data={advertData} grid={[3,3,4,6]} />}
+          {Object.keys(advertData).length > 0 && <AdCard data={advertData} grid={[3,3,4,6]} />}
     </Container>
   )
 }

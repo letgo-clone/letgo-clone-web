@@ -182,7 +182,7 @@ const Search = () => {
                             </FormControl>
                         </Grid>
                     </Grid>
-                    {advertData && <AdCard data={advertData} grid={[4,4,4,6]} />}
+                    {Object.keys(advertData).length > 0 && <AdCard data={advertData} grid={[4,4,4,6]} />}
                 </Grid>
             </Grid>
         </Container>
