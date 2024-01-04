@@ -20,14 +20,22 @@ import { AdCard } from '../../components/AdCard';
 
 import { Link } from 'react-router-dom'
 
+// interface
+import {CardTypes} from '../advertTypes';
+
 function MyFavoriteView() {
-    const [favoriteData, setFavoriteData] = useState({});
+    const [favoriteData, setFavoriteData] = useState<CardTypes[]>([]);
 
     useEffect(() => {
         const getData = async () => {
+
             const url = "/advert/favorite/list";
-            const data = await Request('GET', url);
-            setFavoriteData(data.getData);
+            const data = await Request({
+                method: 'GET',
+                url: url
+            });
+
+            setFavoriteData(data);
         }
         getData()
     }, [])
