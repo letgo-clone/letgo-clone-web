@@ -176,7 +176,7 @@ export async function ReloadAccessToken() {
 /*
     Management Request for user
 */
-export async function Request(parameters: ParametersProps): Promise <object> {
+export async function Request(parameters: ParametersProps): Promise <object[]> {
     const {method, url, formData} = parameters
     const access_token: string = localStorage.getItem('access_token')!;
     const accessVerify = verifyJWT(access_token);
