@@ -18,9 +18,10 @@ import { profileEditStyles } from '../../styles';
 import { Request } from '../../helpers/Request';
 
 // Redux
-import { 
+import 
+  store,
+  { 
   setLoginData, 
-  useAppSelector, 
   useAppDispatch 
   } from '../../redux/store';
 
@@ -29,19 +30,26 @@ import { useFormik } from 'formik'
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
+// Interfaces
+import { LoginData } from '../../redux/interface';
+import { ResultProps } from '../advertTypes';
+import { ProfileInfoTypes } from '../formTypes';
 
 function ProfileInfo() {
   // Redux elemen ts
   const dispatch = useAppDispatch();
-  const {loginData} = useAppSelector((state) => state?.authUser);
+  const loginData: LoginData = store.getState().authUser.loginData!;
+
+
+  const initialValues: ProfileInfoTypes = {
+    fullname: loginData.fullname,
+    about: loginData.about,
+    phoneNumber: loginData.phone_number,
+    email: loginData.email
+  };
 
   const formik = useFormik({
-      initialValues: {
-        fullname: loginData.fullname,
-        about: loginData.about,
-        phoneNumber: loginData.phone_number,
-        email: loginData.email
-      },
+      initialValues,
       onSubmit: async (values) => {
         const { fullname, about, phoneNumber, email } = values;
 
@@ -56,14 +64,19 @@ function ProfileInfo() {
 
         }else{
             const formdata: FormData = new FormData();
-            formdata.append('fullname', fullname);
-            formdata.append('about', about);
-            formdata.append('phone_number', phoneNumber);
-            formdata.append('email', email);
+            formdata.append('fullname11', fullname!);
+            formdata.append('about', about!);
+            formdata.append('phone_number', phoneNumber!);
+            formdata.append('email', email!);
 
             const url = '/account/session/user';
-            const result = await Request('PUT', url, formdata);
-
+        
+            const result: ResultProps = await Request({
+                method: 'PUT',
+                url: url,
+                formData: formdata
+            });
+           
             if (result.success) {
                 Swal.fire({
                     position: "center",
@@ -73,7 +86,7 @@ function ProfileInfo() {
                     timer: 1500
                 });
                 const formdata: FormData = new FormData();
-                formdata.append("fullname", fullname);
+                formdata.append("fullname", fullname!);
 
                 const newLoginData = {
                     fullname: fullname,
