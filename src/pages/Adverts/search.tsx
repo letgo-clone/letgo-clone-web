@@ -38,7 +38,7 @@ import { CardTypes } from '../advertTypes';
 
 const Search = () => {
     // useState area
-    const [advertData, setAdvertData] = useState<CardTypes>({});
+    const [advertData, setAdvertData] = useState<CardTypes[]>([]);
 
     // useEffect area
     useEffect(() => {

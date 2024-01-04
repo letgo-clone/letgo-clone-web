@@ -26,7 +26,7 @@ import { CardTypes } from '../advertTypes';
 
 function Index() {
   // useState area
-  const [advertData, setAdvertData] = useState<CardTypes>({});
+  const [advertData, setAdvertData] = useState<CardTypes[]>([]);
 
   // useEffect area
   useEffect(() => {

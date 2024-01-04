@@ -116,7 +116,7 @@ function ProfileView() {
                             </Box>
                         </Grid>
                         <Grid item xl={8} lg={8} md={8} xs={12} sm={12}>
-                            {advert.length > 0 && <AdCard data={advert} grid={[4, 4, 4, 6]} />}
+                            {Object.keys(advert).length > 0 && <AdCard data={advert} grid={[4, 4, 4, 6]} />}
                         </Grid>
                     </Grid>
                 </Box>
