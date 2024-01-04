@@ -80,3 +80,13 @@ export interface MyAdProp {
     price?:string,
     title?:string
 }
+
+export interface UserProfileProp {
+    date?:string
+    fullname?:string,
+    photo?: {
+        path?: string,
+        url?: string
+    }
+
+}

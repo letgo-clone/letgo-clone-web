@@ -32,29 +32,42 @@ import { AdCard } from '../../components/AdCard';
 import { Request } from '../../helpers/Request';
 
 // Redux
-import { useAppSelector } from '../../redux/store';
+import store from '../../redux/store';
 
 import { useParams } from "react-router-dom";
 
+// interfaces
+import { 
+    CardTypes,
+    UserProfileProp 
+    } from '../advertTypes';
+
+
 function ProfileView() {
     // Redux
-    const {loginData} = useAppSelector((state) => state?.authUser);
+    const loginData = store.getState().authUser?.loginData;
 
     // Router
     const params = useParams();
     const paramsId = params.userId;
 
     // useState
-    const [profile, setProfile] = useState({});
-    const [advert, setAdvert] = useState({})
+    const [profile, setProfile] = useState<UserProfileProp>({});
+    const [advert, setAdvert] = useState<CardTypes[]>([])
     
     useEffect(() => {
         const getData = async () => {
-            const userID = paramsId ? paramsId : loginData.id;
+            const userID = paramsId ? paramsId : loginData?.id;
             const url = "/account/info/" + userID;
-            const data = await Request('GET', url);
-            setProfile(data.userData);
-            setAdvert(data.advertData);
+            const data: object[] | any  = await Request({
+                method : 'GET',
+                url: url
+            });
+
+            if(Object.keys(data).length > 0){
+                setProfile(data?.user);
+                setAdvert(data?.adverts);
+            }
         }
         getData();
     }, []);
@@ -83,7 +96,7 @@ function ProfileView() {
                                         <ListItemAvatar sx={profileViewStyles.profileListItemAvatar}>
                                             <CalendarMonth />
                                         </ListItemAvatar>
-                                        <ListItemText secondary={`${profile.date} tarihinden beri üye`} />
+                                        <ListItemText secondary={`${profile?.date} tarihinden beri üye`} />
                                     </ListItem>
                                 </List>
                                 <Grid xl={12} lg={12} md={12} xs={12} sm={12}>
