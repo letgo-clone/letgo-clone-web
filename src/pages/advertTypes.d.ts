@@ -59,3 +59,19 @@ export interface TabPanelProps {
     index: number;
     value: number;
 }
+
+export interface PostCategory {
+    category_id: string
+    category_name: string,
+    icon: string,
+    key_id: number,
+    sub_category: {
+        main_category_id: number,
+        sub_category_id: number,
+        sub_category_name: string
+    }[]
+}
+
+export interface ResultProps {
+    success?:string
+}
