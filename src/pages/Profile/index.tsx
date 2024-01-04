@@ -1,5 +1,3 @@
-import React from 'react'
-
 // Material UI elements
 import {
   Container,
