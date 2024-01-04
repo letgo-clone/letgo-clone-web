@@ -26,6 +26,15 @@ export interface CardTypes {
     user_type?: string
 }
 
+export interface DetailCaredPhotoTypes {
+    height?: string,
+    images_id?: string,
+    is_cover_image?: boolean,
+    path?: string,
+    url?: string
+    width?: string
+}
+
 export interface DetailCardTypes {
     city?: string,
     county?: string,
@@ -44,14 +53,7 @@ export interface DetailCardTypes {
     },
     user_type?: string,
     userid?: number,
-    photo?: {
-        height?: string,
-        images_id?: string,
-        is_cover_image?: boolean,
-        path?: string,
-        url?: string
-        width?: string
-    }[]
+    photo?: DetailCardTypes
 }
 
 export interface TabPanelProps {

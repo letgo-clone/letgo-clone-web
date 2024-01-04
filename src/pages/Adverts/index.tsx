@@ -41,7 +41,7 @@ import { Carousel } from 'react-responsive-carousel';
 
 
 // İnterfaces
-import { DetailCardTypes } from '../advertTypes';
+import { DetailCardTypes,DetailCaredPhotoTypes } from '../advertTypes';
 
 const AdvertDetail = () => {
     // React Router
@@ -50,6 +50,7 @@ const AdvertDetail = () => {
 
     // useState area
     const [advertDetail, setAdvertDetail] = useState<DetailCardTypes>({});
+    const [advertImages, setAdvertImages] = useState<DetailCaredPhotoTypes[]>([]);
 
     // useEffect area
 
@@ -57,22 +58,23 @@ const AdvertDetail = () => {
     useEffect(() => {
         const getData = async () => {
             const url = "/advert/actual/" + id
-            const data = await RequestPublic({
+            const data: DetailCardTypes | any = await RequestPublic({
                 method: 'GET',
                 url: url
             });
 
             setAdvertDetail(data);
+            setAdvertImages(data.photo);
         }
         getData();
     }, [])
 
     // rendered image thumb of carousel
     const renderCustomThumbs = () => {
-        return advertDetail?.photo?.map((item, key) => (
+        return advertImages?.map((item, key) => (
           <Box key={key} sx={advertDetailStyles.carouselThumb}>
             <img
-              src={item.url}
+              src={item?.url}
               alt={`Thumb ${key}`}
               style={advertDetailCarouselStyles.carouselThumbImg}
             />
@@ -98,7 +100,7 @@ const AdvertDetail = () => {
                                         showThumbs={true}
                                         renderThumbs={renderCustomThumbs}
                                         >
-                                         {advertDetail && advertDetail?.photo?.map((item, key) => (
+                                         {advertDetail && advertImages?.map((item, key) => (
                                             <Box sx={advertDetailStyles.carouselBox} key={key}>
                                                 <img 
                                                     src={item.url} 
@@ -117,7 +119,7 @@ const AdvertDetail = () => {
                                     </Typography>
                                     <Grid container>
                                             <Grid lg={3} md={3} sm={3} xs={3}>Durum</Grid>
-                                            <Grid lg={3} md={3} sm={3} xs={3}>{advertDetail.how_status}</Grid>
+                                            <Grid lg={3} md={3} sm={3} xs={3}>{advertDetail?.how_status}</Grid>
                                     </Grid>
                                 </Grid>
                                 {/* Description Card */}
@@ -127,7 +129,7 @@ const AdvertDetail = () => {
                                         Açıklama
                                     </Typography>
                                     <Typography sx={advertDetailStyles.leftColumnDescription}>
-                                        {advertDetail.description}
+                                        {advertDetail?.description}
                                     </Typography>
                                 </Grid>
                             </Grid>
