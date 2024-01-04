@@ -21,17 +21,24 @@ import { AdCard } from '../../components/AdCard';
 // helpers
 import { RequestPublic } from '../../helpers/Request';
 
+// interfaces
+import { CardTypes } from '../advertTypes';
+
 function Index() {
   // useState area
-  const [advertData, setAdvertData] = useState('');
+  const [advertData, setAdvertData] = useState<CardTypes>({});
 
   // useEffect area
   useEffect(() => {
     const getData = async () => {
         const advertGetUrl = "/advert/actual"
-        const advertData = await RequestPublic('GET', advertGetUrl);
-        setAdvertData(advertData);
+ 
+        const advertData = await RequestPublic({
+            method: 'GET',
+            url: advertGetUrl
+        });
 
+        setAdvertData(advertData);
     }
     getData();
   }, [])
