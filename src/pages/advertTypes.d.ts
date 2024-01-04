@@ -53,3 +53,9 @@ export interface DetailCardTypes {
         width?: string
     }[]
 }
+
+export interface TabPanelProps {
+    children?: React.ReactNode;
+    index: number;
+    value: number;
+}

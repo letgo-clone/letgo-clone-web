@@ -25,11 +25,8 @@ import { useAppSelector } from '../../redux/store';
 import { setCurrentCategory, useAppDispatch } from '../../redux/store';
 
 // Material UI TabPanel for category
-interface TabPanelProps {
-    children?: React.ReactNode;
-    index: number;
-    value: number;
-}
+import { TabPanelProps } from '../advertTypes';
+
 import { Category, Menu } from '../../redux/interface';
 
 function TabPanel(props: TabPanelProps) {
