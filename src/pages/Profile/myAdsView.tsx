@@ -33,21 +33,29 @@ import { Link } from 'react-router-dom'
 import slugify from 'react-slugify';
 import Swal from 'sweetalert2';
 
+// interface
+import { MyAdProp } from '../advertTypes';
+
 function MyAdsView() {
     // useState area
-    const [myAds, setMyAds] = useState({});
+    const [myAds, setMyAds] = useState<MyAdProp[]>([]);
 
     // useEffect area
     useEffect(() => {
         const getData = async () => {
             const url = "/advert/list";
-            const data = await Request('GET', url);
+            const data = await Request({
+                method: 'GET', 
+                url: url
+            });
+            
             setMyAds(data);
         }
         getData();
     }, []);
 
-    const handleVisibleChange = async(advertId: number, advertValue: string) => {
+    const handleVisibleChange = async(advertId: string, advertValue: boolean) => {
+
         const { value } = await Swal.fire({
             title: advertValue ? 'İlanı yayından kaldırma' : 'İlanı yayına alma',
             text: "Bu işlemi yapmak istediğinizden emin misiniz ?",
@@ -63,21 +71,27 @@ function MyAdsView() {
             const formdata: FormData = new FormData();
             formdata.append("op", 'replace');
             formdata.append("path", 'has_advert_visible');
-            formdata.append("value", !advertValue);
+            formdata.append("value", advertValue? 'false' : 'true');
             const url = '/advert/list/' + advertId;
 
-            const response = await Request('PATCH', url, formdata);
+            const response = await Request({
+                method: 'PATCH',
+                url: url,
+                formData: formdata
+            });
 
-            if(response.success){
+            const responseCheck = Object.keys(response).filter(item => item == 'success')
+            if(responseCheck){
                 Swal.fire({
                     icon: 'success',
                     title: 'İşlem Başarılı',
                     html: advertValue ? 'İlan yayından kaldırıldı' : 'İlan tekrar yayına alındı',
                     confirmButtonText: 'Tamam'
                 });
+
                 setMyAds(prevObjects => {
                     return prevObjects.map(obj => {
-                      if (obj.id === advertId) {
+                      if (obj?.id === advertId) {
                         return { ...obj, is_visible: advertValue ? false : true  }
                       }
                       return obj;
@@ -87,7 +101,7 @@ function MyAdsView() {
         }
     } 
 
-    const handleDeleteAdvert = async(advertId: number) => {
+    const handleDeleteAdvert = async(advertId: string) => {
         const { value } = await Swal.fire({
             title: 'İlanı sattın mı ?',
             text: "Bu işlemi yapmak istediğinizden emin misiniz ?",
@@ -103,19 +117,25 @@ function MyAdsView() {
             const formdata: FormData = new FormData();
             formdata.append("op", 'remove');
             formdata.append("path", 'has_advert_remove');
-            formdata.append("value", true);
+            formdata.append("value", 'true');
             const url = '/advert/list/' + advertId;
 
-            const response = await Request('PATCH', url, formdata);
+            // 'PATCH', url, formdata
+            const response = await Request({
+                method: 'PATCH',
+                url: url,
+                formData: formdata
+            });
 
-            if(response.success){
+            const responseCheck = Object.keys(response).filter(item => item == 'success')
+            if(responseCheck){
                 Swal.fire({
                     icon: 'success',
                     title: 'İşlem Başarılı',
                     html: 'İlan yayından kaldırıldı',
                     confirmButtonText: 'Tamam'
                 });
-                const newList = myAds.filter((veri) => veri.id !== advertId);
+                const newList = myAds.filter((veri) => veri?.id !== advertId);
                 setMyAds(newList);
             }
         }
@@ -145,7 +165,7 @@ function MyAdsView() {
                         </Link>
                     </Box>
                 </Grid>
-                {myAds.length > 0 && myAds.map((item, key) => (
+                {Object.keys(myAds).length > 0 && myAds?.map((item, key) => (
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12} key={key}>
                          {/* Ad card */}
                         <Card sx={adViewStyles.adCard}>
@@ -199,13 +219,13 @@ function MyAdsView() {
                                                 </Typography>
                                             </Grid>
                                             <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={adViewStyles.adActionIconGrid}>
-                                                <IconButton aria-label="visible" onClick={() => handleVisibleChange(item.id, item.is_visible)}>
+                                                <IconButton aria-label="visible" onClick={() => handleVisibleChange(item.id!, item.is_visible!)}>
                                                     <VisibilityOff />
                                                 </IconButton>
                                                 <IconButton aria-label="edit" href={`/post/edit/${item.id}`}>
                                                     <Edit />
                                                 </IconButton>
-                                                <IconButton aria-label="delete" onClick={() => handleDeleteAdvert(item.id)}>
+                                                <IconButton aria-label="delete" onClick={() => handleDeleteAdvert(item.id!)}>
                                                     <Delete />
                                                 </IconButton>
                                             </Grid>
@@ -227,7 +247,7 @@ function MyAdsView() {
                                     <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                                         <Box sx={adViewStyles.rightButtonsBox}>
                                         <Button
-                                            onClick={() => handleDeleteAdvert(item.id)}
+                                            onClick={() => handleDeleteAdvert(item.id!)}
                                             variant="outlined"
                                             sx={adViewStyles.rightButtons}
                                             size='small'
