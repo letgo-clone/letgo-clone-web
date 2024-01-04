@@ -39,13 +39,17 @@ import { RequestPublic } from '../../helpers/Request';
 import { useParams } from "react-router-dom";
 import { Carousel } from 'react-responsive-carousel';
 
+
+// İnterfaces
+import { DetailCardTypes } from './advertDetailTypes';
+
 const AdvertDetail = () => {
     // React Router
     const params = useParams();
     const id = params.itemId;
 
     // useState area
-    const [advertDetail, setAdvertDetail] = useState('');
+    const [advertDetail, setAdvertDetail] = useState<DetailCardTypes>({});
 
     // useEffect area
 
@@ -53,7 +57,11 @@ const AdvertDetail = () => {
     useEffect(() => {
         const getData = async () => {
             const url = "/advert/actual/" + id
-            const data = await RequestPublic('GET', url);
+            const data = await RequestPublic({
+                method: 'GET',
+                url: url
+            });
+
             setAdvertDetail(data);
         }
         getData();
@@ -61,18 +69,15 @@ const AdvertDetail = () => {
 
     // rendered image thumb of carousel
     const renderCustomThumbs = () => {
-        return (
-          advertDetail &&
-            advertDetail.photo.map((item, key) => (
-                <Box key={key} sx={advertDetailStyles.carouselThumb}>
-                    <img
-                        src={item.url}
-                        alt={`Thumb ${key}`}
-                        style={advertDetailCarouselStyles.carouselThumbImg}
-                    />
-                </Box>
-            ))
-        );
+        return advertDetail?.photo?.map((item, key) => (
+          <Box key={key} sx={advertDetailStyles.carouselThumb}>
+            <img
+              src={item.url}
+              alt={`Thumb ${key}`}
+              style={advertDetailCarouselStyles.carouselThumbImg}
+            />
+          </Box>
+        )) || []; // Eğer photo undefined ise, boş bir dizi döndür
       };
 
     return (
@@ -93,8 +98,8 @@ const AdvertDetail = () => {
                                         showThumbs={true}
                                         renderThumbs={renderCustomThumbs}
                                         >
-                                         {advertDetail && advertDetail.photo.map((item, key) => (
-                                            <Box sx={advertDetailStyles.carouselBox}>
+                                         {advertDetail && advertDetail?.photo?.map((item, key) => (
+                                            <Box sx={advertDetailStyles.carouselBox} key={key}>
                                                 <img 
                                                     src={item.url} 
                                                     width={item.width}
@@ -166,7 +171,7 @@ const AdvertDetail = () => {
                                         <CardContent sx={advertDetailStyles.rightColumnCardContent}>
                                             <Grid container>
                                                 <Grid item lg={3} md={3}>
-                                                    <Avatar alt="Remy Sharp" src={advertDetail.user_image.url} sx={advertDetailStyles.rightColumnSellerAvatar} />
+                                                    <Avatar alt="Remy Sharp" src={advertDetail?.user_image?.url} sx={advertDetailStyles.rightColumnSellerAvatar} />
                                                 </Grid>
                                                 <Grid item lg={6} md={6}>
                                                     <Typography sx={advertDetailStyles.rightColumnSellerFullname}>
