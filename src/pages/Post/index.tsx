@@ -27,7 +27,8 @@ import { setCurrentCategory, useAppDispatch } from '../../redux/store';
 // Material UI TabPanel for category
 import { TabPanelProps } from '../advertTypes';
 
-import { Category, Menu } from '../../redux/interface';
+import { Category } from '../../redux/interface';
+import { PostCategory } from '../advertTypes';
 
 function TabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
@@ -42,7 +43,7 @@ function TabPanel(props: TabPanelProps) {
         >
             {value === index && (
                 <Box sx={{ p: 0 }} key={index}>
-                    <Typography>{children}</Typography>
+                    {children}
                 </Box>
             )}
         </div>
@@ -65,7 +66,7 @@ function Index() {
 
     // useEffect area
     const [value, setValue] = useState<number>(0);
-    const [subCategory, setSubCategory] = useState<Menu[]>([]);
+    const [subCategory, setSubCategory] = useState<PostCategory[]>([]);
 
     // Category filter
     const handleChange = (event: React.SyntheticEvent, newValue: number = 0) => {
@@ -106,7 +107,7 @@ function Index() {
                         <Tabs
                             orientation="vertical"
                             variant="scrollable"
-                            value={value}
+                            value={subCategory.length > 0 && value}
                             onChange={handleChange}
                             aria-label="Vertical tabs example"
                             sx={homePostAdvertStyles.leftCategoryTabs}
@@ -126,7 +127,7 @@ function Index() {
                      {/* Right sub category section */}
                      <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                         {subCategory && subCategory.map((mainItem, key) =>  (
-                            <TabPanel value={value} index={Number(mainItem.category_id)} key={key}>
+                            <TabPanel value={value} index={mainItem.key_id} key={key}>
                                  <List sx={{ padding:0 }}>
                                      {mainItem?.sub_category.map((SubItem, key) => (
                                          <ListItem sx={homePostAdvertStyles.rightCategoryListItem} key={key}>
