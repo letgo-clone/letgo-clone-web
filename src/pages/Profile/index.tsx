@@ -32,7 +32,6 @@ import Swal from 'sweetalert2';
 
 // Interfaces
 import { LoginData } from '../../redux/interface';
-import { ResultProps } from '../advertTypes';
 import { ProfileInfoTypes } from '../formTypes';
 
 function ProfileInfo() {
@@ -70,14 +69,16 @@ function ProfileInfo() {
             formdata.append('email', email!);
 
             const url = '/account/session/user';
-        
-            const result: ResultProps = await Request({
+          
+            const result = await Request({
                 method: 'PUT',
                 url: url,
                 formData: formdata
             });
            
-            if (result.success) {
+            const responseCheck = Object.keys(result).filter(item => item == 'success')
+
+            if (responseCheck) {
                 Swal.fire({
                     position: "center",
                     icon: "success",

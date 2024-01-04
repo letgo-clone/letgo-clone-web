@@ -39,7 +39,6 @@ import { Request } from '../helpers/Request';
 // Interfaces or Types
 import { 
     AdvertProps,
-    FavoriteProps,
     CardTypes
 } from '../pages/advertTypes';
 
@@ -56,13 +55,14 @@ export const AdCard: React.FC<AdvertProps> = ({ data, grid }) => {
 
             const url = '/advert/favorite/' + advertId;
 
-            const data: FavoriteProps = await Request({
+            const data = await Request({
                 method: 'PATCH',
                 url: url,
                 formData: formdata
             });
 
-            if(data.error){
+            const responseErrorCheck = Object.keys(data).filter(item => item == 'error')
+            if(responseErrorCheck){
                 Swal.fire({
                     icon: 'error',
                     title: 'Hata',
@@ -87,13 +87,15 @@ export const AdCard: React.FC<AdvertProps> = ({ data, grid }) => {
 
             const url = '/advert/favorite/' + advertId;
             
-            const data: FavoriteProps = await Request({
+            const data = await Request({
                 method: 'PATCH',
                 url: url,
                 formData: formdata
             });
 
-            if(data.error){
+            const responseErrorCheck = Object.keys(data).filter(item => item == 'error')
+
+            if(responseErrorCheck){
                 Swal.fire({
                     icon: 'error',
                     title: 'Hata',
