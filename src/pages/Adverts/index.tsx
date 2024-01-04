@@ -41,7 +41,7 @@ import { Carousel } from 'react-responsive-carousel';
 
 
 // İnterfaces
-import { DetailCardTypes } from './advertDetailTypes';
+import { DetailCardTypes } from '../advertTypes';
 
 const AdvertDetail = () => {
     // React Router
