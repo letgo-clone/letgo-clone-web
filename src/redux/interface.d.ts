@@ -1,6 +1,7 @@
 // Menu state interfaces
 
 export interface SubCategory {
+    main_category_id: number,
     sub_category_id: number,
     sub_category_name: string
 }
