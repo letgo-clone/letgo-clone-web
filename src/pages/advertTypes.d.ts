@@ -1,5 +1,5 @@
 export type AdvertProps = {
-    data: CardTypes[] | CardTypes;
+    data: CardTypes[];
     grid: number[];
 }
 
@@ -18,12 +18,12 @@ export interface CardTypes {
     display_name?: string,
     display_type?: string
     has_favorite?: boolean,
-    how_status?:string,
-    id?:string,
+    how_status?: string,
+    id?: string,
     photo?: string,
-    price?:string,
-    title?:string,
-    user_type?:string
+    price?: string,
+    title?: string,
+    user_type?: string
 }
 
 export interface DetailCardTypes {
@@ -72,6 +72,11 @@ export interface PostCategory {
     }[]
 }
 
-export interface ResultProps {
-    success?:string
+export interface MyAdProp {
+    id?:string,
+    is_cover_image?:string,
+    is_visible?:boolean,
+    likes?:string,
+    price?:string,
+    title?:string
 }
