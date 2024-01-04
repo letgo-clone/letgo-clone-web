@@ -30,6 +30,7 @@ interface TabPanelProps {
     index: number;
     value: number;
 }
+import { Category, Menu } from '../../redux/interface';
 
 function TabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
@@ -43,7 +44,7 @@ function TabPanel(props: TabPanelProps) {
             {...other}
         >
             {value === index && (
-                <Box sx={{ p: 0 }}>
+                <Box sx={{ p: 0 }} key={index}>
                     <Typography>{children}</Typography>
                 </Box>
             )}
@@ -66,8 +67,8 @@ function Index() {
     const dispatch = useAppDispatch();
 
     // useEffect area
-    const [value, setValue] = useState();
-    const [subCategory, setSubCategory] = useState<object[]>([]);
+    const [value, setValue] = useState<number>(0);
+    const [subCategory, setSubCategory] = useState<Menu[]>([]);
 
     // Category filter
     const handleChange = (event: React.SyntheticEvent, newValue: number = 0) => {
@@ -82,7 +83,7 @@ function Index() {
 
     // saves selected categorys of user in redux
     const handleGetPage = (mainCategoryName: string , subCategoryName: string, subCategoryId: number, mainCategoryId: number) => {
-        const currentCategoryObject = {
+        const currentCategoryObject: Category = {
             subCategoryName: subCategoryName,
             mainCategoryName: mainCategoryName,
             subCategoryId: subCategoryId,
@@ -113,8 +114,9 @@ function Index() {
                             aria-label="Vertical tabs example"
                             sx={homePostAdvertStyles.leftCategoryTabs}
                         >
-                            {menuData!.length > 0 && menuData!.map((item) => (
+                            {menuData!.length > 0 && menuData!.map((item, key) => (
                                 <Tab
+                                    key={key}
                                     label={item.category_name}
                                     iconPosition="start"
                                     sx={homePostAdvertStyles.leftCategoryTab}
@@ -126,10 +128,10 @@ function Index() {
                     </Grid>
                      {/* Right sub category section */}
                      <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-                        {subCategory && subCategory.map((mainItem) =>  (
-                            <TabPanel value={value} index={mainItem.key_id}>
+                        {subCategory && subCategory.map((mainItem, key) =>  (
+                            <TabPanel value={value} index={Number(mainItem.category_id)} key={key}>
                                  <List sx={{ padding:0 }}>
-                                     {mainItem.sub_category.map((SubItem, key) => (
+                                     {mainItem?.sub_category.map((SubItem, key) => (
                                          <ListItem sx={homePostAdvertStyles.rightCategoryListItem} key={key}>
                                              <Link 
                                                 to="/post/attributes" 
