@@ -33,15 +33,22 @@ import { AdCard } from '../../components/AdCard';
 // other
 import { Link } from 'react-router-dom';
 
+// Interfaces
+import { CardTypes } from '../advertTypes';
+
 const Search = () => {
     // useState area
-    const [advertData, setAdvertData] = useState('');
+    const [advertData, setAdvertData] = useState<CardTypes>({});
 
     // useEffect area
     useEffect(() => {
         const getData = async () => {
             const url = "/advert/actual"
-            const data = await RequestPublic('GET', url);
+            const data = await RequestPublic({
+                method: 'GET',
+                url: url
+            });
+
             setAdvertData(data);
         }
         getData();
