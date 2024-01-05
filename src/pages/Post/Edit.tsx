@@ -32,6 +32,16 @@ import { Request, RequestPublic } from '../../helpers/Request';
 import { useFormik } from 'formik';
 import Swal from 'sweetalert2';
 
+// Interfaces
+import { 
+    EditAdvertDetail, 
+    EditAdvertImages, 
+    CitiesProps, 
+    CountiesProps 
+    } from '../advertTypes';
+
+    import { PostAdvertTypes } from '../formTypes';
+
 function AdvertEdit() {
     // React router elements
     const params = useParams();
@@ -39,27 +49,29 @@ function AdvertEdit() {
     const advertId = params.advertId;
 
      // useState elements
-    const [cities, setCities] = useState({});
-    const [counties, setCounties] = useState({});
-    const [advertDetail, setAdvertDetail] = useState({});
-    const [advertImages, setAdvertImages] = useState<object[]>([]);
-    const [deletedAdvertImages, setDeletedAdvertImages] = useState<object[] | object>([]);
+    const [cities, setCities] = useState<CitiesProps[]>([]);
+    const [counties, setCounties] = useState<CountiesProps[]>([]);
+    const [advertDetail, setAdvertDetail] = useState<EditAdvertDetail>({});
+    const [advertImages, setAdvertImages] = useState<EditAdvertImages[] | any>([]);
+    const [deletedAdvertImages, setDeletedAdvertImages] = useState<object[]>([]);
+
+    const initialValues: PostAdvertTypes = {
+        title: (advertDetail && advertDetail.title),
+        description: (advertDetail && advertDetail.description),
+        price: (advertDetail && advertDetail.price),
+        city_id: String(advertDetail.city_id!),
+        county_id: String(advertDetail.county_id!),
+        how_status : (advertDetail?.how_status),
+        photo: []
+    }
 
     const formik = useFormik({
         enableReinitialize: true,
-        initialValues: {
-            title: (advertDetail && advertDetail.title) || '',
-            description: (advertDetail && advertDetail.description) || '',
-            price: (advertDetail && advertDetail.price) || '',
-            city_id: (advertDetail && advertDetail.city_id) || '',
-            county_id: (advertDetail && advertDetail.county_id) || '',
-            how_status : (advertDetail && advertDetail.how_status) || '',
-            photo: []
-        },
+        initialValues,
         onSubmit: async (values) => {
             const {title, description, price, city_id, county_id, how_status} = values;
-
-            if(title == '' || description == '' || price == '' || county_id == '' || how_status == '' || advertImages.length == 0){
+            console.log(values);
+            if(title == '' || description == '' || price == '' || county_id == null || how_status == '' || advertImages.length == 0){
                 Swal.fire({
                     position: "center",
                     icon: "error",
@@ -70,24 +82,30 @@ function AdvertEdit() {
             }
             else{
                 const formdata: FormData = new FormData();
-                formdata.append("title", title);
-                formdata.append("description", description);
-                formdata.append("price", price);
-                formdata.append("city_id", city_id);
-                formdata.append("county_id", county_id);
-                formdata.append("how_status", how_status);
+                formdata.append("title", title!);
+                formdata.append("description", description!);
+                formdata.append("price", price!);
+                formdata.append("city_id", String(city_id!));
+                formdata.append("county_id", county_id!);
+                formdata.append("how_status", how_status!);
                 formdata.append("old_images", JSON.stringify(deletedAdvertImages));
                 formdata.append("cover_image_id", advertImages[0].image_id);
     
-                const filterNewImage = advertImages.filter(item => item instanceof File)
-                filterNewImage.forEach((file, index) => { 
+                const filterNewImage = advertImages.filter((item: File | EditAdvertImages) => item instanceof File)
+                filterNewImage.forEach((file: File) => { 
                     formdata.append('photo', file);
-                });
+                }); 
     
                 const url = "/advert/actual/" + advertId;
-                const response = await Request('PUT', url, formdata);
-    
-                if (response.success) {
+
+                const response = await Request({
+                    method: 'PUT',
+                    url: url,
+                    formData: formdata 
+                });
+                
+                const responseCheck = Object.keys(response).filter(item => item == 'success')
+                if (responseCheck) {
                     await Swal.fire({
                         position: "center",
                         icon: "success",
@@ -106,7 +124,7 @@ function AdvertEdit() {
                         timer: 1500
                     });
                 }
-            }
+            } 
         }
     })
 
@@ -119,10 +137,13 @@ function AdvertEdit() {
     useEffect(() => {
         const getData = async() => {
             const url = '/advert/detail/' + advertId;
-            const data = await Request('GET', url);
+            const data: EditAdvertDetail | any = await Request({
+                method: 'GET',
+                url: url
+            });
             setAdvertDetail(data);
-           
-            const sortedImages = data.images.length > 0 && data.images.sort((item, key) =>
+            
+            const sortedImages = data.images.sort((item: EditAdvertImages, key: EditAdvertImages) =>
                 item.is_cover_image === key.is_cover_image ? 0 : item.is_cover_image ? -1 : 1
             );
             setAdvertImages(sortedImages);
@@ -136,7 +157,11 @@ function AdvertEdit() {
     useEffect(() => {
         const getCities = async () => {
             const url = "/advert/location";
-            const getData = await RequestPublic('GET', url);
+
+            const getData = await RequestPublic({
+                method: 'GET',
+                url: url
+            });
             setCities(getData);
         }
         getCities();
@@ -148,7 +173,12 @@ function AdvertEdit() {
     useEffect(() => {
         const getCounties = async () => {
             const url = "/advert/location/" + formik.values.city_id;
-            const getData = await RequestPublic('GET', url);
+
+            const getData = await RequestPublic({
+                method :'GET',
+                url: url
+            });
+
             setCounties(getData);
         }
         getCounties();
@@ -163,7 +193,7 @@ function AdvertEdit() {
         if(fileList){
             const files: File[] = Array.from(fileList);
 
-            setAdvertImages((prevImages) => {
+            setAdvertImages((prevImages: any) => {
                 const prevArray = prevImages ? Array.from(prevImages) : [];
                 return [...prevArray, ...files];
             });
@@ -176,13 +206,14 @@ function AdvertEdit() {
         Remove selected image from upload images
     */
     const removeImage = (imageId: number, imageKey: number) => {
-        const newList = advertImages.filter((item, key) => key !== imageKey);
+        const newList = advertImages.filter((item: EditAdvertImages, key: number) => key !== imageKey && item);
+    
         setAdvertImages(newList);
 
         if(imageId){
             setDeletedAdvertImages((prevDeletedImages) => [
                 ...prevDeletedImages,
-                advertImages.find((item) => item.image_id == imageId),
+                advertImages.find((item: EditAdvertImages) => item.image_id == imageId),
             ]);
         }
     }
@@ -201,16 +232,16 @@ function AdvertEdit() {
                         encType='multipart/form-data'
                     >
                     <Grid container>
-                        {advertDetail.length !== 0 && (
+                        {Object.keys(advertDetail).length !== 0 && (
                             <>
                              {/* BreadCrumb area */}
                             <Grid item xl={12} lg={12} md={12} sm={12} xs={12} sx={postAdvertStyles.breadCrumbGrid}>
                                 <Breadcrumbs aria-label="breadcrumb">
                                     <Typography
                                             sx={postAdvertStyles.breadCrumbText}>
-                                                {advertDetail.category_name}
+                                                {advertDetail.category_name!}
                                     </Typography>
-                                    <Typography sx={postAdvertStyles.breadCrumbText}> {advertDetail.sub_category_name}</Typography>
+                                    <Typography sx={postAdvertStyles.breadCrumbText}> {advertDetail.sub_category_name!}</Typography>
                                 </Breadcrumbs>
                             </Grid>
                             <Divider />
@@ -232,14 +263,14 @@ function AdvertEdit() {
                                             name="how_status"
                                             value={formik.values.how_status}
                                             onChange={formik.handleChange}
-                                            error={Boolean(formik.values.how_status == '' && formik.touched.how_status )}
+                                            error={Boolean(formik.values.how_status == '' && formik.touched.how_status)}
                                             helperText={formik.values.how_status == '' && formik.touched.how_status && 'Durumu belirtmeniz gerekiyor'}
                                         >
-                                        <MenuItem value="Yeni">Yeni</MenuItem>
-                                        <MenuItem value="Yeni gibi">Yeni gibi</MenuItem>
-                                        <MenuItem value="İyi">İyi</MenuItem>
-                                        <MenuItem value="Makul">Makul</MenuItem>
-                                        <MenuItem value="Yıpranmış">Yıpranmış</MenuItem>
+                                            <MenuItem value="Yeni">Yeni</MenuItem>
+                                            <MenuItem value="Yeni gibi">Yeni gibi</MenuItem>
+                                            <MenuItem value="İyi">İyi</MenuItem>
+                                            <MenuItem value="Makul">Makul</MenuItem>
+                                            <MenuItem value="Yıpranmış">Yıpranmış</MenuItem>
                                         </TextField>
                                     </Grid>
                                     <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -326,8 +357,8 @@ function AdvertEdit() {
                                     }
                                 </Grid>
                                 <Grid container sx={postAdvertStyles.fileInputImageGrid}>
-                                    {advertImages.length > 0 && advertImages.map((item, key) => (
-                                        <Box sx={postAdvertStyles.fileInputImageBox}>
+                                    {advertImages.length > 0 && advertImages.map((item: any, key: number) => (
+                                        <Box sx={postAdvertStyles.fileInputImageBox} key={key}>
                                                 <img 
                                                     src={item.image_id ? item.url : URL.createObjectURL(item)} 
                                                     style={{ objectFit: 'cover' }} 
@@ -339,7 +370,7 @@ function AdvertEdit() {
                                                     {advertImages.length > 1 &&
                                                     <IconButton 
                                                         aria-label="remove to advert" 
-                                                        onClick={() => removeImage(item.image_id,key)}
+                                                        onClick={() => removeImage(item.image_id!, key)}
                                                         sx={{ backgroundColor: '#000000', borderRadius: 3, '&:hover': {backgroundColor :'#000000'}}}
                                                     >
                                                             <CloseIcon sx={{ fontSize: '21px',color: '#ffffff' }} />
