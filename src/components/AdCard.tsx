@@ -140,7 +140,7 @@ export const AdCard: React.FC<AdvertProps> = ({ data, grid }) => {
                                             adCardStyles.cardPartnerMedia
                                         )
                                     }
-                                    image={item.photo}
+                                    image={item.photo!}
                                 />
                                 {(item.display_type == 'hot' && item.display_name !== 'Otoplus') && (
                                     <Box sx={adCardStyles.cardLeftAction} >
