@@ -75,17 +75,17 @@ export interface PostCategory {
 }
 
 export interface MyAdProp {
-    id?:string,
-    is_cover_image?:string,
-    is_visible?:boolean,
-    likes?:string,
-    price?:string,
-    title?:string
+    id?: string,
+    is_cover_image?: string,
+    is_visible?: boolean,
+    likes?: string,
+    price?: string,
+    title?: string
 }
 
 export interface UserProfileProp {
-    date?:string
-    fullname?:string,
+    date?: string
+    fullname?: string,
     photo?: {
         path?: string,
         url?: string
@@ -94,12 +94,31 @@ export interface UserProfileProp {
 }
 
 export interface CitiesProps {
-    city?:string,
-    id?:number,
-    plateno?:string
+    city?: string,
+    id?: number,
+    plateno?: string
 }
 
 export interface CountiesProps {
-    county?:string,
-    id?:102
+    county?: string,
+    id?: 102
+}
+
+export interface EditAdvertImages {
+    image_id?:number,
+    is_cover_image?:boolean,
+    path?:string
+}
+
+export interface EditAdvertDetail {
+    category_name?: string,
+    city_id?: number,
+    county_id?: number,
+    description?: string,
+    how_status?: string,
+    id?: string,
+    images?: EditAdvertImages[],
+    price?:string,
+    sub_category_name?:string,
+    title?:string
 }
