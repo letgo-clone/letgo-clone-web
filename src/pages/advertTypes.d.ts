@@ -92,3 +92,14 @@ export interface UserProfileProp {
     }
 
 }
+
+export interface CitiesProps {
+    city?:string,
+    id?:number,
+    plateno?:string
+}
+
+export interface CountiesProps {
+    county?:string,
+    id?:102
+}
