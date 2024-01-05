@@ -30,12 +30,16 @@ import { useNavigate, Link } from "react-router-dom";
 import { Request, RequestPublic } from '../../helpers/Request';
 
 // Redux
-import { setLoginData, useAppSelector, useAppDispatch } from '../../redux/store';
+import store,{ setLoginData, useAppDispatch } from '../../redux/store';
 
 // Other
 import { useFormik } from 'formik';
 import Swal from 'sweetalert2';
 
+// interfaces
+import { LoginData, Category } from '../../redux/interface';
+import { CitiesProps, CountiesProps } from '../advertTypes';
+import { PostAdvertTypes } from '../formTypes';
 
 function Attributes() {
     // React router elements
@@ -43,29 +47,34 @@ function Attributes() {
 
     // Redux elements
     const dispatch = useAppDispatch();
-    const {loginData} = useAppSelector((state) => state?.authUser);
-    const {currentCategoryData} = useAppSelector((state) => state?.currentCategory);
+
+    // Redux
+    const loginData = store.getState().authUser?.loginData;
+    const currentCategoryData = store.getState().currentCategory?.currentCategoryData;
 
     // useState elements
-    const [selectedCategory, setSelectedCategory] = useState<object>({});
-    const [cities, setCities] = useState({});
-    const [counties, setCounties] = useState({});
-    const [images, setImages] = useState<object[]>([]);
+    const [selectedCategory, setSelectedCategory] = useState<Category[] | any>([]);
+    const [cities, setCities] = useState<CitiesProps[]>([]);
+    const [counties, setCounties] = useState<CountiesProps[]>([]);
 
+    const [images, setImages] = useState<Array<File>>([]);
+    const [userData, setUserData] = useState<LoginData>({});
+
+    const initialValues: PostAdvertTypes = {
+        title: '',
+        description: '',
+        price: '',
+        city_id: '',
+        county_id: '',
+        how_status: '',
+        fullname: userData.fullname!,
+        photo: []
+      };
     const formik = useFormik({
-        initialValues: {
-            title: '',
-            description: '',
-            price: '',
-            city_id: '',
-            county_id: '',
-            how_status: '',
-            fullname: loginData.fullname,
-            photo: []
-        },
+        initialValues,
         onSubmit: async (values) => {
             const {title, description, price, city_id, county_id, fullname, how_status} = values;
-
+            console.log(values);
             if(title == '' || description == '' || price == '' || county_id == '' || fullname == '' || how_status == '' || images.length == 0){
                 Swal.fire({
                     position: "center",
@@ -77,24 +86,30 @@ function Attributes() {
             }
             else{
                 const formdata: FormData = new FormData();
-                formdata.append("title", title);
-                formdata.append("description", description);
-    
-                images.forEach((file, index) => {
+                formdata.append("title", title!);
+                formdata.append("description", description!);
+
+                images.forEach((file) => {
                     formdata.append('photo', file);
                 });
     
-                formdata.append("how_status", how_status);
-                formdata.append("price", price);
-                formdata.append("city_id", city_id);
-                formdata.append("county_id", county_id);
+                formdata.append("how_status", how_status!);
+                formdata.append("price", price!);
+                formdata.append("city_id", city_id!);
+                formdata.append("county_id", county_id!);
                 formdata.append("main_category_id", selectedCategory.mainCategoryId);
                 formdata.append("sub_category_id", selectedCategory.subCategoryId);
-                const url = "/advert/actual";
-    
-                const response = await Request('POST', url, formdata);
-    
-                if (response.success) {
+                
+                const url = '/advert/actual';
+
+                const response = await Request({
+                    method: 'POST',
+                    url: url,
+                    formData: formdata
+                });
+                
+                const responseCheck = Object.keys(response).filter(item => item == 'success')
+                if (responseCheck) {
                     Swal.fire({
                         position: "center",
                         icon: "success",
@@ -102,12 +117,16 @@ function Attributes() {
                         showConfirmButton: false,
                         timer: 1500
                     });
-                    if (loginData.fullname != fullname) {
+                    if (userData.fullname != fullname) {
                         const formdata: FormData = new FormData();
-                        formdata.append("fullname", fullname);
-    
-                        const url = '/account/session/user';
-                        await Request('PUT', url, formdata);
+                        formdata.append("fullname", fullname!);
+                        
+                        const url = '/account/session/user' 
+                        await Request({
+                            method: 'PUT',
+                            url: url ,
+                            formData: formdata 
+                        });
     
                         const newLoginData = {
                             fullname: fullname,
@@ -133,6 +152,15 @@ function Attributes() {
 
      // useEffect elements
 
+      /*
+        Gets user data in redux state
+    */
+        useEffect(() => {
+            if(loginData){
+                setUserData(loginData)
+            }
+        },[loginData])
+
      /*
         gets selected category from redux
      */
@@ -150,7 +178,12 @@ function Attributes() {
     useEffect(() => {
         const getCities = async () => {
             const url = "/advert/location";
-            const getData = await RequestPublic('GET', url);
+
+            const getData = await RequestPublic({
+                method: 'GET',
+                url: url
+            });
+
             setCities(getData);
         }
         getCities();
@@ -162,7 +195,11 @@ function Attributes() {
     useEffect(() => {
         const getCounties = async () => {
             const url = "/advert/location/" + formik.values.city_id;
-            const getData = await RequestPublic('GET', url);
+            const getData = await RequestPublic({
+                method: 'GET',
+                url: url
+            });
+
             setCounties(getData);
         }
         getCounties();
@@ -190,7 +227,8 @@ function Attributes() {
         Remove selected image from upload images
     */
     const removeImage = (imageKey: number) => {
-        const newList = images.filter((veri, key) => key !== imageKey);
+        const newList = images.filter((veri, key) => key !== imageKey && veri);
+        console.log(newList)
         setImages(newList);
     }
 
@@ -216,7 +254,7 @@ function Attributes() {
                                 <Link to="/post" style={{textDecoration: 'none'}}>
                                     <Typography
                                         sx={postAdvertStyles.breadCrumbText}>
-                                            {selectedCategory.mainCategoryName}
+                                            {selectedCategory?.mainCategoryName}
                                     </Typography>
                                 </Link>
                                 <Typography 
@@ -342,7 +380,7 @@ function Attributes() {
                             </Grid>
                             <Grid container sx={postAdvertStyles.fileInputImageGrid}>
                                 {images.length > 0 && images.map((item, key) => (
-                                    <Box sx={postAdvertStyles.fileInputImageBox}>
+                                    <Box sx={postAdvertStyles.fileInputImageBox} key={key}>
                                         <img 
                                             src={URL.createObjectURL(item)}
                                             style={{ objectFit: 'cover' }} 
