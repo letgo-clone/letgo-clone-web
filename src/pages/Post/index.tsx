@@ -72,11 +72,14 @@ function Index() {
     const handleChange = (event: React.SyntheticEvent, newValue: number = 0) => {
         setValue(newValue);
 
-        const filteredSubCategory = menuData!
-        .filter((category, key) => (key == newValue && category.sub_category))
-        .map(item => ({ ...item, key_id: newValue }))
-       
-        setSubCategory(filteredSubCategory)
+        if(event.target){
+            const filteredSubCategory = menuData!
+            .filter((category, key) => (key == newValue && category.sub_category))
+            .map(item => ({ ...item, key_id: newValue }))
+        
+            setSubCategory(filteredSubCategory);
+        }
+
     };
 
     // saves selected categorys of user in redux
