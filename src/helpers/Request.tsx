@@ -218,7 +218,7 @@ export async function Request(parameters: ParametersProps): Promise <object[]> {
 /*
     Management Request for everyone
 */
-export async function RequestPublic(parameters: ParametersProps): Promise <object> {
+export async function RequestPublic(parameters: ParametersProps): Promise <object[]> {
     const {method, url, formData} = parameters
 
     const appEndpoint = EndPoint + url;
