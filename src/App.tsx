@@ -18,7 +18,6 @@ function App() {
             path={route.path}
             element={<Layout>{route.component}</Layout>}
             key={idx}
-            exact={true}
           />
         ))}
 
@@ -31,7 +30,6 @@ function App() {
               </AuthCheck>
             }
             key={idx}
-            exact={true}
           />
         ))}
       </Routes>

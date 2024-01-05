@@ -9,13 +9,13 @@ import Search from "../pages/Adverts/search";
 
 // Post
 import Post from '../pages/Post/index'
-import PostAttributes from '../pages/Post/attributes'
+import PostAttributes from '../pages/Post/Sell'
 
 // Profile
 import ProfileInfo from "../pages/Profile";
 import ProfileView from "../pages/Profile/profileView";
-import MyAdsView from "../pages/Profile/myAdsView";
-import MyFavoriteView from "../pages/Profile/myFavoriteView";
+import MyAdsView from "../pages/Profile/MyAdsList";
+import MyFavoriteView from "../pages/Profile/MyFavoriteList";
 import AdvertEdit from "../pages/Post/Edit";
 
  const publicRoutes = [
