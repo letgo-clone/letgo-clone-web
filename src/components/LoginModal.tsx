@@ -17,7 +17,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 // styles and assets
 import { loginModalStyles } from '../styles';
-import Logo from '../assets/img/logo.svg'
 
 // Other packages
 import Carousel from 'react-material-ui-carousel'
@@ -184,7 +183,7 @@ const LoginModal = () => {
                         >
                             <Grid container spacing={2}>
                                 <Grid item lg={12} md={12} sm={12} xs={12} sx={loginModalStyles.iconGrid}>
-                                    <img src={Logo} width={74} height={47} />
+                                    <img src={''} width={74} height={47} />
                                 </Grid>
                                 {!showPassword ? (
                                     <>
