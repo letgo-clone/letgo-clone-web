@@ -29,15 +29,12 @@ import {
     advertDetailCarouselStyles 
     } from '../../styles';
 
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import sampleLocation from '../../assets/img/sample-location.png'
-
 // Helper
 import { RequestPublic } from '../../helpers/Request';
 
 // Other
 import { useParams } from "react-router-dom";
-import { Carousel } from 'react-responsive-carousel';
+import Carousel from 'react-material-ui-carousel'
 
 
 // İnterfaces
@@ -69,18 +66,6 @@ const AdvertDetail = () => {
         getData();
     }, [])
 
-    // rendered image thumb of carousel
-    const renderCustomThumbs = () => {
-        return advertImages?.map((item, key) => (
-          <Box key={key} sx={advertDetailStyles.carouselThumb}>
-            <img
-              src={item?.url}
-              alt={`Thumb ${key}`}
-              style={advertDetailCarouselStyles.carouselThumbImg}
-            />
-          </Box>
-        )) || []; // Eğer photo undefined ise, boş bir dizi döndür
-      };
 
     return (
         <Box sx={advertDetailStyles.mainBox}>
@@ -92,25 +77,21 @@ const AdvertDetail = () => {
                             <Grid container sx={advertDetailStyles.leftColumnGrid}>
                                 {/* Carousel  */}
                                 <Grid item lg={12} md={12} sm={12} xs={12}>
-                                    <Carousel 
-                                        showArrows={true} 
-                                        autoPlay={true} 
-                                        verticalSwipe={'natural'} 
-                                        dynamicHeight={false} 
-                                        showThumbs={true}
-                                        renderThumbs={renderCustomThumbs}
-                                        >
-                                         {advertDetail && advertImages?.map((item, key) => (
+                                <Carousel animation={'slide'} autoPlay={true} swipe={true} height={400}>
+                                    {
+                                        advertImages.map((item, key) => (
                                             <Box sx={advertDetailStyles.carouselBox} key={key}>
                                                 <img 
                                                     src={item.url} 
-                                                    width={item.width}
+                                                    width={1000}
                                                     loading='lazy'
                                                     style={advertDetailCarouselStyles.carouselImg} 
                                                 />
                                             </Box>
-                                        ))} 
-                                    </Carousel>
+                                        ))
+                                    }
+                                </Carousel>
+                
                                 </Grid>
                                 {/* Detail Card  */}
                                 <Grid item lg={12} md={12} sm={12} xs={12} sx={advertDetailStyles.leftColumnInfoGrid}>
@@ -212,7 +193,7 @@ const AdvertDetail = () => {
                                             </Grid>
                                         </CardContent>
                                         <CardActions sx={advertDetailStyles.rightColumnLocation}>
-                                            <img src={sampleLocation} width="640" />
+                                            <img src={'../../assets/img/sample-location.png'} width="640" />
                                         </CardActions>
                                     </Card>
                                 </Grid>
