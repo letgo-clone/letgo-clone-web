@@ -2,16 +2,20 @@ import React from 'react'
 import { Navigate } from "react-router-dom";
 import { useAppSelector } from '../redux/store';
 
-const AuthCheck = (props) => {
+interface AuthCheckProps {
+    children: React.ReactNode;
+  }
+  
+  const AuthCheck: React.FC<AuthCheckProps> = ({ children }) => {
     const LoginData =  useAppSelector((state) => state?.authUser.loginData);
 
     if(LoginData === undefined)
     {
         return (
-            <Navigate to={{ pathname:  "/", state: { from: props.location } }} />
+            <Navigate to={{ pathname:  "/" }} />
         );
     }
-    return <React.Fragment> {props.children}</React.Fragment>
+    return <React.Fragment> {children}</React.Fragment>
 }
 
 export default AuthCheck
