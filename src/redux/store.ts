@@ -27,7 +27,7 @@ const menuSlice = createSlice({
 
 const currentCategorySlice = createSlice({
   name: 'currentCategory',
-  initialState: {currentCategory: []} as CurrentCategoryState,
+  initialState: {currentCategory: {}} as CurrentCategoryState,
   reducers: {
     setCurrentCategory: (state, action) => {
       state.currentCategoryData = action.payload;
