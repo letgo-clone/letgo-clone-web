@@ -675,11 +675,6 @@ export const advertDetailCarouselStyles = {
         maxHeight: '400px', 
         width: 'auto', 
         height: '100%' 
-    },
-    carouselThumbImg: {
-        width: 'auto', 
-        height: '100%', 
-        maxHeight: 50 
     }
 }
 
@@ -703,17 +698,13 @@ export const advertDetailStyles: Record<string, SxProps<Theme> | undefined> = {
     },
 
      // Carousel
-     carouselThumbBox: {
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'center', 
-    },
     carouselBox: {
         backgroundColor: '#616161', 
         maxHeight: '400px', 
         width: 'auto', 
         height: '100%',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        textAlign:'center'
     },
 
     // Left column cards
