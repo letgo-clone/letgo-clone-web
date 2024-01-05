@@ -140,6 +140,7 @@ export const AdCard: React.FC<AdvertProps> = ({ data, grid }) => {
                                             adCardStyles.cardPartnerMedia
                                         )
                                     }
+                                    loading="lazy"
                                     image={item.photo!}
                                 />
                                 {(item.display_type == 'hot' && item.display_name !== 'Otoplus') && (
