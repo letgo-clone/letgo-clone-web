@@ -33,7 +33,7 @@ import { searchStyles } from '../../styles';
 import { RequestPublic } from '../../helpers/Request';
 
 // Redux
-import {useAppSelector, useAppDispatch, setSearchData} from '../../redux/store';
+import store, {useAppSelector, useAppDispatch, setSearchData, setSearchDrawer} from '../../redux/store';
 
 // other
 import { useFormik } from 'formik';
@@ -57,6 +57,7 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
     const dispatch = useAppDispatch();
     const {menuData} = useAppSelector((state) => state?.Menu);
     const {searchData} = useAppSelector((state) => state?.search);
+    const searchDrawer = store.getState().searchDrawer?.searchDrawer;
 
 
 
@@ -109,6 +110,7 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
                     date: Date.now()
                 }]
                 dispatch(setSearchData(searchData))
+                dispatch(setSearchDrawer(!searchDrawer))
                 navigate('/search/' + locationDetail + '/'  + searchFilter);
             }
         }

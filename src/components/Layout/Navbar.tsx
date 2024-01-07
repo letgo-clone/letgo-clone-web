@@ -77,6 +77,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
 
     // Redux
     const loginData = store.getState().authUser?.loginData;
+    const searchDrawer = store.getState().searchDrawer?.searchDrawer;
 
     // useState elements
     const [mobileNav, setMobileNav] = useState<null | HTMLElement>(null);
@@ -93,6 +94,13 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
             setUserData(loginData)
         }
     },[loginData])
+
+    /*
+        turns on and off the search grid
+    */
+    useEffect(() => {
+        closeSearchDiv();
+    },[searchDrawer])
     
     // Mobile navbar drawer
     const openMobileMenu = (event: MouseEvent<HTMLElement>) => {
@@ -106,10 +114,10 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
     const openSearchDiv = (event: MouseEvent<HTMLElement>) => {
         setSearchDiv(event.currentTarget);
     }
+
     const closeSearchDiv = () => {
         setSearchDiv(null)
     }
-
 
     // Login Dialog
     const handleLoginOpen = () => {
