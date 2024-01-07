@@ -41,9 +41,11 @@ export const navbarStyles: Record<string, SxProps<Theme> | undefined> = {
         width: '100%' 
     },
     inputSearchAreaInputBase: {
-        ml: 1, 
+        ml: 1.5, 
         flex: 1, 
-        pt: 1 
+        pt: 0.5,
+        color:'#000000',
+        fontWeight: 500 
     },
     searchInputIconButton: {
         p: '12px',
@@ -275,7 +277,7 @@ export const subNavbarStyles: Record<string, SxProps<Theme> | undefined> = {
     },
     container: {
         marginTop: '5px',
-        marginBottom: '5px',
+        marginBottom: '2px',
         paddingRight: { sm: '0px' },
         paddingLeft: { sm: '0px' }
     },
@@ -328,7 +330,7 @@ export const subNavbarStyles: Record<string, SxProps<Theme> | undefined> = {
         color: '#2c2c2c',
         fontSize: '14px',
         lineHeight: 1.5,
-        fontWeight: 300,
+        fontWeight: 400,
         textTransform: 'capitalize',
         margin: '0px 8px'
     }
