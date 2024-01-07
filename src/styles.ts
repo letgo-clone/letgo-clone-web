@@ -20,43 +20,7 @@ export const navbarStyles: Record<string, SxProps<Theme> | undefined> = {
     logoIconButton: {
         display: { md: 'flex', xs: 'none' }
     },
-    selectLocation: {
-        flex: 1
-    },
-    selectLocationListItem: {
-        padding: '0.6px'
-    },
-    selectLocationListItemFirstIcon: {
-        minWidth: '20%'
-    },
-    inputSearchGrid: {
-        paddingLeft: '1%'
-    },
-    inputSearchPaper: { 
-        display: 'flex', 
-        alignItems: 'center', 
-        border: '1px solid #c4baba', 
-        boxShadow: '0', 
-        p: '0px', 
-        width: '100%' 
-    },
-    inputSearchAreaInputBase: {
-        ml: 1.5, 
-        flex: 1, 
-        pt: 0.5,
-        color:'#000000',
-        fontWeight: 500 
-    },
-    searchInputIconButton: {
-        p: '12px',
-        color: '#FFFFFF',
-        backgroundColor: '#2c2c2c',
-        borderRadius: '0px 2px 2px 0px',
-        '&:hover': { 
-            color: 'FFFFFF', 
-            backgroundColor: '#2c2c2c' 
-        }
-    },
+    
     // Right auth elements
     rightButtonsGrid: {
         display: { md: 'contents', sm: 'contents', xs: 'none' }
@@ -268,6 +232,50 @@ export const authUserMenuStyle = {
         transform: 'translateY(-50%) rotate(45deg)',
         zIndex: 0,
     }
+}
+
+export const searchStyles: Record<string, SxProps<Theme> | undefined> = {
+
+    // Location Input
+    selectLocation: {
+        flex: 1
+    },
+    selectLocationListItem: {
+        padding: '0.6px'
+    },
+    selectLocationListItemFirstIcon: {
+        minWidth: '20%'
+    },
+
+    // Search Input
+    inputSearchGrid: {
+        paddingLeft: '1%'
+    },
+    inputSearchPaper: { 
+        display: 'flex', 
+        alignItems: 'center', 
+        border: '1px solid #c4baba', 
+        boxShadow: '0', 
+        p: '0px', 
+        width: '100%' 
+    },
+    inputSearchAreaInputBase: {
+        ml: 1.5, 
+        flex: 1, 
+        pt: 0.5,
+        color:'#000000',
+        fontWeight: 500 
+    },
+    searchInputIconButton: {
+        p: '12px',
+        color: '#FFFFFF',
+        backgroundColor: '#2c2c2c',
+        borderRadius: '0px 2px 2px 0px',
+        '&:hover': { 
+            color: 'FFFFFF', 
+            backgroundColor: '#2c2c2c' 
+        }
+    },
 }
 
 export const subNavbarStyles: Record<string, SxProps<Theme> | undefined> = {

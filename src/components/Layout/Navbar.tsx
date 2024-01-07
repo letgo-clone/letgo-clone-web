@@ -9,10 +9,8 @@ import {
     Toolbar, 
     IconButton, 
     MenuItem, 
-    FormControl, 
     Container, 
     Paper, 
-    Select, 
     Drawer, 
     Dialog, 
     DialogTitle, 
@@ -55,6 +53,7 @@ import MobileLogo from '../../assets/img/logo-mobile.svg'
 // Components
 import LoginModal from '../LoginModal';
 import { Request } from '../../helpers/Request';
+import Search from '../common/Search';
 
 // React Router
 import { Link, useNavigate } from 'react-router-dom';
@@ -150,61 +149,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                             <img src={Logo} width={'120'} height={'48'} />
                         </IconButton>
                     </Link>
-                    <Grid container>
-                        {/* Location select input */}
-                        <Grid item xl={4} md={4} xs={4}>
-                            <FormControl size="small" fullWidth>
-                                <Select
-                                    id="location"
-                                    name="location"
-                                    value="34"
-                                    sx={navbarStyles.selectLocation}
-                                >
-                                    <MenuItem value="34">
-                                        <ListItem sx={navbarStyles.selectLocationListItem}>
-                                            <ListItemIcon sx={navbarStyles.selectLocationListItemFirstIcon}>
-                                                <LocationOn />
-                                            </ListItemIcon>
-                                            <ListItemText primary="İstanbul, Türkiye" />
-                                        </ListItem>
-                                    </MenuItem>
-                                    <MenuItem value="06">
-                                        <ListItem sx={navbarStyles.selectLocationListItem}>
-                                            <ListItemIcon>
-                                                <LocationOn />
-                                            </ListItemIcon>
-                                            <ListItemText primary="Ankara" />
-                                        </ListItem>
-                                    </MenuItem>
-                                    <MenuItem value="35">
-                                        <ListItem sx={navbarStyles.selectLocationListItem}>
-                                            <ListItemIcon>
-                                                <LocationOn />
-                                            </ListItemIcon>
-                                            <ListItemText primary="İzmir" />
-                                        </ListItem>
-                                    </MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                        {/* Search input */}
-                        <Grid item xl={8} md={8} xs={12} sx={navbarStyles.inputSearchGrid}>
-                            <Paper component="form" sx={navbarStyles.inputSearchPaper}>
-                                <InputBase
-                                    sx={navbarStyles.inputSearchAreaInputBase}
-                                    placeholder="Araba, telefon, bisiklet ve daha fazlası"
-                                    inputProps={{ 'aria-label': 'search google maps' }}
-                                />
-                                <IconButton
-                                    href='/item/search'
-                                    color="primary"
-                                    sx={navbarStyles.searchInputIconButton}
-                                    aria-label="directions">
-                                    <SearchOutlined />
-                                </IconButton>
-                            </Paper>
-                        </Grid>
-                    </Grid>
+                    <Search />
                      {/* Right menu content according to login */}
                     {isLogin ? (
                         <Box sx={navbarStyles.rightButtonsGrid}>
