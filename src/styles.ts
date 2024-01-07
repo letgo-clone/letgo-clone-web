@@ -198,7 +198,7 @@ export const navbarStyles: Record<string, SxProps<Theme> | undefined> = {
     mobileSearchInputBase: {
         ml: 1, 
         flex: 1, 
-        pt: 1
+        pt: 0.1
     },
 
     // Dialog content style
@@ -257,6 +257,17 @@ export const searchStyles: Record<string, SxProps<Theme> | undefined> = {
         border: '1px solid #c4baba', 
         boxShadow: '0', 
         p: '0px', 
+        width: '100%',
+        '&:hover': {
+            borderColor: '#000000'
+        }
+    },
+    inputSearchErrorPaper: {
+        display: 'flex', 
+        alignItems: 'center', 
+        border: '1px solid red', 
+        boxShadow: '0', 
+        p: '0px', 
         width: '100%' 
     },
     inputSearchAreaInputBase: {
@@ -276,6 +287,57 @@ export const searchStyles: Record<string, SxProps<Theme> | undefined> = {
             backgroundColor: '#2c2c2c' 
         }
     },
+
+    // Mobile
+    drawerTitle : {
+        p:'5px'
+    },
+    iconButton: {
+        float: 'left'
+    },
+    dialogTitleClose: {
+        fontSize: '2rem' 
+    },
+    dialogContent: {
+        backgroundColor: '#e0e0e0',
+        height: '100%'
+    },
+    inputMobileSearchGrid: {
+        paddingLeft: '0',
+        marginBottom: '15px',
+        marginTop: '10px'
+    },
+    mobileSelectLocation: {
+        backgroundColor: '#ffffff',
+    },
+    mobileSearchIcon: {
+        margin: '5px 15px 8px 5px',
+        fontSize: '25px',
+        color:'gray'
+    },
+
+    // Category
+    dialogCategoryBox: {
+        marginTop: '25px'
+    },
+    dialogCategoryTitle: {
+        textTransform: 'uppercase',
+        color: '#424242',
+        fontSize: '12px'
+    },
+    dialogCategoryList: {
+        padding:0,
+        marginTop: '10px'
+    },
+    dialogCategoryListItem: {
+        p: '0px 10px 10px 0px'
+    },
+    dialogCategoryListItemButton: {
+        padding: '10px 5px 15px 0px'
+    },
+    dialogCategoryText: {
+        color: '#2c2c2c'
+    }
 }
 
 export const subNavbarStyles: Record<string, SxProps<Theme> | undefined> = {

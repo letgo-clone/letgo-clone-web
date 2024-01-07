@@ -41,10 +41,11 @@ import {
     Notifications,
     ExpandMore,
     Logout, 
+    ArrowBack,
     Menu as MenuIcon } from '@mui/icons-material';
 
 // Material UI styles
-import { navbarStyles, authUserMenuStyle } from '../../styles';
+import { navbarStyles, authUserMenuStyle, searchStyles } from '../../styles';
 
 // Logo
 import Logo from '../../assets/img/logo.svg'
@@ -79,6 +80,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
 
     // useState elements
     const [mobileNav, setMobileNav] = useState<null | HTMLElement>(null);
+    const [mobileSearchDiv, setSearchDiv] = useState<null | HTMLElement>(null);
     const [profilePopover, setProfilePopover] = React.useState<null | HTMLElement>(null);
     const [loginOpen, setLoginOpen] = useState<boolean>(false);
     const [userData, setUserData] = useState<LoginData>({});
@@ -99,6 +101,15 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
     const closeMobileMenu = () => {
         setMobileNav(null)
     }
+
+    // Mobile Search
+    const openSearchDiv = (event: MouseEvent<HTMLElement>) => {
+        setSearchDiv(event.currentTarget);
+    }
+    const closeSearchDiv = () => {
+        setSearchDiv(null)
+    }
+
 
     // Login Dialog
     const handleLoginOpen = () => {
@@ -368,7 +379,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                             </Grid>
                         </Grid>
                         <Grid item xs={6}>
-                            <Box>
+                            <Box onClick={openSearchDiv}>
                                 <ListItem sx={navbarStyles.mobileLocationListItem}>
                                     <ListItemText primary="İstanbul, Türkiye" sx={navbarStyles.mobileLocationListItemText} />
                                     <ListItemIcon sx={navbarStyles.mobileLocationListItemIcon}>
@@ -385,7 +396,10 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                 <InputBase
                                     sx={navbarStyles.mobileSearchInputBase}
                                     placeholder="Araba, telefon, bisiklet ve daha fazlası"
-                                    inputProps={{ 'aria-label': 'search google maps' }}
+                                    inputProps={{
+                                        readOnly: true
+                                    }}
+                                    onClick={openSearchDiv}
                                 />
                             </Paper>
                         </Grid>
@@ -407,6 +421,26 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                 </DialogTitle>
                 <LoginModal />
             </Dialog>
+            <Drawer
+                anchor={'top'}
+                open={Boolean(mobileSearchDiv)}
+                onClose={closeSearchDiv}
+                PaperProps={{
+                    sx: {
+                        height: '100%',
+                        maxHeight: 'none',
+                    },
+                }}
+            >
+                <DialogTitle sx={searchStyles.drawerTitle}>
+                    <IconButton onClick={closeSearchDiv} sx={searchStyles.iconButton}>
+                        <ArrowBack sx={searchStyles.dialogTitleClose} />
+                    </IconButton>
+                </DialogTitle>
+                <Box sx={searchStyles.dialogContent}>
+                    <Search dimension='mobile'/>
+                </Box>
+            </Drawer>
         </AppBar >
     )
 }
