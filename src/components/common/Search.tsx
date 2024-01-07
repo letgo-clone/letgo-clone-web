@@ -38,7 +38,7 @@ import {useAppSelector, useAppDispatch, setSearchData} from '../../redux/store';
 // other
 import { useFormik } from 'formik';
 import slugify from 'react-slugify';
-import { useNavigate, useParams, Link } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 // İnterface
 import { 
@@ -56,6 +56,8 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
     // Redux
     const dispatch = useAppDispatch();
     const {menuData} = useAppSelector((state) => state?.Menu);
+    const {searchData} = useAppSelector((state) => state?.search);
+
 
 
     // React Router
@@ -114,7 +116,12 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
 
     // Category
     const firstSixCategory = menuData?.slice(0, 4);
-    console.log(firstSixCategory)
+
+    const handleRecentSearch = (search: string) => {
+        const searchFilter = slugify(search);
+        navigate('/search/' + cityId + '/'  + searchFilter);
+    }
+
   return (
     <Container>
         <form
@@ -147,7 +154,9 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
                                 error={Boolean(formik.values.location == '' && formik.touched.location)}
                             >
                                 <MenuItem value="0">
-                                    <ListItem sx={searchStyles.selectLocationListItem}>
+                                    <ListItem
+                                     sx={searchStyles.selectLocationListItem}
+                                     >
                                         <ListItemIcon>
                                             <LocationOn />
                                         </ListItemIcon>
@@ -205,6 +214,30 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
             </Grid>
             {dimension == 'mobile' && 
                 <Grid container>
+                     <Grid 
+                        item
+                        md={12}
+                        xs={12}
+                        sm={12}
+                    >
+                        <Box sx={searchStyles.dialogCategoryBox}>
+                            <Typography sx={searchStyles.dialogCategoryTitle}>Son Aramalar</Typography>
+                              <List sx={searchStyles.dialogCategoryList}>
+                                     {searchData?.map((recentItem, key) => (
+                                         <ListItem key={key} sx={searchStyles.dialogRecentSearchListItem}>
+                                                 <ListItemButton 
+                                                    sx={searchStyles.dialogRecentSearchListItemButton}
+                                                    onClick={() => handleRecentSearch(recentItem?.title)}
+                                                    >
+                                                    <Typography 
+                                                        sx={searchStyles.dialogRecentSearchText}
+                                                    >{recentItem.title}</Typography>
+                                                 </ListItemButton>
+                                         </ListItem>
+                                     ))}
+                            </List>
+                        </Box>
+                    </Grid>
                     <Grid 
                         item
                         md={12}
@@ -216,11 +249,10 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
                               <List sx={searchStyles.dialogCategoryList}>
                                      {firstSixCategory?.map((Item, key) => (
                                          <ListItem key={key} sx={searchStyles.dialogCategoryListItem}>
-                                             <Link 
-                                                to="/post/attributes" 
-                                                style={{textDecoration: 'none'}}
-                                                >
-                                                 <ListItemButton sx={searchStyles.dialogCategoryListItemButton}>
+                                                 <ListItemButton 
+                                                    sx={searchStyles.dialogCategoryListItemButton}
+                                                    onClick={() => handleRecentSearch(Item?.category_name)}
+                                                    >
                                                     <ListItemIcon>
                                                         <Avatar alt="Remy Sharp" src={Item.icon}/>
                                                     </ListItemIcon>
@@ -229,7 +261,6 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
                                                         primary={Item?.category_name} 
                                                     />
                                                  </ListItemButton>
-                                             </Link>
                                          </ListItem>
                                      ))}
                             </List>

@@ -243,9 +243,6 @@ export const searchStyles: Record<string, SxProps<Theme> | undefined> = {
     selectLocationListItem: {
         padding: '0.6px'
     },
-    selectLocationListItemFirstIcon: {
-        minWidth: '20%'
-    },
 
     // Search Input
     inputSearchGrid: {
@@ -322,7 +319,7 @@ export const searchStyles: Record<string, SxProps<Theme> | undefined> = {
         backgroundColor: '#ffffff',
     },
     mobileSearchIcon: {
-        margin: '5px 15px 8px 5px',
+        margin: '5px 25px 8px 5px',
         fontSize: '25px',
         color:'gray'
     },
@@ -348,6 +345,19 @@ export const searchStyles: Record<string, SxProps<Theme> | undefined> = {
     },
     dialogCategoryText: {
         color: '#2c2c2c'
+    },
+
+    // Recent Search
+    dialogRecentSearchListItem: {
+        p: '0px 5px 5px 0px'
+    },
+    dialogRecentSearchListItemButton: {
+        padding: '5px 5px 5px 10px'
+    },
+    dialogRecentSearchText: {
+        color: '#2c2c2c',
+        fontSize: '14px',
+        fontWeight: 700
     }
 }
 
