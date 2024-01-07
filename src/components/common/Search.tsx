@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent, useEffect } from 'react';
+import React from 'react';
 
 // Material UI elements
 import { 
@@ -19,9 +19,14 @@ import {
     LocationOn 
 } from '@mui/icons-material';
 
+// styles
 import { searchStyles } from '../../styles';
 
-const Search = () => {
+// İnterface
+import { searchProps } from './commonTypes';
+
+const Search: React.FC<searchProps> = ({ dimension }) => {
+   
   return (
     <Grid container>
         {/* Location select input */}
@@ -81,4 +86,4 @@ const Search = () => {
   )
 }
 
-export default Search
+export default Search;

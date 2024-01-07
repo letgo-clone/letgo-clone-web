@@ -52,8 +52,11 @@ import MobileLogo from '../../assets/img/logo-mobile.svg'
 
 // Components
 import LoginModal from '../LoginModal';
-import { Request } from '../../helpers/Request';
 import Search from '../common/Search';
+
+// helper
+import { Request } from '../../helpers/Request';
+
 
 // React Router
 import { Link, useNavigate } from 'react-router-dom';
@@ -149,7 +152,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                             <img src={Logo} width={'120'} height={'48'} />
                         </IconButton>
                     </Link>
-                    <Search />
+                    <Search dimension={'desktop'} />
                      {/* Right menu content according to login */}
                     {isLogin ? (
                         <Box sx={navbarStyles.rightButtonsGrid}>
