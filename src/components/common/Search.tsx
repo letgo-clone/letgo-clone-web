@@ -29,6 +29,7 @@ import { RequestPublic } from '../../helpers/Request';
 // other
 import { useFormik } from 'formik';
 import slugify from 'react-slugify';
+import { useNavigate } from 'react-router-dom';
 
 // İnterface
 import { 
@@ -39,6 +40,9 @@ import {
 import { CountiesProps } from '../../pages/advertTypes';
 
 const Search: React.FC<searchProps> = ({ dimension }) => {
+    // React Router
+    const navigate = useNavigate();
+
     const cityId = '34';
     const [counties, setCounties] = useState<CountiesProps[]>([]);
 
@@ -57,8 +61,7 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
     },[])
 
    const initialValues: searchFormTypes = {
-        cityId: cityId,
-        location: '',
+        location: '0',
         search: '',
     }
 
@@ -66,10 +69,13 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
         enableReinitialize: true,
         initialValues,
         onSubmit: async (values) => {
-            const {cityId, location, search} = values;
-
-            const searchFilter = slugify(search);
+            const {location, search} = values;
+            const locationDetail = location == '0' ? cityId : cityId + '-' + location;
            
+            const searchFilter = slugify(search);
+             if(search !== ''){
+                navigate('/search/' + locationDetail + '/'  + searchFilter) 
+            }
         }
     })
   return (
@@ -89,7 +95,7 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
                                 onChange={formik.handleChange}
                                 error={Boolean(formik.values.location == '' && formik.touched.location)}
                             >
-                                <MenuItem value="34">
+                                <MenuItem value="0">
                                     <ListItem sx={searchStyles.selectLocationListItem}>
                                         <ListItemIcon sx={searchStyles.selectLocationListItemFirstIcon}>
                                             <LocationOn />
@@ -112,7 +118,12 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
                     </Grid>
                     {/* Search input */}
                     <Grid item xl={8} md={8} xs={12} sx={searchStyles.inputSearchGrid}>
-                        <Paper sx={searchStyles.inputSearchPaper}>
+                        <Paper sx={
+                              formik.values.search == '' && formik.touched.search ?
+                                    searchStyles.inputSearchErrorPaper
+                               :
+                                    searchStyles.inputSearchPaper
+                            }>
                             <InputBase
                                 name="search"
                                 placeholder="Araba, telefon, bisiklet ve daha fazlası"
@@ -120,7 +131,6 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
                                 sx={searchStyles.inputSearchAreaInputBase}
                                 value={formik.values.search}
                                 onChange={formik.handleChange}
-                                error={Boolean(formik.values.search == '' && formik.touched.search)}
                             />
                             <Button
                                 type="submit"
