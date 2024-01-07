@@ -110,7 +110,7 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
                     date: Date.now()
                 }]
                 dispatch(setSearchData(searchData))
-                dispatch(setSearchDrawer(!searchDrawer))
+                handleTurnSearchDrawer()
                 navigate('/search/' + locationDetail + '/'  + searchFilter);
             }
         }
@@ -119,8 +119,16 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
     // Category
     const firstSixCategory = menuData?.slice(0, 4);
 
+    /*
+        turns on and off the search grid
+    */
+    const handleTurnSearchDrawer = () => {
+        dispatch(setSearchDrawer(!searchDrawer))
+    }
+
     const handleRecentSearch = (search: string) => {
         const searchFilter = slugify(search);
+        handleTurnSearchDrawer()
         navigate('/search/' + cityId + '/'  + searchFilter);
     }
 
