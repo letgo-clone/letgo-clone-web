@@ -47,3 +47,14 @@ export interface Category {
 export interface CurrentCategoryState {
     currentCategoryData?: Category[];
 }
+
+// Search
+
+export interface Search {
+    title: string,
+    date: string
+}
+
+export interface RecentSearch {
+    searchData: Search[]
+}

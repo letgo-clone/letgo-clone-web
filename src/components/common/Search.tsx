@@ -33,7 +33,7 @@ import { searchStyles } from '../../styles';
 import { RequestPublic } from '../../helpers/Request';
 
 // Redux
-import {useAppSelector} from '../../redux/store';
+import {useAppSelector, useAppDispatch, setSearchData} from '../../redux/store';
 
 // other
 import { useFormik } from 'formik';
@@ -46,7 +46,6 @@ import {
     ,searchFormTypes 
     } from './commonTypes';
 
-import { Menu } from '../../redux/interface';
 import { CountiesProps } from '../../pages/advertTypes';
 
 const Search: React.FC<searchProps> = ({ dimension }) => {
@@ -55,6 +54,7 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
     const searchInputGrid =  dimension == 'desktop' ? [8,8,12,12] : [8,8,12,12];
 
     // Redux
+    const dispatch = useAppDispatch();
     const {menuData} = useAppSelector((state) => state?.Menu);
 
 
@@ -64,7 +64,7 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
 
     const paramLocation = params.location;
     const paramLocationSplit = paramLocation && paramLocation.split('-');
-    const paramsSearch = params.search;
+    const paramsSearch = slugify(params.search, {delimiter: ' '});
 
     const cityId = '34';
     // useState
@@ -98,10 +98,16 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
         onSubmit: async (values) => {
             const {location, search} = values;
             const locationDetail = location == '0' ? cityId : slugify(location, { prefix: cityId });
-            
+          
             const searchFilter = slugify(search);
              if(search !== ''){
-                navigate('/search/' + locationDetail + '/'  + searchFilter) 
+
+                const searchData = [{
+                    title: search,
+                    date: Date.now()
+                }]
+                dispatch(setSearchData(searchData))
+                navigate('/search/' + locationDetail + '/'  + searchFilter);
             }
         }
     })
