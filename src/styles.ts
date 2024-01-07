@@ -289,11 +289,22 @@ export const searchStyles: Record<string, SxProps<Theme> | undefined> = {
     },
 
     // Mobile
-    drawerTitle : {
-        p:'5px'
+    drawerBoxTitle : {
+        p:'5px',
     },
-    iconButton: {
+    drawerBoxLeftIcon: {
         float: 'left'
+    },
+    drawerBoxRightIcon: {
+        float: 'right',
+        position: 'relative',
+        bottom: '50px',
+        color: '#ff3f55',
+        p:0,
+        borderRadius: 0,
+        fontSize: '12px',
+        fontWeight: 600,
+        borderBottom: '3px solid #ff3f55'
     },
     dialogTitleClose: {
         fontSize: '2rem' 

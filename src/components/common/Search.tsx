@@ -114,6 +114,11 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
         <form
             onSubmit={formik.handleSubmit}
         >
+            {dimension == 'mobile' &&
+              <Box sx={searchStyles.drawerBoxTitle}>
+                    <Button type="submit" sx={searchStyles.drawerBoxRightIcon}>Ara</Button>
+                </Box>
+            }
             <Grid 
                 container
                 direction={dimension == 'desktop' ? 'row' : 'column-reverse'}

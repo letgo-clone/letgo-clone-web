@@ -432,11 +432,11 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                     },
                 }}
             >
-                <DialogTitle sx={searchStyles.drawerTitle}>
-                    <IconButton onClick={closeSearchDiv} sx={searchStyles.iconButton}>
+                <Box sx={searchStyles.drawerBoxTitle}>
+                    <IconButton onClick={closeSearchDiv} sx={searchStyles.drawerBoxLeftIcon}>
                         <ArrowBack sx={searchStyles.dialogTitleClose} />
                     </IconButton>
-                </DialogTitle>
+                </Box>
                 <Box sx={searchStyles.dialogContent}>
                     <Search dimension='mobile'/>
                 </Box>
