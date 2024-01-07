@@ -29,7 +29,7 @@ import { RequestPublic } from '../../helpers/Request';
 // other
 import { useFormik } from 'formik';
 import slugify from 'react-slugify';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 // İnterface
 import { 
@@ -42,13 +42,19 @@ import { CountiesProps } from '../../pages/advertTypes';
 const Search: React.FC<searchProps> = ({ dimension }) => {
     // React Router
     const navigate = useNavigate();
+    const params = useParams();
+
+    const paramLocation = params.location;
+    const paramLocationSplit = paramLocation && paramLocation.split('-');
+    const paramsSearch = params.search;
 
     const cityId = '34';
+    // useState
     const [counties, setCounties] = useState<CountiesProps[]>([]);
 
     useEffect(() => {
         const getCounties = async() => {
-            const url = "/advert/location/" + 34;
+            const url = "/advert/location/" + cityId;
             const result = await RequestPublic({
                 method: 'GET',
                 url: url
@@ -61,8 +67,10 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
     },[])
 
    const initialValues: searchFormTypes = {
-        location: '0',
-        search: '',
+        location: paramLocationSplit !== undefined && paramLocationSplit[1] ? 
+                            paramLocationSplit[1] 
+                  : '0',
+        search: paramsSearch ? paramsSearch : '',
     }
 
     const formik = useFormik({
@@ -70,8 +78,8 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
         initialValues,
         onSubmit: async (values) => {
             const {location, search} = values;
-            const locationDetail = location == '0' ? cityId : cityId + '-' + location;
-           
+            const locationDetail = location == '0' ? cityId : slugify(location, { prefix: cityId });
+            
             const searchFilter = slugify(search);
              if(search !== ''){
                 navigate('/search/' + locationDetail + '/'  + searchFilter) 
