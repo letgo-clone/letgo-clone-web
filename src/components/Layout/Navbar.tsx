@@ -154,6 +154,25 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
         }
     }
 
+    // Sell Button
+    const handleSellButton = () => {
+        console.log(isLogin)
+        if(isLogin){
+            navigate('/post')
+        }else{
+            handleLoginOpen()
+        }
+    }
+
+    const handleAdsButton = () => {
+        console.log(isLogin)
+        if(isLogin){
+            navigate('/profile/myads');
+        }else{
+            handleLoginOpen()
+        }
+    }
+    console.log(isLogin)
     return (
         <AppBar position="static" sx={navbarStyles.appBar}>
             <Container maxWidth='lg' sx={navbarStyles.container}>
@@ -232,7 +251,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                         </Button>
                                     </MenuItem>
                                     <Divider />
-                                    <MenuItem component="a" href="/profile/myads" onClick={handleProfileClose}>
+                                    <MenuItem component="a" onClick={() => handleAdsButton()}>
                                         <ListItemIcon>
                                             <Favorite fontSize="small" />
                                         </ListItemIcon>
@@ -250,30 +269,30 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                     </MenuItem>
                                 </Menu>
                             </Grid>
-                            <Link to="/post">
-                                <Button
-                                    sx={navbarStyles.authMenuSellButton}
-                                    variant='contained'
-                                    color='error'
-                                    startIcon={<CameraAlt />} >
-                                    <Typography sx={navbarStyles.authMenuSellButtonText}>Sat</Typography>
-                                </Button>
-                            </Link>
+                            <Button
+                                sx={navbarStyles.authMenuSellButton}
+                                variant='contained'
+                                color='error'
+                                startIcon={<CameraAlt />} 
+                                onClick={() => handleSellButton()}
+                            >
+                                <Typography sx={navbarStyles.authMenuSellButtonText}>Sat</Typography>
+                            </Button>
                         </Box>
                     ): (
                         <Box sx={navbarStyles.rightButtonsGrid}>
                             <Button onClick={handleLoginOpen} sx={navbarStyles.loginButtonOnRight}>
                                 <Typography sx={navbarStyles.loginButtonTextOnRight}>Giriş</Typography>
                             </Button>
-                            <Link to="/post">
-                                <Button
-                                    sx={navbarStyles.sellButtonOnRight}
-                                    variant='contained'
-                                    color='error'
-                                    startIcon={<CameraAlt />} >
-                                    <Typography sx={navbarStyles.sellButtonTextOnRight}>Sat</Typography>
-                                </Button>
-                            </Link>
+                            <Button
+                                sx={navbarStyles.authMenuSellButton}
+                                variant='contained'
+                                color='error'
+                                startIcon={<CameraAlt />} 
+                                onClick={() => handleSellButton()}
+                            >
+                                <Typography sx={navbarStyles.authMenuSellButtonText}>Sat</Typography>
+                            </Button>
                         </Box>
                     )}
                 </Toolbar>
@@ -341,23 +360,29 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                                             </Box>
                                                             </>
                                                         ): (
-                                                            <ListItem sx={navbarStyles.drawerAvatarListItem}>
-                                                            <ListItemAvatar>
-                                                                <Avatar sx={navbarStyles.drawerAvatar}>
-                                                                    <Face2 />
-                                                                </Avatar>
-                                                            </ListItemAvatar>
-                                                            <ListItemText
-                                                                primary="Hesabına Gir"
-                                                                secondary="Hesabına giriş yap"
-                                                                sx={navbarStyles.drawerAvatarListItemText}
-                                                            />
+                                                            <ListItem 
+                                                                sx={navbarStyles.drawerAvatarListItem}
+                                                                onClick={handleLoginOpen}
+                                                            >
+                                                                <ListItemAvatar>
+                                                                    <Avatar sx={navbarStyles.drawerAvatar}>
+                                                                        <Face2 />
+                                                                    </Avatar>
+                                                                </ListItemAvatar>
+                                                                <ListItemText
+                                                                    primary="Hesabına Gir"
+                                                                    secondary="Hesabına giriş yap"
+                                                                    sx={navbarStyles.drawerAvatarListItemText}
+                                                                />
                                                             </ListItem>
                                                         )}
                                                     
                                                         <Divider />
                                                         <ListItem disablePadding>
-                                                            <ListItemButton sx={navbarStyles.drawerMenuListItemButton}>
+                                                            <ListItemButton 
+                                                                sx={navbarStyles.drawerMenuListItemButton}
+                                                                onClick={() => handleSellButton()}
+                                                            >
                                                                     <ListItemIcon sx={navbarStyles.drawerMenuListItemIcon}>
                                                                         <CameraAlt />
                                                                     </ListItemIcon>
@@ -365,7 +390,10 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                                             </ListItemButton>
                                                         </ListItem>
                                                         <ListItem disablePadding>
-                                                            <ListItemButton sx={navbarStyles.drawerMenuListItemButton}>
+                                                            <ListItemButton 
+                                                                sx={navbarStyles.drawerMenuListItemButton}
+                                                                onClick={() => handleAdsButton()}
+                                                            >
                                                                     <ListItemIcon sx={navbarStyles.drawerMenuListItemIcon}>
                                                                         <Favorite />
                                                                     </ListItemIcon>

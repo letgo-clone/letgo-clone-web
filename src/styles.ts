@@ -70,7 +70,7 @@ export const navbarStyles: Record<string, SxProps<Theme> | undefined> = {
         borderRadius: 5,
         border: '4px solid white',
         '&:hover': { backgroundColor: '#FFFFFF', color: '#ff3f55' },
-        padding: '6px 15px 6px 15px'
+        padding: '6px 25px 6px 25px'
     },
     authMenuSellButtonText: {
         fontWeight: '600', 
@@ -126,7 +126,8 @@ export const navbarStyles: Record<string, SxProps<Theme> | undefined> = {
     },
     drawerLogoIconButton: {
         marginTop: '10px',
-        marginLeft: '1px'
+        marginLeft: 0,
+        padding:'8px 0px 5px 0px'
     },
 
     // Drawer menu list area
@@ -194,7 +195,8 @@ export const navbarStyles: Record<string, SxProps<Theme> | undefined> = {
     // Drawer styles end
 
     mobileTopLogo: {
-        marginLeft: '3px'
+        marginLeft: '0px',
+        p:'10px 0px 5px 0px'
     },
     mobileLocationListItem: {
         paddingRight: 0
