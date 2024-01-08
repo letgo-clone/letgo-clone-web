@@ -141,7 +141,6 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
 
     // Logout
     const handlelogout = async() => {
-        
         const url = "/oauth/logout";
         const result = await Request({
             method: 'GET',
@@ -300,77 +299,129 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                     >
                                         <Container>
                                             <Grid container>
-                                                <Grid item xs={1} sx={navbarStyles.drawerCloseIconGrid}>
-                                                    <IconButton size='medium' edge='start' onClick={closeMobileMenu}>
-                                                        <Close sx={navbarStyles.drawerCloseIcon} />
-                                                    </IconButton>
-                                                </Grid>
-                                                <Grid item xs={5}>
-                                                    <IconButton
-                                                        edge='start'
-                                                        color="inherit"
-                                                        aria-label="logo"
-                                                        sx={navbarStyles.drawerLogoIconButton}
-                                                    >
-                                                        <img src={MobileLogo} width={'60'} height={'28'} />
-                                                    </IconButton>
+                                                <Grid item xl={12} md={12} sm={12} xs={12}>
+                                                    <Grid container>
+                                                        <Grid item xs={1} sx={navbarStyles.drawerCloseIconGrid}>
+                                                            <IconButton size='medium' edge='start' onClick={closeMobileMenu}>
+                                                                <Close sx={navbarStyles.drawerCloseIcon} />
+                                                            </IconButton>
+                                                        </Grid>
+                                                        <Grid item xs={11}>
+                                                            <IconButton
+                                                                edge='start'
+                                                                color="inherit"
+                                                                aria-label="logo"
+                                                                sx={navbarStyles.drawerLogoIconButton}
+                                                            >
+                                                                <img src={MobileLogo} width={'60'} height={'28'} />
+                                                            </IconButton>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <List sx={navbarStyles.drawerMenuList} aria-label="contacts">
+                                                        {isLogin ? (
+                                                            <>
+                                                            <ListItem sx={navbarStyles.drawerMobileAvatarListItem}>
+                                                                <ListItemAvatar>
+                                                                    <Avatar sx={navbarStyles.drawerAvatar} src={userData.photo?.url}></Avatar>
+                                                                </ListItemAvatar>
+                                                                <Typography
+                                                                    sx={navbarStyles.drawerAvatarLoginText}
+                                                                >{userData?.fullname}</Typography>
+                                                            </ListItem>
+                                                            <Box onClick={handleProfileClose} sx={navbarStyles.drawerProfileButtonItem}>
+                                                                <Button
+                                                                    href="/editProfile/info"
+                                                                    variant="outlined"
+                                                                    sx={navbarStyles.authMobileMenuProfileButton}
+                                                                    color="error"
+                                                                    type="submit"
+                                                                >
+                                                                    Profili görüntüle ve düzenle
+                                                                </Button>
+                                                            </Box>
+                                                            </>
+                                                        ): (
+                                                            <ListItem sx={navbarStyles.drawerAvatarListItem}>
+                                                            <ListItemAvatar>
+                                                                <Avatar sx={navbarStyles.drawerAvatar}>
+                                                                    <Face2 />
+                                                                </Avatar>
+                                                            </ListItemAvatar>
+                                                            <ListItemText
+                                                                primary="Hesabına Gir"
+                                                                secondary="Hesabına giriş yap"
+                                                                sx={navbarStyles.drawerAvatarListItemText}
+                                                            />
+                                                            </ListItem>
+                                                        )}
+                                                    
+                                                        <Divider />
+                                                        <ListItem disablePadding>
+                                                            <ListItemButton sx={navbarStyles.drawerMenuListItemButton}>
+                                                                    <ListItemIcon sx={navbarStyles.drawerMenuListItemIcon}>
+                                                                        <CameraAlt />
+                                                                    </ListItemIcon>
+                                                                <ListItemText primary="Satmaya Başla" />
+                                                            </ListItemButton>
+                                                        </ListItem>
+                                                        <ListItem disablePadding>
+                                                            <ListItemButton sx={navbarStyles.drawerMenuListItemButton}>
+                                                                    <ListItemIcon sx={navbarStyles.drawerMenuListItemIcon}>
+                                                                        <Favorite />
+                                                                    </ListItemIcon>
+                                                                <ListItemText primary="İlanlarım" />
+                                                            </ListItemButton>
+                                                        </ListItem>
+                                                        <ListItem disablePadding>
+                                                            <ListItemButton sx={navbarStyles.drawerMenuListItemButton}>
+                                                                    <ListItemIcon sx={navbarStyles.drawerMenuListItemIcon}>
+                                                                        <Message />
+                                                                    </ListItemIcon>
+                                                                <ListItemText primary="Sohbet" />
+                                                            </ListItemButton>
+                                                        </ListItem>
+                                                        <Divider />
+                                                        <ListItem disablePadding>
+                                                            <ListItemButton sx={navbarStyles.drawerMenuListItemButton}>
+                                                                    <ListItemIcon sx={navbarStyles.drawerMenuListItemIcon}>
+                                                                        <Help />
+                                                                    </ListItemIcon>
+                                                                <ListItemText primary="Yardım" />
+                                                            </ListItemButton>
+                                                        </ListItem>
+                                                        {isLogin && (
+                                                            <>
+                                                            <Divider />
+                                                            <ListItem disablePadding>
+                                                                <ListItemButton 
+                                                                    sx={navbarStyles.drawerMenuListItemButton} 
+                                                                    onClick={() => {
+                                                                        handlelogout();
+                                                                        closeMobileMenu();
+                                                                    }}
+                                                                >
+                                                                        <ListItemIcon sx={navbarStyles.drawerMenuListItemIcon}>
+                                                                            <Logout />
+                                                                        </ListItemIcon>
+                                                                    <ListItemText primary="Çıkış" />
+                                                                </ListItemButton>
+                                                            </ListItem>
+                                                            </>
+                                                        )}
+                                                    </List>
+                                                    {!isLogin && (
+                                                    <Container sx={navbarStyles.drawerLoginButtonContainer}>
+                                                        <Button
+                                                            onClick={handleLoginOpen}
+                                                            variant="contained"
+                                                            color="error" 
+                                                            size='large'
+                                                            sx={navbarStyles.drawerLoginButton}
+                                                        >Giriş</Button>
+                                                    </Container>
+                                                    )}
                                                 </Grid>
                                             </Grid>
-                                            <List sx={navbarStyles.drawerMenuList} aria-label="contacts">
-                                                <ListItem sx={navbarStyles.drawerAvatarListItem}>
-                                                    <ListItemAvatar>
-                                                        <Avatar sx={navbarStyles.drawerAvatar}>
-                                                            <Face2 />
-                                                        </Avatar>
-                                                    </ListItemAvatar>
-                                                    <ListItemText
-                                                        primary="Hesabına Gir"
-                                                        secondary="Hesabına giriş yap"
-                                                        sx={navbarStyles.drawerAvatarListItemText}
-                                                    />
-                                                </ListItem>
-                                                <Divider />
-                                                <ListItem disablePadding>
-                                                    <ListItemButton sx={navbarStyles.drawerMenuListItemButton}>
-                                                            <ListItemIcon sx={navbarStyles.mobileNavbarListItemIcon}>
-                                                                <CameraAlt />
-                                                            </ListItemIcon>
-                                                        <ListItemText primary="Satmaya Başla" />
-                                                    </ListItemButton>
-                                                </ListItem>
-                                                <ListItem disablePadding>
-                                                    <ListItemButton sx={navbarStyles.drawerMenuListItemButton}>
-                                                            <ListItemIcon sx={navbarStyles.drawerMenuListItemIcon}>
-                                                                <Favorite />
-                                                            </ListItemIcon>
-                                                        <ListItemText primary="İlanlarım" />
-                                                    </ListItemButton>
-                                                </ListItem>
-                                                <ListItem disablePadding>
-                                                    <ListItemButton sx={navbarStyles.drawerMenuListItemButton}>
-                                                            <ListItemIcon sx={navbarStyles.drawerMenuListItemIcon}>
-                                                                <Message />
-                                                            </ListItemIcon>
-                                                        <ListItemText primary="Sohbet" />
-                                                    </ListItemButton>
-                                                </ListItem>
-                                                <Divider />
-                                                <ListItem disablePadding>
-                                                    <ListItemButton sx={navbarStyles.drawerMenuListItemButton}>
-                                                            <ListItemIcon sx={navbarStyles.drawerMenuListItemIcon}>
-                                                                <Help />
-                                                            </ListItemIcon>
-                                                        <ListItemText primary="Yardım" />
-                                                    </ListItemButton>
-                                                </ListItem>
-                                            </List>
-                                            <Container sx={navbarStyles.drawerLoginButtonContainer}>
-                                                <Button
-                                                    variant="contained"
-                                                    color="error" size='large'
-                                                    sx={navbarStyles.drawerLoginButton}
-                                                >Giriş</Button>
-                                            </Container>
                                         </Container>
                                     </Drawer>
                                 </Grid>

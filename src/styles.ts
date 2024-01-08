@@ -132,12 +132,17 @@ export const navbarStyles: Record<string, SxProps<Theme> | undefined> = {
     // Drawer menu list area
     drawerMenuList: {
         width: '100%', 
-        maxWidth: 360, 
+       
         bgcolor: 'background.paper' 
     },
     drawerAvatarListItem: {
         marginTop: '20px',
         marginBottom: '20px',
+        paddingLeft: 0
+    },
+    drawerMobileAvatarListItem: {
+        marginTop: '20px',
+        marginBottom: '10px',
         paddingLeft: 0
     },
     drawerAvatar: {
@@ -146,6 +151,27 @@ export const navbarStyles: Record<string, SxProps<Theme> | undefined> = {
     },
     drawerAvatarListItemText: {
         marginLeft: '10px'
+    },
+    drawerAvatarLoginText: {
+        fontWeight: 600, 
+        marginLeft: '10px', 
+        fontSize: '20px'
+    },
+    drawerProfileButtonItem: {
+        display: 'grid',
+        marginRight: '20px',
+        marginBottom:'25px',
+    },
+    authMobileMenuProfileButton: {
+        backgroundColor: '#ff3f55',
+        color: '#FFFFFF',
+        textTransform: 'none',
+        border: '6px solid transparent',
+        padding: '0px 25px 0px 25px',
+        fontSize: '16px',
+       
+        borderRadius: 15,
+        '&:hover': { bgcolor: '#FFFFFF', border: '6px solid #ff3f55', color: '#ff3f55' },
     },
     drawerMenuListItemButton: {
         paddingLeft: 0 
