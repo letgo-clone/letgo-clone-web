@@ -36,6 +36,9 @@ import { Link } from 'react-router-dom';
 // helper
 import { Request } from '../helpers/Request';
 
+// Redux
+import { useAppSelector } from '../redux/store';
+
 // Interfaces or Types
 import { 
     AdvertProps,
@@ -44,74 +47,79 @@ import {
 
 
 export const AdCard: React.FC<AdvertProps> = ({ data, grid }) => {
+    // Redux
+    const {loginData} = useAppSelector((state) => state?.authUser)
+
     const [cardData, setCardData] = useState<CardTypes[]>(data);
 
     const addFavorite = async (advertId: string, hasFavorite: boolean) => {
-        console.log(hasFavorite)
-        if(hasFavorite){
-            const formdata: FormData = new FormData();
-            formdata.append("op", 'remove');
-            formdata.append("path", 'has_advert_favorite');
-
-            const url = '/advert/favorite/' + advertId;
-
-            const data = await Request({
-                method: 'PATCH',
-                url: url,
-                formData: formdata
-            });
-
-            const responseErrorCheck = Object.keys(data).filter(item => item == 'error')
-            if(responseErrorCheck){
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Hata',
-                    text: 'Bi Hata oluştu',
-                  })
+        if(loginData){
+            if(hasFavorite){
+                const formdata: FormData = new FormData();
+                formdata.append("op", 'remove');
+                formdata.append("path", 'has_advert_favorite');
+    
+                const url = '/advert/favorite/' + advertId;
+    
+                const data = await Request({
+                    method: 'PATCH',
+                    url: url,
+                    formData: formdata
+                });
+    
+                const responseErrorCheck = Object.keys(data).filter(item => item == 'error')
+                if(!responseErrorCheck){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hata',
+                        text: 'Bi Hata oluştu',
+                      })
+                }
+    
+                setCardData(prevObjects => {
+                    return prevObjects.map(obj => {
+                      if (obj.id === advertId) {
+                        return { ...obj, has_favorite: false }
+                      }
+                      return obj;
+                    })
+                }) 
             }
-
-            setCardData(prevObjects => {
-                return prevObjects.map(obj => {
-                  if (obj.id === advertId) {
-                    return { ...obj, has_favorite: false }
-                  }
-                  return obj;
-                })
-            }) 
-        }
-        else
-        {
-            const formdata: FormData = new FormData();
-            formdata.append("op", 'add');
-            formdata.append("path", 'has_advert_favorite');
-
-            const url = '/advert/favorite/' + advertId;
-            
-            const data = await Request({
-                method: 'PATCH',
-                url: url,
-                formData: formdata
-            });
-
-            const responseErrorCheck = Object.keys(data).filter(item => item == 'error')
-
-            if(responseErrorCheck){
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Hata',
-                    text: 'Bi Hata oluştu',
-                  })
+            else
+            {
+                const formdata: FormData = new FormData();
+                formdata.append("op", 'add');
+                formdata.append("path", 'has_advert_favorite');
+    
+                const url = '/advert/favorite/' + advertId;
+                
+                const data = await Request({
+                    method: 'PATCH',
+                    url: url,
+                    formData: formdata
+                });
+    
+                const responseErrorCheck = Object.keys(data).filter(item => item == 'error')
+    
+                if(!responseErrorCheck){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hata',
+                        text: 'Bi Hata oluştu',
+                      })
+                }
+    
+                setCardData(prevObjects => {
+                    return prevObjects.map(obj => {
+                        if (obj.id === advertId) {
+                            return { ...obj, has_favorite: true }
+                        }
+                        return obj;
+                    })
+                })  
             }
-
-            setCardData(prevObjects => {
-                return prevObjects.map(obj => {
-                    if (obj.id === advertId) {
-                        return { ...obj, has_favorite: true }
-                    }
-                    return obj;
-                })
-            })  
         }
+
     }
 
     return (
