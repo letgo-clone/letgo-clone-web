@@ -1,7 +1,3 @@
-export type AdvertProps = {
-    data: CardTypes[];
-    grid: number[];
-}
 
 export interface FavoriteProps {
     error?: {

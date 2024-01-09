@@ -35,11 +35,8 @@ import { setLoginData, useAppDispatch } from '../redux/store';
 import { HandleLoginToken, Request } from '../helpers/Request';
 import Logo from '../assets/img/logo.svg'
 
-type loginModalProps = {
-    isLogin: boolean,
-    handleClose: () => void,
-}
-
+// interfaces
+import { loginModalProps } from './component';
 
 const LoginModal: React.FC<loginModalProps> = ({ isLogin, handleClose }) => {
     // Redux

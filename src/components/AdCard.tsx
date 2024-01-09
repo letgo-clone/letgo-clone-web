@@ -43,13 +43,15 @@ import slugify from 'react-slugify';
 import { Link } from 'react-router-dom';
 
 // Interfaces or Types
+
+import { AdCardProps } from './component';
+
 import { 
-    AdvertProps,
     CardTypes
 } from '../pages/advertTypes';
 
 
-export const AdCard: React.FC<AdvertProps> = ({ data, grid }) => {
+export const AdCard: React.FC<AdCardProps> = ({ data, grid }) => {
     // Redux
     const {loginData} = useAppSelector((state) => state?.authUser)
 
