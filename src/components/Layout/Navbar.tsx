@@ -12,8 +12,6 @@ import {
     Container, 
     Paper, 
     Drawer, 
-    Dialog, 
-    DialogTitle, 
     Menu, 
     Tooltip, 
     Divider,
@@ -63,7 +61,7 @@ import { Request } from '../../helpers/Request';
 import { Link, useNavigate } from 'react-router-dom';
 
 // Redux
-import store,{ removeAllData } from '../../redux/store';
+import store,{ removeAllData} from '../../redux/store';
 import { LoginData } from '../../redux/interface';
 
 interface NavbarAreaProps {
@@ -122,13 +120,13 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
     // Login Dialog
     const handleLoginOpen = () => {
         setLoginOpen(true);
-        setMobileNav(null)
+        setMobileNav(null);
     };
 
     const handleLoginClose = () => {
         setLoginOpen(false);
     };
-
+  
    // Profile avatar Menu
     const LoginOpen = Boolean(profilePopover);
 
@@ -491,22 +489,8 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                 </Toolbar>
             </Container>
              {/* Login dialog for logging in */}
-            <Dialog
-                fullScreen={false}
-                open={loginOpen}
-                maxWidth="xs"
-                onClose={handleLoginClose}
-                aria-labelledby="responsive-dialog-title"
-            >
-                <DialogTitle id="responsive-dialog-title" sx={{ p: 0 }}>
-                    <IconButton onClick={handleLoginClose} sx={navbarStyles.dialogTitle}>
-                        <Close sx={navbarStyles.dialogTitleClose} />
-                    </IconButton>
-                </DialogTitle>
-                <LoginModal />
-            </Dialog>
+            {loginOpen && <LoginModal isLogin={loginOpen} handleClose={handleLoginClose} />}
 
-            
             <Drawer
                 anchor={'top'}
                 open={Boolean(mobileSearchDiv)}

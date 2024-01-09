@@ -227,14 +227,6 @@ export const navbarStyles: Record<string, SxProps<Theme> | undefined> = {
         ml: 1, 
         flex: 1, 
         pt: 0.1
-    },
-
-    // Dialog content style
-    dialogTitle : {
-        float: 'right'
-    },
-    dialogTitleClose: {
-        fontSize: '2.5rem' 
     }
 } 
 
@@ -699,7 +691,9 @@ export const loginModalStyles: Record<string, SxProps<Theme> | undefined> = {
         '&:hover': { bgcolor: '#FFFFFF', border: '4px solid #ff3f55', color: '#ff3f55' },
     },
     footerModalGridContainer: {
-        textAlign: 'center', marginTop: '20%' 
+        textAlign: 'center', 
+        marginTop: '50%',
+        display: 'inline-block' 
     },
     footerModalFirstGrid: {
         marginBottom: '10px'
@@ -719,19 +713,26 @@ export const loginModalStyles: Record<string, SxProps<Theme> | undefined> = {
 
                     // Login area
     dialogTitle: {
-        position: 'absolute', 
         p: 0
     },
-    dialogTitleIconButton: {
+    dialogTitleClose: {
+        fontSize: '2.5rem' 
+    },
+    dialogTitleArrowButton: {
         float: 'left', 
         marginTop: '10px'
+    },
+    dialotTitleCloseButton: {
+        float: 'right', 
+        marginTop: '5px'
     },
     dialogTitleIcon : {
         fontSize: '1.5rem'
     },
     dialogContent: {
         marginBottom: '20%', 
-        overflowY: 'visible'
+        overflowY: 'visible',
+        height: '584px'
     },
     iconGrid : {
         textAlign: 'center'
