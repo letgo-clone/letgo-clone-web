@@ -33,7 +33,6 @@ import { setLoginData, useAppDispatch } from '../redux/store';
 
 // Helpers
 import { HandleLoginToken, Request } from '../helpers/Request';
-
 import Logo from '../assets/img/logo.svg'
 
 type loginModalProps = {
@@ -51,6 +50,7 @@ const LoginModal: React.FC<loginModalProps> = ({ isLogin, handleClose }) => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [passLogin, setPassLogin] = useState<boolean>(false);
     const [loginOpen, setLoginOpen] = useState<boolean>(false);
+    const [error, setError] = useState<{error: string, error_description: string}>({})
     
     // Login area on/off
     const handleLogin = () => {
@@ -92,6 +92,8 @@ const LoginModal: React.FC<loginModalProps> = ({ isLogin, handleClose }) => {
 
                if(!data.error){
                     setPassLogin(true);
+               }else{
+                    setError(data)
                }
             }
         }
@@ -271,7 +273,11 @@ const LoginModal: React.FC<loginModalProps> = ({ isLogin, handleClose }) => {
                                                     sx={loginModalStyles.Input}
                                                     value={formik.values.password}
                                                     onChange={formik.handleChange}
+                                                    error={Boolean(formik.values.password == '' && formik.touched.password)}
                                                 />
+                                                {Object.keys(error).length > 0 &&  (
+                                                    <Typography>{error.error_description!}</Typography>
+                                                )}
                                             </Grid>
                                         </>
                                     )}
