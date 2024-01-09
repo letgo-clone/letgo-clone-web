@@ -20,9 +20,7 @@ import {
 import { RequestPublic } from '../../helpers/Request';
 
 // interface
-interface LayoutProps {
-    children: ReactNode;
-}
+import { LayoutProps } from './layout';
 
 const Layout = (props: LayoutProps) => {
   const [login, setLogin] = useState(false);

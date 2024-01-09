@@ -64,9 +64,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import store,{ removeAllData} from '../../redux/store';
 import { LoginData } from '../../redux/interface';
 
-interface NavbarAreaProps {
-    isLogin: boolean
-}
+// interfaces
+import { NavbarAreaProps } from './layout';
 
 const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
 

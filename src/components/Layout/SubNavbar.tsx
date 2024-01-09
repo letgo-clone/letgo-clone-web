@@ -23,9 +23,7 @@ import { subNavbarStyles } from '../../styles';
 // interfaces
 import { Menu as Category } from '../../redux/interface';
 
-interface SubNavbarAreaProps {
-    categories: Category[],
-}
+import { SubNavbarAreaProps } from './layout';
 
 const SubNavbar: React.FC<SubNavbarAreaProps>  = ({ categories }) => {
   
