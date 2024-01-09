@@ -156,7 +156,6 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
 
     // Sell Button
     const handleSellButton = () => {
-        console.log(isLogin)
         if(isLogin){
             navigate('/post')
         }else{
@@ -165,14 +164,12 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
     }
 
     const handleAdsButton = () => {
-        console.log(isLogin)
         if(isLogin){
             navigate('/profile/myads');
         }else{
             handleLoginOpen()
         }
     }
-    console.log(isLogin)
     return (
         <AppBar position="static" sx={navbarStyles.appBar}>
             <Container maxWidth='lg' sx={navbarStyles.container}>
@@ -508,6 +505,8 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                 </DialogTitle>
                 <LoginModal />
             </Dialog>
+
+            
             <Drawer
                 anchor={'top'}
                 open={Boolean(mobileSearchDiv)}

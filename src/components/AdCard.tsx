@@ -47,7 +47,7 @@ export const AdCard: React.FC<AdvertProps> = ({ data, grid }) => {
     const [cardData, setCardData] = useState<CardTypes[]>(data);
 
     const addFavorite = async (advertId: string, hasFavorite: boolean) => {
-        
+        console.log(hasFavorite)
         if(hasFavorite){
             const formdata: FormData = new FormData();
             formdata.append("op", 'remove');

@@ -74,7 +74,7 @@ function Attributes() {
         initialValues,
         onSubmit: async (values) => {
             const {title, description, price, city_id, county_id, fullname, how_status} = values;
-            console.log(values);
+
             if(title == '' || description == '' || price == '' || county_id == '' || fullname == '' || how_status == '' || images.length == 0){
                 Swal.fire({
                     position: "center",
@@ -228,7 +228,7 @@ function Attributes() {
     */
     const removeImage = (imageKey: number) => {
         const newList = images.filter((veri, key) => key !== imageKey && veri);
-        console.log(newList)
+
         setImages(newList);
     }
 

@@ -70,7 +70,7 @@ function AdvertEdit() {
         initialValues,
         onSubmit: async (values) => {
             const {title, description, price, city_id, county_id, how_status} = values;
-            console.log(values);
+
             if(title == '' || description == '' || price == '' || county_id == null || how_status == '' || advertImages.length == 0){
                 Swal.fire({
                     position: "center",

@@ -37,7 +37,6 @@ function ProfileInfo() {
   const dispatch = useAppDispatch();
   const loginData: LoginData = store.getState().authUser.loginData!;
 
-
   const initialValues: ProfileInfoTypes = {
     fullname: loginData.fullname,
     about: loginData.about,
