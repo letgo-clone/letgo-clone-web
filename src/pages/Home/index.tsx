@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 
 // Material UI elements
 import { 
-  Typography, 
-  Button, 
-  Grid, 
-  Container, 
-  Box 
+    Typography, 
+    Button, 
+    Grid, 
+    Container, 
+    Box
   } from '@mui/material';
 
 // Style and assets
@@ -17,9 +17,11 @@ import otoplusBannerMobile from '../../assets/img/banner-otoplus-mobile.png'
 
 // Components
 import { AdCard } from '../../components/AdCard';
+import CategoryBanner from '../../components/CategoryBanner';
 
 // helpers
 import { RequestPublic } from '../../helpers/Request';
+
 
 // interfaces
 import { CardTypes } from '../advertTypes';
@@ -27,7 +29,6 @@ import { CardTypes } from '../advertTypes';
 function Index() {
   // useState area
   const [advertData, setAdvertData] = useState<CardTypes[]>([]);
-
   // useEffect area
   useEffect(() => {
     const getData = async () => {
@@ -63,6 +64,7 @@ function Index() {
               </Button>
           </Grid>
       </Grid>
+      <CategoryBanner styles={homePageStyles} page="home" handleDrawerClose={null} />
       {/* Actual advert */}
       <Typography sx={homePageStyles.homeTitle}>Güncel İlanlar</Typography>
           {Object.keys(advertData).length > 0 && <AdCard data={advertData} grid={[3,3,4,6]} />}

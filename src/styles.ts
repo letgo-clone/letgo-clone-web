@@ -4,7 +4,7 @@ import { CSSProperties } from "react";
 export const navbarStyles: Record<string, SxProps<Theme> | undefined> = {
     appBar: {
         bgcolor: 'hsla(0,0%,100%,.87)', 
-        boxShadow: 1 
+        boxShadow: 1
     },
     container: {
         marginTop: '5px',
@@ -345,13 +345,23 @@ export const searchStyles: Record<string, SxProps<Theme> | undefined> = {
     },
 
     // Category
+    dialogMainBox: {
+        display: {
+            xl: 'none',
+            lg: 'none',
+            md: 'block',
+            sm: 'block',
+            xs: 'block'
+        },
+    },
     dialogCategoryBox: {
         marginTop: '25px'
     },
     dialogCategoryTitle: {
         textTransform: 'uppercase',
         color: '#424242',
-        fontSize: '12px'
+        fontSize: '12px',
+        marginTop: '20px'
     },
     dialogCategoryList: {
         padding:0,
@@ -384,7 +394,14 @@ export const searchStyles: Record<string, SxProps<Theme> | undefined> = {
 export const subNavbarStyles: Record<string, SxProps<Theme> | undefined> = {
     appBar: {
         bgcolor: 'hsla(0,0%,100%,.87)', 
-        boxShadow: 1
+        boxShadow: 1,
+        display: {
+            xl: 'flex',
+            lg: 'flex',
+            md: 'flex',
+            sm: 'none',
+            xs: 'none'
+        }
     },
     container: {
         marginTop: '5px',
@@ -749,14 +766,13 @@ export const loginModalStyles: Record<string, SxProps<Theme> | undefined> = {
         marginTop: '20px'
     },
     Input: {
-        border: '1px solid #2c2c2c',
         borderRadius: 2
     },
     // password area
     passwordWelcomeGrid: {
         display : 'inline-flex',
-        marginLeft: '12%',
-        marginTop: '10px'
+        marginTop: '10px',
+        textAlign: 'center'
     },
     passwordWelcomeText: {
         fontSize: '14px', 
@@ -1089,8 +1105,57 @@ export const homePageStyles: Record<string, CSSProperties | SxProps<Theme>  | un
         marginBottom: '15px',
         fontSize: '24px',
         fontWeight: 200
-    }
+    },
     
+    // Mobile Category
+    dialogMainBox: {
+        display: {
+            xl: 'none',
+            lg: 'none',
+            md: 'none',
+            sm: 'block',
+            xs: 'block'
+        },
+        marginTop: '25px'
+    },
+    dialogCategoryBox: {
+        marginTop: '25px',
+        overflow: 'auto',
+        whiteSpace: 'nowrap'
+    },
+    dialogCategoryTitle: {
+        textTransform: 'none',
+        color: '#424242',
+        fontSize: '14px',
+        display: 'contents',
+        fontWeight: 500
+    },
+    dialogCategoryList: {
+        padding:0,
+        marginTop: '10px'
+    },
+    dialogCategoryListItem: {
+        p: '0px 10px 10px 0px',
+        display: 'inline-block',
+        width: 'auto',
+    },
+    dialogCategoryListItemButton: {
+        padding: '10px 5px 15px 0px',
+        display : 'inline-block',
+        textAlign: 'center',
+        marginLeft: '20px',
+        marginRight: '30px'
+    },
+    dialogCategoryIcon: {
+        display: 'inline-flex',
+        minWidth: 'auto'
+    },
+    dialogCategoryAvatar: {
+        textAlign: 'center'
+    },
+    dialogCategoryText: {
+        color: '#2c2c2c'
+    },
 }
 
 export const homePostAdvertStyles: Record<string, SxProps<Theme>  | undefined > = {

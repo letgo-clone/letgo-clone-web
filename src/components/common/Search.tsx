@@ -35,6 +35,9 @@ import { RequestPublic } from '../../helpers/Request';
 // Redux
 import store, {useAppSelector, useAppDispatch, setSearchData, setSearchDrawer} from '../../redux/store';
 
+// Components
+import CategoryBanner from '../CategoryBanner';
+
 // other
 import { useFormik } from 'formik';
 import slugify from 'react-slugify';
@@ -55,7 +58,6 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
 
     // Redux
     const dispatch = useAppDispatch();
-    const {menuData} = useAppSelector((state) => state?.Menu);
     const {searchData} = useAppSelector((state) => state?.search);
     const searchDrawer = store.getState().searchDrawer?.searchDrawer;
 
@@ -116,14 +118,11 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
         }
     })
 
-    // Category
-    const firstSixCategory = menuData?.slice(0, 4);
-
     /*
         turns on and off the search grid
     */
     const handleTurnSearchDrawer = () => {
-        dispatch(setSearchDrawer(!searchDrawer))
+        dispatch(setSearchDrawer(!searchDrawer));
     }
 
     const handleRecentSearch = (search: string) => {
@@ -230,23 +229,25 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
                         xs={12}
                         sm={12}
                     >
-                        <Box sx={searchStyles.dialogCategoryBox}>
-                            <Typography sx={searchStyles.dialogCategoryTitle}>Son Aramalar</Typography>
-                              <List sx={searchStyles.dialogCategoryList}>
-                                     {searchData?.map((recentItem, key) => (
-                                         <ListItem key={key} sx={searchStyles.dialogRecentSearchListItem}>
-                                                 <ListItemButton 
-                                                    sx={searchStyles.dialogRecentSearchListItemButton}
-                                                    onClick={() => handleRecentSearch(recentItem?.title)}
-                                                    >
-                                                    <Typography 
-                                                        sx={searchStyles.dialogRecentSearchText}
-                                                    >{recentItem.title}</Typography>
-                                                 </ListItemButton>
-                                         </ListItem>
-                                     ))}
-                            </List>
-                        </Box>
+                        {searchData.length > 0 && (
+                            <Box sx={searchStyles.dialogCategoryBox}>
+                                <Typography sx={searchStyles.dialogCategoryTitle}>Son Aramalar</Typography>
+                                <List sx={searchStyles.dialogCategoryList}>
+                                        {searchData?.map((recentItem, key) => (
+                                            <ListItem key={key} sx={searchStyles.dialogRecentSearchListItem}>
+                                                    <ListItemButton 
+                                                        sx={searchStyles.dialogRecentSearchListItemButton}
+                                                        onClick={() => handleRecentSearch(recentItem?.title)}
+                                                        >
+                                                        <Typography 
+                                                            sx={searchStyles.dialogRecentSearchText}
+                                                        >{recentItem.title}</Typography>
+                                                    </ListItemButton>
+                                            </ListItem>
+                                        ))}
+                                </List>
+                            </Box>
+                        )}
                     </Grid>
                     <Grid 
                         item
@@ -254,27 +255,7 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
                         xs={12}
                         sm={12}
                     >
-                        <Box sx={searchStyles.dialogCategoryBox}>
-                            <Typography sx={searchStyles.dialogCategoryTitle}>Popüler Kategoriler</Typography>
-                              <List sx={searchStyles.dialogCategoryList}>
-                                     {firstSixCategory?.map((Item, key) => (
-                                         <ListItem key={key} sx={searchStyles.dialogCategoryListItem}>
-                                                 <ListItemButton 
-                                                    sx={searchStyles.dialogCategoryListItemButton}
-                                                    onClick={() => handleRecentSearch(Item?.category_name)}
-                                                    >
-                                                    <ListItemIcon>
-                                                        <Avatar alt="Remy Sharp" src={Item.icon}/>
-                                                    </ListItemIcon>
-                                                    <ListItemText 
-                                                        sx={searchStyles.dialogCategoryText}
-                                                        primary={Item?.category_name} 
-                                                    />
-                                                 </ListItemButton>
-                                         </ListItem>
-                                     ))}
-                            </List>
-                        </Box>
+                       <CategoryBanner styles={searchStyles} page="search" handleDrawerClose={handleTurnSearchDrawer} />
                     </Grid>
                 </Grid>
             }
