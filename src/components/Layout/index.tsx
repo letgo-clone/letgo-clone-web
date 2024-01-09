@@ -28,9 +28,10 @@ const Layout = (props: LayoutProps) => {
   const [login, setLogin] = useState(false);
   const dispatch = useAppDispatch();
   const {menuData} = useAppSelector((state) => state?.Menu);
+  const {loginData} = useAppSelector((state) => state?.authUser)
 
   useEffect(() => {
-      if (localStorage.getItem('access_token')) {
+      if (loginData) {
           setLogin(true)
       }
   }, [])
