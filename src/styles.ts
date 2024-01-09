@@ -345,7 +345,7 @@ export const searchStyles: Record<string, SxProps<Theme> | undefined> = {
     },
 
     // Category
-    dialogMainBox: {
+    bannerMainBox: {
         display: {
             xl: 'none',
             lg: 'none',
@@ -354,26 +354,26 @@ export const searchStyles: Record<string, SxProps<Theme> | undefined> = {
             xs: 'block'
         },
     },
-    dialogCategoryBox: {
+    bannerCategoryBox: {
         marginTop: '25px'
     },
-    dialogCategoryTitle: {
+    bannerCategoryTitle: {
         textTransform: 'uppercase',
         color: '#424242',
         fontSize: '12px',
         marginTop: '20px'
     },
-    dialogCategoryList: {
+    bannerCategoryList: {
         padding:0,
         marginTop: '10px'
     },
-    dialogCategoryListItem: {
+    bannerCategoryListItem: {
         p: '0px 10px 10px 0px'
     },
     dialogCategoryListItemButton: {
         padding: '10px 5px 15px 0px'
     },
-    dialogCategoryText: {
+    bannerCategoryText: {
         color: '#2c2c2c'
     },
 
@@ -807,7 +807,6 @@ export const loginModalStyles: Record<string, SxProps<Theme> | undefined> = {
     }
 }
 
-
 export const advertDetailCarouselStyles = {
     carouselImg: {
         maxHeight: '400px', 
@@ -1108,7 +1107,7 @@ export const homePageStyles: Record<string, CSSProperties | SxProps<Theme>  | un
     },
     
     // Mobile Category
-    dialogMainBox: {
+    bannerMainBox: {
         display: {
             xl: 'none',
             lg: 'none',
@@ -1118,30 +1117,30 @@ export const homePageStyles: Record<string, CSSProperties | SxProps<Theme>  | un
         },
         marginTop: '25px'
     },
-    dialogCategoryBox: {
+    bannerCategoryBox: {
         marginTop: '25px',
         overflow: 'auto',
         whiteSpace: 'nowrap'
     },
-    dialogCategoryTitle: {
+    bannerCategoryTitle: {
         textTransform: 'none',
         color: '#424242',
         fontSize: '14px',
         display: 'contents',
         fontWeight: 500
     },
-    dialogCategoryRightTitle: {
+    bannerCategoryRightTitle: {
         float: 'right',
         color: '#ff3f55',
         borderBottom: '2px solid #ff3f55',
         fontSize: '14px',
         fontWeight: 700
     },
-    dialogCategoryList: {
+    bannerCategoryList: {
         padding:0,
         marginTop: '10px'
     },
-    dialogCategoryListItem: {
+    bannerCategoryListItem: {
         p: '0px 10px 10px 0px',
         display: 'inline-block',
         width: 'auto',
@@ -1153,21 +1152,21 @@ export const homePageStyles: Record<string, CSSProperties | SxProps<Theme>  | un
         marginLeft: '20px',
         marginRight: '30px'
     },
-    dialogCategoryIcon: {
+    bannerCategoryIcon: {
         display: 'inline-flex',
         minWidth: 'auto'
     },
-    dialogCategoryAvatar: {
+    bannerCategoryAvatar: {
         textAlign: 'center'
     },
-    dialogCategoryText: {
+    bannerCategoryText: {
         color: '#2c2c2c'
     },
 
-    drawerBoxTitle : {
+    bannerDrawerBoxTitle : {
         p:'5px',
     },
-    drawerBoxLeftIcon: {
+    bannerDrawerBoxLeftIcon: {
         float: 'left'
     },
     drawerBoxRightIcon: {
@@ -1181,7 +1180,7 @@ export const homePageStyles: Record<string, CSSProperties | SxProps<Theme>  | un
         fontWeight: 600,
         borderBottom: '3px solid #ff3f55'
     },
-    dialogTitleClose: {
+    bannerDialogTitleClose: {
         fontSize: '2rem' 
     },
 

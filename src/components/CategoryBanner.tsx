@@ -104,10 +104,10 @@ const CategoryBanner: React.FC<CategoryBannerProps> = ({ styles, page, handleDra
   };
 
   return (
-    <Box sx={styles.dialogMainBox}>
+    <Box sx={styles.bannerMainBox}>
       {/* Title section  */}
       <Box sx={{ display : 'block' }}>
-          <Typography sx={styles.dialogCategoryTitle}>
+          <Typography sx={styles.bannerCategoryTitle}>
               {page == 'home' ? (
                 "Kategorilere göz at"
               ): (
@@ -115,23 +115,23 @@ const CategoryBanner: React.FC<CategoryBannerProps> = ({ styles, page, handleDra
               )}
           </Typography>
           {page == 'home' && (
-              <Typography onClick={openAllCategory} sx={styles.dialogCategoryRightTitle}>Tümünü gör</Typography>
+              <Typography onClick={openAllCategory} sx={styles.bannerCategoryRightTitle}>Tümünü gör</Typography>
           )}
       </Box>
        {/* Content section  */}
-      <Box sx={styles.dialogCategoryBox}>
-              <List sx={styles.dialogCategoryList}>
+      <Box sx={styles.bannerCategoryBox}>
+              <List sx={styles.bannerCategoryList}>
                   {categories?.map((Item, key) => (
-                      <ListItem key={key} sx={styles.dialogCategoryListItem}>
+                      <ListItem key={key} sx={styles.bannerCategoryListItem}>
                               <ListItemButton 
                                 sx={styles.dialogCategoryListItemButton}
                                 onClick={() => handleRecentSearch(Item?.category_name)}
                                 >
-                                <ListItemIcon sx={styles.dialogCategoryIcon}>
-                                    <Avatar alt="Remy Sharp" src={Item.icon} sx={styles.dialogCategoryAvatar}/>
+                                <ListItemIcon sx={styles.bannerCategoryIcon}>
+                                    <Avatar alt="Remy Sharp" src={Item.icon} sx={styles.bannerCategoryAvatar}/>
                                 </ListItemIcon>
                                 <ListItemText 
-                                    sx={styles.dialogCategoryText}
+                                    sx={styles.bannerCategoryText}
                                     primary={Item?.category_name} 
                                 />
                               </ListItemButton>
@@ -152,9 +152,9 @@ const CategoryBanner: React.FC<CategoryBannerProps> = ({ styles, page, handleDra
           }}
       >
         {/* Drawer Title */}
-          <Box sx={styles.drawerBoxTitle}>
-              <IconButton onClick={closeAllCategory} sx={styles.drawerBoxLeftIcon}>
-                  <ArrowBack sx={styles.dialogTitleClose} />
+          <Box sx={styles.bannerDrawerBoxTitle}>
+              <IconButton onClick={closeAllCategory} sx={styles.bannerDrawerBoxLeftIcon}>
+                  <ArrowBack sx={styles.bannerDialogTitleClose} />
               </IconButton>
                   <Typography sx={{
                       display: 'inline-block',
@@ -188,7 +188,6 @@ const CategoryBanner: React.FC<CategoryBannerProps> = ({ styles, page, handleDra
           )}
             {/* Sub categories section */}
           {secondPage && subCategory.map((mainItem, key) =>  (
-
               <TabPanel value={value} index={mainItem.key_id} key={key}>
                     <List sx={{ padding:0 }}>
                         {mainItem?.sub_category.map((SubItem, key) => (
