@@ -28,16 +28,19 @@ import { adCardStyles } from '../styles';
 // assets
 import otoplusBadge from '../assets/img/otoplus-badge.png'
 
-// Other package
-import Swal from 'sweetalert2';
-import slugify from 'react-slugify';
-import { Link } from 'react-router-dom';
-
 // helper
 import { Request } from '../helpers/Request';
 
 // Redux
 import { useAppSelector } from '../redux/store';
+
+// Components
+import LoginModal from './LoginModal';
+
+// Other package
+import Swal from 'sweetalert2';
+import slugify from 'react-slugify';
+import { Link } from 'react-router-dom';
 
 // Interfaces or Types
 import { 
@@ -50,6 +53,8 @@ export const AdCard: React.FC<AdvertProps> = ({ data, grid }) => {
     // Redux
     const {loginData} = useAppSelector((state) => state?.authUser)
 
+    // useState
+    const [loginOpen, setLoginOpen] = useState<boolean>(false);
     const [cardData, setCardData] = useState<CardTypes[]>(data);
 
     const addFavorite = async (advertId: string, hasFavorite: boolean) => {
@@ -118,9 +123,18 @@ export const AdCard: React.FC<AdvertProps> = ({ data, grid }) => {
                     })
                 })  
             }
+        }else{
+            handleLoginOpen();
         }
-
     }
+
+    const handleLoginOpen = () => {
+        setLoginOpen(true);
+    };
+
+    const handleLoginClose = () => {
+        setLoginOpen(false);
+    };
 
     return (
         <Grid container spacing={2}>
@@ -224,6 +238,7 @@ export const AdCard: React.FC<AdvertProps> = ({ data, grid }) => {
                     </Card>
                 </Grid>
             ))}
+           {loginOpen && <LoginModal isLogin={loginOpen} handleClose={handleLoginClose} />}
         </Grid>
     )
 }
