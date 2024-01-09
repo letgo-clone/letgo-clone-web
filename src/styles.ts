@@ -1130,6 +1130,13 @@ export const homePageStyles: Record<string, CSSProperties | SxProps<Theme>  | un
         display: 'contents',
         fontWeight: 500
     },
+    dialogCategoryRightTitle: {
+        float: 'right',
+        color: '#ff3f55',
+        borderBottom: '2px solid #ff3f55',
+        fontSize: '14px',
+        fontWeight: 700
+    },
     dialogCategoryList: {
         padding:0,
         marginTop: '10px'
@@ -1156,6 +1163,57 @@ export const homePageStyles: Record<string, CSSProperties | SxProps<Theme>  | un
     dialogCategoryText: {
         color: '#2c2c2c'
     },
+
+    drawerBoxTitle : {
+        p:'5px',
+    },
+    drawerBoxLeftIcon: {
+        float: 'left'
+    },
+    drawerBoxRightIcon: {
+        float: 'right',
+        position: 'relative',
+        bottom: '50px',
+        color: '#ff3f55',
+        p:0,
+        borderRadius: 0,
+        fontSize: '12px',
+        fontWeight: 600,
+        borderBottom: '3px solid #ff3f55'
+    },
+    dialogTitleClose: {
+        fontSize: '2rem' 
+    },
+
+    leftCategoryTabs: {
+        borderRight: 1, 
+        borderColor: 'divider'
+    },
+    leftCategoryTab: {
+        justifyContent: 'flex-start',
+        '&.Mui-selected': {
+            color: '#2c2c2c',
+            backgroundColor: '#e0e0e0'
+        },
+        minHeight: '54px',
+        maxWidth: '100%',
+        border: '1px solid #e0e0e0'
+    },
+
+    rightCategoryListItem: {
+        padding: 0,
+        display: 'contents'
+    },
+    rightCategoryListItemButton: {
+        padding: '0', 
+        border: '1px solid #e0e0e0',
+        maxWidth: '100%', 
+        minHeight: '54px'
+    },
+    rightCategoryListItemText: {
+        paddingLeft: '20px', 
+        color: '#2c2c2c' 
+    }
 }
 
 export const homePostAdvertStyles: Record<string, SxProps<Theme>  | undefined > = {
