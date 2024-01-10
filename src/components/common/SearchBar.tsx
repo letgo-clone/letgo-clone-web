@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 // Material UI elements
 import { 
-    Avatar,
     Grid, 
     MenuItem, 
     FormControl, 
@@ -41,7 +40,7 @@ import CategoryBanner from '../CategoryBanner';
 // other
 import { useFormik } from 'formik';
 import slugify from 'react-slugify';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 // İnterface
 import { 
@@ -63,11 +62,11 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
 
     // React Router
     const navigate = useNavigate();
-    const params = useParams();
+    const [searchParams] = useSearchParams();
 
-    const paramLocation = params.location;
+    const paramLocation = searchParams.get('location');
     const paramLocationSplit = paramLocation && paramLocation.split('-');
-    const paramsSearch = slugify(params.search, {delimiter: ' '});
+    const paramsSearch = slugify(searchParams.get('q'), {delimiter: ' '});
 
     const cityId = '34';
     // useState
@@ -89,7 +88,7 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
     },[])
 
    const initialValues: searchFormTypes = {
-        location: paramLocationSplit !== undefined && paramLocationSplit[1] ? 
+        location: paramLocationSplit !== null && paramLocationSplit[1] ? 
                             paramLocationSplit[1] 
                   : '0',
         search: paramsSearch ? paramsSearch : '',
@@ -111,7 +110,7 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
                 }]
                 dispatch(setSearchData(searchData))
                 handleTurnSearchDrawer()
-
+                
                 navigate('/search?location=' + locationDetail + '&q='  + searchFilter);
             }
         }
