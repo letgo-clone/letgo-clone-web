@@ -113,7 +113,7 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
                 }]
                 dispatch(setSearchData(searchData))
                 handleTurnSearchDrawer()
-                navigate('/search/' + locationDetail + '/'  + searchFilter);
+                navigate('/search/' + locationDetail + '/all/'  + searchFilter);
             }
         }
     })
@@ -128,7 +128,7 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
     const handleRecentSearch = (search: string) => {
         const searchFilter = slugify(search);
         handleTurnSearchDrawer()
-        navigate('/search/' + cityId + '/'  + searchFilter);
+        navigate('/search/' + cityId + '/all/'  + searchFilter);
     }
 
   return (

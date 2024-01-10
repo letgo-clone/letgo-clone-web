@@ -31,28 +31,130 @@ import { RequestPublic } from '../../helpers/Request';
 import { AdCard } from '../../components/AdCard';
 
 // other
-import { Link } from 'react-router-dom';
+import { Link,useParams } from 'react-router-dom';
+import { useFormik } from 'formik';
+import Swal from 'sweetalert2';
 
 // Interfaces
 import { CardTypes } from '../advertTypes';
 
+
+
+interface Location {
+    city: string;
+    county?: string; // county opsiyonel hale getirildi
+  }
+
 const Search = () => {
+     // React Router
+    const params = useParams();
+    const location = parseLocation(params.location!);
+  
+
+    const selected_city = location?.city;
+    const selected_county = location?.county;
+
+    const search_query = params.search as string;
+    const category = params.category;
+
     // useState area
     const [advertData, setAdvertData] = useState<CardTypes[]>([]);
-
+    const [price, setPrice] = useState<{minPrice: string, maxPrice: string}>({minPrice: '', maxPrice: ''});
+    const [filters, setFilters] = useState<string[]>([]);
+    
     // useEffect area
     useEffect(() => {
         const getData = async () => {
-            const url = "/advert/actual"
+            const baseUrl = "/advert/actual"
+            const fullUrl = baseUrl + (filters.length > 0 ? "?" + filters.join("&"): "");
+
             const data = await RequestPublic({
                 method: 'GET',
-                url: url
+                url: fullUrl
             });
-
-            setAdvertData(data);
+            
+            setAdvertData(data); 
         }
-        getData();
-    }, [])
+
+        if(filters.length > 0){
+            getData();
+        }
+       
+    }, [filters])
+
+
+    useEffect(() => {
+        // Herhangi bir değişiklik olduğunda parametreleri kontrol et ve güncelle
+        const updatedParams = [];
+        if(search_query){
+            const search:string = search_query.replace(/-/g, '%');
+
+            updatedParams.push("search=" + search);
+        }
+        if (selected_city) {
+          updatedParams.push("selected_city=" + selected_city);
+        }
+    
+        if (selected_county) {
+          updatedParams.push("selected_county=" + selected_county);
+        }
+
+        if (price) {
+            if(price.maxPrice){
+                updatedParams.push("max_price=" + price.maxPrice);
+            }
+            if(price.minPrice){
+                updatedParams.push("min_price=" + price.minPrice);
+            }
+        }
+        
+        setAdvertData([])
+        setFilters(updatedParams);
+      }, [selected_city, selected_county, price, search_query]);
+
+    function parseLocation(input: string): Location {
+        const parts = input.split('-');
+        const result: Location = {city: ''};
+
+        if (parts.length === 1 && typeof parts[0] === 'string') {
+            result.city = parts[0];
+        } 
+        else (parts.length === 2 && typeof parts[0] === 'string' && typeof parts[1] === 'string')
+        {
+            result.city = parts[0];
+            result.county = parts[1];
+        }
+
+        return result;
+    }
+
+    const initialValues: {minPrice: string, maxPrice: string} = {
+        minPrice: '',
+        maxPrice: '',
+    }
+    const formik = useFormik({
+        enableReinitialize: true,
+        initialValues,
+        onSubmit: async (values) => {
+            const {minPrice, maxPrice} = values;
+
+            if(maxPrice > minPrice){
+                if(minPrice || maxPrice){
+                    setPrice({minPrice, maxPrice})
+                }
+            }
+            else{
+                await Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: "En yüksek değer en az değerden küçük olmamalı.",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                
+            }
+        }
+    })
     return (
         <Container>
             <Grid container>
@@ -122,9 +224,22 @@ const Search = () => {
                                     </Typography>
                                 </AccordionSummary>
                                 <AccordionDetails>
+
+                                <form 
+                                    method='POST'
+                                    onSubmit={formik.handleSubmit}
+                                >
                                     <Grid container spacing={1}>
                                         <Grid item xl={3} md={3} sm={3} xs={3}>
-                                            <TextField id="outlined-basic" label="en az" variant="outlined" size="small" />
+                                            <TextField 
+                                                id="outlined-basic" 
+                                                label="en az" 
+                                                variant="outlined" 
+                                                size="small"
+                                                name="minPrice" 
+                                                value={formik.values.minPrice}
+                                                onChange={formik.handleChange}
+                                            />
                                         </Grid>
                                         <Grid item xl={2} md={2} sm={2} xs={2} >
                                             <Typography sx={advertSearchStyles.textBetweenPriceFilter}>
@@ -132,13 +247,21 @@ const Search = () => {
                                             </Typography>
                                         </Grid>
                                         <Grid item xl={3} md={3} sm={3} xs={3}>
-                                            <TextField id="outlined-basic" label="en çok" variant="outlined" size="small" />
+                                            <TextField 
+                                                id="outlined-basic" 
+                                                label="en çok" 
+                                                variant="outlined" 
+                                                size="small" 
+                                                name="maxPrice" 
+                                                value={formik.values.maxPrice}
+                                                onChange={formik.handleChange}
+                                            />
                                         </Grid>
                                         <Grid item xl={3} md={3} sm={3} xs={3} sx={{ marginLeft: 2, marginTop: 1 }}>
-                                            <Button variant="contained" sx={advertSearchStyles.priceFilterButton}>Uygula</Button>
+                                            <Button type="submit" variant="contained" sx={advertSearchStyles.priceFilterButton}>Uygula</Button>
                                         </Grid>
                                     </Grid>
-
+                                </form>
                                 </AccordionDetails>
                             </Accordion>
                         </Grid>
@@ -182,7 +305,7 @@ const Search = () => {
                             </FormControl>
                         </Grid>
                     </Grid>
-                    {Object.keys(advertData).length > 0 && <AdCard data={advertData} grid={[4,4,4,6]} />}
+                    {advertData.length > 0 && <AdCard data={advertData} grid={[4,4,4,6]} />}
                 </Grid>
             </Grid>
         </Container>
