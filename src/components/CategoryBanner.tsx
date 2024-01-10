@@ -36,9 +36,10 @@ import {Menu} from '../redux/interface'
 import { PostCategory, TabPanelProps } from '../pages/advertTypes';
 
 const CategoryBanner: React.FC<CategoryBannerProps> = ({ styles, page, handleDrawerClose }) => {
+  // React Router
+  const navigate = useNavigate();
 
   // Redux elements
-  const navigate = useNavigate();
   const {menuData} = useAppSelector((state) => state?.Menu);
 
   // useState area
@@ -55,25 +56,25 @@ const CategoryBanner: React.FC<CategoryBannerProps> = ({ styles, page, handleDra
   */
   useEffect(() => {
       if(page == 'home'){
-            setCategories(menuData!)
+        setCategories(menuData!)
       }
       else{
-          const firstSixCategory = menuData?.slice(0, 4);
-          setCategories(firstSixCategory!);
+        const firstSixCategory = menuData?.slice(0, 4);
+        setCategories(firstSixCategory!);
       }
   },[menuData])
 
   // function area
 
   // search for route
-  const handleRecentSearch = (search: string) => {
-      const searchFilter = slugify(search);
-
+  const handleSearchCategory = (mainCategory: string, subCategory: string) => {
+      const categories = subCategory ? slugify(subCategory, { prefix: mainCategory }) : mainCategory;
+    
       if(handleDrawerClose){
-        handleDrawerClose();
+            handleDrawerClose();
       }
       const cityId = '34';
-      navigate('/search/' + cityId + '/'  + searchFilter);
+      navigate('/search?location=' + cityId + '&category='  + categories);
   }
 
   // Drawer the all category
@@ -108,14 +109,14 @@ const CategoryBanner: React.FC<CategoryBannerProps> = ({ styles, page, handleDra
       {/* Title section  */}
       <Box sx={{ display : 'block' }}>
           <Typography sx={styles.bannerCategoryTitle}>
-              {page == 'home' ? (
-                "Kategorilere göz at"
-              ): (
-                "Popüler Kategoriler"
-              )}
+                {page == 'home' ? (
+                    "Kategorilere göz at"
+                ): (
+                    "Popüler Kategoriler"
+                )}
           </Typography>
           {page == 'home' && (
-              <Typography onClick={openAllCategory} sx={styles.bannerCategoryRightTitle}>Tümünü gör</Typography>
+                <Typography onClick={openAllCategory} sx={styles.bannerCategoryRightTitle}>Tümünü gör</Typography>
           )}
       </Box>
        {/* Content section  */}
@@ -124,8 +125,8 @@ const CategoryBanner: React.FC<CategoryBannerProps> = ({ styles, page, handleDra
                   {categories?.map((Item, key) => (
                       <ListItem key={key} sx={styles.bannerCategoryListItem}>
                               <ListItemButton 
-                                sx={styles.dialogCategoryListItemButton}
-                                onClick={() => handleRecentSearch(Item?.category_name)}
+                                    sx={styles.dialogCategoryListItemButton}
+                                    onClick={() => handleSearchCategory(Item?.category_id, '')}
                                 >
                                 <ListItemIcon sx={styles.bannerCategoryIcon}>
                                     <Avatar alt="Remy Sharp" src={Item.icon} sx={styles.bannerCategoryAvatar}/>
@@ -193,7 +194,10 @@ const CategoryBanner: React.FC<CategoryBannerProps> = ({ styles, page, handleDra
                         {mainItem?.sub_category.map((SubItem, key) => (
 
                             <ListItem sx={styles.rightCategoryListItem} key={key}>
-                                    <ListItemButton sx={styles.rightCategoryListItemButton}>
+                                    <ListItemButton
+                                        sx={styles.rightCategoryListItemButton}
+                                        onClick={() => handleSearchCategory(mainItem?.category_id, String(SubItem.sub_category_id))}
+                                    >
                                           <ListItemText 
                                               sx={styles.rightCategoryListItemText} 
                                               primary={SubItem.sub_category_name} 
