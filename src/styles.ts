@@ -437,6 +437,7 @@ export const subNavbarStyles: Record<string, SxProps<Theme> | undefined> = {
         fontWeight: 700,
         textTransform: 'capitalize',
         margin: '0px 8px 8px 8px',
+        cursor: 'pointer'
     },
     allCategoryContentA : {
         color: '#2c2c2c',
@@ -445,6 +446,7 @@ export const subNavbarStyles: Record<string, SxProps<Theme> | undefined> = {
         fontWeight: 300,
         paddingBottom: '8px',
         margin: '0px 8px',
+        cursor: 'pointer'
     },
     firstSixCategoryBox: {
         textAlign: 'left', 
