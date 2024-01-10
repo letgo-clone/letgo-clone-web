@@ -328,7 +328,6 @@ export const searchStyles: Record<string, SxProps<Theme> | undefined> = {
     },
     dialogContent: {
         backgroundColor: '#e0e0e0',
-        height: '100%'
     },
     inputMobileSearchGrid: {
         paddingLeft: '0',
@@ -378,6 +377,9 @@ export const searchStyles: Record<string, SxProps<Theme> | undefined> = {
     },
 
     // Recent Search
+    dialogCategoryBox: {
+        marginTop: '25px'
+    },
     dialogRecentSearchListItem: {
         p: '0px 5px 5px 0px'
     },
