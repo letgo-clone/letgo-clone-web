@@ -38,26 +38,37 @@ import Swal from 'sweetalert2';
 // Interfaces
 import { CardTypes } from '../advertTypes';
 
-
-
-interface Location {
-    city: string;
-    county?: string; // county opsiyonel hale getirildi
-  }
-
 const Search = () => {
      // React Router
    
      const [searchParams, setSearchParams] = useSearchParams();
     
-    const location_param = searchParams.get('location')
-    const location = parseLocation(location_param!);
+    const location_param = searchParams.get('location');
 
-    const selected_city = location?.city;
-    const selected_county = location?.county;
+    let selected_city:string = '';
+    let selected_county: string = '';
+
+    if(location_param !== null) {
+        const location_split = location_param!.split('-');
+
+        selected_city = location_split[0];
+        selected_county = location_split[1]
+    }   
+    
+    const category_param = searchParams.get('category');
+
+    let selected_main_category: string = '';
+    let selected_sub_category: string = '';
+
+    if(category_param !== null){
+        const category_split =  category_param.split('-');
+        selected_main_category = category_split[0]
+        selected_sub_category = category_split[1]
+    }
 
     const search_query = searchParams.get('q');
 
+   
     // useState area
     const [advertData, setAdvertData] = useState<CardTypes[]>([]);
     const [price, setPrice] = useState<{minPrice: string, maxPrice: string}>({minPrice: '', maxPrice: ''});
@@ -108,26 +119,18 @@ const Search = () => {
                 updatedParams.push("min_price=" + price.minPrice);
             }
         }
+
+        if (selected_main_category) {
+            updatedParams.push("main_category=" + selected_main_category);
+        }
+
+        if (selected_sub_category) {
+            updatedParams.push("sub_category=" + selected_sub_category);
+        }
         
         setAdvertData([])
         setFilters(updatedParams);
-      }, [selected_city, selected_county, price, search_query]);
-
-    function parseLocation(input: string): Location {
-        const parts = input.split('-');
-        const result: Location = {city: ''};
-
-        if (parts.length === 1 && typeof parts[0] === 'string') {
-            result.city = parts[0];
-        } 
-        else (parts.length === 2 && typeof parts[0] === 'string' && typeof parts[1] === 'string')
-        {
-            result.city = parts[0];
-            result.county = parts[1];
-        }
-
-        return result;
-    }
+      }, [selected_city, selected_county, price, search_query, category_param]);
 
     const initialValues: {minPrice: string, maxPrice: string} = {
         minPrice: '',
