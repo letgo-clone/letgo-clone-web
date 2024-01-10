@@ -20,12 +20,19 @@ import {
 // Styles
 import { subNavbarStyles } from '../../styles';
 
+// other
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import slugify from 'react-slugify';
+
 // interfaces
 import { Menu as Category } from '../../redux/interface';
 
 import { SubNavbarAreaProps } from './layout';
 
 const SubNavbar: React.FC<SubNavbarAreaProps>  = ({ categories }) => {
+  // React router elements
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   
   // UseState area 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -54,6 +61,19 @@ const SubNavbar: React.FC<SubNavbarAreaProps>  = ({ categories }) => {
   };
   
   const chunkedCategories = chunkArray(categories, 3);
+
+  const handleRouteCategory = (mainCategory: string, subCategory: string) => {
+    const categoryDetail = subCategory ? slugify(subCategory, { prefix: mainCategory }) : mainCategory;
+    handleClose();
+
+    const query = searchParams.get('q');
+    if(query !== null){
+        navigate('/search?location=' + 34 + '&category=' + categoryDetail + '&q=' + query);
+    }else{
+        navigate('/search?location=' + 34 + '&category=' + categoryDetail);
+    }
+   
+  }
 
   return (
     <AppBar position="static" sx={subNavbarStyles.appBar}>
@@ -92,11 +112,19 @@ const SubNavbar: React.FC<SubNavbarAreaProps>  = ({ categories }) => {
                         <Grid item xl={2} lg={2} xs={2} key={rowIndex} sx={subNavbarStyles.allCategoryGrid}>
                           {row.map((category) => (
                             <Box key={category?.category_id} sx={subNavbarStyles.allCategoryBox}>
-                                <Typography sx={subNavbarStyles.allCategoryTitle}>
+                                <Typography 
+                                  onClick={() => handleRouteCategory(category.category_id, '')} 
+                                  sx={subNavbarStyles.allCategoryTitle}
+                                  component="a"
+                                >
                                     {category.category_name}
                                 </Typography>
                                   {category?.sub_category.map((subItem) => (
-                                      <Typography key={subItem.sub_category_id} sx={subNavbarStyles.allCategoryContentA} >{subItem.sub_category_name}</Typography>
+                                      <Typography 
+                                          key={subItem.sub_category_id} 
+                                          sx={subNavbarStyles.allCategoryContentA}
+                                          onClick={() => handleRouteCategory(category.category_id, String(subItem.sub_category_id))} 
+                                        >{subItem.sub_category_name}</Typography>
                                   ))}
                             </Box>
                           ))}
@@ -108,7 +136,9 @@ const SubNavbar: React.FC<SubNavbarAreaProps>  = ({ categories }) => {
                 <Box sx={subNavbarStyles.firstSixCategoryBox}>
                     {firstSixCategory.length > 0 && firstSixCategory.map((item, key ) => (
                         <MenuItem
-                            key={key} sx={subNavbarStyles.firstSixCategoryMenuItem}>
+                            onClick={() => handleRouteCategory(item.category_id, '')}
+                            key={key} sx={subNavbarStyles.firstSixCategoryMenuItem}
+                          >
                             <Typography sx={subNavbarStyles.firstSixCategoryText} textAlign="center">
                                 {item?.category_name}
                             </Typography>
