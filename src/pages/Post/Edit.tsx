@@ -96,7 +96,7 @@ function AdvertEdit() {
                     formdata.append('photo', file);
                 }); 
     
-                const url = "/advert/actual/" + advertId;
+                const url = "/advert/list/" + advertId;
 
                 const response = await Request({
                     method: 'PUT',
@@ -136,7 +136,7 @@ function AdvertEdit() {
     */
     useEffect(() => {
         const getData = async() => {
-            const url = '/advert/detail/' + advertId;
+            const url = '/advert/list/' + advertId;
             const data: EditAdvertDetail | any = await Request({
                 method: 'GET',
                 url: url

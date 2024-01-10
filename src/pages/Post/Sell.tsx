@@ -100,7 +100,7 @@ function Attributes() {
                 formdata.append("main_category_id", selectedCategory.mainCategoryId);
                 formdata.append("sub_category_id", selectedCategory.subCategoryId);
                 
-                const url = '/advert/actual';
+                const url = '/advert/list';
 
                 const response = await Request({
                     method: 'POST',
