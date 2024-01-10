@@ -21,7 +21,7 @@ import {
 import { subNavbarStyles } from '../../styles';
 
 // other
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import slugify from 'react-slugify';
 
 // interfaces
@@ -32,7 +32,6 @@ import { SubNavbarAreaProps } from './layout';
 const SubNavbar: React.FC<SubNavbarAreaProps>  = ({ categories }) => {
   // React router elements
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
   
   // UseState area 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -66,12 +65,7 @@ const SubNavbar: React.FC<SubNavbarAreaProps>  = ({ categories }) => {
     const categoryDetail = subCategory ? slugify(subCategory, { prefix: mainCategory }) : mainCategory;
     handleClose();
 
-    const query = searchParams.get('q');
-    if(query !== null){
-        navigate('/search?location=' + 34 + '&category=' + categoryDetail + '&q=' + query);
-    }else{
-        navigate('/search?location=' + 34 + '&category=' + categoryDetail);
-    }
+    navigate('/search?location=' + 34 + '&category=' + categoryDetail);
    
   }
 
