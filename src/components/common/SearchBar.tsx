@@ -61,8 +61,6 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
     const {searchData} = useAppSelector((state) => state?.search);
     const searchDrawer = store.getState().searchDrawer?.searchDrawer;
 
-
-
     // React Router
     const navigate = useNavigate();
     const params = useParams();
@@ -113,7 +111,8 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
                 }]
                 dispatch(setSearchData(searchData))
                 handleTurnSearchDrawer()
-                navigate('/search/' + locationDetail + '/all/'  + searchFilter);
+
+                navigate('/search?location=' + locationDetail + '&q='  + searchFilter);
             }
         }
     })
@@ -128,7 +127,7 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
     const handleRecentSearch = (search: string) => {
         const searchFilter = slugify(search);
         handleTurnSearchDrawer()
-        navigate('/search/' + cityId + '/all/'  + searchFilter);
+        navigate('/search?location=' + cityId + '&q='  + searchFilter);
     }
 
   return (

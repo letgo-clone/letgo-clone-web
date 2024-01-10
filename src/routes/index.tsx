@@ -22,7 +22,7 @@ import AdvertEdit from "../pages/Post/Edit";
     { path: "/", component: <Home /> },
     { path: "/", exact: true, component: <Navigate to="/" />},
     { path: "/item/:title/:itemId", component: <AdvertDetail /> },
-    { path: "/search/:location/:category/:search", component: <Search /> },
+    { path: "/search", component: <Search /> },
 ]; 
 
 const authProtectedRoutes = [

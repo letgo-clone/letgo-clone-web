@@ -31,7 +31,7 @@ import { RequestPublic } from '../../helpers/Request';
 import { AdCard } from '../../components/AdCard';
 
 // other
-import { Link,useParams } from 'react-router-dom';
+import { Link,useSearchParams } from 'react-router-dom';
 import { useFormik } from 'formik';
 import Swal from 'sweetalert2';
 
@@ -47,15 +47,16 @@ interface Location {
 
 const Search = () => {
      // React Router
-    const params = useParams();
-    const location = parseLocation(params.location!);
-  
+   
+     const [searchParams, setSearchParams] = useSearchParams();
+    
+    const location_param = searchParams.get('location')
+    const location = parseLocation(location_param!);
 
     const selected_city = location?.city;
     const selected_county = location?.county;
 
-    const search_query = params.search as string;
-    const category = params.category;
+    const search_query = searchParams.get('q');
 
     // useState area
     const [advertData, setAdvertData] = useState<CardTypes[]>([]);
@@ -88,7 +89,7 @@ const Search = () => {
         const updatedParams = [];
         if(search_query){
             const search:string = search_query.replace(/-/g, '%');
-
+            
             updatedParams.push("search=" + search);
         }
         if (selected_city) {
