@@ -111,7 +111,13 @@ const Search: React.FC<searchProps> = ({ dimension }) => {
                 dispatch(setSearchData(searchData))
                 handleTurnSearchDrawer()
                 
-                navigate('/search?location=' + locationDetail + '&q='  + searchFilter);
+                const category = searchParams.get('category')
+                if(category !== null){
+                    navigate('/search?location=' + locationDetail + '&category=' + category  + '&q='  + searchFilter);
+                }
+                else{
+                    navigate('/search?location=' + locationDetail + '&q='  + searchFilter);
+                }
             }
         }
     })
