@@ -41,7 +41,7 @@ import { CardTypes } from '../advertTypes';
 const Search = () => {
      // React Router
    
-     const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     
     const location_param = searchParams.get('location');
 
@@ -73,6 +73,7 @@ const Search = () => {
     const [advertData, setAdvertData] = useState<CardTypes[]>([]);
     const [price, setPrice] = useState<{minPrice: string, maxPrice: string}>({minPrice: '', maxPrice: ''});
     const [filters, setFilters] = useState<string[]>([]);
+    const [count, setCount] = useState<number>(0);
     
     // useEffect area
     useEffect(() => {
@@ -86,6 +87,7 @@ const Search = () => {
             });
             
             setAdvertData(data); 
+            setCount(data.length)
         }
 
         if(filters.length > 0){
@@ -283,7 +285,7 @@ const Search = () => {
                         </Grid>
                         {/* data count of search */}
                         <Grid xl={2} md={2} sm={2} xs={2}>
-                            <Chip label="3878 ilan" sx={advertSearchStyles.rightFilterCount} color="primary" />
+                            <Chip label={`${count} ilan`} sx={advertSearchStyles.rightFilterCount} color="primary" />
                         </Grid>
                           {/* sorting filter */}
                         <Grid xl={3} md={3} sm={3} xs={3}>
