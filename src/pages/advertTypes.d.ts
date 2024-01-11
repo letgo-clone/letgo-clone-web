@@ -78,6 +78,7 @@ export interface MyAdProp {
     is_cover_image?: string,
     is_visible?: boolean,
     is_sell?:boolean,
+    status_id?: string,
     likes?: string,
     price?: string,
     title?: string

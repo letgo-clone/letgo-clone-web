@@ -192,6 +192,53 @@ function MyAdsView() {
         }
     } 
 
+    const handleHotAdvert = async(advertId: string, howStatus: string) => {
+
+        const { value } = await Swal.fire({
+            title: howStatus == '2' ?  'İlanı hızlı sat' : 'Öne çıkanlardan kaldır',
+            text: howStatus == '2'  ? "İlanınızı öne çıkan vitrinine ekleyerek hızlı satabilirsiniz." : 'Bu işlemi yapmak istediğinizden emin misiniz ?',
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'Vazgeç',
+            confirmButtonText: howStatus == '2' ? 'İlanı öne çıkanlara ekle': 'İlanı öne çıkanlardan kaldır',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#ff3f55'
+        });
+
+        if(value) {
+            const formdata: FormData = new FormData();
+            formdata.append("op", 'replace');
+            formdata.append("path", 'has_advert_status');
+            formdata.append("value", howStatus == '2' ? '4' : '2' );
+            const url = '/advert/list/' + advertId;
+
+            const response = await Request({
+                method: 'PATCH',
+                url: url,
+                formData: formdata
+            });
+
+            const responseCheck = Object.keys(response).filter(item => item == 'success')
+            if(responseCheck){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'İşlem Başarılı',
+                    html: howStatus == '2' ? 'İlan öne çıkan vitrinine eklendi' : 'İlan öne çıkan vitrininden kaldırıldı.' ,
+                    confirmButtonText: 'Tamam'
+                });
+
+                setMyAds(prevObjects => {
+                    return prevObjects.map(obj => {
+                      if (obj?.id === advertId) {
+                        return { ...obj, status_id: howStatus == '2' ? '4': '2'}
+                      }
+                      return obj;
+                    })
+                })
+            }
+        }
+    }
+
     return (
         <Container>
             <Grid container spacing={3} sx={adViewStyles.mainGrid}>
@@ -265,6 +312,8 @@ function MyAdsView() {
                                                 <Typography sx={adViewStyles.adStatusText}>
                                                     {item.is_sell ? (
                                                         'Bu ilan satıldı'
+                                                    ) : (item.status_id == '4') ? (
+                                                        'Bu ilan öne çıkanlarda'
                                                     ):(
                                                         (item.is_visible) && !(item.is_sell) ? 'Bu ilan şuanda yayında' : 'Bu ilan yayında değil'
                                                     )}
@@ -288,9 +337,6 @@ function MyAdsView() {
                                                         <Delete />
                                                     </IconButton>
                                                 )}
-                                               
-
-                                               
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -321,11 +367,12 @@ function MyAdsView() {
                                         )}
                                         {item.is_visible && 
                                             <Button
+                                                onClick={() => handleHotAdvert(item.id!, item.status_id!)}
                                                 variant="outlined"
                                                 sx={adViewStyles.rightButtons}
                                                 size='small'
                                             >
-                                                Daha hızlı sat
+                                                {item.status_id == '4' ? 'Öne çıkanlardan kaldır' : 'Daha hızlı sat'}
                                             </Button>
                                         }
                                         </Box>
