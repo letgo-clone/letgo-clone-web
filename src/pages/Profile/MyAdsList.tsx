@@ -28,6 +28,9 @@ import { adViewStyles } from '../../styles';
 // Helpers
 import { Request } from '../../helpers/Request';
 
+// Component
+import ProfileTopMenu from '../../components/common/ProfileTopMenu';
+
 // npm packages
 import { Link } from 'react-router-dom'
 import slugify from 'react-slugify';
@@ -146,24 +149,7 @@ function MyAdsView() {
             <Grid container spacing={3} sx={adViewStyles.mainGrid}>
                 {/* Top menu */}
                 <Grid item xl={12} lg={12} md={12}>
-                    <Box sx={adViewStyles.topMenuBox}>
-                        <Link
-                            to="/profile/myads"
-                            style={{ textDecoration: 'none' }}
-                        >
-                            <Typography sx={adViewStyles.topMenuText}>
-                                İlanlarım
-                            </Typography>
-                        </Link>
-                        <Link
-                            to="/profile/myfavorite"
-                            style={{ textDecoration: 'none' }}
-                        >
-                            <Typography sx={adViewStyles.topMenuText}>
-                                Favorilerim
-                            </Typography>
-                        </Link>
-                    </Box>
+                    <ProfileTopMenu />
                 </Grid>
                 {Object.keys(myAds).length > 0 && myAds?.map((item, key) => (
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12} key={key}>
