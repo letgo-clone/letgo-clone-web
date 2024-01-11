@@ -1586,6 +1586,12 @@ export const adViewStyles: Record<string, SxProps<Theme>  | undefined > = {
         boxShadow: '0 1px 3px 0 rgba(0,47,52,.2), 0 1px 3px 0 rgba(0,47,52,.2)',
         borderLeft: '4px solid #004bbe'
     },
+     adCardDisabled: {
+        minWidth: 275,
+        boxShadow: '0 1px 3px 0 rgba(0,47,52,.2), 0 1px 3px 0 rgba(0,47,52,.2)',
+        borderLeft: '4px solid #004bbe',
+        opacity: '0.5'
+    },
     cardTitleGrid: {
         display: 'inline-flex' 
     },

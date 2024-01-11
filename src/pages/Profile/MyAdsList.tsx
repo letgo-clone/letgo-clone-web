@@ -18,6 +18,7 @@ import {
     Delete,
     Edit,
     VisibilityOff,
+    Visibility,
     Favorite,
     InsertPhoto
     } from '@mui/icons-material';
@@ -154,7 +155,11 @@ function MyAdsView() {
                 {Object.keys(myAds).length > 0 && myAds?.map((item, key) => (
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12} key={key}>
                          {/* Ad card */}
-                        <Card sx={adViewStyles.adCard}>
+                        <Card sx={!(item.is_visible) || (item.is_sell) ? (
+                            adViewStyles.adCardDisabled
+                        ): (
+                            adViewStyles.adCard
+                        )}>
                             <CardContent>
                                 <Grid container spacing={3}>
                                      {/* Left column elements of card: Image, price, status */}
@@ -206,7 +211,7 @@ function MyAdsView() {
                                             </Grid>
                                             <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={adViewStyles.adActionIconGrid}>
                                                 <IconButton aria-label="visible" onClick={() => handleVisibleChange(item.id!, item.is_visible!)}>
-                                                    <VisibilityOff />
+                                                    {item.is_visible ? <Visibility /> : <VisibilityOff />}
                                                 </IconButton>
                                                 <IconButton aria-label="edit" href={`/post/edit/${item.id}`}>
                                                     <Edit />
@@ -240,13 +245,15 @@ function MyAdsView() {
                                         >
                                             Satıldı olarak işaretle
                                         </Button>
-                                        <Button
-                                            variant="outlined"
-                                            sx={adViewStyles.rightButtons}
-                                            size='small'
-                                        >
-                                            Daha hızlı sat
-                                        </Button>
+                                        {item.is_visible && 
+                                            <Button
+                                                variant="outlined"
+                                                sx={adViewStyles.rightButtons}
+                                                size='small'
+                                            >
+                                                Daha hızlı sat
+                                            </Button>
+                                        }
                                         </Box>
                                     </Grid>
                                 </Grid>
