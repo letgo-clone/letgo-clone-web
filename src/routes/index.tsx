@@ -5,7 +5,7 @@ import Home from "../pages/Home";
 
 // Adverts
 import AdvertDetail from "../pages/Adverts/Detail";
-import Search from "../pages/Adverts/Search";
+import Search from "../pages/Adverts/search";
 import AdvertEdit from "../pages/Adverts/Edit";
 import SellCategory from '../pages/Adverts/SellCategory'
 import PostAttributes from '../pages/Adverts/Sell'

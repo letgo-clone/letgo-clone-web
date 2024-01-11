@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 // Material UI elements
 import { 
-    Box, 
     IconButton,
     } from '@mui/material';
 
