@@ -205,7 +205,7 @@ const Search = () => {
         onSubmit: async (values) => {
             const {minPrice, maxPrice} = values;
 
-            if(maxPrice > minPrice){
+            if(minPrice){
                 if(minPrice || maxPrice){
                     setPrice({minPrice, maxPrice})
                 }
@@ -214,7 +214,7 @@ const Search = () => {
                 await Swal.fire({
                     position: "center",
                     icon: "error",
-                    title: "En yüksek değer en az değerden küçük olmamalı.",
+                    title: "Bir fiyat aralığını belirlemelisiniz.",
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -355,7 +355,7 @@ const Search = () => {
                          {/* filter Price of column */}
                         <Grid item xl={12} md={12} sm={12} xs={12}>
                             <Divider />
-                            <Accordion sx={advertSearchStyles.leftFilterAccording}>
+                            <Accordion sx={advertSearchStyles.leftFilterAccording} defaultExpanded>
                                 <AccordionSummary
                                     expandIcon={<ExpandMore />}
                                     aria-controls="panel1bh-content"
