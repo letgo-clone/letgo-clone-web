@@ -78,7 +78,7 @@ const Search = () => {
     }
 
     const search_query = searchParams.get('q');
-
+    const searchValue = search_query && slugify(search_query, {delimiter: ' '})
     // useState area
     const [advertData, setAdvertData] = useState<CardTypes[]>([]);
     const [price, setPrice] = useState<{minPrice: string, maxPrice: string}>({minPrice: '', maxPrice: ''});
@@ -86,7 +86,8 @@ const Search = () => {
     const [count, setCount] = useState<number>(0);
 
     const [categories, setCategories] = useState<Menu[]>([]);
-    const [counties, setCounties] = useState<CountiesProps[]>([])
+    const [counties, setCounties] = useState<CountiesProps[]>([]);
+    const [currentCategory, setCurrentCategory] = useState<string>('')
    
     // useEffect area
     useEffect(() => {
@@ -115,7 +116,6 @@ const Search = () => {
         if(filters.length > 0){
             getData();
         }
-       
     }, [filters])
 
 
@@ -155,11 +155,32 @@ const Search = () => {
         if (selected_sub_category) {
             updatedParams.push("sub_category=" + selected_sub_category);
         }
-        
+
         setAdvertData([])
         setFilters(updatedParams);
     }, [selected_city, selected_county, price, search_query, category_param]);
 
+
+    /* title the search for view current category */
+    useEffect(() => {
+        if(selected_sub_category){
+            menuData!.map(item => {
+                item.sub_category.filter(filterItem => {
+                    if(filterItem.sub_category_id == Number(selected_sub_category)) {
+                        setCurrentCategory(filterItem.sub_category_name)
+                    }
+                })
+            })
+        }else{
+            menuData!.filter(filterItem => {
+                if(filterItem.category_id == selected_main_category) {
+                    setCurrentCategory(filterItem.category_name)
+                }
+            })
+        }
+    }, [category_param])
+
+    // gets counties according to current city
     useEffect(() => {
         const getCounties = async() => {
             const url = "/advert/location/" + 34;
@@ -219,7 +240,6 @@ const Search = () => {
             return prev;
         });
     }
-
     return (
         <Container>
             <Grid container>
@@ -231,7 +251,7 @@ const Search = () => {
                             <Link to="/" style={{ textDecoration: 'none' }}>
                                 <Typography sx={advertSearchStyles.leftFilterTitleLink}>Ana sayfa (Breadcumb) </Typography>
                             </Link>
-                            <Typography sx={advertSearchStyles.leftFilterTitle}>İphone 14 in Istanbul</Typography>
+                            <Typography sx={advertSearchStyles.leftFilterTitle}>{search_query !== null ? searchValue : currentCategory}</Typography>
                         </Grid>
                         {/* filter category of column */}
                         <Grid item xl={12} md={12} sm={12} xs={12}>
@@ -396,8 +416,17 @@ const Search = () => {
                          {/* Search info */}
                         <Grid xl={4} md={4} sm={4} xs={4}>
                             <Box sx={advertSearchStyles.rightFilterInfoBox}>
-                                <Typography sx={{ fontWeight: 600 }}>&quot;Araba&quot;&nbsp; </Typography>
-                                <Typography sx={advertSearchStyles.rightFilterInfo}>için arama sonuçları</Typography>
+                                {search_query !== null ? (
+                                    <>
+                                        <Typography sx={{ fontWeight: 600 }}>&quot;{searchValue}&quot;&nbsp; </Typography>
+                                        <Typography sx={advertSearchStyles.rightFilterInfo}>için arama sonuçları</Typography>
+                                    </>
+                                ): (
+                                    <>
+                                        <Typography sx={{ fontWeight: 600 }}>&quot;{"İstanbul"}&quot;&nbsp; </Typography>
+                                        <Typography sx={advertSearchStyles.rightFilterInfo}>lokasyonunda ilanlar</Typography>
+                                    </>
+                                )}
                             </Box>
                         </Grid>
                         {/* data count of search */}
