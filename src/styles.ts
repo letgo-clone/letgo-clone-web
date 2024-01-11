@@ -902,14 +902,16 @@ export const advertDetailStyles: Record<string, SxProps<Theme> | undefined> = {
     // Seller card
     rightColumnSellerAvatar: {
         width: '68px', 
-        height: '68px'
+        height: '68px',
+        cursor: 'pointer'
     },
     rightColumnSellerFullname: {
         fontSize: '20px', 
         lineHeight: '20px', 
         fontWeight: 700, 
         color: '#2c2c2c', 
-        marginTop: '20px' 
+        marginTop: '20px',
+        cursor: 'pointer'
     },
     rightColumnSellerIconGrid: {
         textAlign: 'right', 

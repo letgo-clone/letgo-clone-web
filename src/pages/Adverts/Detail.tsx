@@ -31,18 +31,25 @@ import {
 // Helper
 import { RequestPublic } from '../../helpers/Request';
 
+// Redux
+import { useAppSelector } from '../../redux/store';
+
 // Component
 import Favorite from '../../components/Favorite';
 
 // Other
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Carousel from 'react-material-ui-carousel'
 
 // İnterfaces
 import { DetailCardTypes,DetailCaredPhotoTypes } from '../advertTypes';
 
 const AdvertDetail = () => {
+    // Redux
+    const {loginData} = useAppSelector((state) => state?.authUser);
+
     // React Router
+    const navigate = useNavigate();
     const params = useParams();
     const id = params.itemId;
 
@@ -66,6 +73,14 @@ const AdvertDetail = () => {
         }
         getData();
     }, [])
+
+    const handleRouteProfile = (currentUser: number) => {
+        if(currentUser == loginData?.id){
+            navigate('/profile')
+        }else{
+            navigate('/profile/' + currentUser )
+        }
+    }
 
 
     return (
@@ -153,15 +168,26 @@ const AdvertDetail = () => {
                                         <CardContent sx={advertDetailStyles.rightColumnCardContent}>
                                             <Grid container>
                                                 <Grid item lg={3} md={3}>
-                                                    <Avatar alt="Remy Sharp" src={advertDetail?.user_image?.url} sx={advertDetailStyles.rightColumnSellerAvatar} />
+                                                    <Avatar 
+                                                        alt="Remy Sharp" 
+                                                        src={advertDetail?.user_image?.url} 
+                                                        sx={advertDetailStyles.rightColumnSellerAvatar} 
+                                                        onClick={() => handleRouteProfile(advertDetail.userid!)}
+                                                    />
                                                 </Grid>
                                                 <Grid item lg={6} md={6}>
-                                                    <Typography sx={advertDetailStyles.rightColumnSellerFullname}>
+                                                    <Typography
+                                                        sx={advertDetailStyles.rightColumnSellerFullname}
+                                                        onClick={() => handleRouteProfile(advertDetail.userid!)}
+                                                    >
                                                         {advertDetail.fullname}
                                                     </Typography>
                                                 </Grid>
                                                 <Grid item lg={3} md={3} sx={advertDetailStyles.rightColumnSellerIconGrid}>
-                                                    <IconButton aria-label="share">
+                                                    <IconButton 
+                                                        aria-label="share" 
+                                                        onClick={() => handleRouteProfile(advertDetail.userid!)}
+                                                    >
                                                         <ChevronRight />
                                                     </IconButton>
                                                 </Grid>
