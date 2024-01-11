@@ -251,10 +251,17 @@ const Search = () => {
     const handleSortingChange = (event: SelectChangeEvent<string>) => {
         const sortingValue = event.target.value;
 
-        setSearchParams((prevParams) => {
-            prevParams.set('sorting', sortingValue);
-            return prevParams
-        });
+        if(sortingValue !== 'default'){
+            setSearchParams((prevParams) => {
+                prevParams.set('sorting', sortingValue);
+                return prevParams
+            });
+        }else{
+            setSearchParams((prevParams) => {
+                prevParams.delete('sorting')
+                return prevParams
+            });
+        }
     }
 
     return (
@@ -464,10 +471,11 @@ const Search = () => {
                                     displayEmpty
                                     inputProps={{ 'aria-label': 'Without label' }}
                                     sx={advertSearchStyles.rightSortingFilter}
-                                    defaultValue="desc-relevance"
+                                    defaultValue="default"
                                     name="sorting"
                                     onChange={handleSortingChange}
                                 >
+                                    <MenuItem value="default">Varsayılan</MenuItem>
                                     <MenuItem value="desc-relevance">Yayınlama Tarihi</MenuItem>
                                     <MenuItem value="asc-price">Fiyat: Düşükten Yükseğe</MenuItem>
                                     <MenuItem value="desc-price">Fiyat: Yüksekten Düşüğe</MenuItem>
