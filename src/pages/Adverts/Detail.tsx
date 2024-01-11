@@ -18,7 +18,6 @@ import {
 // Material UI icons
 
 import {
-    Favorite,
     Share,
     ChevronRight
     } from '@mui/icons-material';
@@ -32,10 +31,12 @@ import {
 // Helper
 import { RequestPublic } from '../../helpers/Request';
 
+// Component
+import Favorite from '../../components/Favorite';
+
 // Other
 import { useParams } from "react-router-dom";
 import Carousel from 'react-material-ui-carousel'
-
 
 // İnterfaces
 import { DetailCardTypes,DetailCaredPhotoTypes } from '../advertTypes';
@@ -135,9 +136,7 @@ const AdvertDetail = () => {
                                                     <IconButton aria-label="share">
                                                         <Share />
                                                     </IconButton>
-                                                    <IconButton aria-label="add to favorites">
-                                                        <Favorite />
-                                                    </IconButton>
+                                                    <Favorite  id={advertDetail.id} hasFavorite={advertDetail.has_favorite}/>
                                                 </Grid>
                                             </Grid>
                                         </CardContent>

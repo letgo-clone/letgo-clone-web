@@ -51,6 +51,7 @@ export interface DetailCardTypes {
     },
     user_type?: string,
     userid?: number,
+    has_favorite?: boolean,
     photo?: DetailCardTypes
 }
 
