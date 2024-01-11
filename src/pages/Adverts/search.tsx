@@ -1,4 +1,4 @@
-import { useState, useEffect, SelectChangeEvent } from 'react'
+import { useState, useEffect } from 'react'
 
 // Material UI elements
 import { 
@@ -15,7 +15,8 @@ import {
     Select, 
     MenuItem, 
     Chip, 
-    FormControl 
+    FormControl,
+    SelectChangeEvent
     } from '@mui/material'
 
 // Material UI icons

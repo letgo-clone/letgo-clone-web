@@ -47,7 +47,7 @@ const LoginModal: React.FC<loginModalProps> = ({ isLogin, handleClose }) => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [passLogin, setPassLogin] = useState<boolean>(false);
     const [loginOpen, setLoginOpen] = useState<boolean>(false);
-    const [error, setError] = useState<{error: string, error_description: string}>({})
+    const [error, setError] = useState<{error: string, error_description: string}>({ error: '', error_description: '' })
     
     // Login area on/off
     const handleLogin = () => {
