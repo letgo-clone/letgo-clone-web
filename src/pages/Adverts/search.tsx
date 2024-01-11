@@ -19,13 +19,19 @@ import {
     } from '@mui/material'
 
 // Material UI icons
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {
+    ExpandMore, 
+    Remove
+    } from '@mui/icons-material';
 
 // styles and assets
 import { advertSearchStyles } from '../../styles';
 
 // helper
 import { RequestPublic } from '../../helpers/Request';
+
+// Redux
+import {useAppSelector} from '../../redux/store';
 
 // Component
 import { AdCard } from '../../components/AdCard';
@@ -34,13 +40,17 @@ import { AdCard } from '../../components/AdCard';
 import { Link,useSearchParams } from 'react-router-dom';
 import { useFormik } from 'formik';
 import Swal from 'sweetalert2';
+import slugify from 'react-slugify';
 
 // Interfaces
 import { CardTypes } from '../advertTypes';
+import { Menu } from '../../redux/interface';
 
 const Search = () => {
+    // Redux
+    const {menuData} = useAppSelector((state) => state?.Menu);
+
      // React Router
-   
     const [searchParams, setSearchParams] = useSearchParams();
     
     const location_param = searchParams.get('location');
@@ -68,13 +78,14 @@ const Search = () => {
 
     const search_query = searchParams.get('q');
 
-   
     // useState area
     const [advertData, setAdvertData] = useState<CardTypes[]>([]);
     const [price, setPrice] = useState<{minPrice: string, maxPrice: string}>({minPrice: '', maxPrice: ''});
     const [filters, setFilters] = useState<string[]>([]);
     const [count, setCount] = useState<number>(0);
-    
+
+    const [categories, setCategories] = useState<Menu[]>([]);
+   
     // useEffect area
     useEffect(() => {
         const getData = async () => {
@@ -86,8 +97,17 @@ const Search = () => {
                 url: fullUrl
             });
             
-            setAdvertData(data); 
-            setCount(data.length)
+            setAdvertData(data);
+            setCount(data.length);
+           
+            advertData.map((item) => {
+                menuData!.filter((reduxItem) => {
+                    if(item?.main_category_id == reduxItem.category_id) {
+                        setCategories([reduxItem])
+                    }
+                })
+            }) 
+               
         }
 
         if(filters.length > 0){
@@ -124,6 +144,10 @@ const Search = () => {
 
         if (selected_main_category) {
             updatedParams.push("main_category=" + selected_main_category);
+
+            const newList = menuData!.filter((item) => item.category_id == String(selected_main_category));
+           
+            setCategories(newList)
         }
 
         if (selected_sub_category) {
@@ -132,7 +156,8 @@ const Search = () => {
         
         setAdvertData([])
         setFilters(updatedParams);
-      }, [selected_city, selected_county, price, search_query, category_param]);
+    }, [selected_city, selected_county, price, search_query, category_param]);
+      
 
     const initialValues: {minPrice: string, maxPrice: string} = {
         minPrice: '',
@@ -161,6 +186,16 @@ const Search = () => {
             }
         }
     })
+
+    const handleFilterCategory = (mainCategory: string, subCategory: string) => {
+        const categories = subCategory ? slugify(subCategory, { prefix: mainCategory }) : mainCategory;
+    
+        setSearchParams((prev) => {
+            prev.set("category", categories);
+            return prev;
+        });
+    }
+
     return (
         <Container>
             <Grid container>
@@ -176,9 +211,9 @@ const Search = () => {
                         </Grid>
                         {/* filter category of column */}
                         <Grid item xl={12} md={12} sm={12} xs={12}>
-                            <Accordion sx={advertSearchStyles.leftFilterAccording}>
+                            <Accordion sx={advertSearchStyles.leftFilterAccording} defaultExpanded>
                                 <AccordionSummary
-                                    expandIcon={<ExpandMoreIcon />}
+                                    expandIcon={<ExpandMore />}
                                     aria-controls="panel1bh-content"
                                     id="panel1bh-header"
                                     sx={advertSearchStyles.leftFilterAccordingSummary}
@@ -188,18 +223,49 @@ const Search = () => {
                                     </Typography>
                                 </AccordionSummary>
                                 <AccordionDetails>
-                                    <ul>
-                                        <li>Tüm Kategoriler</li>
-                                    </ul>
+                                        <Box sx={advertSearchStyles.leftFilterAccordingTitleBox}>
+                                                <Remove />
+                                                <Typography sx={advertSearchStyles.leftFilterAccordingTitle}>Tüm Kategoriler</Typography>
+                                        </Box>
+                                        <Grid container>
+                                            {categories?.length >0 && categories?.map((mainItem, key) => (
+                                                <Grid item xl={12} lg={12} md={12} sm={12} xs={12} key={key}>
+                                                    <Box sx={mainItem.category_id == selected_main_category && selected_sub_category == undefined ? (
+                                                            advertSearchStyles.leftFilterAccordingContentActiveBox
+                                                        ): (
+                                                            advertSearchStyles.leftFilterAccordingContentBox
+                                                        )}>
+                                                        <Remove />
+                                                        <Typography 
+                                                            sx={advertSearchStyles.leftFilterAccordingMainContent}
+                                                            onClick={() => handleFilterCategory(mainItem.category_id, '')}
+                                                            >{mainItem.category_name}
+                                                        </Typography>
+                                                    </Box>
+                                                   
+                                                    {mainItem?.sub_category?.map((subItem) => (
+                                                        <Typography 
+                                                            sx={String(subItem.sub_category_id) == selected_sub_category ? (
+                                                                advertSearchStyles.leftFilterAccordingActiveSubContent
+                                                            ): (
+                                                                advertSearchStyles.leftFilterAccordingSubContent
+                                                            )}
+                                                            onClick={() => handleFilterCategory(mainItem.category_id, String(subItem.sub_category_id))}
+                                                            >{subItem.sub_category_name}</Typography>
+                                                    ))}
+                                                </Grid>
+                                            ))}
+                                           
+                                        </Grid>
                                 </AccordionDetails>
                             </Accordion>
                         </Grid>
                          {/* filter Location of column */}
                         <Grid item xl={12} md={12} sm={12} xs={12}>
                             <Divider />
-                            <Accordion sx={advertSearchStyles.leftFilterAccording}>
+                            <Accordion sx={advertSearchStyles.leftFilterAccording} defaultExpanded>
                                 <AccordionSummary
-                                    expandIcon={<ExpandMoreIcon />}
+                                    expandIcon={<ExpandMore />}
                                     aria-controls="panel1bh-content"
                                     id="panel1bh-header"
                                     sx={advertSearchStyles.leftFilterAccordingSummary}
@@ -220,7 +286,7 @@ const Search = () => {
                             <Divider />
                             <Accordion sx={advertSearchStyles.leftFilterAccording}>
                                 <AccordionSummary
-                                    expandIcon={<ExpandMoreIcon />}
+                                    expandIcon={<ExpandMore />}
                                     aria-controls="panel1bh-content"
                                     id="panel1bh-header"
                                     sx={advertSearchStyles.leftFilterAccordingSummary}

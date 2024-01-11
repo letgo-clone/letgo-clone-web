@@ -994,6 +994,49 @@ export const advertSearchStyles: Record<string, SxProps<Theme> | undefined> = {
         fontWeight: 700, 
         textTransform: 'uppercase'
     },
+    leftFilterAccordingTitleBox: {
+        display :'flex', 
+        marginTop: '10px'
+    },
+    leftFilterAccordingTitle: {
+        fontSize: '14px', 
+        fontWeight: 700, 
+        color: '#2c2c2c'
+    },
+    leftFilterAccordingContentBox: {
+        display :'flex', 
+        marginTop: '10px'
+    },
+    leftFilterAccordingContentActiveBox: {
+        display :'flex',
+        marginTop: '10px',
+        fontWeight: 700, 
+        backgroundColor: '#f5f5f5',
+        color: '#2c2c2c',
+    },
+    leftFilterAccordingMainContent: {
+        fontSize: '14px', 
+        fontWeight: 700, 
+        color: '#2c2c2c',
+        marginLeft: '5px', 
+    },
+    leftFilterAccordingSubContent: {
+        fontSize: '14px', 
+        fontWeight: 500, 
+        color: '#616161', 
+        paddingLeft: '30px' , 
+        marginBottom: '10px',
+        cursor: 'pointer'
+    },
+    leftFilterAccordingActiveSubContent: {
+        color: '#2c2c2c', 
+        fontSize: '14px', 
+        fontWeight: 700, 
+        paddingLeft: '30px' , 
+        marginBottom: '10px',
+        cursor: 'pointer',
+        backgroundColor: '#f5f5f5'
+    },
 
     // Filter Price 
     textBetweenPriceFilter: {

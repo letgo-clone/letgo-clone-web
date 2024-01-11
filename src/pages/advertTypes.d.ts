@@ -15,6 +15,8 @@ export interface CardTypes {
     display_type?: string
     has_favorite?: boolean,
     how_status?: string,
+    main_category_id?: string,
+    sub_category_id?: string,
     id?: string,
     photo?: string,
     price?: string,
