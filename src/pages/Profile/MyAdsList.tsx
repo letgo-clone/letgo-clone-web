@@ -31,6 +31,7 @@ import { Request } from '../../helpers/Request';
 
 // Component
 import ProfileTopMenu from '../../components/common/ProfileTopMenu';
+import NoResult from '../../components/common/NoResult';
 
 // npm packages
 import { Link } from 'react-router-dom'
@@ -246,7 +247,7 @@ function MyAdsView() {
                 <Grid item xl={12} lg={12} md={12}>
                     <ProfileTopMenu />
                 </Grid>
-                {Object.keys(myAds).length > 0 && myAds?.map((item, key) => (
+                {Object.keys(myAds).length > 0 ? myAds?.map((item, key) => (
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12} key={key}>
                          {/* Ad card */}
                         <Card sx={!(item.is_visible) || (item.is_sell) ? (
@@ -381,7 +382,9 @@ function MyAdsView() {
                             </CardActions>
                         </Card>
                     </Grid>
-                ))}
+                )): (
+                    <NoResult page="myAds" />
+                )}
             </Grid>
         </Container >
     )

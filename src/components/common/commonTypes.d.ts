@@ -12,3 +12,7 @@ export type AdCardProps = {
     data: CardTypes[];
     grid: number[];
 }
+
+export type NoResultProps = {
+    page: string;
+}

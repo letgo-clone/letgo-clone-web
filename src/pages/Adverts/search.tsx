@@ -36,6 +36,7 @@ import {useAppSelector} from '../../redux/store';
 
 // Component
 import AdCard from '../../components/common/AdCard';
+import NoResult from '../../components/common/NoResult';
 
 // other
 import { Link,useSearchParams } from 'react-router-dom';
@@ -438,6 +439,8 @@ const Search = () => {
                 </Grid>
                 <Grid xl={8} lg={8} md={8}>
                      {/* Elements of right filter column */}
+                     {advertData.length !== 0 && (
+                        <>
                     <Grid container sx={advertSearchStyles.rightFilterGrid}>
                          {/* Search info */}
                         <Grid xl={4} md={4} sm={4} xs={4}>
@@ -484,7 +487,12 @@ const Search = () => {
                             </FormControl>
                         </Grid>
                     </Grid>
-                    {advertData.length > 0 && <AdCard data={advertData} grid={[4,4,4,6]} />}
+                     <AdCard data={advertData} grid={[4,4,4,6]} />
+                     </>
+                    )}
+                    {advertData.length == 0 && ( 
+                        <NoResult page="search" />
+                    )}
                 </Grid>
             </Grid>
         </Container>

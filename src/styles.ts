@@ -1746,3 +1746,64 @@ export const profileViewStyles: Record<string, SxProps<Theme>  | undefined > = {
         '&:hover': { bgcolor: '#FFFFFF', border: '6px solid #ff3f55', color: '#ff3f55' },
     }
 }
+
+// component/common/NoResult.tsx
+export const noResultStyles: Record<string, SxProps<Theme>  | undefined > = {
+    searchBox:{
+        marginTop: '20%' 
+    },
+    searchTitle: {
+        fontSize: '24px',
+        fontWeight: 500,
+        textAlign: 'center'
+    },
+    searchSubTitle: {
+         fontSize: '16px',
+        textAlign: 'center',
+        marginBottom: '40px'
+    },
+    imageBox: {
+        textAlign: 'center', 
+        marginTop: '10px' 
+    },
+    otherBox: {
+       textAlign: 'center' 
+    },
+    otherTitle : {
+         fontSize: '18px',
+        fontWeight: 700,
+        textAlign: 'center',
+        color: '#2c2c2c',
+        marginTop: '20px'
+    },
+    otherSubTitle: {
+        fontSize: '16px',
+        textAlign: 'center',
+        lineHeight: '24px',
+    },
+    otherSellButton: {
+         backgroundColor: '#ff3f55',
+        color: '#FFFFFF',
+        textTransform: 'none',
+        border: '6px solid transparent',
+        padding: '5px 16px 5px 16px',
+        fontSize: '16px',
+        fontWeight: 700,
+        borderRadius: 15,
+        marginTop: '20px',
+        '&:hover': { bgcolor: '#FFFFFF', border: '6px solid #ff3f55', color: '#ff3f55' },
+    },
+    otherDiscoverButton: {
+        backgroundColor: '#FFFFFF',
+        color: '#ff3f55',
+        textTransform: 'none',
+        border: '6px solid #ff3f55',
+        padding: '5px 16px 5px 16px',
+        fontSize: '16px',
+        fontWeight: 700,
+        borderRadius: 15,
+        marginTop: '20px',
+        '&:hover': { bgcolor: '#ff3f55', border: '6px solid #ff3f55', color: '#FFFFFF' },
+    }
+
+}

@@ -14,6 +14,7 @@ import { Request } from '../../helpers/Request';
 // Component
 import AdCard from '../../components/common/AdCard';
 import ProfileTopMenu from '../../components/common/ProfileTopMenu';
+import NoResult from '../../components/common/NoResult';
 
 // interface
 import { CardTypes } from '../advertTypes';
@@ -41,7 +42,11 @@ function MyFavoriteView() {
                     <ProfileTopMenu />
                 </Grid>
                 <Grid item xl={12} lg={12} md={12}>
-                    {favoriteData.length > 0 && <AdCard data={favoriteData} grid={[4, 4, 4, 6]} />}
+                    {favoriteData.length > 0 ? (
+                        <AdCard data={favoriteData} grid={[4, 4, 4, 6]} />
+                    ) : (
+                        <NoResult page="favorite" />
+                    )}
                 </Grid>
             </Grid>
         </Container>
