@@ -45,6 +45,7 @@ import slugify from 'react-slugify';
 // Interfaces
 import { CardTypes } from '../advertTypes';
 import { Menu } from '../../redux/interface';
+import { CountiesProps } from '../advertTypes';
 
 const Search = () => {
     // Redux
@@ -85,6 +86,7 @@ const Search = () => {
     const [count, setCount] = useState<number>(0);
 
     const [categories, setCategories] = useState<Menu[]>([]);
+    const [counties, setCounties] = useState<CountiesProps[]>([])
    
     // useEffect area
     useEffect(() => {
@@ -157,6 +159,19 @@ const Search = () => {
         setAdvertData([])
         setFilters(updatedParams);
     }, [selected_city, selected_county, price, search_query, category_param]);
+
+    useEffect(() => {
+        const getCounties = async() => {
+            const url = "/advert/location/" + 34;
+            const result = await RequestPublic({
+                method: 'GET',
+                url: url
+            })
+
+            setCounties(result);
+        }
+        getCounties();
+    },[])
       
 
     const initialValues: {minPrice: string, maxPrice: string} = {
@@ -192,6 +207,15 @@ const Search = () => {
     
         setSearchParams((prev) => {
             prev.set("category", categories);
+            return prev;
+        });
+    }
+
+    const handleFilterLocation = (city: number, county: number) => {
+        const location = county != 0 ? slugify(county, { prefix: String(city) }) : city;
+    
+        setSearchParams((prev) => {
+            prev.set("location", String(location));
             return prev;
         });
     }
@@ -255,7 +279,6 @@ const Search = () => {
                                                     ))}
                                                 </Grid>
                                             ))}
-                                           
                                         </Grid>
                                 </AccordionDetails>
                             </Accordion>
@@ -275,9 +298,37 @@ const Search = () => {
                                     </Typography>
                                 </AccordionSummary>
                                 <AccordionDetails>
-                                    <ul style={{ listStyle: '-' }}>
-                                        <li>İstanbul</li>
-                                    </ul>
+                                        <Box sx={advertSearchStyles.leftFilterAccordingTitleBox}>
+                                                <Remove />
+                                                <Typography sx={advertSearchStyles.leftFilterAccordingTitle}>Türkiye</Typography>
+                                        </Box>
+                                        <Grid container>
+                                                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                                    <Box sx={String(selected_city) == selected_city && selected_county == undefined ? (
+                                                            advertSearchStyles.leftFilterAccordingContentActiveBox
+                                                        ): (
+                                                            advertSearchStyles.leftFilterAccordingContentBox
+                                                        )}>
+                                                        <Remove />
+                                                        <Typography 
+                                                            sx={advertSearchStyles.leftFilterAccordingMainContent}
+                                                            onClick={() => handleFilterLocation(Number(selected_city), 0)}
+                                                            >İstanbul
+                                                        </Typography>
+                                                    </Box>
+                                                   
+                                                    {counties?.map((ItemCounty) => (
+                                                        <Typography 
+                                                            sx={String(ItemCounty.id) == selected_county ? (
+                                                                advertSearchStyles.leftFilterAccordingActiveSubContent
+                                                            ): (
+                                                                advertSearchStyles.leftFilterAccordingSubContent
+                                                            )}
+                                                            onClick={() => handleFilterLocation(Number(selected_city), ItemCounty.id!)}
+                                                            >{ItemCounty.county}</Typography>
+                                                    ))}
+                                                </Grid>
+                                        </Grid>
                                 </AccordionDetails>
                             </Accordion>
                         </Grid>
