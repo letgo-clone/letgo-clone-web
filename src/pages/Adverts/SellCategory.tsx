@@ -59,7 +59,7 @@ function a11yProps(index: number) {
 }
 
 
-function Index() {
+function SellCategory() {
     // Redux elements
     const {menuData} = useAppSelector((state) => state?.Menu);
     const dispatch = useAppDispatch();
@@ -158,4 +158,4 @@ function Index() {
     )
 }
 
-export default Index
+export default SellCategory

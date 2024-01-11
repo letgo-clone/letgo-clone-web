@@ -1,22 +1,21 @@
 import { Navigate } from "react-router-dom";
 
 // Dashboard
-import Home from "../pages/Home/index";
+import Home from "../pages/Home";
 
 // Adverts
-import AdvertDetail from "../pages/Adverts";
-import Search from "../pages/Adverts/search";
-
-// Post
-import Post from '../pages/Post/index'
-import PostAttributes from '../pages/Post/Sell'
+import AdvertDetail from "../pages/Adverts/Detail";
+import Search from "../pages/Adverts/Search";
+import AdvertEdit from "../pages/Adverts/Edit";
+import SellCategory from '../pages/Adverts/SellCategory'
+import PostAttributes from '../pages/Adverts/Sell'
 
 // Profile
 import ProfileInfo from "../pages/Profile";
 import ProfileView from "../pages/Profile/profileView";
 import MyAdsView from "../pages/Profile/MyAdsList";
 import MyFavoriteView from "../pages/Profile/MyFavoriteList";
-import AdvertEdit from "../pages/Post/Edit";
+
 
  const publicRoutes = [
     { path: "/", component: <Home /> },
@@ -26,7 +25,7 @@ import AdvertEdit from "../pages/Post/Edit";
 ]; 
 
 const authProtectedRoutes = [
-    { path: "/post", component: <Post /> },
+    { path: "/post", component: <SellCategory /> },
     { path: "/post/attributes", component: <PostAttributes /> },
     { path: "/post/edit/:advertId", component: <AdvertEdit /> },
     { path: "/editProfile/info", component: <ProfileInfo /> },
