@@ -20,13 +20,13 @@ import {
     } from '@mui/icons-material';
 
 // Styles
-import { adCardStyles } from '../styles';
+import { adCardStyles } from '../../styles';
 
 // assets
-import otoplusBadge from '../assets/img/otoplus-badge.png'
+import otoplusBadge from '../../assets/img/otoplus-badge.png'
 
 // Components
-import Favorite from './Favorite';
+import Favorite from '../Favorite';
 
 // Other package
 import slugify from 'react-slugify';
@@ -34,14 +34,11 @@ import { Link } from 'react-router-dom';
 
 // Interfaces or Types
 
-import { AdCardProps } from './component';
+import { AdCardProps } from './commonTypes';
 
-import { 
-    CardTypes
-} from '../pages/advertTypes';
+import { CardTypes } from '../../pages/advertTypes';
 
-
-export const AdCard: React.FC<AdCardProps> = ({ data, grid }) => {
+const AdCard: React.FC<AdCardProps> = ({ data, grid }) => {
   
     // useState
     const [cardData, setCardData] = useState<CardTypes[]>(data);
@@ -152,3 +149,5 @@ export const AdCard: React.FC<AdCardProps> = ({ data, grid }) => {
         </Grid>
     )
 }
+
+export default AdCard

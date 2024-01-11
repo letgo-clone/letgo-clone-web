@@ -16,12 +16,12 @@ import { adViewStyles } from '../../styles';
 import { Request } from '../../helpers/Request';
 
 // Component
-import { AdCard } from '../../components/AdCard';
+import AdCard from '../../components/common/AdCard';
 
 import { Link } from 'react-router-dom'
 
 // interface
-import {CardTypes} from '../advertTypes';
+import { CardTypes } from '../advertTypes';
 
 function MyFavoriteView() {
     const [favoriteData, setFavoriteData] = useState<CardTypes[]>([]);

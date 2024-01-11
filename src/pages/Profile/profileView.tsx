@@ -26,7 +26,7 @@ import {
 import { profileViewStyles } from '../../styles';
 
 // Components
-import { AdCard } from '../../components/AdCard';
+import AdCard from '../../components/common/AdCard';
 
 // Helpers
 import { Request } from '../../helpers/Request';

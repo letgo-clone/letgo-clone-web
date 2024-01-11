@@ -16,12 +16,11 @@ import otoplusBanner from '../../assets/img/banner-otoplus.png'
 import otoplusBannerMobile from '../../assets/img/banner-otoplus-mobile.png'
 
 // Components
-import { AdCard } from '../../components/AdCard';
+import AdCard from '../../components/common/AdCard';
 import CategoryBanner from '../../components/CategoryBanner';
 
 // helpers
 import { RequestPublic } from '../../helpers/Request';
-
 
 // interfaces
 import { CardTypes } from '../advertTypes';

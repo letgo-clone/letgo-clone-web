@@ -7,3 +7,8 @@ export interface searchFormTypes {
     location?: string,
     search?: string
 }
+
+export type AdCardProps = {
+    data: CardTypes[];
+    grid: number[];
+}

@@ -1,9 +1,3 @@
-export type AdCardProps = {
-    data: CardTypes[];
-    grid: number[];
-}
-
-
 type loginModalProps = {
     isLogin: boolean,
     handleClose: () => void,

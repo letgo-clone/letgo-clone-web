@@ -35,7 +35,7 @@ import { RequestPublic } from '../../helpers/Request';
 import {useAppSelector} from '../../redux/store';
 
 // Component
-import { AdCard } from '../../components/AdCard';
+import AdCard from '../../components/common/AdCard';
 
 // other
 import { Link,useSearchParams } from 'react-router-dom';
