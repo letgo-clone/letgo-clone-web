@@ -1623,6 +1623,14 @@ export const adViewStyles: Record<string, SxProps<Theme>  | undefined > = {
         marginTop: '23px',
         padding: '4px 35px'
     },
+    adSellStatusButton: {
+        backgroundColor: '#8baf60',
+        color: '#ffffff',
+        fontSize: '10px',
+        fontWeight: 400,
+        marginTop: '23px',
+        padding: '4px 35px'
+    },
     // ad right column elements
     adRightColumnGrid: {
         paddingTop: { 

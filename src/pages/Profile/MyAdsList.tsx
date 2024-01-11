@@ -107,12 +107,12 @@ function MyAdsView() {
 
     const handleDeleteAdvert = async(advertId: string) => {
         const { value } = await Swal.fire({
-            title: 'İlanı sattın mı ?',
-            text: "Bu işlemi yapmak istediğinizden emin misiniz ?",
+            title: 'İlanını silmek üzeresin.',
+            text: "Bu eylemi geri alamayacaksın",
             icon: 'warning',
             showCancelButton: true,
             cancelButtonText: 'Vazgeç',
-            confirmButtonText: 'İlanı sattım',
+            confirmButtonText: 'İlanı Kaldır',
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#ff3f55'
         });
@@ -136,11 +136,58 @@ function MyAdsView() {
                 Swal.fire({
                     icon: 'success',
                     title: 'İşlem Başarılı',
-                    html: 'İlan yayından kaldırıldı',
+                    html: 'İlan kaldırıldı',
                     confirmButtonText: 'Tamam'
                 });
                 const newList = myAds.filter((veri) => veri?.id !== advertId);
                 setMyAds(newList);
+            }
+        }
+    } 
+
+    const handleSellChange = async(advertId: string) => {
+
+        const { value } = await Swal.fire({
+            title: 'İlanı sattım',
+            text: "Bu işlemi yapmak istediğinizden emin misiniz ?",
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'Vazgeç',
+            confirmButtonText: 'İlanı sattım',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#ff3f55'
+        });
+
+        if(value) {
+            const formdata: FormData = new FormData();
+            formdata.append("op", 'replace');
+            formdata.append("path", 'has_advert_sell');
+            formdata.append("value", 'true');
+            const url = '/advert/list/' + advertId;
+
+            const response = await Request({
+                method: 'PATCH',
+                url: url,
+                formData: formdata
+            });
+
+            const responseCheck = Object.keys(response).filter(item => item == 'success')
+            if(responseCheck){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'İşlem Başarılı',
+                    html: 'İlan satıldı olarak olarak işaretlendi, ilan yayından kaldırıldı,',
+                    confirmButtonText: 'Tamam'
+                });
+
+                setMyAds(prevObjects => {
+                    return prevObjects.map(obj => {
+                      if (obj?.id === advertId) {
+                        return { ...obj, is_sell: true  }
+                      }
+                      return obj;
+                    })
+                })
             }
         }
     } 
@@ -190,6 +237,14 @@ function MyAdsView() {
                                                     </Typography>
                                                 </Grid>
                                                 <Grid item xl={2} lg={2} md={2} sm={6} xs={6}>
+                                                    {(item.is_sell) ? (
+                                                         <Button
+                                                            variant="contained"
+                                                            sx={adViewStyles.adSellStatusButton}
+                                                        >
+                                                         Satıldı
+                                                     </Button>
+                                                    ): (
                                                     <Button
                                                         variant="contained"
                                                         sx={adViewStyles.adStatusButton}
@@ -197,6 +252,8 @@ function MyAdsView() {
                                                     >
                                                         {item.is_visible ? 'Etkin' : 'Devre dışı'}
                                                     </Button>
+                                                    )}
+                                                  
                                                 </Grid>
                                             </Grid>
                                         </Link>
@@ -206,19 +263,34 @@ function MyAdsView() {
                                         <Grid container>
                                             <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={adViewStyles.adStatusGridOfRightColumn}>
                                                 <Typography sx={adViewStyles.adStatusText}>
-                                                    {item.is_visible ? 'Bu ilan şuanda yayında' : 'Bu ilan yayında değil'}
+                                                    {item.is_sell ? (
+                                                        'Bu ilan satıldı'
+                                                    ):(
+                                                        (item.is_visible) && !(item.is_sell) ? 'Bu ilan şuanda yayında' : 'Bu ilan yayında değil'
+                                                    )}
                                                 </Typography>
                                             </Grid>
                                             <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={adViewStyles.adActionIconGrid}>
-                                                <IconButton aria-label="visible" onClick={() => handleVisibleChange(item.id!, item.is_visible!)}>
-                                                    {item.is_visible ? <Visibility /> : <VisibilityOff />}
-                                                </IconButton>
-                                                <IconButton aria-label="edit" href={`/post/edit/${item.id}`}>
-                                                    <Edit />
-                                                </IconButton>
-                                                <IconButton aria-label="delete" onClick={() => handleDeleteAdvert(item.id!)}>
-                                                    <Delete />
-                                                </IconButton>
+                                                {!(item.is_sell) ? (
+                                                    <>
+                                                        <IconButton aria-label="visible" onClick={() => handleVisibleChange(item.id!, item.is_visible!)}>
+                                                            {item.is_visible ? <Visibility /> : <VisibilityOff />}
+                                                        </IconButton>
+                                                        <IconButton aria-label="edit" href={`/post/edit/${item.id}`}>
+                                                            <Edit />
+                                                        </IconButton>
+                                                        <IconButton aria-label="delete" onClick={() => handleDeleteAdvert(item.id!)}>
+                                                            <Delete />
+                                                        </IconButton>
+                                                    </>
+                                                ): (
+                                                    <IconButton aria-label="delete" onClick={() => handleDeleteAdvert(item.id!)}>
+                                                        <Delete />
+                                                    </IconButton>
+                                                )}
+                                               
+
+                                               
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -237,14 +309,16 @@ function MyAdsView() {
                                      {/*  status determination buttons */}
                                     <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                                         <Box sx={adViewStyles.rightButtonsBox}>
-                                        <Button
-                                            onClick={() => handleDeleteAdvert(item.id!)}
-                                            variant="outlined"
-                                            sx={adViewStyles.rightButtons}
-                                            size='small'
-                                        >
-                                            Satıldı olarak işaretle
-                                        </Button>
+                                        {!(item.is_sell) && (
+                                             <Button
+                                                onClick={() => handleSellChange(item.id!)}
+                                                variant="outlined"
+                                                sx={adViewStyles.rightButtons}
+                                                size='small'
+                                            >
+                                                Satıldı olarak işaretle
+                                            </Button>
+                                        )}
                                         {item.is_visible && 
                                             <Button
                                                 variant="outlined"
