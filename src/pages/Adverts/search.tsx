@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, SelectChangeEvent } from 'react'
 
 // Material UI elements
 import { 
@@ -78,7 +78,10 @@ const Search = () => {
     }
 
     const search_query = searchParams.get('q');
-    const searchValue = search_query && slugify(search_query, {delimiter: ' '})
+    const searchValue = search_query && slugify(search_query, {delimiter: ' '});
+
+    const selectedSorting = searchParams.get('sorting');
+
     // useState area
     const [advertData, setAdvertData] = useState<CardTypes[]>([]);
     const [price, setPrice] = useState<{minPrice: string, maxPrice: string}>({minPrice: '', maxPrice: ''});
@@ -87,7 +90,7 @@ const Search = () => {
 
     const [categories, setCategories] = useState<Menu[]>([]);
     const [counties, setCounties] = useState<CountiesProps[]>([]);
-    const [currentCategory, setCurrentCategory] = useState<string>('')
+    const [currentCategory, setCurrentCategory] = useState<string>('');
    
     // useEffect area
     useEffect(() => {
@@ -156,9 +159,13 @@ const Search = () => {
             updatedParams.push("sub_category=" + selected_sub_category);
         }
 
+        if (selectedSorting) {
+            updatedParams.push("sorting=" + selectedSorting);
+        }
+
         setAdvertData([])
         setFilters(updatedParams);
-    }, [selected_city, selected_county, price, search_query, category_param]);
+    }, [selected_city, selected_county, price, search_query, category_param, selectedSorting]);
 
 
     /* title the search for view current category */
@@ -240,6 +247,16 @@ const Search = () => {
             return prev;
         });
     }
+
+    const handleSortingChange = (event: SelectChangeEvent<string>) => {
+        const sortingValue = event.target.value;
+
+        setSearchParams((prevParams) => {
+            prevParams.set('sorting', sortingValue);
+            return prevParams
+        });
+    }
+
     return (
         <Container>
             <Grid container>
@@ -337,8 +354,9 @@ const Search = () => {
                                                         </Typography>
                                                     </Box>
                                                    
-                                                    {counties?.map((ItemCounty) => (
+                                                    {counties?.map((ItemCounty, key) => (
                                                         <Typography 
+                                                            key={key}
                                                             sx={String(ItemCounty.id) == selected_county ? (
                                                                 advertSearchStyles.leftFilterAccordingActiveSubContent
                                                             ): (
@@ -446,13 +464,13 @@ const Search = () => {
                                     displayEmpty
                                     inputProps={{ 'aria-label': 'Without label' }}
                                     sx={advertSearchStyles.rightSortingFilter}
-                                    defaultValue={50}
+                                    defaultValue="desc-relevance"
+                                    name="sorting"
+                                    onChange={handleSortingChange}
                                 >
-                                    <MenuItem value={10}>Yayınlama Tarihi</MenuItem>
-                                    <MenuItem value={20}>Akıllı Sıralama</MenuItem>
-                                    <MenuItem value={30}>Fiyat: Düşükten Yükseğe</MenuItem>
-                                    <MenuItem value={40}>Fiyat: Yüksekten Düşüğe</MenuItem>
-                                    <MenuItem value={50}>Mesafeye Göre</MenuItem>
+                                    <MenuItem value="desc-relevance">Yayınlama Tarihi</MenuItem>
+                                    <MenuItem value="asc-price">Fiyat: Düşükten Yükseğe</MenuItem>
+                                    <MenuItem value="desc-price">Fiyat: Yüksekten Düşüğe</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
