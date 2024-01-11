@@ -14,3 +14,8 @@ export type CategoryBannerProps = {
     page: string,
     handleDrawerClose: (() => void) | null,
 }
+
+export interface FavoriteTypes {
+    id?: string,
+    hasFavorite?: boolean,
+}

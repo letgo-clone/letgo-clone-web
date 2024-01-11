@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // Material UI elements
 import { 
@@ -10,14 +10,11 @@ import {
     CardMedia, 
     Typography, 
     Chip, 
-    IconButton,
     Button 
     } from '@mui/material';
 
 // Material UI Icons
 import { 
-    FavoriteBorder,
-    Favorite,
     Bolt,
     Call
     } from '@mui/icons-material';
@@ -28,17 +25,10 @@ import { adCardStyles } from '../styles';
 // assets
 import otoplusBadge from '../assets/img/otoplus-badge.png'
 
-// helper
-import { Request } from '../helpers/Request';
-
-// Redux
-import { useAppSelector } from '../redux/store';
-
 // Components
-import LoginModal from './LoginModal';
+import Favorite from './Favorite';
 
 // Other package
-import Swal from 'sweetalert2';
 import slugify from 'react-slugify';
 import { Link } from 'react-router-dom';
 
@@ -52,91 +42,15 @@ import {
 
 
 export const AdCard: React.FC<AdCardProps> = ({ data, grid }) => {
-    // Redux
-    const {loginData} = useAppSelector((state) => state?.authUser)
-
+  
     // useState
-    const [loginOpen, setLoginOpen] = useState<boolean>(false);
     const [cardData, setCardData] = useState<CardTypes[]>(data);
-
-    const addFavorite = async (advertId: string, hasFavorite: boolean) => {
-        if(loginData){
-            if(hasFavorite){
-                const formdata: FormData = new FormData();
-                formdata.append("op", 'remove');
-                formdata.append("path", 'has_advert_favorite');
     
-                const url = '/advert/favorite/' + advertId;
-    
-                const data = await Request({
-                    method: 'PATCH',
-                    url: url,
-                    formData: formdata
-                });
-    
-                const responseErrorCheck = Object.keys(data).filter(item => item == 'error')
-                if(!responseErrorCheck){
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Hata',
-                        text: 'Bi Hata oluştu',
-                      })
-                }
-    
-                setCardData(prevObjects => {
-                    return prevObjects.map(obj => {
-                      if (obj.id === advertId) {
-                        return { ...obj, has_favorite: false }
-                      }
-                      return obj;
-                    })
-                }) 
-            }
-            else
-            {
-                const formdata: FormData = new FormData();
-                formdata.append("op", 'add');
-                formdata.append("path", 'has_advert_favorite');
-    
-                const url = '/advert/favorite/' + advertId;
-                
-                const data = await Request({
-                    method: 'PATCH',
-                    url: url,
-                    formData: formdata
-                });
-    
-                const responseErrorCheck = Object.keys(data).filter(item => item == 'error')
-    
-                if(!responseErrorCheck){
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Hata',
-                        text: 'Bi Hata oluştu',
-                      })
-                }
-    
-                setCardData(prevObjects => {
-                    return prevObjects.map(obj => {
-                        if (obj.id === advertId) {
-                            return { ...obj, has_favorite: true }
-                        }
-                        return obj;
-                    })
-                })  
-            }
-        }else{
-            handleLoginOpen();
+    useEffect(() => {
+        if(data.length > 0){
+            setCardData(data)
         }
-    }
-
-    const handleLoginOpen = () => {
-        setLoginOpen(true);
-    };
-
-    const handleLoginClose = () => {
-        setLoginOpen(false);
-    };
+    },[data])
 
     return (
         <Grid container spacing={2}>
@@ -145,14 +59,8 @@ export const AdCard: React.FC<AdCardProps> = ({ data, grid }) => {
                     <Card sx={adCardStyles.card}>
                         {/* Card Media */}
                         <Box sx={adCardStyles.cardMediaBox}>
-                            <Box sx={adCardStyles.cardRightAction} onClick={() => addFavorite(item.id!, item.has_favorite!)}>
-                                <IconButton aria-label="add to favorites" sx={adCardStyles.cardRightActionIconButton}>
-                                    {item.has_favorite == true ? (
-                                        <Favorite sx={{ color:'red' }} />
-                                    ): (
-                                        <FavoriteBorder sx={{ color:'red' }} />
-                                    )}
-                                </IconButton>
+                            <Box sx={adCardStyles.cardRightAction}>
+                                <Favorite id={item?.id} hasFavorite={item?.has_favorite} />
                             </Box>
                             <Link to={`/item/${slugify(item.title)}/${item.id}`} style={{ textDecoration: 'none' }}>
                                 <CardMedia
@@ -240,7 +148,7 @@ export const AdCard: React.FC<AdCardProps> = ({ data, grid }) => {
                     </Card>
                 </Grid>
             ))}
-           {loginOpen && <LoginModal isLogin={loginOpen} handleClose={handleLoginClose} />}
+          
         </Grid>
     )
 }
