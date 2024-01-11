@@ -16,3 +16,10 @@ export type AdCardProps = {
 export type NoResultProps = {
     page: string;
 }
+
+export type BreadcrumbProps = {
+    breadcrumbItems?: { 
+        title?: string,
+        link?: string
+    }[]
+}

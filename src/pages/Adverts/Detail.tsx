@@ -12,7 +12,7 @@ import {
     Button, 
     Container, 
     IconButton, 
-    Divider 
+    Divider,
     } from "@mui/material"
 
 // Material UI icons
@@ -36,10 +36,12 @@ import { useAppSelector } from '../../redux/store';
 
 // Component
 import Favorite from '../../components/Favorite';
+import Breadcrumb from '../../components/common/Breadcrumb';
 
 // Other
 import { useParams, useNavigate } from "react-router-dom";
 import Carousel from 'react-material-ui-carousel'
+import slugify from 'react-slugify';
 
 // İnterfaces
 import { DetailCardTypes,DetailCaredPhotoTypes } from '../advertTypes';
@@ -82,11 +84,34 @@ const AdvertDetail = () => {
         }
     }
 
+     const breadCrumbItems = [
+        {
+            title: advertDetail.main_category,
+            link:  '/search?location=' + advertDetail.city_id + '-' + advertDetail.county_id + '&category=' + advertDetail.main_category_id
+        },
+        {
+            title: advertDetail.sub_category,
+            link:  '/search?location=' + advertDetail.city_id + '-' + advertDetail.county_id + '&category=' + advertDetail.sub_category_id
+        },
+        {
+            title: advertDetail.city + ' içindeki ' + advertDetail.sub_category + ' ilanları' ,
+            link: '/search?location=' + advertDetail.city_id + '&category=' + advertDetail.main_category_id + '-' + advertDetail.sub_category_id
+        },
+        {
+            title: advertDetail.county + ' içindeki ' + advertDetail.sub_category + ' ilanları' ,
+            link: '/search?location=' + advertDetail.city_id + '-' + advertDetail.county_id + '&category=' + advertDetail.main_category_id + '-' + advertDetail.sub_category_id
+        },
+        {
+            title: advertDetail.title,
+            link: '/item/' + slugify(advertDetail.title) + '/' + advertDetail.id
+        }
+    ] 
 
     return (
         <Box sx={advertDetailStyles.mainBox}>
             {advertDetail && (
                 <Container>
+                    <Breadcrumb  breadcrumbItems={breadCrumbItems} />
                     <Grid container>
                         <Grid xl={8} lg={8} md={12} sm={12} xs={12}>
                             {/* Left Column Contents  */}

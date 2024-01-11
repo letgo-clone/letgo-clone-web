@@ -37,9 +37,10 @@ import {useAppSelector} from '../../redux/store';
 // Component
 import AdCard from '../../components/common/AdCard';
 import NoResult from '../../components/common/NoResult';
+import Breadcrumb from '../../components/common/Breadcrumb';
 
 // other
-import { Link,useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useFormik } from 'formik';
 import Swal from 'sweetalert2';
 import slugify from 'react-slugify';
@@ -274,9 +275,7 @@ const Search = () => {
                     <Grid spacing={2} container>
                          {/* Top right elements */}
                         <Grid item xl={12} md={12} sm={12} xs={12}>
-                            <Link to="/" style={{ textDecoration: 'none' }}>
-                                <Typography sx={advertSearchStyles.leftFilterTitleLink}>Ana sayfa (Breadcumb) </Typography>
-                            </Link>
+                            <Breadcrumb breadcrumbItems={[]} />
                             <Typography sx={advertSearchStyles.leftFilterTitle}>{search_query !== null ? searchValue : currentCategory}</Typography>
                         </Grid>
                         {/* filter category of column */}

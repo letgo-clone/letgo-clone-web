@@ -36,6 +36,8 @@ export interface DetailCaredPhotoTypes {
 export interface DetailCardTypes {
     city?: string,
     county?: string,
+    city_id?:string,
+    county_id?:string,
     date?: string,
     description?: string,
     display_name?: string,
@@ -52,6 +54,10 @@ export interface DetailCardTypes {
     user_type?: string,
     userid?: number,
     has_favorite?: boolean,
+    main_category_id?: string,
+    sub_category_id?: string,
+    main_category?: string,
+    sub_category?: string,
     photo?: DetailCardTypes
 }
 

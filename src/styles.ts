@@ -1807,3 +1807,10 @@ export const noResultStyles: Record<string, SxProps<Theme>  | undefined > = {
     }
 
 }
+
+// component/common/Breadcrumb.tsx
+export const breadcrumbStyles: Record<string, SxProps<Theme>  | undefined > = {
+    breadcrumbs: {
+        fontSize :'12px', marginTop: '10px', marginBottom: '10px' 
+    }
+}
