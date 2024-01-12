@@ -25,6 +25,9 @@ import {
 // Styles
 import { profileViewStyles } from '../../styles';
 
+// Assets
+import defaultAvatar from '../../assets/img/default_avatar.png'
+
 // Components
 import AdCard from '../../components/common/AdCard';
 
@@ -82,7 +85,7 @@ function ProfileView() {
                                 {/* User image */}
                                 <Box sx={profileViewStyles.profileImageBox}>
                                     <Avatar
-                                        src={profile.photo?.url}
+                                        src={profile.photo == null ? defaultAvatar : profile.photo?.url}
                                         sx={profileViewStyles.profileImage}
                                     />
                                 </Box>

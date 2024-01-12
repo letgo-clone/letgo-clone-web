@@ -45,9 +45,10 @@ import {
 // Material UI styles
 import { navbarStyles, authUserMenuStyle, searchStyles } from '../../styles';
 
-// Logo
+// Assets
 import Logo from '../../assets/img/logo.svg'
 import MobileLogo from '../../assets/img/logo-mobile.svg'
+import DefaultAvatar from '../../assets/img/default_avatar.png'
 
 // Components
 import LoginModal from '../LoginModal';
@@ -208,7 +209,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                             aria-haspopup="true"
                                             aria-expanded={LoginOpen ? 'true' : undefined}
                                         >
-                                            <Avatar sx={navbarStyles.authAvatar} src={userData.photo?.url}></Avatar>
+                                            <Avatar sx={navbarStyles.authAvatar} src={userData.photo == null ? DefaultAvatar :userData.photo?.url}></Avatar>
                                             <ExpandMore />
                                         </IconButton>
                                     </Tooltip>
@@ -228,7 +229,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                 >
                                     <MenuItem onClick={handleProfileClose}>
                                         <Avatar
-                                            src={userData.photo?.url}
+                                            src={userData.photo == null ? DefaultAvatar : userData.photo?.url}
                                             sx={navbarStyles.authMenuAvatar}
                                         />
                                         <Typography sx={navbarStyles.authMenuAvatarText}>{userData?.fullname}</Typography>
@@ -335,7 +336,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                                             <>
                                                             <ListItem sx={navbarStyles.drawerMobileAvatarListItem}>
                                                                 <ListItemAvatar>
-                                                                    <Avatar sx={navbarStyles.drawerAvatar} src={userData.photo?.url}></Avatar>
+                                                                    <Avatar sx={navbarStyles.drawerAvatar} src={userData.photo == null ? DefaultAvatar : userData.photo?.url}></Avatar>
                                                                 </ListItemAvatar>
                                                                 <Typography
                                                                     sx={navbarStyles.drawerAvatarLoginText}
