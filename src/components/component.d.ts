@@ -13,3 +13,8 @@ export interface FavoriteTypes {
     id?: string,
     hasFavorite?: boolean,
 }
+
+export interface ErrorProps {
+    error_type?: string, 
+    error_description?: string
+}

@@ -751,7 +751,7 @@ export const loginModalStyles: Record<string, SxProps<Theme> | undefined> = {
         fontSize: '1.5rem'
     },
     dialogContent: {
-        marginBottom: '20%', 
+        
         overflowY: 'visible',
         height: '584px'
     },
