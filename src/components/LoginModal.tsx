@@ -48,6 +48,28 @@ const LoginModal: React.FC<loginModalProps> = ({ isLogin, handleClose }) => {
     const [passLogin, setPassLogin] = useState<boolean>(false);
     const [loginOpen, setLoginOpen] = useState<boolean>(false);
     const [error, setError] = useState<{error: string, error_description: string}>({ error: '', error_description: '' })
+
+    useEffect(() => {
+        setLoginOpen(isLogin)
+    },[isLogin])
+
+    // Login verification
+    useEffect(() => {
+        if(localStorage.getItem('access_token')){
+            const loginVerify = async () => {
+                
+                const requestUrl = "/account/session";
+                const getData = await Request({
+                    method: 'GET',
+                    url: requestUrl
+                });
+
+                dispatch(setLoginData(getData));
+                location.reload();
+            }
+            loginVerify();
+        }
+    },[passLogin])
     
     // Login area on/off
     const handleLogin = () => {
@@ -96,28 +118,6 @@ const LoginModal: React.FC<loginModalProps> = ({ isLogin, handleClose }) => {
         }
     });
 
-    useEffect(() => {
-        setLoginOpen(isLogin)
-    },[isLogin])
-
-    // Login verification
-    useEffect(() => {
-        if(localStorage.getItem('access_token')){
-            const loginVerify = async () => {
-                
-                const requestUrl = "/account/session";
-                const getData = await Request({
-                    method: 'GET',
-                    url: requestUrl
-                });
-
-                dispatch(setLoginData(getData));
-                location.reload();
-            }
-            loginVerify();
-        }
-    },[passLogin])
-
     // Material UI setting
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -141,11 +141,11 @@ const LoginModal: React.FC<loginModalProps> = ({ isLogin, handleClose }) => {
                             </IconButton>
                         )}
                 </DialogTitle>
-
+                <DialogContent sx={loginModalStyles.dialogContent}>
                 {!showLogin ? (
                     <>
                         {/* First page of login modal  */}
-                        <DialogContent sx={loginModalStyles.dialogContent}>
+                       
                             <Grid container spacing={2}>
                                 {/* Carousel */}
                                 <Grid item lg={12} md={12} sm={12} xs={12}>
@@ -167,12 +167,12 @@ const LoginModal: React.FC<loginModalProps> = ({ isLogin, handleClose }) => {
                                 {/* Buttons */}
                                 <Grid item lg={12} md={12} sm={12} xs={12} sx={loginModalStyles.buttonGrid}>
                                     <Button
-                                        onClick={handleLogin}
+                                        onClick={handleRegister}
                                         variant="outlined"
                                         sx={loginModalStyles.buttons}
                                         color="error"
                                     >
-                                        Telefonla devam et
+                                        Kayıt olarak devam et
                                     </Button>
                                 </Grid>
                                 <Grid item lg={12} md={12} sm={12} xs={12} sx={loginModalStyles.buttonGrid}>
@@ -182,17 +182,7 @@ const LoginModal: React.FC<loginModalProps> = ({ isLogin, handleClose }) => {
                                         sx={loginModalStyles.buttons}
                                         color="error"
                                     >
-                                        Google ile devam et
-                                    </Button>
-                                </Grid>
-                                <Grid item lg={12} md={12} sm={12} xs={12} sx={loginModalStyles.buttonGrid}>
-                                    <Button
-                                        onClick={handleLogin}
-                                        variant="outlined"
-                                        sx={loginModalStyles.buttons}
-                                        color="error"
-                                    >
-                                        E-posta adresiyle devam et
+                                        Giriş yaparak devam et
                                     </Button>
                                 </Grid>
                             </Grid>
@@ -212,12 +202,10 @@ const LoginModal: React.FC<loginModalProps> = ({ isLogin, handleClose }) => {
                                     </Typography>
                                 </Grid>
                             </Grid>
-                        </DialogContent>
                     </>
                 ) : (
                     <>
                         {/* Login modal elements */}
-                        <DialogContent sx={loginModalStyles.dialogContent}>
                             <form
                                 method='POST'
                                 onSubmit={formik.handleSubmit}
@@ -294,9 +282,10 @@ const LoginModal: React.FC<loginModalProps> = ({ isLogin, handleClose }) => {
                                     </Grid>
                                 </Grid>
                             </form>
-                        </DialogContent>
                     </>
                 )}
+                </DialogContent>
+           
             </Dialog>
     
         </>
