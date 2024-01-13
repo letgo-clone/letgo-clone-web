@@ -87,11 +87,11 @@ const AdvertDetail = () => {
      const breadCrumbItems = [
         {
             title: advertDetail.main_category,
-            link:  '/search?location=' + advertDetail.city_id + '-' + advertDetail.county_id + '&category=' + advertDetail.main_category_id
+            link:  '/search?category=' + advertDetail.main_category_id
         },
         {
             title: advertDetail.sub_category,
-            link:  '/search?location=' + advertDetail.city_id + '-' + advertDetail.county_id + '&category=' + advertDetail.sub_category_id
+            link:  '/search?category=' + advertDetail.main_category_id + '-' + advertDetail.sub_category_id
         },
         {
             title: advertDetail.city + ' içindeki ' + advertDetail.sub_category + ' ilanları' ,
