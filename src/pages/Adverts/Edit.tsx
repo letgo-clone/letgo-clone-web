@@ -182,7 +182,9 @@ function AdvertEdit() {
 
             setCounties(getData);
         }
-        getCounties();
+        if(formik.values.city_id !== 'undefined'){
+            getCounties();
+        }
     }, [formik.values.city_id]);
 
     /*
