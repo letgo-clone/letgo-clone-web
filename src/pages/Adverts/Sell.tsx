@@ -67,10 +67,11 @@ function Attributes() {
         city_id: '',
         county_id: '',
         how_status: '',
-        fullname: userData.fullname!,
+        fullname: userData?.fullname && userData.fullname!,
         photo: []
       };
     const formik = useFormik({
+        enableReinitialize: true,
         initialValues,
         onSubmit: async (values) => {
             const {title, description, price, city_id, county_id, fullname, how_status} = values;
