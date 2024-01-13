@@ -55,10 +55,10 @@ function Index() {
           </Box>
            {/* Buttons into banner  */}
           <Grid item sx={homePageStyles.bannerContainer}>
-              <Button variant="outlined" sx={homePageStyles.bannerButton}>
+              <Button href="https://www.otoplus.com/al" target='blank' variant="outlined" sx={homePageStyles.bannerButton}>
                     Araba Al
               </Button>
-              <Button variant="outlined" sx={homePageStyles.bannerButton}>
+              <Button href="https://www.otoplus.com/araba-sat" target="blank" variant="outlined" sx={homePageStyles.bannerButton}>
                   Araba Sat
               </Button>
           </Grid>
