@@ -499,6 +499,7 @@ export const footerStyles: Record<string, SxProps<Theme> | undefined> = {
     footerContentText: {
         color: '#2c2c2c',
         fontSize: '12px',
+        cursor: 'pointer',
         paddingBottom: '6px'
     },
 

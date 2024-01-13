@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 
 // Material UI Elements
 import { 
@@ -28,8 +28,44 @@ import { footerStyles } from '../../styles';
 import GooglePlay from '../../assets/img/playstore.webp'
 import AppStore from '../../assets/img/appstore.webp'
 
+// Redux
+import { useAppSelector } from '../../redux/store';
+
+// React Router
+import { useNavigate } from 'react-router-dom';
+
+// interface
+
+import { Menu } from '../../redux/interface';
 
 function Footer() {
+    // React Router area
+    const navigate = useNavigate();
+
+    // Redux area
+    const {menuData} = useAppSelector((state) => state?.Menu);
+
+    // useState area
+    const [firstFooterCategory, setFirstFooterCategory] = useState<Menu[]>([])
+    const [secondFooterCategory, setSecondooterCategory] = useState<Menu[]>([])
+
+    // UseEffect area
+    useEffect(() => {
+        if(menuData?.length !== 0){
+            const firstColumnCategory = menuData?.slice(0, 4);
+            const secondColumnCategory = menuData?.slice(7, 10);
+           
+            setFirstFooterCategory(firstColumnCategory!);
+            setSecondooterCategory(secondColumnCategory!)
+        }
+    },[menuData])
+    
+    // function area
+
+    const handleSearchCategory = (categoryId: string) => {
+        navigate('/search?category='  + categoryId);
+    }
+
     return (
         <React.Fragment>
         {/* First Footer */}
@@ -39,19 +75,27 @@ function Footer() {
                     <Grid item md={3}>
                         <Typography sx={footerStyles.footerHead}>Popüler Kategoriler</Typography>
                         <Box sx={footerStyles.footerContent}>
-                            <Typography sx={footerStyles.footerContentText}>İkinci El Cep Telefonu</Typography>
-                            <Typography sx={footerStyles.footerContentText}>İkinci El Bilgisayar</Typography>
-                            <Typography sx={footerStyles.footerContentText}>İkinci El Araba</Typography>
-                            <Typography sx={footerStyles.footerContentText}>İkinci El Motosiklet</Typography>
+                            {firstFooterCategory?.length !== 0 && firstFooterCategory?.map((item,key) => (
+                                 <Typography 
+                                    onClick={() => handleSearchCategory(item.category_id)} 
+                                    key={key} 
+                                    sx={footerStyles.footerContentText}
+                                >İkinci El {item?.category_name}
+                                </Typography>
+                            ))}
                         </Box>
                     </Grid>
                     <Grid item md={3}>
                         <Typography sx={footerStyles.footerHead}>Popüler Sayfalar</Typography>
                         <Box sx={footerStyles.footerContent}>
-                            <Typography sx={footerStyles.footerContentText}>İkinci El Mobilya</Typography>
-                            <Typography sx={footerStyles.footerContentText}>İkinci El Bilgisayar</Typography>
-                            <Typography sx={footerStyles.footerContentText}>İkinci El Araba</Typography>
-                            <Typography sx={footerStyles.footerContentText}>İkinci El Motosiklet</Typography>
+                            {secondFooterCategory?.length !== 0 && secondFooterCategory?.map((item,key) => (
+                                <Typography 
+                                     onClick={() => handleSearchCategory(item.category_id)} 
+                                     key={key} 
+                                     sx={footerStyles.footerContentText}
+                                 >İkinci El {item?.category_name}
+                                 </Typography>
+                            ))}
                         </Box>
                     </Grid>
                     <Grid item md={2}>
