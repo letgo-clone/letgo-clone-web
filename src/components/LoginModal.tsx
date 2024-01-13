@@ -233,6 +233,11 @@ const LoginModal: React.FC<loginModalProps> = ({ isLogin, handleClose }) => {
                               <ArrowBack sx={loginModalStyles.dialogTitleIcon} />
                             </IconButton>
                         )}
+                         {showRegister && !showLogin && (
+                            <IconButton onClick={handleRegister} sx={loginModalStyles.dialogTitleArrowButton}>
+                              <ArrowBack sx={loginModalStyles.dialogTitleIcon} />
+                            </IconButton>
+                        )}
                 </DialogTitle>
                 <DialogContent sx={loginModalStyles.dialogContent}>
                 {!showLogin && !showRegister ? (
