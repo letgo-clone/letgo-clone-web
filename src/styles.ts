@@ -1668,6 +1668,9 @@ export const adViewStyles: Record<string, SxProps<Theme>  | undefined > = {
     cardActions: {
         borderTop: '1px solid #e0e0e0'
     },
+    cardSubColumnContainer: {
+        display :'contents'
+    },
     cardFavoriteStatusGrid: {
         display: 'inline-flex'
     },

@@ -345,7 +345,7 @@ function MyAdsView() {
                             </CardContent>
                              {/* Card footer elements = favorites and status button */}
                             <CardActions sx={adViewStyles.cardActions}>
-                                <Grid container>
+                                <Grid container sx={adViewStyles.cardSubColumnContainer}>
                                     {/* Favorite status */}
                                     <Grid item xl={6} lg={6} md={6} sm={12} xs={12} sx={adViewStyles.cardFavoriteStatusGrid}>
                                         <Favorite sx={adViewStyles.adFavoriteIcon} />
