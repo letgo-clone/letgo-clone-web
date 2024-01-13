@@ -42,12 +42,36 @@ const AdCard: React.FC<AdCardProps> = ({ data, grid }) => {
   
     // useState
     const [cardData, setCardData] = useState<CardTypes[]>(data);
+    const [pageNumber, setPageNumber] = useState<number>(1);
+    const [endPagination, setEndPagination] = useState<boolean>(false);
+    const pageSize: number = 10;
     
     useEffect(() => {
         if(data.length > 0){
-            setCardData(data)
+            setCardData(Array.isArray(data) ? data.slice(0, pageSize) : []);
         }
     },[data])
+
+    useEffect(() => {
+        const limitsData = () => {
+            const startIndex = (pageNumber - 1) * pageSize;
+            const endIndex = startIndex + pageSize;
+            const limitedData = data.slice(startIndex, endIndex);
+
+            if(limitedData.length > 0){
+                setCardData((prevData) => [ ...prevData, ...limitedData ]);
+            }else{
+                setEndPagination(true)
+            }
+        }
+        if(pageNumber > 1){
+            limitsData();
+        }
+    }, [pageNumber])
+
+    const handlePagination = () => {
+        setPageNumber((prev) => prev + 1)
+    }
 
     return (
         <Grid container spacing={2}>
@@ -146,7 +170,19 @@ const AdCard: React.FC<AdCardProps> = ({ data, grid }) => {
                     </Card>
                 </Grid>
             ))}
-          
+            {(!endPagination && data.length > 10 )&& (
+                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                    <Box sx={adCardStyles.paginationBox}>
+                        <Button
+                            variant="outlined"
+                            sx={adCardStyles.paginationButton}
+                            onClick={() => handlePagination()}
+                        >
+                            Daha fazla yükle
+                        </Button>
+                    </Box>
+                </Grid>
+            )}
         </Grid>
     )
 }

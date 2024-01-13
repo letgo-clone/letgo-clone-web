@@ -674,8 +674,30 @@ export const adCardStyles: Record<string, SxProps<Theme> | undefined> = {
             border: '3px solid #ff3f55', 
             color: '#ff3f55' 
         },
+    },
+
+    // Pagination
+    paginationBox: {
+        textAlign: 'center', 
+        marginTop: '30px' 
+    },
+    paginationButton: {
+        backgroundColor: '#FFFFFF',
+        color: '#ff3f55',
+        borderRadius: '50px',
+        border: '3px solid transparent',
+        outline: '#ff3f55 solid 3px',
+        textTransform: 'none',
+        marginRight: {xl: '20px', lg: '20px', md: '0px', sm:'0px', xs: '0px'}, 
+        marginBottom: '60px',
+        fontSize :'16',
+        fontWeight: 700,
+        '&:hover': { 
+            ackgroundColor: '#FFFFFF', 
+            border: '3px solid #ff3f55', 
+            color: '#ff3f55' 
+        },
     }
-    
 }
 
 export const loginModalStyles: Record<string, SxProps<Theme> | undefined> = {
