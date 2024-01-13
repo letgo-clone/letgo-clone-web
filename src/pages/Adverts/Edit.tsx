@@ -369,15 +369,13 @@ function AdvertEdit() {
                                                     alt="Advert" 
                                                 />
                                                 <Box className='image-content' sx={postAdvertStyles.fileInputIconBox}>
-                                                    {advertImages.length > 1 &&
-                                                    <IconButton 
-                                                        aria-label="remove to advert" 
-                                                        onClick={() => removeImage(item.image_id!, key)}
-                                                        sx={{ backgroundColor: '#000000', borderRadius: 3, '&:hover': {backgroundColor :'#000000'}}}
-                                                    >
-                                                            <CloseIcon sx={{ fontSize: '21px',color: '#ffffff' }} />
-                                                    </IconButton>
-                                                    }
+                                                        <IconButton 
+                                                            aria-label="remove to advert" 
+                                                            onClick={() => removeImage(item.image_id!, key)}
+                                                            sx={{ backgroundColor: '#000000', borderRadius: 3, '&:hover': {backgroundColor :'#000000'}}}
+                                                        >
+                                                                <CloseIcon sx={{ fontSize: '21px',color: '#ffffff' }} />
+                                                        </IconButton>
                                                 </Box>
                                                 {key == 0  &&
                                                     <Typography variant="body2" sx={postAdvertStyles.fileInputImageText}>
