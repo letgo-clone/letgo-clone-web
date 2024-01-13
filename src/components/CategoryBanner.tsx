@@ -73,8 +73,8 @@ const CategoryBanner: React.FC<CategoryBannerProps> = ({ styles, page, handleDra
       if(handleDrawerClose){
             handleDrawerClose();
       }
-      const cityId = '34';
-      navigate('/search?location=' + cityId + '&category='  + categories);
+
+      navigate('/search?category='  + categories);
   }
 
   // Drawer the all category
