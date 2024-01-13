@@ -169,7 +169,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
         }
     }
     return (
-        <AppBar position="static" sx={navbarStyles.appBar}>
+        <AppBar position="sticky" sx={navbarStyles.appBar}>
             <Container maxWidth='lg' sx={navbarStyles.container}>
                 {/* Desktop navbar */}
                 <Toolbar sx={navbarStyles.toolbar}> 
