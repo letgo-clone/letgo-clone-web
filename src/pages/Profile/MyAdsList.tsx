@@ -366,7 +366,7 @@ function MyAdsView() {
                                                 Satıldı olarak işaretle
                                             </Button>
                                         )}
-                                        {item.is_visible && 
+                                        {item.is_visible || item.is_sell && 
                                             <Button
                                                 onClick={() => handleHotAdvert(item.id!, item.status_id!)}
                                                 variant="outlined"
