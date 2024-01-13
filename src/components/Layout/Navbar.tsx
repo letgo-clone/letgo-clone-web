@@ -159,6 +159,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
         }else{
             handleLoginOpen()
         }
+        closeMobileMenu()
     }
 
     const handleAdsButton = () => {
@@ -167,6 +168,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
         }else{
             handleLoginOpen()
         }
+        closeMobileMenu()
     }
     return (
         <AppBar position="sticky" sx={navbarStyles.appBar}>
