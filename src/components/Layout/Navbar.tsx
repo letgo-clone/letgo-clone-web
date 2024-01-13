@@ -321,14 +321,16 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                                             </IconButton>
                                                         </Grid>
                                                         <Grid item xs={11}>
-                                                            <IconButton
-                                                                edge='start'
-                                                                color="inherit"
-                                                                aria-label="logo"
-                                                                sx={navbarStyles.drawerLogoIconButton}
-                                                            >
-                                                                <img src={MobileLogo} width={'60'} height={'28'} />
-                                                            </IconButton>
+                                                            <Link to="/">
+                                                                <IconButton
+                                                                    edge='start'
+                                                                    color="inherit"
+                                                                    aria-label="logo"
+                                                                    sx={navbarStyles.drawerLogoIconButton}
+                                                                >
+                                                                    <img src={MobileLogo} width={'60'} height={'28'} />
+                                                                </IconButton>
+                                                            </Link>
                                                         </Grid>
                                                     </Grid>
                                                     <List sx={navbarStyles.drawerMenuList} aria-label="contacts">
@@ -449,14 +451,16 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                     </Drawer>
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <IconButton
-                                        edge='start'
-                                        color="inherit"
-                                        aria-label="logo"
-                                        sx={navbarStyles.mobileTopLogo}
-                                    >
-                                        <img src={MobileLogo} width={'60'} height={'28'} />
-                                    </IconButton>
+                                    <Link to="/">
+                                        <IconButton
+                                            edge='start'
+                                            color="inherit"
+                                            aria-label="logo"
+                                            sx={navbarStyles.mobileTopLogo}
+                                        >
+                                            <img src={MobileLogo} width={'60'} height={'28'} />
+                                        </IconButton>
+                                    </Link>
                                 </Grid>
                             </Grid>
                         </Grid>
