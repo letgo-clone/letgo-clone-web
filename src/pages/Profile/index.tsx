@@ -113,7 +113,7 @@ function ProfileInfo() {
         <Grid container spacing={3} sx={profileEditStyles.mainGrid}>
           {/* Profile view button */}
             <Grid item lg={4} md={4} sm={12} xs={12}>
-              <Box sx={{ display: 'grid' }}>
+              <Box sx={profileEditStyles.profileViewButtonBox}>
                 <Button
                     href={'/profile'}
                     variant="outlined"

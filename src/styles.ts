@@ -1479,6 +1479,9 @@ export const profileEditStyles: Record<string, SxProps<Theme>  | undefined > = {
     mainGrid: {
         marginTop: 4 
     },
+    profileViewButtonBox: {
+        display :'grid'
+    },
     profileViewButton: {
         backgroundColor: '#FFFFFF',
         color: '#ff3f55',
