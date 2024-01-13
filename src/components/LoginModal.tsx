@@ -127,11 +127,13 @@ const LoginModal: React.FC<loginModalProps> = ({ isLogin, handleClose }) => {
     const handleLogin = () => {
         setShowLogin(!showLogin);
         formik.setFieldValue('email', '');
-        setShowPassword(false)
+        setShowPassword(false);
+        setError({});
     }
 
     const handleRegister = () => {
         setShowRegister(!showRegister);
+        setError({});
     }
 
     const handleClickShowPassword = () => setVisibilityPassword((show) => !show);
