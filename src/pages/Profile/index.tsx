@@ -6,6 +6,7 @@ import {
   Typography,
   InputAdornment,
   TextField,
+  Box
 }
   from '@mui/material'
 
@@ -109,9 +110,10 @@ function ProfileInfo() {
   })
   return (
     <Container>
-        <Grid container sx={profileEditStyles.mainGrid}>
+        <Grid container spacing={3} sx={profileEditStyles.mainGrid}>
           {/* Profile view button */}
-            <Grid item lg={4} md={4} sm={4}>
+            <Grid item lg={4} md={4} sm={12} xs={12}>
+              <Box sx={{ display: 'grid' }}>
                 <Button
                     href={'/profile'}
                     variant="outlined"
@@ -119,9 +121,10 @@ function ProfileInfo() {
                 >
                   Profili Görüntüle
                 </Button>
+              </Box>
             </Grid>
               {/* Left column grids, inputs */}
-            <Grid item lg={8} md={8} sm={8} sx={profileEditStyles.profileEditGrid}>
+            <Grid item lg={8} md={8} sm={12} xs={12} sx={profileEditStyles.profileEditGrid}>
                 <form
                     method='POST'
                     onSubmit={formik.handleSubmit}
@@ -136,7 +139,7 @@ function ProfileInfo() {
                         <Grid item lg={12} xl={12} md={12} sm={12} xs={12} sx={profileEditStyles.basicInputGrid}>
                           <Typography sx={profileEditStyles.basicInputTitle}>Temel bilgiler</Typography>
                           <Grid container spacing={3} sx={profileEditStyles.InputsGrid}>
-                              <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
+                              <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                                   <TextField
                                     fullWidth
                                     size='small'
@@ -149,7 +152,7 @@ function ProfileInfo() {
                                     helperText={formik.values.fullname == '' && 'Bu alan zorunludur'}
                                   />
                               </Grid>
-                              <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
+                              <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                                   <TextField
                                     fullWidth
                                     multiline
@@ -167,7 +170,7 @@ function ProfileInfo() {
                         <Grid item lg={12} xl={12} md={12} sm={12} xs={12} sx={profileEditStyles.contactInputsGrid}>
                             <Typography sx={profileEditStyles.contactInputTitle}>İletişim bilgileri</Typography>
                             <Grid container spacing={3} sx={profileEditStyles.InputsGrid}>
-                                <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
+                                <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                                     <TextField
                                       fullWidth
                                       size='small'
@@ -184,7 +187,7 @@ function ProfileInfo() {
                                       helperText={formik.values.phoneNumber == '' && 'Bu alan zorunludur'}
                                     />
                                 </Grid>
-                                <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
+                                <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
                                     <TextField
                                       fullWidth
                                       size='small'

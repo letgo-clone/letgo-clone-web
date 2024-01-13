@@ -1486,7 +1486,8 @@ export const profileEditStyles: Record<string, SxProps<Theme>  | undefined > = {
         border: '3px solid transparent',
         outline: '#ff3f55 solid 3px',
         textTransform: 'none',
-        padding: '0px 100px 0px 100px',
+        marginRight: {xl: '20px', lg: '20px', md: '0px', sm:'0px', xs: '0px'}, 
+        marginBottom: '60px',
         '&:hover': { 
             ackgroundColor: '#FFFFFF', 
             border: '3px solid #ff3f55', 
@@ -1508,8 +1509,7 @@ export const profileEditStyles: Record<string, SxProps<Theme>  | undefined > = {
     },
     basicInputGrid: {
         borderBottom: '1px solid #e0e0e0',
-        padding: '25px 0px 15px',
-        marginLeft: '20px'
+        padding: '25px 25px 15px 25px',
     },
     basicInputTitle: {
         fontSize: '16px',
@@ -1518,11 +1518,14 @@ export const profileEditStyles: Record<string, SxProps<Theme>  | undefined > = {
         marginBottom: '15px'
     },
     InputsGrid: {
-        display: 'inline-block' 
+        display: 'inline-block' ,
+        marginBottom: '20px', 
+        marginTop: '20px',
+        marginRight: '20px'
     },
     contactInputsGrid: {
         borderBottom: '1px solid #e0e0e0',
-        padding: '25px 0px 15px 25px',
+        padding: '25px 25px 15px 25px',
     },
     contactInputTitle: {
         fontSize: '16px',
