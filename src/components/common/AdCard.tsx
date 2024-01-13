@@ -133,6 +133,7 @@ const AdCard: React.FC<AdCardProps> = ({ data, grid }) => {
                             ): (
                                 <CardActions sx={adCardStyles.cardPartnerFooter}>
                                     <Button
+                                        href="tel:08509559090"
                                         variant="outlined"
                                         startIcon={<Call />}
                                         sx={adCardStyles.cardPartnerCallButton}
