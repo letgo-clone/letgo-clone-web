@@ -164,7 +164,7 @@ const AdvertDetail = () => {
                                     <Card sx={advertDetailStyles.rightColumnCards}>
                                         <CardContent sx={advertDetailStyles.rightColumnCardContent}>
                                             <Grid container>
-                                                <Grid item lg={6} md={6}>
+                                                <Grid item lg={6} md={6} sm={6} xs={6}>
                                                     <Typography sx={advertDetailStyles.rightColumnPriceText}>
                                                         {advertDetail.price}
                                                     </Typography>
@@ -172,7 +172,7 @@ const AdvertDetail = () => {
                                                         {advertDetail.title}
                                                     </Typography>
                                                 </Grid>
-                                                <Grid item lg={6} md={6} sx={advertDetailStyles.rightColumnPriceIconsGrid}>
+                                                <Grid item lg={6} md={6} sm={6} xs={6} sx={advertDetailStyles.rightColumnPriceIconsGrid}>
                                                     <IconButton aria-label="share">
                                                         <Share />
                                                     </IconButton>
@@ -192,7 +192,7 @@ const AdvertDetail = () => {
                                     <Card sx={advertDetailStyles.rightColumnCards}>
                                         <CardContent sx={advertDetailStyles.rightColumnCardContent}>
                                             <Grid container>
-                                                <Grid item lg={3} md={3}>
+                                                <Grid item lg={3} md={3} sm={3} xs={3}>
                                                     <Avatar 
                                                         alt="Remy Sharp" 
                                                         src={advertDetail?.user_image?.url} 
@@ -200,7 +200,7 @@ const AdvertDetail = () => {
                                                         onClick={() => handleRouteProfile(advertDetail.userid!)}
                                                     />
                                                 </Grid>
-                                                <Grid item lg={6} md={6}>
+                                                <Grid item lg={6} md={6} sm={6} xs={6}>
                                                     <Typography
                                                         sx={advertDetailStyles.rightColumnSellerFullname}
                                                         onClick={() => handleRouteProfile(advertDetail.userid!)}
@@ -208,7 +208,7 @@ const AdvertDetail = () => {
                                                         {advertDetail.fullname}
                                                     </Typography>
                                                 </Grid>
-                                                <Grid item lg={3} md={3} sx={advertDetailStyles.rightColumnSellerIconGrid}>
+                                                <Grid item lg={3} md={3} sm={3} xs={3} sx={advertDetailStyles.rightColumnSellerIconGrid}>
                                                     <IconButton 
                                                         aria-label="share" 
                                                         onClick={() => handleRouteProfile(advertDetail.userid!)}
@@ -230,12 +230,12 @@ const AdvertDetail = () => {
                                     <Card sx={advertDetailStyles.rightColumnCards}>
                                         <CardContent sx={advertDetailStyles.rightColumnCardContent}>
                                             <Grid container>
-                                                <Grid item lg={12} md={12}>
+                                                <Grid item lg={12} md={12} sm={12} xs={12}>
                                                     <Typography sx={advertDetailStyles.rightColumnLocationTitle}>
                                                         İlan Konumu
                                                     </Typography>
                                                 </Grid>
-                                                <Grid item lg={12} md={12}>
+                                                <Grid item lg={12} md={12} sm={12} xs={12}>
                                                     <Typography sx={advertDetailStyles.rightColumnLocationText}>
                                                         {advertDetail.county}, {advertDetail.city}
                                                     </Typography>
@@ -250,12 +250,12 @@ const AdvertDetail = () => {
                                  {/* Advert Report */}
                                 <Grid item lg={12} md={12} sm={12} xs={12} sx={advertDetailStyles.rightColumnsGrid}>
                                     <Grid container>
-                                        <Grid lg={6} md={6}>
+                                        <Grid lg={6} md={6} sm={6} xs={6}>
                                             <Typography sx={advertDetailStyles.rightColumnAdvertInfoText} color="text.secondary" gutterBottom>
                                                 İlan no {advertDetail.id}
                                             </Typography>
                                         </Grid>
-                                        <Grid lg={6} md={6}>
+                                        <Grid lg={6} md={6} sm={6} xs={6}>
                                             <Typography sx={advertDetailStyles.rightColumnAdvertComplaint} color="text.secondary" gutterBottom>
                                                 İlani Şikayet Et
                                             </Typography>
