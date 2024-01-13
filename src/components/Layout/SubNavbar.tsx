@@ -65,7 +65,7 @@ const SubNavbar: React.FC<SubNavbarAreaProps>  = ({ categories }) => {
     const categoryDetail = subCategory ? slugify(subCategory, { prefix: mainCategory }) : mainCategory;
     handleClose();
 
-    navigate('/search?location=' + 34 + '&category=' + categoryDetail);
+    navigate('/search?category=' + categoryDetail);
    
   }
 
