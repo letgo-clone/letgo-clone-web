@@ -354,6 +354,7 @@ function Attributes() {
                                         }}
                                         error={Boolean(formik.values.price == '' && formik.touched.price)}
                                         helperText={formik.values.price == '' && formik.touched.price && 'Bu alan zorunludur'}
+                                        inputProps={{ type: 'number'}} 
                                     />
                                 </Grid>
                             </Grid>

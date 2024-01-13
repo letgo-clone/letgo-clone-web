@@ -333,6 +333,7 @@ function AdvertEdit() {
                                             }}
                                             error={Boolean(formik.values.price == '')}
                                             helperText={formik.values.price == '' && 'Bu alan zorunludur'}
+                                            inputProps={{ type: 'number'}} 
                                         />
                                     </Grid>
                                 </Grid>
