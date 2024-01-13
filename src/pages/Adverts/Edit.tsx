@@ -13,7 +13,8 @@ import {
     Breadcrumbs, 
     Button, 
     Box, 
-    IconButton
+    IconButton,
+    Select
     } from '@mui/material'
 
 // Material UI icons
@@ -255,23 +256,22 @@ function AdvertEdit() {
                                         <InputLabel shrink htmlFor="how_status">
                                             Durum
                                         </InputLabel>
-                                        <TextField
+                                        <Select
                                             id="outlined-select-currency"
                                             fullWidth
-                                            select
                                             size="small"
                                             name="how_status"
                                             value={formik.values.how_status}
                                             onChange={formik.handleChange}
                                             error={Boolean(formik.values.how_status == '' && formik.touched.how_status)}
-                                            helperText={formik.values.how_status == '' && formik.touched.how_status && 'Durumu belirtmeniz gerekiyor'}
+                                            defaultValue={"Yeni"}
                                         >
                                             <MenuItem value="Yeni">Yeni</MenuItem>
                                             <MenuItem value="Yeni gibi">Yeni gibi</MenuItem>
                                             <MenuItem value="İyi">İyi</MenuItem>
                                             <MenuItem value="Makul">Makul</MenuItem>
                                             <MenuItem value="Yıpranmış">Yıpranmış</MenuItem>
-                                        </TextField>
+                                        </Select>
                                     </Grid>
                                     <Grid item lg={6} md={6} sm={12} xs={12}>
                                         <InputLabel shrink htmlFor="year">
