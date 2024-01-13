@@ -161,10 +161,14 @@ function Footer() {
                             </AccordionSummary>
                             <AccordionDetails sx={footerStyles.mobileFooterAccordingDetail}>
                                 <Box sx={footerStyles.footerContent}>
-                                    <Typography sx={footerStyles.footerContentText}>İkinci El Cep Telefonu</Typography>
-                                    <Typography sx={footerStyles.footerContentText}>İkinci El Bilgisayar</Typography>
-                                    <Typography sx={footerStyles.footerContentText}>İkinci El Araba</Typography>
-                                    <Typography sx={footerStyles.footerContentText}>İkinci El Motosiklet</Typography>
+                                    {firstFooterCategory?.length !== 0 && firstFooterCategory?.map((item,key) => (
+                                        <Typography 
+                                            onClick={() => handleSearchCategory(item.category_id)} 
+                                            key={key} 
+                                            sx={footerStyles.footerContentText}
+                                        >İkinci El {item?.category_name}
+                                        </Typography>
+                                    ))}
                                 </Box>
                             </AccordionDetails>
                         </Accordion>
@@ -181,10 +185,14 @@ function Footer() {
                             </AccordionSummary>
                             <AccordionDetails sx={footerStyles.mobileFooterAccordingDetail}>
                                 <Box sx={footerStyles.footerContent}>
-                                    <Typography sx={footerStyles.footerContentText}>İkinci El Mobilya</Typography>
-                                    <Typography sx={footerStyles.footerContentText}>İkinci El Bilgisayar</Typography>
-                                    <Typography sx={footerStyles.footerContentText}>İkinci El Araba</Typography>
-                                    <Typography sx={footerStyles.footerContentText}>İkinci El Motosiklet</Typography>
+                                    {secondFooterCategory?.length !== 0 && secondFooterCategory?.map((item,key) => (
+                                        <Typography 
+                                            onClick={() => handleSearchCategory(item.category_id)} 
+                                            key={key} 
+                                            sx={footerStyles.footerContentText}
+                                        >İkinci El {item?.category_name}
+                                        </Typography>
+                                    ))}
                                 </Box>
                             </AccordionDetails>
                         </Accordion>
