@@ -445,7 +445,7 @@ function AdvertEdit() {
                              {/* send button */}
                             <Grid item xl={12} lg={12} sm={12} xs={12} sx={postAdvertStyles.inputGrids}>
                                 <Grid container>
-                                    <Grid lg={12} md={12} sx={postAdvertStyles.sendButtonGrid}>
+                                    <Grid lg={12} md={12} sm={12} xs={12} sx={postAdvertStyles.sendButtonGrid}>
                                         <Button
                                             variant="outlined"
                                             sx={postAdvertStyles.sendButton}
