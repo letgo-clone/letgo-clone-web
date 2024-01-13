@@ -1809,8 +1809,12 @@ export const noResultStyles: Record<string, SxProps<Theme>  | undefined > = {
 }
 
 // component/common/Breadcrumb.tsx
-export const breadcrumbStyles: Record<string, SxProps<Theme>  | undefined > = {
+export const breadcrumbStyles = {
     breadcrumbs: {
         fontSize :'12px', marginTop: '10px', marginBottom: '10px' 
+    },
+    links: {
+        textDecoration: 'none', 
+        color: 'inherit',
     }
 }
