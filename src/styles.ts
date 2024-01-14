@@ -790,7 +790,8 @@ export const loginModalStyles: Record<string, SxProps<Theme> | undefined> = {
     },
     InputsGrid: {
         marginBottom: '20px', 
-        marginTop: '20px'
+        marginTop: '20px',
+        display: 'grid'
     },
     Input: {
         borderRadius: 2

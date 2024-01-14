@@ -521,13 +521,23 @@ const LoginModal: React.FC<loginModalProps> = ({ isLogin, handleClose }) => {
                                             </Box>
                                         </Grid>
                                         <Grid item lg={12} md={12} sm={12} xs={12} sx={loginModalStyles.InputsGrid}>
-                                            <TextField
-                                                fullWidth
-                                                size='small'
-                                                id="password"
+                                            <OutlinedInput
+                                                id="outlined-adornment-password"
+                                                type={visiblityPassword ? 'text' : 'password'}
+                                                endAdornment={
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                    aria-label="toggle password visibility"
+                                                    onClick={handleClickShowPassword}
+                                                    onMouseDown={handleMouseDownPassword}
+                                                    edge="end"
+                                                    >
+                                                    {visiblityPassword ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                                }
+                                                placeholder='Şifre'
                                                 name="password"
-                                                type='password'
-                                                placeholder='Şifreni Gir'
                                                 sx={loginModalStyles.Input}
                                                 value={formik.values.password}
                                                 onChange={formik.handleChange}
