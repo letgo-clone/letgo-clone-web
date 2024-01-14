@@ -9,7 +9,7 @@ import {
   from '@mui/material'
 
 // Assets
-import { profileEditStyles, privacyStyles } from '../../styles';
+import { privacyStyles } from '../../styles';
 
 
 // Component
@@ -19,7 +19,7 @@ function Privacy() {
 
   return (
     <Container>
-        <Grid container spacing={3} sx={profileEditStyles.mainGrid}>
+        <Grid container spacing={3} sx={privacyStyles.settingsMainGrid}>
           {/* Profile view button */}
             <Grid item lg={4} md={4} sm={12} xs={12}>
                     <SettingsLeftNav />
