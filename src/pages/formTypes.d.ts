@@ -15,3 +15,9 @@ export interface PostAdvertTypes {
     fullname?: string,
     photo?: object
 }
+
+export interface PrivacyFormTypes {
+    currentPass?: string,
+    password?: string,
+    passwordAgain?: string,
+}

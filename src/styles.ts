@@ -1964,5 +1964,29 @@ export const privacyStyles: Record<string, SxProps<Theme>  | undefined > = {
     },
     settingRightBox: {
         float: 'right'
-    }
+    },
+    passwordBox: {
+        marginBottom: '20px' 
+    },
+    buttonBox: {
+        marginBottom: '10px',
+        
+    },
+    saveButton: {
+        backgroundColor: '#ff3f55',
+        color: '#FFFFFF',
+        textTransform: 'none',
+        border: '6px solid transparent',
+        padding: '7px 5px 7px 5px',
+        fontSize: '16px',
+        fontWeight: 700,
+        marginRight: '15px',
+        marginTop: '10px',
+        borderRadius: 15,
+        '&:hover': { 
+            bgcolor: '#FFFFFF', 
+            border: '6px solid #ff3f55', 
+            color: '#ff3f55' 
+        },
+    },
 }
