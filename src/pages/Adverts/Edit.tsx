@@ -373,9 +373,9 @@ function AdvertEdit() {
                                                         <IconButton 
                                                             aria-label="remove to advert" 
                                                             onClick={() => removeImage(item.image_id!, key)}
-                                                            sx={{ backgroundColor: '#000000', borderRadius: 3, '&:hover': {backgroundColor :'#000000'}}}
+                                                            sx={postAdvertStyles.fileInputIconButton}
                                                         >
-                                                                <CloseIcon sx={{ fontSize: '21px',color: '#ffffff' }} />
+                                                                <CloseIcon sx={postAdvertStyles.fileInputImageCloseInput} />
                                                         </IconButton>
                                                 </Box>
                                                 {key == 0  &&
