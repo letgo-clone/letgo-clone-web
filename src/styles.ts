@@ -1593,6 +1593,29 @@ export const profileEditStyles: Record<string, SxProps<Theme>  | undefined > = {
             border: '6px solid #ff3f55', 
             color: '#ff3f55' 
         },
+    },
+    imagePreviewBox: {
+        position: 'relative', 
+        margin: '25px' 
+    },
+    imagePreviewCloseIconBox: {
+        position: 'absolute', 
+        top: 0, 
+        right: 0, 
+        padding: '5px', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'flex-end'
+    },
+    imagePreviewIconButton: {
+        backgroundColor: '#000000', 
+        borderRadius: 3, 
+        '&:hover': {
+            backgroundColor :'#000000'
+        }
+    },
+    imagePreviewIcon: {
+        fontSize: '21px',color: '#ffffff'
     }
 }
 

@@ -8,9 +8,13 @@ import {
   Typography,
   InputAdornment,
   TextField,
-  Box
+  Box,
+  IconButton
 }
   from '@mui/material'
+
+// Material UI icons
+import CloseIcon from '@mui/icons-material/Close';
 
 // Assets
 import { profileEditStyles } from '../../styles';
@@ -123,6 +127,10 @@ function ProfileInfo() {
         setUploadImage(file)
     }
   }
+
+  const removeImage = () => {
+      setUploadImage(null)
+  }
   return (
     <Container>
         <Grid container spacing={3} sx={profileEditStyles.mainGrid}>
@@ -181,19 +189,28 @@ function ProfileInfo() {
                                             handlePhoto(event)
                                         }}
                                     />
-                                    {uploadImage &&
-                                        <Typography sx={{ fontSize : 'red' }}>Bu alan zorunludur</Typography>
-                                    }
                                 </Grid>
-                                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                                    {uploadImage !== null && (
-                                        <img
-                                            src={URL.createObjectURL(uploadImage!)}
-                                            width={100}
-                                            height={100}
-                                        />
+                                  <Box sx={profileEditStyles.imagePreviewBox}>
+                                      {uploadImage !== null && (
+                                          <>
+                                          <img
+                                              src={URL.createObjectURL(uploadImage!)}
+                                              width={100}
+                                              height={100}
+                                          />
+                                            <Box sx={profileEditStyles.imagePreviewCloseIconBox}>
+                                                  <IconButton 
+                                                      aria-label="remove to advert" 
+                                                      onClick={() => removeImage()}
+                                                      sx={profileEditStyles.imagePreviewIconButton}
+                                                  >
+                                                          <CloseIcon sx={profileEditStyles.imagePreviewIcon} />
+                                                  </IconButton>
+                                            </Box>
+                                          </>
                                       )}
-                                </Grid>
+                                  </Box>
+                                
                             </Grid>
                         </Grid>
                         <Grid item lg={12} xl={12} md={12} sm={12} xs={12} sx={profileEditStyles.basicInputGrid}>
