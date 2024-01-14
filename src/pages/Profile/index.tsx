@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 // Material UI elements
 import {
   Container,
@@ -10,8 +12,9 @@ import {
 }
   from '@mui/material'
 
-// Styles
+// Assets
 import { profileEditStyles } from '../../styles';
+import DefaultAvatar from '../../assets/img/default_avatar.png'
 
 // Helper
 import { Request } from '../../helpers/Request';
@@ -38,10 +41,13 @@ function ProfileInfo() {
   const dispatch = useAppDispatch();
   const loginData: LoginData = store.getState().authUser.loginData!;
 
+  // useState
+  const [uploadImage, setUploadImage] = useState<File | null>(null)
+
   const initialValues: ProfileInfoTypes = {
     fullname: loginData.fullname,
-    about: loginData.about,
-    phoneNumber: loginData.phone_number,
+    about: loginData?.about ? loginData?.about : '',
+    phoneNumber: loginData?.phone_number ? loginData?.about : '',
     email: loginData.email
   };
 
@@ -50,7 +56,7 @@ function ProfileInfo() {
       onSubmit: async (values) => {
         const { fullname, about, phoneNumber, email } = values;
 
-        if(fullname == '' || phoneNumber == '' || email == ''){
+        if(fullname == '' || email == ''){
             Swal.fire({
               position: "center",
               icon: "error",
@@ -58,25 +64,24 @@ function ProfileInfo() {
               showConfirmButton: false,
               timer: 1500
             });
-
-        }else{
+        }
+        else{
             const formdata: FormData = new FormData();
-            formdata.append('fullname11', fullname!);
-            formdata.append('about', about!);
-            formdata.append('phone_number', phoneNumber!);
+            formdata.append('fullname', fullname!);
+            about !== '' && formdata.append('about', about!);
+            phoneNumber !== '' && formdata.append('phone_number', phoneNumber!);
             formdata.append('email', email!);
+            uploadImage && formdata.append('photo', uploadImage);
 
             const url = '/account/session/user';
           
-            const result = await Request({
+            const result: {success?: boolean, photo?: object}[] | any = await Request({
                 method: 'PUT',
                 url: url,
                 formData: formdata
             });
-           
-            const responseCheck = Object.keys(result).filter(item => item == 'success')
-
-            if (responseCheck) {
+            
+            if (result?.success) {
                 Swal.fire({
                     position: "center",
                     icon: "success",
@@ -92,8 +97,10 @@ function ProfileInfo() {
                     email : email,
                     about: about,
                     phone_number: phoneNumber,
+                    photo: JSON.parse(result?.photo)
                 }
                 dispatch(setLoginData(newLoginData));
+                location.reload();
             }
             else {
                 Swal.fire({
@@ -108,6 +115,14 @@ function ProfileInfo() {
 
       }
   })
+
+  const handlePhoto = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    if(file) {
+        setUploadImage(file)
+    }
+  }
   return (
     <Container>
         <Grid container spacing={3} sx={profileEditStyles.mainGrid}>
@@ -137,35 +152,80 @@ function ProfileInfo() {
                           </Typography>
                         </Grid>
                         <Grid item lg={12} xl={12} md={12} sm={12} xs={12} sx={profileEditStyles.basicInputGrid}>
-                          <Typography sx={profileEditStyles.basicInputTitle}>Temel bilgiler</Typography>
-                          <Grid container spacing={3} sx={profileEditStyles.InputsGrid}>
-                              <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-                                  <TextField
-                                    fullWidth
-                                    size='small'
-                                    id="fullname"
-                                    name="fullname"
-                                    placeholder='Ad ve soyad'
-                                    value={formik.values.fullname}
-                                    onChange={formik.handleChange}
-                                    error={Boolean(formik.values.fullname == '' )}
-                                    helperText={formik.values.fullname == '' && 'Bu alan zorunludur'}
-                                  />
-                              </Grid>
-                              <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-                                  <TextField
-                                    fullWidth
-                                    multiline
-                                    rows={4}
-                                    size='small'
-                                    id="about"
-                                    name="about"
-                                    placeholder='Hakkımda [isteğe bağlı]'
-                                    value={formik.values.about}
-                                    onChange={formik.handleChange}
-                                  />
-                              </Grid>
-                          </Grid>
+                            <Typography sx={profileEditStyles.basicInputTitle}>Profil Fotoğrafı</Typography>
+                            <Grid container spacing={3}>
+                                <Grid item xl={2} lg={2} md={2} sm={2} xs={2}>
+                                  {loginData?.photo ? (
+                                       <img
+                                          src={loginData?.photo.url}
+                                          width={100}
+                                          height={100}
+                                       />
+                                  ): (
+                                        <img
+                                            src={DefaultAvatar}
+                                            width={100}
+                                            height={100}
+                                        />
+                                  )}
+                                </Grid>
+                                <Grid item xl={10} lg={10} md={10} sm={10} xs={10}>
+                                   <input
+                                        type="file"
+                                        name="photo"
+                                        className="form-control"
+                                        accept='image/png, image/jpeg'
+                                        onChange={(event) => 
+                                        {
+                                           
+                                            handlePhoto(event)
+                                        }}
+                                    />
+                                    {uploadImage &&
+                                        <Typography sx={{ fontSize : 'red' }}>Bu alan zorunludur</Typography>
+                                    }
+                                </Grid>
+                                <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                    {uploadImage !== null && (
+                                        <img
+                                            src={URL.createObjectURL(uploadImage!)}
+                                            width={100}
+                                            height={100}
+                                        />
+                                      )}
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid item lg={12} xl={12} md={12} sm={12} xs={12} sx={profileEditStyles.basicInputGrid}>
+                            <Typography sx={profileEditStyles.basicInputTitle}>Temel bilgiler</Typography>
+                            <Grid container spacing={3} sx={profileEditStyles.InputsGrid}>
+                                <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+                                    <TextField
+                                      fullWidth
+                                      size='small'
+                                      id="fullname"
+                                      name="fullname"
+                                      placeholder='Ad ve soyad'
+                                      value={formik.values.fullname}
+                                      onChange={formik.handleChange}
+                                      error={Boolean(formik.values.fullname == '' )}
+                                      helperText={formik.values.fullname == '' && 'Bu alan zorunludur'}
+                                    />
+                                </Grid>
+                                <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+                                    <TextField
+                                      fullWidth
+                                      multiline
+                                      rows={4}
+                                      size='small'
+                                      id="about"
+                                      name="about"
+                                      placeholder='Hakkımda [isteğe bağlı]'
+                                      value={formik.values.about}
+                                      onChange={formik.handleChange}
+                                    />
+                                </Grid>
+                            </Grid>
                         </Grid>
                         <Grid item lg={12} xl={12} md={12} sm={12} xs={12} sx={profileEditStyles.contactInputsGrid}>
                             <Typography sx={profileEditStyles.contactInputTitle}>İletişim bilgileri</Typography>
@@ -183,8 +243,6 @@ function ProfileInfo() {
                                           <Typography sx={profileEditStyles.contactAdornment}>+90</Typography>
                                         </InputAdornment>
                                       }}
-                                      error={Boolean(formik.values.phoneNumber == '' )}
-                                      helperText={formik.values.phoneNumber == '' && 'Bu alan zorunludur'}
                                     />
                                 </Grid>
                                 <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
