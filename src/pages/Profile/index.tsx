@@ -9,12 +9,16 @@ import {
   InputAdornment,
   TextField,
   Box,
-  IconButton
+  IconButton,
+  Card,
+  CardContent
 }
   from '@mui/material'
 
 // Material UI icons
-import CloseIcon from '@mui/icons-material/Close';
+import {
+  Close, 
+  Tungsten} from '@mui/icons-material';
 
 // Assets
 import { profileEditStyles } from '../../styles';
@@ -160,9 +164,9 @@ function ProfileInfo() {
                           </Typography>
                         </Grid>
                         <Grid item lg={12} xl={12} md={12} sm={12} xs={12} sx={profileEditStyles.basicInputGrid}>
-                            <Typography sx={profileEditStyles.basicInputTitle}>Profil Fotoğrafı</Typography>
+                            <Typography sx={profileEditStyles.fileInputTitle}>Profil Fotoğrafı</Typography>
                             <Grid container spacing={3}>
-                                <Grid item xl={2} lg={2} md={2} sm={2} xs={2}>
+                                <Grid item xl={2} lg={2} md={4} sm={4} xs={12}>
                                   {loginData?.photo ? (
                                        <img
                                           src={loginData?.photo.url}
@@ -177,7 +181,7 @@ function ProfileInfo() {
                                         />
                                   )}
                                 </Grid>
-                                <Grid item xl={10} lg={10} md={10} sm={10} xs={10}>
+                                <Grid item xl={10} lg={10} md={8} sm={8} xs={12}>
                                    <input
                                         type="file"
                                         name="photo"
@@ -204,78 +208,111 @@ function ProfileInfo() {
                                                       onClick={() => removeImage()}
                                                       sx={profileEditStyles.imagePreviewIconButton}
                                                   >
-                                                          <CloseIcon sx={profileEditStyles.imagePreviewIcon} />
+                                                          <Close sx={profileEditStyles.imagePreviewIcon} />
                                                   </IconButton>
                                             </Box>
                                           </>
                                       )}
                                   </Box>
-                                
                             </Grid>
                         </Grid>
                         <Grid item lg={12} xl={12} md={12} sm={12} xs={12} sx={profileEditStyles.basicInputGrid}>
-                            <Typography sx={profileEditStyles.basicInputTitle}>Temel bilgiler</Typography>
-                            <Grid container spacing={3} sx={profileEditStyles.InputsGrid}>
-                                <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-                                    <TextField
-                                      fullWidth
-                                      size='small'
-                                      id="fullname"
-                                      name="fullname"
-                                      placeholder='Ad ve soyad'
-                                      value={formik.values.fullname}
-                                      onChange={formik.handleChange}
-                                      error={Boolean(formik.values.fullname == '' )}
-                                      helperText={formik.values.fullname == '' && 'Bu alan zorunludur'}
-                                    />
+                            <Typography sx={profileEditStyles.inputTitle}>Temel bilgiler</Typography>
+                            <Grid container spacing={2}>
+                                <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
+                                    <Grid container spacing={3} sx={profileEditStyles.InputsGrid}>
+                                        <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                            <TextField
+                                              fullWidth
+                                              size='small'
+                                              id="fullname"
+                                              name="fullname"
+                                              placeholder='Ad ve soyad'
+                                              value={formik.values.fullname}
+                                              onChange={formik.handleChange}
+                                              error={Boolean(formik.values.fullname == '' )}
+                                              helperText={formik.values.fullname == '' && 'Bu alan zorunludur'}
+                                            />
+                                        </Grid>
+                                        <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                            <TextField
+                                              fullWidth
+                                              multiline
+                                              rows={4}
+                                              size='small'
+                                              id="about"
+                                              name="about"
+                                              placeholder='Hakkımda [isteğe bağlı]'
+                                              value={formik.values.about}
+                                              onChange={formik.handleChange}
+                                            />
+                                        </Grid>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-                                    <TextField
-                                      fullWidth
-                                      multiline
-                                      rows={4}
-                                      size='small'
-                                      id="about"
-                                      name="about"
-                                      placeholder='Hakkımda [isteğe bağlı]'
-                                      value={formik.values.about}
-                                      onChange={formik.handleChange}
-                                    />
+                                <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
+                                    <Card sx={profileEditStyles.leftCard}>
+                                          <CardContent>
+                                              <Box sx={profileEditStyles.leftCardTitleBox}>
+                                                <Tungsten />
+                                                <Typography sx={profileEditStyles.leftCardTitle} >Bu neden önemlidir</Typography>
+                                              </Box>
+                                              <Box>
+                                                <Typography
+                                                  sx={profileEditStyles.leftCardContent}
+                                                >letgo güven üzerine kuruludur. Başkalarının seni tanımasına yardım et. Biraz kendinden bahsetmeye ne dersin? En sevdiğin markaları, kitapları, filmleri, şovları, müzikleri, yemekleri paylaş. Ve neler olduğunu gör...</Typography>
+                                              </Box>
+                                          </CardContent>
+                                    </Card>
                                 </Grid>
                             </Grid>
                         </Grid>
                         <Grid item lg={12} xl={12} md={12} sm={12} xs={12} sx={profileEditStyles.contactInputsGrid}>
-                            <Typography sx={profileEditStyles.contactInputTitle}>İletişim bilgileri</Typography>
-                            <Grid container spacing={3} sx={profileEditStyles.InputsGrid}>
-                                <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-                                    <TextField
-                                      fullWidth
-                                      size='small'
-                                      id="phoneNumber"
-                                      name="phoneNumber"
-                                      value={formik.values.phoneNumber}
-                                      onChange={formik.handleChange}
-                                      InputProps={{
-                                        startAdornment: <InputAdornment position="start">
-                                          <Typography sx={profileEditStyles.contactAdornment}>+90</Typography>
-                                        </InputAdornment>
-                                      }}
-                                    />
+                            <Typography sx={profileEditStyles.inputTitle}>İletişim bilgileri</Typography>
+                            <Grid container spacing={2}>
+                                <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
+                                    <Grid container spacing={3} sx={profileEditStyles.InputsGrid}>
+                                        <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                            <TextField
+                                              fullWidth
+                                              size='small'
+                                              id="phoneNumber"
+                                              name="phoneNumber"
+                                              value={formik.values.phoneNumber}
+                                              onChange={formik.handleChange}
+                                              InputProps={{
+                                                startAdornment: <InputAdornment position="start">
+                                                  <Typography sx={profileEditStyles.contactAdornment}>+90</Typography>
+                                                </InputAdornment>
+                                              }}
+                                            />
+                                        </Grid>
+                                        <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                            <TextField
+                                              fullWidth
+                                              size='small'
+                                              id="email"
+                                              name="email"
+                                              placeholder='E-mail'
+                                              value={formik.values.email}
+                                              onChange={formik.handleChange}
+                                              error={Boolean(formik.values.email == '' )}
+                                              helperText={formik.values.email == '' && 'Bu alan zorunludur'}
+                                            />
+                                        </Grid>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-                                    <TextField
-                                      fullWidth
-                                      size='small'
-                                      id="email"
-                                      name="email"
-                                      placeholder='E-mail'
-                                      value={formik.values.email}
-                                      onChange={formik.handleChange}
-                                      error={Boolean(formik.values.email == '' )}
-                                      helperText={formik.values.email == '' && 'Bu alan zorunludur'}
-                                    />
+                                <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
+                                    <Grid container spacing={3} sx={profileEditStyles.InputsGrid}>
+                                            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                                  <Typography sx={profileEditStyles.inputLeftTitle}>Bu numara, alıcı irtibat bilgileri, anımsatıcılar ve diğer bildirimler içindir.</Typography>
+                                            </Grid>
+                                            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                                                  <Typography sx={profileEditStyles.inputLeftTitle}>E-posta adresini kimseyle paylaşmayacağız.</Typography>
+                                            </Grid>
+                                    </Grid>
                                 </Grid>
                             </Grid>
+                            
                         </Grid>
                         <Grid item lg={12} xl={12} md={12} sm={12} xs={12} sx={profileEditStyles.buttonsGrid}>
                             <Grid container spacing={3}>

@@ -1518,6 +1518,7 @@ export const profileEditStyles: Record<string, SxProps<Theme>  | undefined > = {
             border: '3px solid #ff3f55', 
             color: '#ff3f55' 
         },
+        fontWeight: 700
     },
     profileEditGrid: {
         border: '1px solid #e0e0e0',
@@ -1536,27 +1537,31 @@ export const profileEditStyles: Record<string, SxProps<Theme>  | undefined > = {
         borderBottom: '1px solid #e0e0e0',
         padding: '25px 25px 15px 25px',
     },
-    basicInputTitle: {
-        fontSize: '16px',
-        lineHeight: '24px',
-        fontWeight: 700,
-        marginBottom: '15px'
-    },
     InputsGrid: {
         display: 'inline-block' ,
-        marginBottom: '20px', 
-        marginTop: '20px',
+        marginBottom: '0px', 
+        marginTop: '0px',
         marginRight: '20px'
     },
     contactInputsGrid: {
         borderBottom: '1px solid #e0e0e0',
         padding: '25px 25px 15px 25px',
     },
-    contactInputTitle: {
+    inputTitle: {
         fontSize: '16px',
         lineHeight: '24px',
         fontWeight: 700,
-        marginBottom: '15px'
+    },
+    fileInputTitle: {
+        fontSize: '16px',
+        lineHeight: '24px',
+        fontWeight: 700,
+        marginBottom: '20px'
+    },
+    inputLeftTitle: {
+        fontSize :'12px', 
+        lineHeight: '18px',
+        color: '#002f34a3'
     },
     contactAdornment: {
         borderRight: '1px solid #e0e0e0', 
@@ -1616,6 +1621,33 @@ export const profileEditStyles: Record<string, SxProps<Theme>  | undefined > = {
     },
     imagePreviewIcon: {
         fontSize: '21px',color: '#ffffff'
+    },
+    leftCard: {
+        minWidth: {
+            lg: 225, 
+            xl: 225, 
+            md: 225, 
+            sm: 200, 
+            xs: 'fit-content'
+        }, 
+        marginTop: '25px', 
+        width: 120 
+    },
+    leftCardTitleBox: {
+        display :'inline-flex'
+    },
+    leftCardTitle: {
+        fontSize :'14px', 
+        lineHeight: '20px', 
+        color :'#2c2c2c', 
+        fontWeight: 700, 
+        marginLeft :'10px' 
+    },
+    leftCardContent: {
+        fontSize :'12px', 
+        lineHeight: '18px', 
+        color : '#424242', 
+        fontWeight: 30
     }
 }
 
