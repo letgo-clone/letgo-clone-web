@@ -1958,6 +1958,10 @@ export const privacyStyles: Record<string, SxProps<Theme>  | undefined > = {
         fontWeight: 700, 
         marginTop: '9px'
     },
+    settingLeftSubText: {
+        fontSize:'14px',
+        lineHeight: '20px'
+    },
     settingRightBox: {
         float: 'right'
     }

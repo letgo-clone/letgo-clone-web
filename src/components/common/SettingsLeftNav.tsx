@@ -23,7 +23,7 @@ function SettingsLeftNav() {
         }, 
         {
             name: "Bildirimler",
-            link: '/settings/notify'
+            link: '/settings/notifications'
         }, 
         {
             name: "İletişim Tercihleri",
