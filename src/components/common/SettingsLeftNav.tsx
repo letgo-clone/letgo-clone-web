@@ -28,6 +28,18 @@ function SettingsLeftNav() {
         {
             name: "İletişim Tercihleri",
             link: '/settings/communication-preferences',
+        },
+        {
+            name: "Tüm cihazlardan çıkış yap",
+            link: '',
+        },
+        {
+            name: "Hesabımı sil ve beni unut",
+            link: '',
+        },
+        {
+            name: "Sohbet güvenliği ipuçları",
+            link: '/settings/chat',
         }
     ]
 

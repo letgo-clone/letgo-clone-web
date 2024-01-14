@@ -20,6 +20,7 @@ import MyFavoriteView from "../pages/Profile/MyFavoriteList";
 import Privacy from "../pages/Settings/Privacy";
 import Notifications from "../pages/Settings/Notifications";
 import CommunicationPreferences from "../pages/Settings/CommunicationPreferences";
+import Chat from "../pages/Settings/Chat";
 
 
  const publicRoutes = [
@@ -41,6 +42,7 @@ const authProtectedRoutes = [
     { path: "/settings/privacy", component: <Privacy /> },
     { path: "/settings/notifications", component: <Notifications /> },
     { path: "/settings/communication-preferences", component: <CommunicationPreferences /> },
+    { path: "/settings/chat", component: <Chat /> },
 ]
 
 export { publicRoutes, authProtectedRoutes };
