@@ -40,7 +40,7 @@ function Privacy() {
                                 </Grid>
                                 <Grid item lg={6} xl={6} md={6} sm={6} xs={6}>
                                     <Box sx={privacyStyles.settingRightBox}>
-                                        <Switch defaultChecked />
+                                        <Switch defaultChecked color="error"/>
                                     </Box>
                                 </Grid>
                             </Grid>
