@@ -34,7 +34,6 @@ import { loginModalStyles } from '../styles';
 // Other packages
 import Carousel from 'react-material-ui-carousel'
 import { useFormik } from "formik";
-import Swal from 'sweetalert2';
 
 // Redux
 import { setLoginData, useAppDispatch } from '../redux/store';
