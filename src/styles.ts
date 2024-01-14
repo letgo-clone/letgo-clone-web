@@ -1905,3 +1905,60 @@ export const breadcrumbStyles = {
         color: 'inherit',
     }
 }
+
+//
+export const settingsLeftNavStyles: Record<string, SxProps<Theme>  | undefined > = {
+    listItemButton: {
+        p:0
+    },
+    listItemText: {
+        color:'#424242', 
+        fontSize: '16px',
+        lineHeight: '24px',
+        margin: '5px',
+        fontWeight: 400
+    },
+    listItemActiveText: {
+        color:'#424242', 
+        fontSize: '16px',
+        lineHeight: '24px',
+        margin: '5px',
+        fontWeight: 700
+    },
+    
+}
+
+
+// components/common/SettingsLeftNav
+export const privacyStyles: Record<string, SxProps<Theme>  | undefined > = {
+    settingsMainGrid: {
+        marginTop: 4
+    },
+    settingsLeftBox: {
+        border: '1px solid #e0e0e0',
+        borderRadius: '5px',
+        marginBottom: '25px'
+    },
+    settingsTitleGrid: {
+        borderBottom: '1px solid #e0e0e0',
+        padding: '15px 0px 15px 25px',
+    },
+    settingsTitle: {
+        fontSize: '20px',
+        lineHeight: '24px',
+        fontWeight: 700
+    },
+    settingContentGrid: {
+        borderBottom: '1px solid #e0e0e0',
+        padding: '25px 25px 25px 25px',
+    },
+    settingLeftText: {
+        fontSize: '16px', 
+        lineHeight: '24px', 
+        fontWeight: 700, 
+        marginTop: '9px'
+    },
+    settingRightBox: {
+        float: 'right'
+    }
+}

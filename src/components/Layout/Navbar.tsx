@@ -40,6 +40,7 @@ import {
     ExpandMore,
     Logout, 
     ArrowBack,
+    Settings,
     Menu as MenuIcon } from '@mui/icons-material';
 
 // Material UI styles
@@ -170,6 +171,15 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
         }
         closeMobileMenu()
     }
+
+    const handleSettingsButton = () => {
+        if(isLogin){
+            navigate('/settings/privacy');
+        }else{
+            handleLoginOpen()
+        }
+        closeMobileMenu()
+    }
     return (
         <AppBar position="sticky" sx={navbarStyles.appBar}>
             <Container maxWidth='lg' sx={navbarStyles.container}>
@@ -253,6 +263,13 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                             <Favorite fontSize="small" />
                                         </ListItemIcon>
                                         İlanlarım
+                                    </MenuItem>
+                                    <Divider />
+                                    <MenuItem component="a" onClick={() => handleSettingsButton()}>
+                                        <ListItemIcon>
+                                            <Settings fontSize="small" />
+                                        </ListItemIcon>
+                                        Ayarlar
                                     </MenuItem>
                                     <Divider />
                                     <MenuItem onClick={() => { 
@@ -414,6 +431,17 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                                                         <Help />
                                                                     </ListItemIcon>
                                                                 <ListItemText primary="Yardım" />
+                                                            </ListItemButton>
+                                                        </ListItem>
+                                                        <ListItem disablePadding>
+                                                            <ListItemButton 
+                                                                sx={navbarStyles.drawerMenuListItemButton}
+                                                                onClick={() => handleSettingsButton()}
+                                                            >
+                                                                    <ListItemIcon sx={navbarStyles.drawerMenuListItemIcon}>
+                                                                        <Settings />
+                                                                    </ListItemIcon>
+                                                                <ListItemText primary="Ayarlar" />
                                                             </ListItemButton>
                                                         </ListItem>
                                                         {isLogin && (
