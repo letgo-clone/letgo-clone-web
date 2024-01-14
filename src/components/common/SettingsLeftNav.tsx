@@ -27,7 +27,7 @@ function SettingsLeftNav() {
         }, 
         {
             name: "İletişim Tercihleri",
-            link: '/settings/tercih',
+            link: '/settings/communication-preferences',
         }
     ]
 
