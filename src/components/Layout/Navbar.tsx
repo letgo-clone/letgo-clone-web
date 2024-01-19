@@ -47,8 +47,8 @@ import {
 import { navbarStyles, authUserMenuStyle, searchStyles } from '../../styles';
 
 // Assets
-import Logo from '../../assets/img/logo.svg'
-import MobileLogo from '../../assets/img/logo-mobile.svg'
+import Logo from '../../assets/img/logo.png'
+import MobileLogo from '../../assets/img/logo.png'
 import DefaultAvatar from '../../assets/img/default_avatar.png'
 
 // Components
