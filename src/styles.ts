@@ -1,6 +1,7 @@
 import { SxProps, Theme } from "@mui/material";
 import { CSSProperties } from "react";
 
+// components/Layout/Navbar.tsx
 export const navbarStyles: Record<string, SxProps<Theme> | undefined> = {
     appBar: {
         bgcolor: 'hsla(0,0%,100%,.87)', 
@@ -230,6 +231,7 @@ export const navbarStyles: Record<string, SxProps<Theme> | undefined> = {
     }
 } 
 
+// components/Layout/Navbar.tsx
 export const authUserMenuStyle = {
     overflow: 'visible',
     filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
@@ -254,6 +256,7 @@ export const authUserMenuStyle = {
     }
 }
 
+// components/common/SearchBar.tsx
 export const searchStyles: Record<string, SxProps<Theme> | undefined> = {
 
     // Location Input
@@ -393,6 +396,7 @@ export const searchStyles: Record<string, SxProps<Theme> | undefined> = {
     }
 }
 
+// components/Layout/SubNavbar.tsx
 export const subNavbarStyles: Record<string, SxProps<Theme> | undefined> = {
     appBar: {
         bgcolor: 'hsla(0,0%,100%,.87)', 
@@ -468,6 +472,7 @@ export const subNavbarStyles: Record<string, SxProps<Theme> | undefined> = {
     }
 }
 
+// components/Layout/footer.tsx
 export const footerStyles: Record<string, SxProps<Theme> | undefined> = {
     container: {
         marginTop: '5%',
@@ -582,6 +587,7 @@ export const footerStyles: Record<string, SxProps<Theme> | undefined> = {
     }
 }
 
+// components/AdCard.tsx
 export const adCardStyles: Record<string, SxProps<Theme> | undefined> = {
     cardLazy: {
         maxWidth: '345px',
@@ -707,6 +713,7 @@ export const adCardStyles: Record<string, SxProps<Theme> | undefined> = {
     }
 }
 
+// components/LoginModal.tsx
 export const loginModalStyles: Record<string, SxProps<Theme> | undefined> = {
     // Carousel
     carouselGrid: {
@@ -842,6 +849,7 @@ export const loginModalStyles: Record<string, SxProps<Theme> | undefined> = {
     }
 }
 
+// pages/Adverts/Detail.tsx
 export const advertDetailCarouselStyles = {
     carouselImg: {
         maxHeight: '400px', 
@@ -850,6 +858,7 @@ export const advertDetailCarouselStyles = {
     }
 }
 
+// pages/Adverts/Detail.tsx
 export const advertDetailStyles: Record<string, SxProps<Theme> | undefined> = {
     mainBox: {
         backgroundColor: '#f1f1f1', 
@@ -999,6 +1008,7 @@ export const advertDetailStyles: Record<string, SxProps<Theme> | undefined> = {
     }
 }
 
+// pages/Adverts/search.tsx
 export const advertSearchStyles: Record<string, SxProps<Theme> | undefined> = {
                             // Left Filter Columns
     leftFilterGrid: {
@@ -1125,6 +1135,7 @@ export const advertSearchStyles: Record<string, SxProps<Theme> | undefined> = {
     }
 }
 
+// pages/Home/index.tsx
 export const homeBannerStyles: Record<string, CSSProperties | undefined > = {
     bannerDesktop: {
         width: '100%',
@@ -1136,6 +1147,7 @@ export const homeBannerStyles: Record<string, CSSProperties | undefined > = {
     },
 }
 
+// pages/Home/index.tsx
 export const homePageStyles: Record<string, CSSProperties | SxProps<Theme>  | undefined > = {
     bannerDiv: {
         marginTop: '10px',
@@ -1295,6 +1307,7 @@ export const homePageStyles: Record<string, CSSProperties | SxProps<Theme>  | un
     }
 }
 
+// pages/Adverts/SellCategory.tsx
 export const homePostAdvertStyles: Record<string, SxProps<Theme>  | undefined > = {
     topTitle: {
         fontSize: '24px', 
@@ -1839,6 +1852,21 @@ export const profileViewStyles: Record<string, SxProps<Theme>  | undefined > = {
         borderRadius: 15,
         '&:hover': { bgcolor: '#FFFFFF', border: '6px solid #ff3f55', color: '#ff3f55' },
     }
+}
+
+// pages/Profile/profileView.tsx
+export const favoriteStyles: Record<string, SxProps<Theme>  | undefined > = {
+    favoriteIconButton: {
+        padding:0.5, 
+        backgroundColor: '#757575'
+    },
+    favorite: {
+        color:'red', fontSize: '15px'
+    },
+    nonFavorite : {
+        color:'white', fontSize: '15px' 
+    }
+
 }
 
 // component/common/NoResult.tsx

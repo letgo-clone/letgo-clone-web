@@ -7,11 +7,13 @@ import {
 
 // Material UI Icons
 import { 
-    FavoriteBorder,
     Favorite as FavoriteIcon
     } from '@mui/icons-material';
 
 import { Request } from '../helpers/Request';
+
+// Styles
+import { favoriteStyles } from '../styles';
 
 // Redux
 import { useAppSelector } from '../redux/store';
@@ -104,12 +106,12 @@ const Favorite: React.FC<FavoriteTypes> = ({ id, hasFavorite }) => {
     <>
         <IconButton 
             aria-label="add to favorites" 
-            onClick={() => addFavorite(id!, advertFavorite)} sx={{ padding:0 }}
+            onClick={() => addFavorite(id!, advertFavorite)} sx={favoriteStyles.favoriteIconButton}
         >
                 {advertFavorite == true ? (
-                    <FavoriteIcon sx={{ color:'red' }} />
+                    <FavoriteIcon sx={favoriteStyles.favorite} />
                 ): (
-                    <FavoriteBorder sx={{ color:'red' }} />
+                    <FavoriteIcon sx={favoriteStyles.nonFavorite} />
                 )}
         </IconButton>
         {loginOpen && <LoginModal isLogin={loginOpen} handleClose={handleLoginClose} />}
