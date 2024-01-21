@@ -243,9 +243,6 @@ const AdvertDetail = () => {
                                                 </Grid>
                                             </Grid>
                                         </CardContent>
-                                        <CardActions sx={advertDetailStyles.rightColumnLocation}>
-                                            <img src={'../../assets/img/sample-location.png'} width="640" />
-                                        </CardActions>
                                     </Card>
                                 </Grid>
                                  {/* Advert Report */}
