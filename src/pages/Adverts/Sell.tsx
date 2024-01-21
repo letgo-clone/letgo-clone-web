@@ -122,7 +122,7 @@ function Attributes() {
                         const formdata: FormData = new FormData();
                         formdata.append("fullname", fullname!);
                         
-                        const url = '/account/session/user' 
+                        const url = '/account/session' 
                         await Request({
                             method: 'PUT',
                             url: url ,

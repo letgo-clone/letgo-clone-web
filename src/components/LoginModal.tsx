@@ -156,7 +156,7 @@ const LoginModal: React.FC<loginModalProps> = ({ isLogin, handleClose }) => {
                 const formdata: FormData = new FormData();
                 formdata.append("email", email);
 
-                const url = "/account/session/user";
+                const url = "/account/session";
                 const checkEmail: Error | any = await RequestPublic({
                     method: 'POST',
                     url: url,
@@ -185,7 +185,7 @@ const LoginModal: React.FC<loginModalProps> = ({ isLogin, handleClose }) => {
                     formdata.append("email", email);
                     formdata.append("password", password);
 
-                    const url = "/account/session/user";
+                    const url = "/account/session";
                     const postData = await RequestPublic({
                         method: 'POST',
                         url: url,

@@ -91,7 +91,7 @@ function Privacy() {
         formdata.append('password', password!);
         formdata.append('current_pass', currentPass!);
 
-        const url = '/account/session/user';
+        const url = '/account/session';
 
         const result: {success?: boolean}[] | any = await Request({
             method: 'PUT',

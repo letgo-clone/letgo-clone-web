@@ -61,7 +61,7 @@ function ProfileView() {
     useEffect(() => {
         const getData = async () => {
             const userID = paramsId ? paramsId : loginData?.id;
-            const url = "/account/info/" + userID;
+            const url = "/account/session/" + userID;
             const data: object[] | any  = await Request({
                 method : 'GET',
                 url: url

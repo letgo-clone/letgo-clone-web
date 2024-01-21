@@ -81,7 +81,7 @@ function ProfileInfo() {
             formdata.append('email', email!);
             uploadImage && formdata.append('photo', uploadImage);
 
-            const url = '/account/session/user';
+            const url = '/account/session';
           
             const result: {success?: boolean, photo?: object}[] | any = await Request({
                 method: 'PUT',
