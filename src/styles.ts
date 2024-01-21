@@ -657,7 +657,8 @@ export const adCardStyles: Record<string, SxProps<Theme> | undefined> = {
     },
     cardFooterDateText: {
         textAlign: 'right', 
-        fontSize: '10px'
+        fontSize: '10px',
+        display: { xl: 'block', lg: 'block', md: 'block', sm:'none', xs: 'none' }
     },
 
     // Card footer for partner 
