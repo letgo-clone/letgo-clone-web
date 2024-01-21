@@ -583,6 +583,12 @@ export const footerStyles: Record<string, SxProps<Theme> | undefined> = {
 }
 
 export const adCardStyles: Record<string, SxProps<Theme> | undefined> = {
+    cardLazy: {
+        maxWidth: '345px',
+        height: '250px',
+        boxShadow: '0 1px 3px 0 rgba(0,47,52,.2), 0 1px 3px 0 rgba(0,47,52,.2)',
+        backgroundColor: '#ddd9d9'
+    },
     card: {
         maxWidth: '345px'
     },
@@ -1787,7 +1793,6 @@ export const adViewStyles: Record<string, SxProps<Theme>  | undefined > = {
             color: '#ff3f55' 
         },
     }
-
 }
 
 // pages/Profile/profileView.tsx

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 
 // Material UI elements
 import { 
@@ -35,7 +35,8 @@ import { RequestPublic } from '../../helpers/Request';
 import {useAppSelector} from '../../redux/store';
 
 // Component
-import AdCard from '../../components/common/AdCard';
+const AdCard = lazy(() => import('../../components/common/AdCard'))
+import AdCardLazy from '../../components/common/AdCardLazy';
 import NoResult from '../../components/common/NoResult';
 import Breadcrumb from '../../components/common/Breadcrumb';
 
@@ -486,7 +487,9 @@ const Search = () => {
                             </FormControl>
                         </Grid>
                     </Grid>
-                     <AdCard data={advertData} grid={[4,4,4,6]} />
+                        <Suspense fallback={<AdCardLazy  grid={[4,4,4,6]} />}>
+                                <AdCard data={advertData} grid={[4,4,4,6]} />
+                        </Suspense>
                      </>
                     )}
                     {advertData.length == 0 && ( 

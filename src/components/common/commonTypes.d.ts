@@ -13,6 +13,11 @@ export type AdCardProps = {
     grid: number[];
 }
 
+export type AdCardLazyProps = {
+    grid: number[];
+}
+
+
 export type NoResultProps = {
     page: string;
 }

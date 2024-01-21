@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, lazy, Suspense } from 'react'
 
 // Material UI elements
 import {
@@ -12,7 +12,8 @@ import {
 import { Request } from '../../helpers/Request';
 
 // Component
-import AdCard from '../../components/common/AdCard';
+const AdCard = lazy(() => import('../../components/common/AdCard'))
+import AdCardLazy from '../../components/common/AdCardLazy';
 import ProfileTopMenu from '../../components/common/ProfileTopMenu';
 import NoResult from '../../components/common/NoResult';
 
@@ -43,7 +44,9 @@ function MyFavoriteView() {
                 </Grid>
                 <Grid item xl={12} lg={12} md={12}>
                     {favoriteData.length > 0 ? (
-                        <AdCard data={favoriteData} grid={[4, 4, 4, 6]} />
+                        <Suspense fallback={<AdCardLazy  grid={[4, 4, 4, 6]} />}>
+                            <AdCard data={favoriteData} grid={[4, 4, 4, 6]} />
+                        </Suspense>
                     ) : (
                         <NoResult page="favorite" />
                     )}

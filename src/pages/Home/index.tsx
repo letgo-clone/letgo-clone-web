@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 
 // Material UI elements
 import { 
@@ -16,7 +16,8 @@ import otoplusBanner from '../../assets/img/banner-otoplus.png'
 import otoplusBannerMobile from '../../assets/img/banner-otoplus-mobile.png'
 
 // Components
-import AdCard from '../../components/common/AdCard';
+const AdCard = lazy(() => import('../../components/common/AdCard'))
+import AdCardLazy from '../../components/common/AdCardLazy';
 import CategoryBanner from '../../components/CategoryBanner';
 
 // helpers
@@ -66,7 +67,9 @@ function Index() {
       <CategoryBanner styles={homePageStyles} page="home" handleDrawerClose={null} />
       {/* Actual advert */}
       <Typography sx={homePageStyles.homeTitle}>Güncel İlanlar</Typography>
-          {Object.keys(advertData).length > 0 && <AdCard data={advertData} grid={[3,3,4,6]} />}
+          <Suspense fallback={<AdCardLazy  grid={[3, 3, 4, 6]} />}>
+              <AdCard data={advertData} grid={[3, 3, 4, 6]} />
+          </Suspense>
     </Container>
   )
 }
