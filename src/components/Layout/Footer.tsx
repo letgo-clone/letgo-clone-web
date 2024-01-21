@@ -66,6 +66,7 @@ function Footer() {
         navigate('/search?category='  + categoryId);
     }
 
+    const year = new Date().getFullYear()
     return (
         <React.Fragment>
         {/* First Footer */}
@@ -312,9 +313,9 @@ function Footer() {
                         </Grid>
                         <Grid item md={4} xs={12} sx={footerStyles.bottomFooterRightContent}> 
                             <Typography sx={footerStyles.bottomFooterRightText}> 
-                                Türkiye'de ikinci el eşya al ve sat
+                                www.github.com/FRTYZ
                             </Typography> 
-                                © 2006-2023 letgo
+                                © 2006-{year}
                         </Grid>
                     </Grid>
                 </Container>
