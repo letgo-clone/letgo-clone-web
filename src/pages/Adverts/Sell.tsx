@@ -42,6 +42,7 @@ import { CitiesProps, CountiesProps } from '../advertTypes';
 import { PostAdvertTypes } from '../formTypes';
 
 function Attributes() {
+    document.title = "Satmaya başla";
     // React router elements
     const navigate = useNavigate();
 

@@ -16,7 +16,7 @@ import {
   import SettingsLeftNav from '../../components/common/SettingsLeftNav';
   
   function Notifications() {
-  
+    document.title = "Bildirimlerim"
     return (
       <Container>
            <Grid container spacing={3} sx={privacyStyles.settingsMainGrid}>

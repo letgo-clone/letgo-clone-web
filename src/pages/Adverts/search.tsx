@@ -52,6 +52,7 @@ import { Menu } from '../../redux/interface';
 import { CountiesProps } from '../advertTypes';
 
 const Search = () => {
+
     // Redux
     const {menuData} = useAppSelector((state) => state?.Menu);
 
@@ -117,7 +118,7 @@ const Search = () => {
                     }
                 })
             }) 
-               
+            document.title = search_query!;
         }
 
         if(filters.length > 0){

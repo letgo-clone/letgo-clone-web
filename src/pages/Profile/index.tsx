@@ -45,6 +45,7 @@ import { LoginData } from '../../redux/interface';
 import { ProfileInfoTypes } from '../formTypes';
 
 function ProfileInfo() {
+  document.title = "Profilini görüntüle";
   // Redux elemen ts
   const dispatch = useAppDispatch();
   const loginData: LoginData = store.getState().authUser.loginData!;

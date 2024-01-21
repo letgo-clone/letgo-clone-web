@@ -69,6 +69,7 @@ function ProfileView() {
 
             if(Object.keys(data).length > 0){
                 setProfile(data?.user);
+                document.title = data?.user?.fullname;
                 setAdvert(data?.adverts);
             }
         }

@@ -70,6 +70,7 @@ const AdvertDetail = () => {
                 url: url
             });
 
+            document.title = data.title;
             setAdvertDetail(data);
             setAdvertImages(data.photo);
         }

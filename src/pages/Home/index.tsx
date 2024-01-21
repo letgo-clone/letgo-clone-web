@@ -27,6 +27,7 @@ import { RequestPublic } from '../../helpers/Request';
 import { CardTypes } from '../advertTypes';
 
 function Index() {
+  document.title = "Türkiye'deki İkinci El Eşyaları Al & Sat - Clone";
   // useState area
   const [advertData, setAdvertData] = useState<CardTypes[]>([]);
   // useEffect area

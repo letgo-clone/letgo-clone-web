@@ -42,6 +42,7 @@ import Swal from 'sweetalert2';
 import { MyAdProp } from '../advertTypes';
 
 function MyAdsView() {
+    document.title = "İlanlarım";
     // useState area
     const [myAds, setMyAds] = useState<MyAdProp[]>([]);
 

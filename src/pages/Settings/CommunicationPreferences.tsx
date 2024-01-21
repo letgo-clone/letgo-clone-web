@@ -16,7 +16,7 @@ import {
   import SettingsLeftNav from '../../components/common/SettingsLeftNav';
   
   function CommunicationPreferences() {
-  
+    document.title = "İletişim tercihleri"
     return (
       <Container>
            <Grid container spacing={3} sx={privacyStyles.settingsMainGrid}>

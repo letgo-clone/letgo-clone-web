@@ -42,7 +42,7 @@ import Swal from 'sweetalert2';
 import { PrivacyFormTypes } from '../formTypes';
 
 function Privacy() {
-
+  document.title = "Gizlilik"
   // useState
   const [visiblityPassword, setVisibilityPassword] = useState(false);
 

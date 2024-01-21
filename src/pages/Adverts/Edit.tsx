@@ -143,6 +143,8 @@ function AdvertEdit() {
                 url: url
             });
             setAdvertDetail(data);
+
+            document.title = data.title;
             
             const sortedImages = data.images.sort((item: EditAdvertImages, key: EditAdvertImages) =>
                 item.is_cover_image === key.is_cover_image ? 0 : item.is_cover_image ? -1 : 1

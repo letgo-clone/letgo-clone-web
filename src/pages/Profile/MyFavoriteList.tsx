@@ -21,6 +21,8 @@ import NoResult from '../../components/common/NoResult';
 import { CardTypes } from '../advertTypes';
 
 function MyFavoriteView() {
+    document.title = "Favrori ilanlarım";
+    
     const [favoriteData, setFavoriteData] = useState<CardTypes[]>([]);
 
     useEffect(() => {

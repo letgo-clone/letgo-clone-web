@@ -16,7 +16,7 @@ import {
   import SettingsLeftNav from '../../components/common/SettingsLeftNav';
   
   function Chat() {
-  
+    document.title = "Sohbet güvenliği ipuçları"
     return (
       <Container>
           <Grid container spacing={3} sx={privacyStyles.settingsMainGrid}>

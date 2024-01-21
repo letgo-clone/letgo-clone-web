@@ -60,6 +60,7 @@ function a11yProps(index: number) {
 
 
 function SellCategory() {
+    document.title = "Kategori seç";
     // Redux elements
     const {menuData} = useAppSelector((state) => state?.Menu);
     const dispatch = useAppDispatch();
