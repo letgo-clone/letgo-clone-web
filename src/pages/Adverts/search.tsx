@@ -272,7 +272,7 @@ const Search = () => {
         <Container>
             <Grid container>
                 {/* Elements of left filter column */}
-                <Grid xl={4} lg={4} md={4} sx={advertSearchStyles.leftFilterGrid}>
+                <Grid xl={4} lg={4} md={4} sm={12} xs={12} sx={advertSearchStyles.leftFilterGrid}>
                     <Grid spacing={2} container>
                          {/* Top right elements */}
                         <Grid item xl={12} md={12} sm={12} xs={12}>
@@ -281,7 +281,7 @@ const Search = () => {
                         </Grid>
                         {/* filter category of column */}
                         <Grid item xl={12} md={12} sm={12} xs={12}>
-                            <Accordion sx={advertSearchStyles.leftFilterAccording} defaultExpanded>
+                            <Accordion sx={advertSearchStyles.leftFilterAccording}>
                                 <AccordionSummary
                                     expandIcon={<ExpandMore />}
                                     aria-controls="panel1bh-content"
@@ -332,7 +332,7 @@ const Search = () => {
                          {/* filter Location of column */}
                         <Grid item xl={12} md={12} sm={12} xs={12}>
                             <Divider />
-                            <Accordion sx={advertSearchStyles.leftFilterAccording} defaultExpanded>
+                            <Accordion sx={advertSearchStyles.leftFilterAccording}>
                                 <AccordionSummary
                                     expandIcon={<ExpandMore />}
                                     aria-controls="panel1bh-content"
@@ -382,7 +382,7 @@ const Search = () => {
                          {/* filter Price of column */}
                         <Grid item xl={12} md={12} sm={12} xs={12}>
                             <Divider />
-                            <Accordion sx={advertSearchStyles.leftFilterAccording} defaultExpanded>
+                            <Accordion sx={advertSearchStyles.leftFilterAccording}>
                                 <AccordionSummary
                                     expandIcon={<ExpandMore />}
                                     aria-controls="panel1bh-content"
@@ -437,13 +437,13 @@ const Search = () => {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid xl={8} lg={8} md={8}>
+                <Grid xl={8} lg={8} md={8} sm={12} xs={12}>
                      {/* Elements of right filter column */}
                      {advertData.length !== 0 && (
                         <>
                     <Grid container sx={advertSearchStyles.rightFilterGrid}>
                          {/* Search info */}
-                        <Grid xl={4} md={4} sm={4} xs={4}>
+                        <Grid xl={4} md={4} sm={8} xs={8}>
                             <Box sx={advertSearchStyles.rightFilterInfoBox}>
                                 {search_query !== null ? (
                                     <>
@@ -459,16 +459,16 @@ const Search = () => {
                             </Box>
                         </Grid>
                         {/* data count of search */}
-                        <Grid xl={2} md={2} sm={2} xs={2}>
+                        <Grid xl={2} md={2} sm={4} xs={4}>
                             <Chip label={`${count} ilan`} sx={advertSearchStyles.rightFilterCount} color="primary" />
                         </Grid>
                           {/* sorting filter */}
-                        <Grid xl={3} md={3} sm={3} xs={3}>
+                        <Grid xl={3} md={3} sm={6} xs={6}>
                             <Typography sx={advertSearchStyles.rightSortingFilterText}>
                                 Sıralama Ölçütü :
                             </Typography>
                         </Grid>
-                        <Grid xl={3} md={3} sm={3} xs={3}>
+                        <Grid xl={3} md={3} sm={6} xs={6}>
                             <FormControl variant="standard" sx={{ m: 1, width:'100%' }}>
                                 <Select
                                     disableUnderline

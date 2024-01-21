@@ -1111,14 +1111,14 @@ export const advertSearchStyles: Record<string, SxProps<Theme> | undefined> = {
         color: '#000000',
         fontWeight: 600,
         fontSize: '12px',
-        marginTop: '7px'
+        marginTop: '7px',
     },
     rightSortingFilterText: {
         fontSize: '14px', 
         fontWeight: 600, 
         marginTop: 1.8, 
         textTransform: 'uppercase',
-        textAlign: 'right'
+        textAlign: {xl : 'right', lg: 'right', md: 'right', sm: 'left', xs: 'left' }
     },
     rightSortingFilter: {
         textAlign: 'left'
