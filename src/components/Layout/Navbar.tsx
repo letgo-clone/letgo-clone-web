@@ -47,8 +47,8 @@ import {
 import { navbarStyles, authUserMenuStyle, searchStyles } from '../../styles';
 
 // Assets
-import Logo from '../../assets/img/logo.svg'
-import MobileLogo from '../../assets/img/logo-mobile.svg'
+import Logo from '../../assets/img/logo.png'
+import MobileLogo from '../../assets/img/logo.png'
 import DefaultAvatar from '../../assets/img/default_avatar.png'
 
 // Components
@@ -193,7 +193,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                             aria-label="logo"
                             sx={navbarStyles.logoIconButton}
                         >
-                            <img src={Logo} width={'120'} height={'48'} />
+                            <img src={Logo} width={'74'} height={'48'} />
                         </IconButton>
                     </Link>
                     <SearchBar dimension={'desktop'} />
@@ -347,7 +347,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                                                     aria-label="logo"
                                                                     sx={navbarStyles.drawerLogoIconButton}
                                                                 >
-                                                                    <img src={MobileLogo} width={'60'} height={'28'} />
+                                                                    <img src={MobileLogo} width={'43'} height={'28'} />
                                                                 </IconButton>
                                                             </Link>
                                                         </Grid>
@@ -488,7 +488,7 @@ const Navbar: React.FC<NavbarAreaProps> = ({isLogin}) => {
                                             aria-label="logo"
                                             sx={navbarStyles.mobileTopLogo}
                                         >
-                                            <img src={MobileLogo} width={'60'} height={'28'} />
+                                            <img src={MobileLogo} width={'43'} height={'28'} />
                                         </IconButton>
                                     </Link>
                                 </Grid>

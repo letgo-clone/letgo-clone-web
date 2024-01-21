@@ -40,7 +40,7 @@ import { setLoginData, useAppDispatch } from '../redux/store';
 
 // Helpers
 import { HandleLoginToken, Request, RequestPublic } from '../helpers/Request';
-import Logo from '../assets/img/logo.svg'
+import Logo from '../assets/img/logo.png'
 
 // interfaces
 import { loginModalProps,ErrorProps } from './component';
