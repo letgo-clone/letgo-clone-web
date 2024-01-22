@@ -196,7 +196,7 @@ export const navbarStyles: Record<string, SxProps<Theme> | undefined> = {
     // Drawer styles end
 
     mobileTopLogo: {
-        marginLeft: {sm: 0, xs: '12px'},
+        marginLeft: {sm: 0, xs: '15px'},
         p:'10px 0px 5px 0px'
     },
     mobileLocationListItem: {
