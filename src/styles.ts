@@ -127,7 +127,7 @@ export const navbarStyles: Record<string, SxProps<Theme> | undefined> = {
     },
     drawerLogoIconButton: {
         marginTop: '10px',
-        marginLeft: 0,
+        marginLeft: {sm: '0', xs: '15px'},
         padding:'8px 0px 5px 0px'
     },
 
@@ -196,7 +196,7 @@ export const navbarStyles: Record<string, SxProps<Theme> | undefined> = {
     // Drawer styles end
 
     mobileTopLogo: {
-        marginLeft: '0px',
+        marginLeft: {sm: 0, xs: '12px'},
         p:'10px 0px 5px 0px'
     },
     mobileLocationListItem: {
@@ -1857,7 +1857,7 @@ export const profileViewStyles: Record<string, SxProps<Theme>  | undefined > = {
 // pages/Profile/profileView.tsx
 export const favoriteStyles: Record<string, SxProps<Theme>  | undefined > = {
     favoriteIconButton: {
-        padding:0.5, 
+        padding:'4px 4px 2.5px 4px', 
         backgroundColor: '#757575'
     },
     favorite: {
